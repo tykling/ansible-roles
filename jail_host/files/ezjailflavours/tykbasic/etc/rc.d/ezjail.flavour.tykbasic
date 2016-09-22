@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# BEFORE: DAEMON
+#
+# ezjail flavour
+  rm -f "/etc/rc.d/ezjail.flavour.tykbasic"
+
+
+# Groups
+#########
+#
+pw groupadd -q -n tykling
+pw groupadd -q -n ansible
+
+# Users
+########
+#
+# To generate a password hash for use here, do:
+# openssl passwd -1 "changeme"
+echo -n '$1$.Wj8pbqH$JjEKEGqER6XU051vWztZV/' | pw useradd -n tykling -u 1001 -s /bin/sh -m -d /usr/home/tykling -g tykling -c 'tykling' -H 0
+pw useradd -n ansible -u 1002 -s /bin/sh -m -d /usr/home/ansible -g ansible -c 'ansible user' -h -
+
+# fix homedir ownership
+for home in $(ls -1 /usr/home/); do
+    chown -R ${home}:${home} /usr/home/$home
+done
+
+# Packages
+###########
+#
+env ASSUME_ALWAYS_YES=YES pkg bootstrap
+pkg install -y bash
+pkg install -y sudo
+pkg install -y portmaster
+pkg install -y screen
+pkg install -y postfix
+pkg install -y bind-tools
+pkg install -y python
+
+
+# change shell to bash
+chsh -s bash tykling
+
+# update /etc/aliases
+echo "root:   thomas@gibfest.dk" >> /etc/aliases
+postalias /etc/aliases
+echo > /usr/local/etc/postfix/main.cf
+service postfix start
+
+# syslog
+echo "*.*                                             @10.0.0.2" >> /etc/syslog.conf
+sysrc syslogd_flags="-s"
+
+

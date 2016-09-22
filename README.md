@@ -1,2 +1,2 @@
 # ansible-roles
-Ansible roles shared between my different Snsible installations
+Ansible roles shared between my different Ansible installations

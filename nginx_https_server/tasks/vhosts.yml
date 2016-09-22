@@ -1,0 +1,69 @@
+---
+- name: Copy vhost http configs
+  become: yes
+  template:
+    src=http-vhost.conf.j2
+    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
+  with_dict: "{{ vhosts }}"
+
+- name: Reload nginx configs
+  become: yes
+  service: name=nginx state=reloaded
+
+- name: Create letsencrypt config files for all vhosts
+  become: yes
+  template:
+    src=cli.ini.j2
+    dest="/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+  with_dict: "{{ vhosts }}"
+  when: item.value.letsencrypt == True
+
+- name: Issue a letsencrypt certificate for each of the LE enabled vhosts
+  become: yes
+  command: "/usr/local/bin/certbot certonly --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+  args:
+    creates: "/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem"
+  with_dict: "{{ vhosts }}"
+  when: item.value.letsencrypt == True
+
+- name: Make sure letsencrypt renew cronjob is in place for all LE vhosts
+  become: yes
+  cron:
+    name="LetsEncrypt Renew Job for domain {{ item.value.hostnames[0] }} ({{ item.value.hostnames|length }} domains total)"
+    minute="{{ 59 |random }}"
+    hour="2"
+    weekday="1"
+    job="/usr/local/bin/certbot certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+    cron_file="/etc/crontab"
+    user="root"
+  with_dict: "{{ vhosts }}"
+  when: item.value.letsencrypt == True
+
+- name: Create private key files for non-LE vhosts
+  become: yes
+  copy:
+    owner=root
+    group=wheel
+    mode=600
+    content="{{ item.value.privkey }}"
+    dest="/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
+  with_dict: "{{ vhosts_cert_privkeys }}"
+
+- name: Create certificate files for non-LE vhosts
+  become: yes
+  copy:
+    owner=root
+    group=wheel
+    mode=600
+    content="{{ item.value.certificate }}"
+    dest="/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
+  with_dict: "{{ vhosts }}"
+  when: item.value.letsencrypt == False
+
+- name: Copy vhost https configs
+  become: yes
+  template:
+    src=https-vhost.conf.j2
+    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
+  with_dict: "{{ vhosts }}"
+

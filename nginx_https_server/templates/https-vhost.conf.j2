@@ -1,0 +1,29 @@
+server {
+    listen                  {{ vhost_v4ip }}:443 ssl http2{% if item.value.default_vhost %} default{% endif %};
+    listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2{% if item.value.default_vhost %} default{% endif %};
+    server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
+
+    ssl                     on;
+    {% if item.value.letsencrypt %}
+    ssl_certificate         /usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem;
+    ssl_certificate_key     /usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/privkey.pem;
+    {% else %}
+    ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt;
+    ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.key;
+    {% endif %}
+    include                 /usr/local/etc/nginx/tls.conf;
+    include                 /usr/local/etc/nginx/securityheaders.conf;
+    {% if 'csp' in item.value %}
+    more_set_headers        "Content-Security-Policy: {{ item.value.csp }}";
+    {% endif %}
+    proxy_set_header        X-Real-IP  $remote_addr;
+    proxy_set_header        X-Forwarded-For $remote_addr;
+    proxy_set_header        Host $host;
+    proxy_set_header        Proxy ""; # httpoxy mitigation
+
+    location = /__nginx_ocsp_priming/ {
+        return 200 'OK';
+    }
+
+{{ item.value.locationslash | indent( width=4, indentfirst=True) }}
+}

@@ -1,0 +1,3 @@
+tykling ALL=(ALL) ALL
+ansible ALL=(ALL) NOPASSWD: ALL
+
