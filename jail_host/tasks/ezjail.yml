@@ -28,7 +28,7 @@
   copy:
     owner=root
     group=wheel
-    mode=600
+    mode=644
     src=ezjailflavours/tykbasic
     dest=/usr/jails/flavours
 

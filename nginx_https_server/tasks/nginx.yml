@@ -81,7 +81,7 @@
   copy:
     owner=root
     group=wheel
-    mode=744
+    mode=755
     src=prime_nginx_ocsp.sh
     dest=/usr/local/bin/prime_nginx_ocsp.sh
 
