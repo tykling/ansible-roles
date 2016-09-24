@@ -19,6 +19,7 @@ http {
     keepalive_timeout           65;
     client_max_body_size        10m;
     proxy_buffers               256 4k;
+    server_tokens               off;
 
     include /usr/local/etc/nginx/vhosts/*.conf;
 }
