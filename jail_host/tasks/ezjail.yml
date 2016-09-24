@@ -17,6 +17,12 @@
     src=ezjail.conf.j2
     dest=/usr/local/etc/ezjail.conf
 
+- name: Delete the ezjail flavour
+  become: yes
+  file:
+    path=/usr/jails/flavours/tykbasic/
+    state=absent
+
 - name: Copy ezjail flavour
   become: yes
   copy:
