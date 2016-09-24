@@ -10,7 +10,11 @@ server {
     }
     {% endif %}
 
+    {% if item.value.https_redirect %}
     location / {
         return              301 https://$server_name$request_uri;
     }
+    {% else %}
+{{ item.value.locationslash | indent( width=4, indentfirst=True) }}
+    {% endif %}
 }
