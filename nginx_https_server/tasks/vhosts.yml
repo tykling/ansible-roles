@@ -48,6 +48,7 @@
     content="{{ item.value.privkey }}"
     dest="/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
   with_dict: "{{ vhosts_cert_privkeys }}"
+  when: vhosts_cert_privkeys is defined
 
 - name: Create certificate files for non-LE vhosts
   become: yes
