@@ -39,7 +39,7 @@
   with_dict: "{{ vhosts }}"
   when: item.value.letsencrypt == True
 
-- name: Create private key files for non-LE vhosts
+- name: Create private key files for non-LE vhosts (if any)
   become: yes
   copy:
     owner=root
@@ -47,8 +47,7 @@
     mode=600
     content="{{ item.value.privkey }}"
     dest="/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
-  with_dict: "{{ vhosts_cert_privkeys }}"
-  when: vhosts_cert_privkeys is defined
+  with_dict: '{{ vhosts_cert_privkeys | default({}) }}'
 
 - name: Create certificate files for non-LE vhosts
   become: yes
