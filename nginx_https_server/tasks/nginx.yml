@@ -29,6 +29,12 @@
     src=securityheaders.conf.j2
     dest=/usr/local/etc/nginx/securityheaders.conf
 
+- name: Copy nginx proxyheaders.conf
+  become: yes
+  template:
+    src=proxyheaders.conf.j2
+    dest=/usr/local/etc/nginx/proxyheaders.conf
+
 - name: Create nginx logfile directory
   become: yes
   file:

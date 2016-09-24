@@ -16,10 +16,7 @@ server {
     {% if 'csp' in item.value %}
     more_set_headers        "Content-Security-Policy: {{ item.value.csp }}";
     {% endif %}
-    proxy_set_header        X-Real-IP  $remote_addr;
-    proxy_set_header        X-Forwarded-For $remote_addr;
-    proxy_set_header        Host $host;
-    proxy_set_header        Proxy ""; # httpoxy mitigation
+    include                 /usr/local/etc/nginx/proxyheaders.conf;
 
     location = /__nginx_ocsp_priming/ {
         return 200 'OK';
