@@ -20,13 +20,20 @@
 - name: add etherpad user
   become: yes
   user:
-    name=etherpad
+    name="etherpad"
     comment="etherpad user"
     home="{{ etherpad_home }}"
 
 - name: Get etherpad-lite code from git
   become: yes
   git:
-    repo=git://github.com/ether/etherpad-lite.git
-    dest={{ etherpadlite_root }}
-    version=master
+    repo="git://github.com/ether/etherpad-lite.git"
+    dest="{{ etherpadlite_root }}"
+    version="master"
+
+- name: fix ownership and permissions of etherpad-lite
+  file:
+    path="{{ etherpadlite_root }}"
+    owner="etherpad"
+    group="etherpad"
+    recurse=yes
