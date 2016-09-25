@@ -31,10 +31,48 @@
     dest="{{ etherpadlite_root }}"
     version="master"
 
-- name: fix ownership and permissions of etherpad-lite
+- name: Copy etherpad-lite config
+  become: yes
+  template:
+    src=settings.json.j2
+    dest="{{ etherpadlite_root }}/settings.json"
+
+- name: fix ownership and permissions of etherpad-lite folder
   become: yes
   file:
     path="{{ etherpadlite_root }}"
     owner="etherpad"
     group="etherpad"
     recurse=yes
+
+- name: Copy etherpad-lite rc.d script
+  become: yes
+  template:
+    src=etherpad.j2
+    dest="/usr/local/etc/rc.d/etherpad"
+
+- name: Make the etherpad-lite rc.d script executable
+  become: yes
+  file:
+    path="/usr/local/etc/rc.d/etherpad"
+    owner=root
+    group=wheel
+    mode=0755
+
+- name: Enable etherpad-lite in rc.conf
+  become: yes
+  service:
+    name=etherpad
+    enabled=yes
+
+- name: Define etherpad-lite user in rc.conf
+  become: yes
+  sysrc:
+    name: etherpad_user
+    value: "etherpad"
+
+- name: Restart etherpad-lite
+  become: yes
+  service:
+    name=etherpad
+    state=restarted

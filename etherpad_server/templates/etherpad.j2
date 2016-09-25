@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# PROVIDE: etherpad
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="etherpad"
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+etherpad_start()
+{
+        echo "Starting etherpad..."
+        /usr/bin/su $etherpad_user -c {{ etherpadlite_root }}/etherpad-lite/bin/run.sh > {{ etherpadlite_root }}/etherpad.log 2>&1 &
+}
+
+etherpad_stop()
+{
+        echo "Stopping etherpad..."
+        /bin/pkill -f /usr/local/bin/node node_modules/ep_etherpad-lite/node/server.js
+}
+
+load_rc_config $name
+run_rc_command "$1"
