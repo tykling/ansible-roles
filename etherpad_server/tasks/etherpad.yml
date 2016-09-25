@@ -1,4 +1,6 @@
 ---
+- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+
 - name: Install node
   become: yes
   pkgng:
