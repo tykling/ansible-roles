@@ -32,6 +32,7 @@
     version="master"
 
 - name: fix ownership and permissions of etherpad-lite
+  become: yes
   file:
     path="{{ etherpadlite_root }}"
     owner="etherpad"
