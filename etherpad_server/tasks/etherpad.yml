@@ -1,0 +1,32 @@
+---
+- name: Install node
+  become: yes
+  pkgng:
+    name=node
+    state=present
+
+- name: Install npm
+  become: yes
+  pkgng:
+    name=npm
+    state=present
+
+- name: Install git
+  become: yes
+  pkgng:
+    name=git
+    state=present
+  
+- name: Get etherpad-lite code from git
+  become: yes
+  git:
+    repo=git://github.com/ether/etherpad-lite.git
+    dest={{ etherpadlite_root }}
+    version=master
+
+- name: add etherpad user
+  become: yes
+  user:
+    name=etherpad
+    comment="etherpad user"
+
