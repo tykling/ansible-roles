@@ -59,13 +59,13 @@
     path="/usr/local/etc/rc.d/etherpad"
     owner=root
     group=wheel
-    mode=0755
+    mode=0555
 
 - name: Enable etherpad-lite in rc.conf
   become: yes
-  service:
-    name=etherpad
-    enabled=yes
+  sysrc:
+    name: etherpad_enable
+    value: "YES"
 
 - name: Define etherpad-lite user in rc.conf
   become: yes
