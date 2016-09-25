@@ -13,7 +13,7 @@ stop_cmd="${name}_stop"
 etherpad_start()
 {
         echo "Starting etherpad..."
-        /usr/bin/su $etherpad_user -c {{ etherpadlite_root }}/etherpad-lite/bin/run.sh > {{ etherpadlite_root }}/etherpad.log 2>&1 &
+        /usr/bin/su $etherpad_user -c {{ etherpadlite_root }}/bin/run.sh > {{ etherpadlite_root }}/etherpad.log 2>&1 &
 }
 
 etherpad_stop()
