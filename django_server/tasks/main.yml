@@ -1,0 +1,6 @@
+---
+- include: git.yml
+- include: postgres.yml
+- include: pip.yml
+- include: uwsgi.yml
+- include: django-configuration.yml

@@ -1,0 +1,40 @@
+worker_processes  {{ nginx_worker_processes }};
+error_log syslog:server=unix:/var/run/log debug;
+error_log /usr/local/www/logs/error.log;
+
+events {
+    worker_connections  {{ nginx_worker_connections }};
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$host - $http_x_forwarded_for - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_time';
+
+    sendfile        off;
+    keepalive_timeout  65;
+    client_max_body_size        10m;
+
+    server {
+        listen       80;
+
+        set_real_ip_from   {{ nginx_proxy_ip }};
+        real_ip_header     X-Forwarded-For;
+
+        access_log syslog:server=unix:/var/run/log,facility=local6 main;
+        access_log /usr/local/www/logs/access.log  main;
+
+        uwsgi_buffers 256 4k;
+
+        location /static/ {
+                alias {{ nginx_django_static_root }};
+        }
+        location / {
+                include         uwsgi_params;
+                uwsgi_pass      unix:/tmp/uwsgi.sock;
+        }
+    }
+}
+
