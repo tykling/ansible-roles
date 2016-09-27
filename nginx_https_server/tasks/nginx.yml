@@ -67,6 +67,7 @@
     mode=600
     content="{{ tykonly_acl }}"
     dest="/usr/local/etc/nginx/tykonly-acl.conf"
+  when: tykonly_acl is defined
 
 - include: vhosts.yml
 
