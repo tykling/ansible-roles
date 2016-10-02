@@ -16,6 +16,7 @@
   template:
     src=murmur.ini.j2
     dest=/usr/local/etc/murmur.ini
+  with_dict: "{{ vhosts }}"
 
 - name: Start murmur (if not running)
   become: yes
