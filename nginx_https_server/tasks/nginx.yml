@@ -59,15 +59,20 @@
   args:
     creates: "{{ nginx_dhparam_path }}"
 
-- name: Create tykonly-acl.conf
+- include_vars: "/usr/local/etc/ansible/host_vars/nginx-acl.yml"
+  ignore_errors: yes
+  tags:
+    - always
+
+- name: Create nginx acl.conf
   become: yes
   copy:
     owner=root
     group=wheel
     mode=600
-    content="{{ tykonly_acl }}"
-    dest="/usr/local/etc/nginx/tykonly-acl.conf"
-  when: tykonly_acl is defined
+    content="{{ nginx_acl }}"
+    dest="/usr/local/etc/nginx/acl.conf"
+  when: nginx_acl is defined
 
 - include: vhosts.yml
 
