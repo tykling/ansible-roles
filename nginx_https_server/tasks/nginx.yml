@@ -59,7 +59,7 @@
   args:
     creates: "{{ nginx_dhparam_path }}"
 
-- include_vars: "/usr/local/etc/ansible/host_vars/nginx-acl.yml"
+- include_vars: "/usr/local/etc/ansible/include_vars/nginx-acl.yml"
   ignore_errors: yes
   tags:
     - always
