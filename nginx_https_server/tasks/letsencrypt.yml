@@ -1,5 +1,5 @@
 ---
-- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+- include_vars: "/usr/local/etc/ansible/host_vars/letsencrypt-account.yml"
   tags:
     - always
 

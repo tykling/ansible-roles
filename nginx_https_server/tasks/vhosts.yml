@@ -1,4 +1,9 @@
 ---
+- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+  ignore_errors: yes
+  tags:
+    - always
+
 - name: Copy vhost http configs
   become: yes
   template:
