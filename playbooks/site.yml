@@ -1,0 +1,5 @@
+---
+- include: jail_hosts.yml
+- include: nginx_https_servers.yml
+- include: etherpad_servers.yml
+- include: mumble_servers.yml

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: poudriere_client }
+  - { role: nginx_http_server }

@@ -1,0 +1,41 @@
+---
+- name: configure etherpad servers
+  hosts: etherpad_servers
+  become: yes
+  roles:
+    - etherpad_server
+  tags:
+    - etherpad_servers
+
+- name: configure all jail hosts
+  hosts: jail_hosts
+  become: yes
+  roles:
+    - jail_host
+  tags:
+    - jail_hosts
+
+- name: configure all murmur servers
+  hosts: murmur_servers
+  become: yes
+  roles:
+    - murmur_server
+  tags:
+    - murmur_servers
+
+- name: configure all http servers
+  hosts: nginx_http_servers
+  become: yes
+  roles:
+    - nginx_http_server
+  tags:
+    - nginx_http_servers
+
+- name: configure all https servers
+  hosts: nginx_https_servers
+  become: yes
+  roles:
+    - nginx_https_server
+  tags:
+    - nginx_https_servers
+

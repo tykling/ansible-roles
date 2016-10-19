@@ -1,0 +1,7 @@
+---
+- name: configure all https servers
+  hosts: nginx_https_servers
+  roles:
+    - poudriere_client
+    - nginx_https_server
+

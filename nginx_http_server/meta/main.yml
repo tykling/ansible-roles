@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: poudriere_client }
