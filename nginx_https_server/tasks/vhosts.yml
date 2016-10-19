@@ -33,7 +33,7 @@
     minute="{{ 59 |random }}"
     hour="2"
     weekday="1"
-    job="/usr/local/bin/certbot certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+    job="/usr/local/bin/certbot certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini --post-hook '/usr/sbin/service -R'"
     cron_file="/etc/crontab"
     user="root"
   with_dict: "{{ vhosts }}"
