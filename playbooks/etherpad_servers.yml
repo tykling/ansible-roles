@@ -1,7 +1,0 @@
----
-- name: configure etherpad servers
-  hosts: etherpad_servers
-  roles:
-    - poudriere_client
-    - nginx_http_server
-    - etherpad_server

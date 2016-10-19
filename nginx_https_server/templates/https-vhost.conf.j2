@@ -1,5 +1,5 @@
 server {
-    listen                  {{ vhost_v4ip }}:443 ssl http2{% if item.value.default_vhost %} default{% endif %};
+    listen                  {{ nginx_v4_proxy_ip }}:443 ssl http2{% if item.value.default_vhost %} default{% endif %};
     listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2{% if item.value.default_vhost %} default{% endif %};
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 

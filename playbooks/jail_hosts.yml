@@ -1,7 +1,0 @@
----
-- name: configure all jail hosts
-  hosts: jail_hosts
-  roles:
-    - poudriere_client
-    - jail_host
-

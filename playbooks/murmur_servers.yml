@@ -1,7 +1,0 @@
----
-- name: configure all murmur servers
-  hosts: murmur_servers
-  roles:
-    - poudriere_client
-    - nginx_https_server
-    - murmur_server
