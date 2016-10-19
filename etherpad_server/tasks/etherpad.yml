@@ -2,45 +2,38 @@
 - include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
 
 - name: Install node
-  become: yes
   pkgng:
     name=node
     state=present
 
 - name: Install npm
-  become: yes
   pkgng:
     name=npm
     state=present
 
 - name: Install git
-  become: yes
   pkgng:
     name=git
     state=present
   
 - name: add etherpad user
-  become: yes
   user:
     name="etherpad"
     comment="etherpad user"
     home="{{ etherpad_home }}"
 
 - name: Get etherpad-lite code from git
-  become: yes
   git:
     repo="git://github.com/ether/etherpad-lite.git"
     dest="{{ etherpadlite_root }}"
     version="master"
 
 - name: Copy etherpad-lite config
-  become: yes
   template:
     src=settings.json.j2
     dest="{{ etherpadlite_root }}/settings.json"
 
 - name: fix ownership and permissions of etherpad-lite folder
-  become: yes
   file:
     path="{{ etherpadlite_root }}"
     owner="etherpad"
@@ -48,13 +41,11 @@
     recurse=yes
 
 - name: Copy etherpad-lite rc.d script
-  become: yes
   template:
     src=etherpad.j2
     dest="/usr/local/etc/rc.d/etherpad"
 
 - name: Make the etherpad-lite rc.d script executable
-  become: yes
   file:
     path="/usr/local/etc/rc.d/etherpad"
     owner=root
@@ -62,19 +53,16 @@
     mode=0555
 
 - name: Enable etherpad-lite in rc.conf
-  become: yes
   sysrc:
     name: etherpad_enable
     value: "YES"
 
 - name: Define etherpad-lite user in rc.conf
-  become: yes
   sysrc:
     name: etherpad_user
     value: "etherpad"
 
 - name: Restart etherpad-lite
-  become: yes
   service:
     name=etherpad
     state=restarted

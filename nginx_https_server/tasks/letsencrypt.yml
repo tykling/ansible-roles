@@ -4,17 +4,19 @@
     - always
 
 - name: Install letsencrypt client
-  become: yes
   pkgng:
     name=py27-certbot
     state=present
 
 - name: Create letsencrypt account config directory
-  become: yes
-  file: owner=root group=wheel mode=600 path="/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}" state=directory
+  file:
+    owner=root
+    group=wheel
+    mode=600
+    path="/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}"
+    state=directory
 
 - name: Create letsencrypt meta.json
-  become: yes
   copy:
     owner=root
     group=wheel
@@ -23,7 +25,6 @@
     dest="/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/meta.json"
 
 - name: Create letsencrypt private_key.json
-  become: yes
   copy:
     owner=root
     group=wheel
@@ -32,7 +33,6 @@
     dest="/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/private_key.json"
 
 - name: Create letsencrypt regr.json
-  become: yes
   copy:
     owner=root
     group=wheel
@@ -41,5 +41,10 @@
     dest="/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/regr.json"
 
 - name: Create letsencrypt webroot folder
-  become: yes
-  file: owner=root group=wheel mode=655 path="/tmp/letsencrypt-auto" state=directory
+  file:
+    owner=root
+    group=wheel
+    mode=655
+    path="/tmp/letsencrypt-auto"
+    state=directory
+

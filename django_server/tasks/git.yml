@@ -1,12 +1,10 @@
 ---
 - name: Install git
-  become: yes
   pkgng:
     name=git
     state=present
 
 - name: Remove old code
-  become: yes
   file:
     path={{ django_root }}
     state=absent
@@ -14,7 +12,6 @@
     - codedeploy
   
 - name: Get code from git
-  become: yes
   git:
     repo={{ github_repo_url }}
     dest=/tmp/git
@@ -24,13 +21,11 @@
     - codedeploy
 
 - name: Move code to django root
-  become: yes
   command: "mv /tmp/git/blog_censurfridns_dk {{ django_root }}"
   tags:
     - codedeploy
 
 - name: Make manage.py executable
-  become: yes
   file:
     path="{{ django_root }}manage.py"
     mode=0755

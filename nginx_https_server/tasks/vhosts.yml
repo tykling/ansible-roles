@@ -5,18 +5,15 @@
     - always
 
 - name: Copy vhost http configs
-  become: yes
   template:
     src=http-vhost.conf.j2
     dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
   with_dict: "{{ vhosts }}"
 
 - name: Reload nginx configs
-  become: yes
   service: name=nginx state=reloaded
 
 - name: Create letsencrypt config files for all vhosts
-  become: yes
   template:
     src=cli.ini.j2
     dest="/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
@@ -24,7 +21,6 @@
   when: item.value.letsencrypt == True
 
 - name: Issue a letsencrypt certificate for each of the LE enabled vhosts
-  become: yes
   command: "/usr/local/bin/certbot certonly --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
   args:
     creates: "/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem"
@@ -32,7 +28,6 @@
   when: item.value.letsencrypt == True
 
 - name: Make sure letsencrypt renew cronjob is in place for all LE vhosts
-  become: yes
   cron:
     name="LetsEncrypt Renew Job for domain {{ item.value.hostnames[0] }} ({{ item.value.hostnames|length }} domains total)"
     minute="{{ 59 |random }}"
@@ -45,7 +40,6 @@
   when: item.value.letsencrypt == True
 
 - name: Create private key files for non-LE vhosts (if any)
-  become: yes
   copy:
     owner=root
     group=wheel
@@ -55,7 +49,6 @@
   with_dict: '{{ vhosts_cert_privkeys | default({}) }}'
 
 - name: Create certificate files for non-LE vhosts
-  become: yes
   copy:
     owner=root
     group=wheel
@@ -66,7 +59,6 @@
   when: item.value.letsencrypt == False
 
 - name: Copy vhost https configs
-  become: yes
   template:
     src=https-vhost.conf.j2
     dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"

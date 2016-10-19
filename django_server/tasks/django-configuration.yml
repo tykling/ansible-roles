@@ -4,7 +4,6 @@
     - always
 
 - name: Copy environment_settings.py into place
-  become: yes
   template:
     src=roles/django_server/templates/environment_settings.py.j2
     dest="{{ django_env_settings_path }}"
@@ -12,7 +11,6 @@
     - codedeploy
 
 - name: Run collectstatic
-  become: yes
   django_manage:
     command=collectstatic
     app_path="{{ django_root }}"
@@ -20,7 +18,6 @@
     - codedeploy
 
 - name: Run compilemessages
-  become: yes
   django_manage:
     command=compilemessages
     app_path="{{ django_root }}"
