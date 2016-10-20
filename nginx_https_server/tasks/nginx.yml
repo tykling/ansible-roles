@@ -61,10 +61,10 @@
     mode=600
     content="{{ nginx_extra_configs.item.content }}"
     dest="/usr/local/etc/nginx/{{ nginx_extra_configs.item.filename }}"
-  with_dict: "{{ nginx_extra_configs }}"
-  when: nginx_extra_configs is defined
+  with_dict: "{{ nginx_extra_configs|default({}) }}"
 
-- include: vhosts.yml
+- name: Include vhosts.yml to configure all vhosts
+  include: vhosts.yml
 
 - name: Start Nginx (if not running)
   service:
