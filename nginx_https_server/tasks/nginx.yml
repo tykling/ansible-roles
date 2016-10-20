@@ -59,8 +59,8 @@
     owner=root
     group=wheel
     mode=600
-    content="{{ nginx_extra_configs.item.content }}"
-    dest="/usr/local/etc/nginx/{{ nginx_extra_configs.item.filename }}"
+    content="{{ item.value.content }}"
+    dest="/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_extra_configs|default({}) }}"
 
 - name: Include vhosts.yml to configure all vhosts
