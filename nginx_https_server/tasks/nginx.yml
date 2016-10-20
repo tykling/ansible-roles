@@ -49,19 +49,20 @@
   args:
     creates: "{{ nginx_dhparam_path }}"
 
-- include_vars: "/usr/local/etc/ansible/include_vars/nginx-acl.yml"
+ 
+- name: "Include nginx_extra_configs.yml where needed"
+  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
-  tags:
-    - always
 
-- name: Create nginx acl.conf
+- name: Create nginx extra include configs (acls and more)
   copy:
     owner=root
     group=wheel
     mode=600
-    content="{{ nginx_acl }}"
-    dest="/usr/local/etc/nginx/acl.conf"
-  when: nginx_acl is defined
+    content="{{ nginx_extra_configs.item.content }}"
+    dest="/usr/local/etc/nginx/{{ nginx_extra_configs.item.filename }}"
+  with_dict: "{{ nginx_extra_configs }}"
+  when: nginx_extra_configs is defined
 
 - include: vhosts.yml
 

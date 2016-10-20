@@ -11,3 +11,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Moved playbooks into this repo
 - Merged playbooks into one file with tags instead of multiple files
 - Set become=yes in playbook to save having it in all the tasks
+- Add a mechanism to create extra nginx config include files like ACLs
+
