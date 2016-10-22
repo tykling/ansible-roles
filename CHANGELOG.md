@@ -5,7 +5,14 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## [v0.0.2][20-oct-2016]
+### Changed
+- Moved library into this repo, make the following changes:
+    - Remove library= line from ansible.cfg
+    - git rm library/
+    - git updatesub
+
+## [v0.0.1][19-oct-2016]
 ### Changed
 - Started this changelog
 - Moved playbooks into this repo
