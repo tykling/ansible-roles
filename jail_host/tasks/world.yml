@@ -1,0 +1,44 @@
+---
+- name: get svn version of /usr/usr
+  shell: /usr/bin/svnlite info /usr/src/ | grep "^Revision: " | cut -d " " -f 2
+  args:
+    executable=/bin/sh
+  register: usr_src_rev
+
+- name: Get fresh sources from svn when needed
+  become: yes
+  shell: "/usr/bin/svnlite checkout https://svn0.eu.freebsd.org/base/stable/{{ ansible_distribution_release.split('.')[0] }}/ /usr/src/"
+  args:
+    executable=/bin/sh
+  when: usr_src_rev.stdout < minimum_svn_rev
+
+- name: Get the svn revision of the world (well, kernel really) in /usr/obj
+  shell: executable=/bin/sh /usr/bin/strings /usr/obj/usr/src/sys/*/kernel | grep -E --only "^FreeBSD .* #[0-9]+ r([0-9]{6})" | grep -E --only [0-9]{6}
+  register: usr_obj_rev
+
+- name: build world and kernel when needed
+  become: yes
+  shell: make -j {{ ansible_processor_count }} buildworld && make -j {{ ansible_processor_count }} buildkernel
+  args: 
+    executable=/bin/sh
+    chdir=/usr/src 
+  when: usr_obj_rev.stdout < minimum_svn_rev
+  poll: 30
+
+- name: Get the svn revision of the new world (well, kernel really) in /usr/obj
+  shell: /usr/bin/strings /usr/obj/usr/src/sys/*/kernel | grep -E --only "^FreeBSD .* #[0-9]+ r([0-9]{6})" | grep -E --only [0-9]{6}
+  args: 
+    executable=/bin/sh
+  register: usr_obj_rev
+  when: usr_obj_rev.stdout < minimum_svn_rev
+
+- name: Get kernel svn revision from uname 
+  shell: /usr/bin/uname -v | /usr/bin/grep -E --only "[0-9]{6}"
+  args: 
+    executable=/bin/sh
+    chdir=/usr/src 
+  register: uname_rev
+
+- name: Check if we need to install a new world and kernel
+  fail: msg="Please run installkernel, reboot, mergemaster -pFUi, installworld, mergemaster -FUi, and run Ansible again"
+  when: uname_rev.stdout < usr_obj_rev.stdout
