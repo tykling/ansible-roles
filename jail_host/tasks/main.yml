@@ -1,3 +1,5 @@
 ---
 - include: ezjail.yml
 - include: flavour.yml
+- include: users.yml
+
