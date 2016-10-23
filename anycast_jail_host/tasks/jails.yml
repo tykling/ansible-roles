@@ -1,0 +1,19 @@
+---
+- name: Create dns jail
+  shell: /usr/local/bin/ezjail-admin create dns 10.4.20.1
+  args:
+    executable=/bin/sh
+  creates: /usr/jails/dns/
+
+- name: Create vpn jail
+  shell: /usr/local/bin/ezjail-admin create vpn 10.4.20.2
+  args:
+    executable=/bin/sh
+  creates: /usr/jails/vpn/
+
+- name: Create www jail
+  shell: /usr/local/bin/ezjail-admin create www 10.4.20.3
+  args:
+    executable=/bin/sh
+  creates: /usr/jails/www/
+
