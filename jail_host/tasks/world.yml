@@ -6,7 +6,6 @@
   register: usr_src_rev
 
 - name: Get sources from svn when needed
-  become: yes
   shell: "/usr/bin/svnlite update -r{{ freebsd_svn_revision }} https://svn0.eu.freebsd.org/base/stable/{{ ansible_distribution_release.split('.')[0] }}/ /usr/src/"
   args:
     executable=/bin/sh
@@ -19,7 +18,6 @@
   register: usr_obj_rev
 
 - name: build world and kernel when needed
-  become: yes
   shell: make -j {{ ansible_processor_count }} buildworld && make -j {{ ansible_processor_count }} buildkernel
   args: 
     executable=/bin/sh
