@@ -6,9 +6,20 @@ All notable changes to these roles will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v0.0.4][23-oct-2016]
+### Changed
+- Add user creation to jail_host role. Make the following changes:
+  - Add a dict to host_vars like this:
+    users:
+      foo:
+      comment: "foo user"
+      key: "ssh-rsa ..............."
+- Add package installation to jail host
+
+
 ## [v0.0.3][23-oct-2016]
 ### Changed
-- Make jailhost flavour name and ssh key configurable. Make the following changes:
+- Make jailhost flavour name and ansible ssh authorized_key configurable. Make the following changes:
     - Add something like this to the jailhost host_vars:
         ansible_authorized_keys: |
           ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYAgVCz9Je9n2xHPcRRdThZIfwhOCr1Kp6ZfAbOLJEZ ansible@ansible-control.censurfridns.dk
