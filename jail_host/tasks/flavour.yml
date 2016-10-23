@@ -1,0 +1,30 @@
+---
+- name: Delete the ezjail flavour
+  file:
+    path=/usr/jails/flavours/tykbasic/
+    state=absent
+
+- name: Copy ezjail flavour
+  copy:
+    owner=root
+    group=wheel
+    mode=644
+    src=ezjailflavour
+    dest=/usr/jails/flavours
+
+- name: Add the ssh key for the ansible user
+  copy:
+    owner=1337
+    group=1337
+    mode=644
+    content="{{ ansible_authorized_keys }}"
+    dest="/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/authorized_keys"
+
+- name: Copy the ezjail flavour script template
+  template:
+    src=ezjail.flavour
+    dst=/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}
+    owner=root
+    group=wheel
+    mode=0744
+

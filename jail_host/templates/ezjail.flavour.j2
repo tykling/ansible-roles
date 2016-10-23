@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# BEFORE: DAEMON
+# PROVIDE: ezjail.{{ ezjail_flavour }}.config
+#
+# ezjail flavour
+
+. /etc/rc.subr
+
+name=ezjail.flavour.{{ ezjail_flavour }}
+start_cmd=flavour_setup
+
+flavour_setup() {
+  rm -f "/etc/rc.d/ezjail.flavour.{{ ezjail_flavour }}"
+  pw groupadd -q -g 1337 -n ansible
+  pw useradd -n ansible -u 1337 -s /bin/sh -m -d /usr/home/ansible -g ansible -c 'ansible user' -h -
+  env ASSUME_ALWAYS_YES=YES pkg bootstrap
+  pkg install -y sudo python
+}
+
+run_rc_command "$1"
+

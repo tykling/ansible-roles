@@ -14,23 +14,3 @@
     src=ezjail.conf.j2
     dest=/usr/local/etc/ezjail.conf
 
-- name: Delete the ezjail flavour
-  file:
-    path=/usr/jails/flavours/tykbasic/
-    state=absent
-
-- name: Copy ezjail flavour
-  copy:
-    owner=root
-    group=wheel
-    mode=644
-    src=ezjailflavours/tykbasic
-    dest=/usr/jails/flavours
-
-- name: Make the ezjail flavour script executable
-  file:
-    path=/usr/jails/flavours/tykbasic/etc/rc.d/ezjail.flavour.tykbasic
-    owner=root
-    group=wheel
-    mode=0744
-
