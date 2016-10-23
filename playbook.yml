@@ -15,6 +15,14 @@
   tags:
     - jail_hosts
 
+- name: configure all censurfridns anycast jail hosts
+  hosts: anycast_jail_hosts
+  become: yes
+  roles:
+    - anycast_jail_host
+  tags:
+    - anycast_jail_hosts
+
 - name: configure all murmur servers
   hosts: murmur_servers
   become: yes
