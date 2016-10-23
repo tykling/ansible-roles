@@ -1,0 +1,26 @@
+---
+- name: Install smartmontools
+  pkgng:
+    name=smartmontools
+    state=present
+
+- name: Install openntpd
+  pkgng:
+    name=openntpd
+    state=present
+
+- name: Install bash
+  pkgng:
+    name=bash
+    state=present
+
+- name: Install tmux
+  pkgng:
+    name=tmux
+    state=present
+
+- name: Install pftop
+  pkgng:
+    name=pftop
+    state=present
+
