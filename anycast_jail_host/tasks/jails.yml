@@ -14,6 +14,6 @@
 - name: "Create www jail"
   shell: "/usr/local/bin/ezjail-admin create www 10.4.20.3"
   args:
-    executable="/bin/sh"
+    executable: "/bin/sh"
     creates: "/usr/jails/www/"
 
