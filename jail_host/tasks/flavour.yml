@@ -17,7 +17,7 @@
     owner=1337
     group=1337
     mode=644
-    content="{{ ansible_authorized_keys }}"
+    content="{{ ansible_authorized_keys_file }}"
     dest="/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/authorized_keys"
 
 - name: Copy the ezjail flavour script template
