@@ -4,12 +4,17 @@
     path=/usr/jails/flavours/tykbasic/
     state=absent
 
+- name: Create ezjail flavour directory
+  file:
+    path=/usr/jails/flavours/{{ ezjail_flavourname }}/
+    state=directory
+
 - name: Copy ezjail flavour
   copy:
     owner=root
     group=wheel
     mode=644
-    src=ezjailflavour
+    src=ezjailflavour/
     dest=/usr/jails/flavours/{{ ezjail_flavourname }}/
 
 - name: Add the ssh key for the ansible user
