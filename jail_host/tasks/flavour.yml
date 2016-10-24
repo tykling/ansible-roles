@@ -10,7 +10,7 @@
     group=wheel
     mode=644
     src=ezjailflavour
-    dest=/usr/jails/flavours
+    dest=/usr/jails/flavours/{{ ezjail_flavourname }}/
 
 - name: Add the ssh key for the ansible user
   copy:
