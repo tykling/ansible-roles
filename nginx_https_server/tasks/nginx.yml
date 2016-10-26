@@ -61,7 +61,7 @@
     mode=600
     content="{{ item.value.content }}"
     dest="/usr/local/etc/nginx/{{ item.value.filename }}"
-  with_dict: "{{ nginx_extra_configs|default:"({})" }}"
+  with_dict: "{{ nginx_extra_configs | default({}) }}"
 
 - name: Include vhosts.yml to configure all vhosts
   include: vhosts.yml
@@ -77,7 +77,7 @@
     mode=600
     content="{{ item.value.content }}"
     dest="/usr/local/etc/nginx/{{ item.value.filename }}"
- with_dict: "{{ nginx_htpasswd_files|default:"({})" }}"
+ with_dict: "{{ nginx_htpasswd_files | default({}) }}"
 
 - name: Start Nginx (if not running)
   service:
