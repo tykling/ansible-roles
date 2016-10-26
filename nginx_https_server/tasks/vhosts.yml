@@ -72,5 +72,5 @@
     mode=600
     content="{{ item.value.content }}"
     dest="/usr/local/etc/nginx/certificates/{{ item.value.filename }}.conf"
-  with_dict: "{{ custom_vhosts }}"
+  with_dict: "{{ custom_vhosts|default:"({})" }}"
  
