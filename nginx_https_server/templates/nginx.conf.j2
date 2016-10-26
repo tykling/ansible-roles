@@ -12,7 +12,7 @@ http {
     include                     mime.types;
     default_type                application/octet-stream;
     log_format                  main  '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"';
-    log_format                  timing '$time_local - $http_host - $remote_addr - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent"';
+    log_format                  timing '$time_local - $http_host - $remote_addr - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id';
     access_log                  /usr/local/www/logs/proxytiming.log timing;
     access_log                  syslog:server=unix:/var/run/log,facility=local6 timing;
     sendfile                    off;
