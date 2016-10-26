@@ -65,3 +65,12 @@
     dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
   with_dict: "{{ vhosts }}"
 
+- name: Copy custom vhosts
+  copy:
+    owner=root
+    group=wheel
+    mode=600
+    content="{{ item.value.content }}"
+    dest="/usr/local/etc/nginx/certificates/{{ item.value.filename }}.conf"
+  with_dict: "{{ custom_vhosts }}"
+ 
