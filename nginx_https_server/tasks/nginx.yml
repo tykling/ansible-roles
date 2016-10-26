@@ -66,6 +66,19 @@
 - name: Include vhosts.yml to configure all vhosts
   include: vhosts.yml
 
+- name: "Include secrets if present"
+  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+  ignore_errors: yes
+
+- name: Create .htpasswd files
+  copy:
+    owner=root
+    group=wheel
+    mode=600
+    content="{{ item.value.content }}"
+    dest="/usr/local/etc/nginx/{{ item.value.filename }}"
+ with_dict: "{{ nginx_htpasswd_files|default({}) }}"
+
 - name: Start Nginx (if not running)
   service:
     name=nginx
