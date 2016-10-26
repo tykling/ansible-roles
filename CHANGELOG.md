@@ -5,13 +5,21 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [v0.0.6][27-oct-2016]
+### Added
+- log rotation for nginx_http_server and nginx_https_server roles, using freebsds newsyslog
+
+
 ## [v0.0.5][26-oct-2016]
 ### Added
 - nginx_https_server role got htpasswd support
+### Changed
 - nginx_https_server and nginx_http_server ipv6 listen statements are now always default vhost for that ip
 
+
 ## [v0.0.4][23-oct-2016]
-### Changed
+### Added
 - Add user creation to jail_host role. Make the following changes:
   - Add a dict to host_vars like this:
     users:
