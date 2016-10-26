@@ -5,6 +5,10 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.5][26-oct-2016]
+### Added
+- nginx_https_server role got htpasswd support
+- nginx_https_server and nginx_http_server ipv6 listen statements are now always default vhost for that ip
 
 ## [v0.0.4][23-oct-2016]
 ### Changed
