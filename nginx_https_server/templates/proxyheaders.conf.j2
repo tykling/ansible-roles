@@ -1,4 +1,13 @@
+### set both X-Real-IP and X-Forwarded-For - different applications use both
 proxy_set_header        X-Real-IP  $remote_addr;
 proxy_set_header        X-Forwarded-For $remote_addr;
+
+### set hostname
 proxy_set_header        Host $host;
-proxy_set_header        Proxy ""; # httpoxy mitigation
+
+### set unique request id
+proxy_set_header        X-Request-ID $request_id;
+
+### httpoxy mitigation
+proxy_set_header        Proxy "";
+
