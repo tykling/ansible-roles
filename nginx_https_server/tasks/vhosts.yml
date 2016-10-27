@@ -71,6 +71,6 @@
     group=wheel
     mode=600
     content="{{ item.value.content }}"
-    dest="/usr/local/etc/nginx/certificates/{{ item.value.filename }}.conf"
+    dest="/usr/local/etc/nginx/vhosts/{{ item.value.filename }}.conf"
   with_dict: "{{ custom_vhosts | default({}) }}"
  
