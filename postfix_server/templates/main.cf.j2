@@ -1,0 +1,60 @@
+# network settings
+inet_protocols = ipv4 ipv6
+
+# local(8) settings
+mynetworks_style = host
+relay_domains  = {{ ansible_nodename }}
+alias_maps = hash:/etc/aliases
+transport_maps = texthash:/usr/local/etc/postfix/transport
+
+# virtual(8) settings
+virtual_transport = lmtp:inet:{{ lmtp_server_ip }}:{{ lmtp_server_port }}
+virtual_alias_maps = texthash:/usr/local/etc/postfix/mailman_virtual_alias_maps, pgsql:/usr/local/etc/postfix/virtual_alias_maps.sql
+virtual_mailbox_domains = {{ postfix_virtual_alias_domains | join(",") }}
+virtual_mailbox_maps = pgsql:/usr/local/etc/postfix/virtual_mailbox_maps.sql
+mailman_destination_recipient_limit = 1
+
+# Recipient restrictions
+smtpd_recipient_restrictions =
+    permit_sasl_authenticated,
+    reject_invalid_helo_hostname,
+    reject_non_fqdn_helo_hostname,
+    reject_non_fqdn_sender,
+    reject_non_fqdn_recipient,
+    reject_unknown_sender_domain,
+    reject_unknown_recipient_domain,
+    reject_unauth_pipelining,
+    reject_rbl_client zen.spamhaus.org,
+    reject_rhsbl_helo dbl.spamhaus.org,
+    reject_rhsbl_client dbl.spamhaus.org,
+    reject_rhsbl_sender dbl.spamhaus.org,
+    permit_mynetworks,
+    reject_unauth_destination
+
+# TLS settings
+smtpd_tls_cert_file = /usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/fullchain.pem
+smtpd_tls_key_file = /usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/privkey.pem
+smtpd_tls_auth_only = yes
+smtpd_tls_received_header = yes
+smtpd_tls_security_level = may
+smtpd_tls_mandatory_protocols=!SSLv2,!SSLv3
+smtp_tls_CAfile = /usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/fullchain.pem
+smtp_tls_session_cache_database = btree:/var/db/postfix/smtp_tls_session_cache
+smtp_tls_security_level = may
+
+# SASL/smtpd settings
+smtpd_sasl_path = inet:[{{ sasl_server_ip }}]:{{ sasl_server_port }}
+smtpd_sasl_auth_enable = yes
+smtpd_sender_login_maps = pgsql:/usr/local/etc/postfix/smtpd_sender_login_maps.sql
+smtpd_sender_restrictions = reject_sender_login_mismatch
+
+# milters
+#smtpd_milters = unix:opendkim/opendkim.sock
+#non_smtpd_milters = $smtpd_milters
+
+# postfix 3 compat
+compatibility_level=2
+
+# mail size limit 100 megabytes
+mailbox_size_limit=102400000
+message_size_limit=102400000

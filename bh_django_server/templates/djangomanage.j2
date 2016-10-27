@@ -1,0 +1,155 @@
+#!/bin/sh
+#
+# PROVIDE: djangomanage
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf to enable djangomanage:
+#
+# djangomanage_enable (bool):             Set it to "YES" to enable djangomanage
+# djangomanage_path (str):                Set the path to Django manage.py
+# djangomanage_profiles (str):            Set the list of djangomanage profiles
+# djangomanage_args (str):                Set the command line args
+# djangomanage_user (str):                Set the user to run under
+# djangomanage_group (str):               Set the group to run under
+# djangomanage_logfile (str):             Set the logfile
+#
+# If you define multiple profiles you will want to define at least args and logfile
+# per profile using the syntax djangomanage_<profile>_<option>
+#
+. /etc/rc.subr
+
+name="djangomanage"
+rcvar=djangomanage_enable
+
+load_rc_config $name
+
+: ${djangomanage_enable="NO"}
+: ${djangomanage_path=""}
+: ${djangomanage_profiles=""}
+: ${djangomanage_args=""}
+: ${djangomanage_user:=""}
+: ${djangomanage_group:=""}
+: ${djangomanage_logfile:=""}
+
+djangomanage_status() {
+        pid=$(/bin/pgrep -f "$command_interpreter -u $djangomanage_path $djangomanage_args")
+        if [ -z "$pid" ]; then
+                if [ -n $profile ]; then
+                        echo "djangomanage profile $profile is not running"
+                else
+                        echo "djangomanage is not running"
+                fi
+        else
+                if [ -n $profile ]; then
+                        echo "djangomanage profile $profile is running as pid $pid"
+                else
+                        echo "djangomanage is running as pid $pid"
+                fi
+        fi
+}
+status_cmd="${name}_status"
+
+djangomanage_start() {
+        pid=$(/bin/pgrep -f "$command_interpreter -u $djangomanage_path $djangomanage_args")
+        if [ -z "$pid" ]; then
+                if [ -n $profile ]; then
+                        echo "Starting djangomanage profile $profile - logging to $djangomanage_logfile"
+                else
+                        echo "starting djangomanage - logging to $djangomanage_logfile"
+                fi
+                su -m $djangomanage_user -c "$command_interpreter -u $djangomanage_path $djangomanage_args" >> $djangomanage_logfile 2>&1 &
+        else
+                if [ -n $profile ]; then
+                        echo "djangomanage profile $profile is already running (pid $pid)"
+                else
+                        echo "djangomanage is already running (pid $pid)"
+                fi
+        fi
+}
+start_cmd="${name}_start"
+
+djangomanage_stop() {
+        pid=$(/bin/pgrep -f "$command_interpreter -u $djangomanage_path $djangomanage_args")
+        if [ -z "$pid" ]; then
+                if [ -n $profile ]; then
+                        echo "djangomanage profile $profile is not running"
+                else
+                        echo "djangomanage is not running"
+                fi
+        else
+                if [ -n $profile ]; then
+                        echo "Stopping djangomanage profile $profile"
+                else
+                        echo "Stopping djangomanage"
+                fi
+                /bin/kill $pid
+                wait_for_pids $pid
+        fi
+}
+stop_cmd="${name}_stop"
+
+is_djangomanage_profile() {
+    local profile
+
+    for profile in $djangomanage_profiles; do
+        if [ "$profile" = "$1" ]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+if [ -n "${djangomanage_profiles}" ]; then
+        if [ -n "$2" ]; then
+                profile="$2"
+                if ! is_djangomanage_profile $profile; then
+                        echo "$0: no such profile defined in djangomanage_profiles."
+                        exit 1
+                fi
+                # get profile specific options
+                eval djangomanage_args=\${djangomanage_${profile}_args:-"${djangomanage_args}"}
+                eval djangomanage_user=\${djangomanage_${profile}_user:-"${djangomanage_user}"}
+                eval djangomanage_group=\${djangomanage_${profile}_group:-"${djangomanage_group}"}
+                eval djangomanage_logfile=\${djangomanage_${profile}_logfile:-"${djangomanage_logfile}"}
+        elif [ -n "$1" ]; then
+                for profile in ${djangomanage_profiles}; do
+                    echo "Processing ${name} profile: ${profile}"
+                    /usr/local/etc/rc.d/djangomanage $1 ${profile}
+                done
+                exit 0
+        fi
+fi
+
+if [ -z $djangomanage_path ]; then
+        echo "$0: You must set djangomanage_path in rc.conf"
+        exit 1
+else
+        command=$djangomanage_path
+fi
+
+if [ -z $djangomanage_args ]; then
+        echo "$0: You must set djangomanage_args in rc.conf"
+        exit 1
+else
+        command_args="$djangomanage_args >> $djangomanage_logfile 2>&1 &"
+fi
+
+if [ -z $djangomanage_user ]; then
+        echo "$0: You must set djangomanage_user in rc.conf"
+        exit 1
+fi
+
+if [ -z $djangomanage_group ]; then
+        echo "$0: You must set djangomanage_group in rc.conf"
+        exit 1
+fi
+
+if [ -z $djangomanage_logfile ]; then
+        echo "$0: You must set djangomanage_logfile in rc.conf"
+        exit 1
+fi
+
+command_interpreter="python"
+run_rc_command "$1"

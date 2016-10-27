@@ -1,0 +1,8 @@
+poudriere_tyknet_dk: {
+    url: "https://poudriere.tyknet.dk/packages/{{ poudriere_package_set }}",
+    mirror_type: "http",
+    signature_type: "pubkey",
+    pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
+    enabled: yes,
+    priority: 100
+}

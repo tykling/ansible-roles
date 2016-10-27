@@ -1,0 +1,33 @@
+---
+- name: Install ca_root_nss
+  become: yes
+  pkgng:
+    name=ca_root_nss
+    state=present
+
+- name: Create repo config directory
+  become: yes
+  file:
+    path=/usr/local/etc/pkg/repos
+    state=directory
+
+- name: Copy repo config file
+  become: yes
+  template:
+    src=poudriere_tyknet_dk.conf.j2
+    dest=/usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
+
+- name: Create repo cert directory
+  become: yes
+  file:
+    path=/usr/local/etc/ssl/certs
+    state=directory
+
+- name: Copy poudriere pubkey
+  become: yes
+  copy:
+    owner=root
+    group=wheel
+    mode=600
+    src=poudriere.tyknet.dk.cert
+    dest=/usr/local/etc/ssl/certs/poudriere.cert

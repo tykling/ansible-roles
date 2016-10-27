@@ -1,0 +1,82 @@
+---
+- name: Install postfix
+  become: yes
+  pkgng:
+    name=postfix
+    state=present
+
+- name: Enable postfix
+  become: yes
+  service:
+    name=postfix
+    enabled=yes
+
+- name: Copy postfix main.cf
+  become: yes
+  template:
+    src=main.cf.j2
+    dest=/usr/local/etc/postfix/main.cf
+
+- name: Copy postfix smtpd_sender_login_maps.sql
+  become: yes
+  template:
+    src=smtpd_sender_login_maps.sql
+    dest=/usr/local/etc/postfix/smtpd_sender_login_maps.sql
+    mode=0600
+
+- name: Copy postfix virtual_alias_maps.sql
+  become: yes
+  template:
+    src=virtual_alias_maps.sql
+    dest=/usr/local/etc/postfix/virtual_alias_maps.sql
+    mode=0600
+
+- name: Copy postfix virtual_mailbox_maps.sql
+  become: yes
+  template:
+    src=smtpd_sender_login_maps.sql
+    dest=/usr/local/etc/postfix/virtual_mailbox_maps.sql
+    mode=0600
+
+- name: Run postalias
+  become: yes
+  shell: /usr/local/sbin/postalias /etc/aliases
+
+- name: Copy postfix transport file
+  become: yes
+  template:
+    mode=0644
+    src=transport.j2
+    dest=/usr/local/etc/postfix/transport
+
+- name: Enable submission in master.cf
+  become: yes
+  blockinfile:
+    create: yes
+    dest: /usr/local/etc/postfix/master.cf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK submission"
+    content: |
+      submission inet n       -       n       -       -       smtpd
+        -o syslog_name=postfix/submission
+        -o smtpd_tls_security_level=encrypt
+        -o smtpd_sasl_auth_enable=yes
+        -o smtpd_reject_unlisted_recipient=no
+        -o smtpd_client_restrictions=
+        -o smtpd_helo_restrictions=
+        -o smtpd_sender_restrictions=
+        -o smtpd_recipient_restrictions=
+        -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
+        -o milter_macro_daemon_name=ORIGINATING
+
+- name: Restart Postfix
+  become: yes
+  service:
+    name=postfix
+    state=restarted
+
+- name: Add keep a years maillogs in newsyslog.conf
+  become: yes
+  lineinfile:
+    dest=/etc/newsyslog.conf
+    regexp="^/var/log/maillog "
+    line="/var/log/maillog                        640  365   *    @T00  JC"

@@ -1,0 +1,82 @@
+---
+- name: Install opendkim
+  become: yes
+  pkgng:
+    name=opendkim
+    state=present
+
+- name: Create opendkim socket directory
+  become: yes
+  file:
+    path=/var/spool/postfix/opendkim
+    state=directory
+    owner=postfix
+    group=wheel
+    mode=755
+
+- name: Copy opendkim.conf
+  become: yes
+  template:
+    src=opendkim.conf.j2
+    dest=/usr/local/etc/opendkim.conf
+
+- name: Install opendkim.keytable
+  become: yes
+  template:
+    src=opendkim.keytable.j2
+    dest=/usr/local/etc/opendkim.keytable
+    owner=root
+    group=wheel
+    mode=644
+
+- name: Install opendkim.signingtable
+  become: yes
+  template:
+    src=opendkim.signingtable.j2
+    dest=/usr/local/etc/opendkim.signingtable
+    owner=root
+    group=wheel
+    mode=644
+
+- name: Create opendkim key directory
+  become: yes
+  file:
+    path=/usr/local/etc/opendkim
+    state=directory
+    owner=postfix
+    group=postfix
+    mode=500
+
+- name: Create opendkim keys
+  become: yes
+  copy:
+    owner=postfix
+    group=postfix
+    mode=600
+    content="{{ item.value }}"
+    dest="/usr/local/etc/opendkim/{{ item.key }}-default.private"
+  with_dict: "{{ dkimkeys }}"
+
+- name: Enable milteropendkim in rc.conf
+  become: yes
+  sysrc:
+    name: milteropendkim_enable
+    value: "yes"
+
+- name: Set milteropendkim_cfgfile in rc.conf
+  become: yes
+  sysrc:
+    name: milteropendkim_cfgfile
+    value: "/usr/local/etc/opendkim.conf"
+
+- name: Set milteropendkim_uid in rc.conf
+  become: yes
+  sysrc:
+    name: milteropendkim_uid
+    value: "postfix"
+
+- name: Restart milteropendkim
+  become: yes
+  service:
+    name=milter-opendkim
+    state=restarted

@@ -1,0 +1,3 @@
+{% for domain in postfix_virtual_alias_domains %}
+*@{{ domain }}  default._domainkey.{{ domain }}
+{% endfor %}

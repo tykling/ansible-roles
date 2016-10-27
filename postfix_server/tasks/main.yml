@@ -1,0 +1,8 @@
+---
+- include: pkg.yml
+- include: letsencrypt.yml
+- include: nginx.yml
+- include: postfix.yml
+- include: opendkim.yml
+- include: mailman.yml
+- include: thttpd.yml

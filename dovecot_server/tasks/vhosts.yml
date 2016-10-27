@@ -1,0 +1,41 @@
+---
+- name: Copy vhost http configs
+  become: yes
+  template:
+    src=http-vhost.conf.j2
+    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
+  with_dict: "{{ vhosts }}"
+
+- name: Reload nginx configs
+  become: yes
+  service: name=nginx state=reloaded
+
+- name: Create letsencrypt config files for all vhosts
+  become: yes
+  template:
+    src=cli.ini.j2
+    dest="/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+  with_dict: "{{ vhosts }}"
+
+- name: Create letsencrypt certificate for vhosts
+  become: yes
+  command: "/usr/local/bin/letsencrypt certonly --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+  args:
+    creates: "/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem"
+  with_dict: "{{ vhosts }}"
+
+- name: Make sure letsencrypt renew cronjob is in place for all vhosts
+  become: yes
+  lineinfile:
+    dest=/etc/crontab
+    regexp="{{ item.value.hostnames[0] }}-letsencrypt.ini$"
+    line="{{ 59 |random}}    2     *       *       1       root    /usr/local/bin/letsencrypt certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+  with_dict: "{{ vhosts }}"
+
+- name: Copy vhost https configs
+  become: yes
+  template:
+    src=https-vhost.conf.j2
+    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
+  with_dict: "{{ vhosts }}"
+

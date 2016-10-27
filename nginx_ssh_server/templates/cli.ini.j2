@@ -1,0 +1,6 @@
+rsa-key-size = 4096
+email = {{ letsencrypt_email }}
+text = True
+authenticator = webroot
+webroot-path = /tmp/letsencrypt-auto
+domains = {{ item.value.hostnames | join(",") }}

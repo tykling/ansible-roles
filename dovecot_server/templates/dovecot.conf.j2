@@ -1,0 +1,84 @@
+####################################################################################
+#   SSL settings
+disable_plaintext_auth=yes
+ssl=required
+ssl_cert = </usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/fullchain.pem
+ssl_key = </usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/privkey.pem
+ssl_protocols = !SSLv2 !SSLv3
+#ssl_cipher_list = ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:DH+AES:!3DES:!RSA:!AES128:!ADH:!AECDH:!MD5:!DSS
+
+####################################################################################
+#   OS Settings
+
+# UID/GIDs
+mail_uid = {{ dovecot_vmail_username}}
+mail_gid = {{ dovecot_vmail_groupname}}
+mail_privileged_group = mail
+
+# Syslog facility
+syslog_facility = local3
+
+# Show mailbox name in process title (in 'top')
+verbose_proctitle = yes
+
+####################################################################################
+#   Misc. settings
+
+# Default mail location
+mail_location = maildir:%h/mail
+
+# Autocreate and autosubscribe new mailboxes (created by sieve scripts delivering mail to them)
+lda_mailbox_autocreate=yes
+lda_mailbox_autosubscribe=yes
+
+# User DB
+userdb {
+  driver=sql
+  args=/usr/local/etc/dovecot/dovecot-sql.conf
+}
+
+# Password DB
+passdb {
+  driver=sql
+  args=/usr/local/etc/dovecot/dovecot-sql.conf
+}
+
+####################################################################################
+#   Protocols and listeners
+
+# Enabled protocols
+protocols = sieve lmtp imap
+
+# Enabled AUTH mechanisms
+auth_mechanisms = plain login
+
+# SASL listener for postfix
+service auth {
+  inet_listener auth {
+    address = {{ vhost_v4ip }}
+    port = 12
+  }
+}
+
+# LMTP listener for postfix
+service lmtp {
+  inet_listener lmtp {
+    address = {{ vhost_v4ip }}
+    port = 24
+  }
+}
+
+service imap {
+  vsz_limit = 1024 M
+}
+
+# Listen on v4 and v6
+listen = *,[::]
+
+####################################################################################
+#   Plugin settings
+protocol lmtp {
+  mail_plugins = sieve
+}
+plugin/sieve = %h/.dovecot.sieve
+plugin/sieve_dir = %h/sieve

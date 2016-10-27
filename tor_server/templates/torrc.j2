@@ -1,0 +1,7 @@
+Log notice syslog
+RunAsDaemon 1
+DataDirectory /var/db/tor
+{% for key, value in hiddenservices.iteritems() %}
+HiddenServiceDir /var/db/tor/{{ key }}/
+HiddenServicePort {{ value.hiddenserviceport }}
+{% endfor %}

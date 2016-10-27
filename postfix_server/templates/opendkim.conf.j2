@@ -1,0 +1,10 @@
+AlwaysAddARHeader       yes
+KeyTable                file:/usr/local/etc/opendkim.keytable
+On-Default              a
+SigningTable            refile:/usr/local/etc/opendkim.signingtable
+Socket                  local:/var/spool/postfix/opendkim/opendkim.sock
+Syslog                  Yes
+SyslogSuccess           Yes
+TemporaryDirectory      /tmp
+UserID                  postfix
+SoftwareHeader          Yes

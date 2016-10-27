@@ -1,0 +1,16 @@
+server {
+    listen                  {{ vhost_v4ip }}:80{% if item.value.default_vhost %} default{% endif %};
+    listen                  [{{ item.value.vhost_v6ip }}]:80{% if item.value.default_vhost %} default{% endif %};
+    server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
+
+    {% if item.value.letsencrypt %}
+    location '/.well-known/acme-challenge' {
+        default_type        "text/plain";
+        root                /tmp/letsencrypt-auto;
+    }
+    {% endif %}
+
+    location / {
+        return              301 https://$server_name$request_uri;
+    }
+}
