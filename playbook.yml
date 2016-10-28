@@ -47,3 +47,47 @@
   tags:
     - nginx_https_servers
 
+- name: configure dovecot servers
+  hosts: dovecot_servers
+  roles:
+    - dovecot_server
+  tags:
+    - dovecot_servers
+
+- name: configure erlang webservers
+  hosts: erlang_web_servers
+  roles:
+    - erlang_web_server
+  tags:
+    - erlang_web_servers
+
+- name: configure wiki servers
+  hosts: mediawiki_servers
+  roles:
+    - mediawiki_server
+  tags:
+    - mediawiki_servers
+
+- name: configure nginx ssh servers
+  hosts: nginx_ssh_servers
+  roles:
+    - nginx_ssh_server
+  handlers:
+    - include: handlers/handlers.yml
+  tags:
+    - nginx_ssh_servers
+
+- name: configure postfix servers
+  hosts: postfix_servers
+  roles:
+    - postfix_server
+  tags:
+    - postfix_servers
+
+- name: configure tor servers
+  hosts: tor_servers
+  roles:
+    - tor_server
+  tags:
+    - tor_servers
+
