@@ -72,8 +72,8 @@
 
 - name: Create .htpasswd files
   copy:
-    owner=root
-    group=wheel
+    owner=www
+    group=www
     mode=600
     content="{{ item.value.content }}"
     dest="/usr/local/etc/nginx/{{ item.value.filename }}"
