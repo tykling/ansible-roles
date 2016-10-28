@@ -10,7 +10,7 @@
 - name: Add ssh authorized_keys
   authorized_key:
     user="{{ item.key }}"
-    key="{{ lookup('file', '/usr/local/etc/ansible/files/{{ item.key }}.sshkey.pub') }}"
+    key="{{ item.value.key }}"
   with_dict: "{{ users }}"
 
 - name: Add users to sudoers
