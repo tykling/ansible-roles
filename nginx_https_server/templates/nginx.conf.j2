@@ -1,3 +1,7 @@
+### modules
+load_module                     /usr/local/libexec/nginx/ngx_http_headers_more_filter_module.so;
+load_module                     /usr/local/libexec/nginx/ngx_http_lua_module.so;
+
 ### default error log
 error_log                               /usr/local/www/logs/error.log;
 error_log                               syslog:server=unix:/var/run/log,facility=local6 debug;
