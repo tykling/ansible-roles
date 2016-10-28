@@ -27,7 +27,7 @@
 
 - name: Copy the ezjail flavour script template
   template:
-    src=ezjail.flavour
+    src=ezjail.flavour.j2
     dest=/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}
     owner=root
     group=wheel
