@@ -4,7 +4,7 @@ server {
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
     ssl                     on;
-    {% if item.value.letsencrypt %}
+    {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         /usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem;
     ssl_certificate_key     /usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/privkey.pem;
     {% else %}
