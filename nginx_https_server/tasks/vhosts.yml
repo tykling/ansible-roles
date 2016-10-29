@@ -19,14 +19,14 @@
     src=cli.ini.j2
     dest="/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
   with_dict: "{{ vhosts }}"
-  when: item.value.letsencrypt == True
+  when: item.value.letsencrypt | default(True)
 
 - name: Issue a letsencrypt certificate for each of the LE enabled vhosts
   command: "/usr/local/bin/certbot certonly --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
   args:
     creates: "/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem"
   with_dict: "{{ vhosts }}"
-  when: item.value.letsencrypt == True
+  when: item.value.letsencrypt | default(True)
 
 - name: Make sure letsencrypt renew cronjob is in place for all LE vhosts
   cron:
@@ -38,7 +38,7 @@
     cron_file="/etc/crontab"
     user="root"
   with_dict: "{{ vhosts }}"
-  when: item.value.letsencrypt == True
+  when: item.value.letsencrypt | default(True)
 
 - name: Create private key files for non-LE vhosts (if any)
   copy:
@@ -57,7 +57,7 @@
     content="{{ item.value.certificate }}"
     dest="/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
   with_dict: "{{ vhosts }}"
-  when: item.value.letsencrypt == False
+  when: item.value.letsencrypt | default(True)
 
 - name: Copy vhost https configs
   template:

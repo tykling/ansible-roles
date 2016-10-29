@@ -6,6 +6,10 @@ All notable changes to these roles will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v0.0.7][29-oct-2016]
+### Changed
+- nginx_https_server: Added default true for letsencrypt
+
 ## [v0.0.6][27-oct-2016]
 ### Added
 - log rotation for nginx_http_server and nginx_https_server roles, using freebsds newsyslog
