@@ -3,7 +3,7 @@ server {
     listen                  [{{ item.value.vhost_v6ip }}]:80 default;
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
-    {% if item.value.letsencrypt %}
+    {% if item.value.letsencrypt | default(True) %}
     location '/.well-known/acme-challenge' {
         default_type        "text/plain";
         root                /tmp/letsencrypt-auto;
