@@ -57,7 +57,7 @@
     content="{{ item.value.certificate }}"
     dest="/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
   with_dict: "{{ vhosts }}"
-  when: item.value.letsencrypt | default(True)
+  when: not item.value.letsencrypt | default({})
 
 - name: Copy vhost https configs
   template:
