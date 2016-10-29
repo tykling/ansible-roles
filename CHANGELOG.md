@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [v0.0.7][29-oct-2016]
 ### Changed
 - nginx_https_server: Added default true for letsencrypt
+- nginx_https_server: Add default false for default_vhost
 
 ## [v0.0.6][27-oct-2016]
 ### Added
