@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [v0.0.8][2-nov-2016]
 ### Added
 - freebsd role to create users and install basic packages
+- get package list from {{ packages }} variable
 
 ### Changed
 - playbook includes freebsd role for all roles
