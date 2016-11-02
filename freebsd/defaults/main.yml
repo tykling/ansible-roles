@@ -1,2 +1,9 @@
 ---
 poudriere_package_set: 10_3_amd64-default
+packages:
+  - tmux
+  - screen
+  - sudo
+  - stow
+  - git
+
