@@ -17,6 +17,18 @@
     src=ezjailflavour/
     dest=/usr/jails/flavours/{{ ezjail_flavourname }}/
 
+- name: Find placeholder files because git is stupid
+  find:
+    paths=/usr/jails/flavours/{{ ezjail_flavourname }}/
+    patterns=dummy_file_because_git_is_stupid
+  register: result
+
+- name: Delete placeholder files because git is stupid
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: result.files
+
 - name: Add the ssh key for the ansible user
   copy:
     owner=1337
