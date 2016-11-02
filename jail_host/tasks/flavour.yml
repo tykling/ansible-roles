@@ -25,9 +25,9 @@
 
 - name: Delete placeholder files because git is stupid
   file:
-    path: "{{item.path}}"
-    state: absent
-  with_items: result.files
+    path="{{item.path}}"
+    state=absent
+  with_items: "{{ result.files }}"
 
 - name: Add the ssh key for the ansible user
   copy:
