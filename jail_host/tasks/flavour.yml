@@ -21,6 +21,7 @@
   find:
     paths=/usr/jails/flavours/{{ ezjail_flavourname }}/
     patterns=dummy_file_because_git_is_stupid
+    recurse=yes
   register: result
 
 - name: Delete placeholder files because git is stupid
