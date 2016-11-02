@@ -1,7 +1,7 @@
 ---
 - name: Delete the ezjail flavour
   file:
-    path=/usr/jails/flavours/tykbasic/
+    path=/usr/jails/flavours/{{ ezjail_flavourname }}/
     state=absent
 
 - name: Create ezjail flavour directory

@@ -3,6 +3,7 @@
   hosts: etherpad_servers
   become: yes
   roles:
+    - freebsd
     - etherpad_server
   tags:
     - etherpad_servers
@@ -11,6 +12,7 @@
   hosts: jail_hosts
   become: yes
   roles:
+    - freebsd
     - jail_host
   tags:
     - jail_hosts
@@ -19,6 +21,7 @@
   hosts: anycast_jail_hosts
   become: yes
   roles:
+    - freebsd
     - anycast_jail_host
   tags:
     - anycast_jail_hosts
@@ -27,6 +30,7 @@
   hosts: murmur_servers
   become: yes
   roles:
+    - freebsd
     - murmur_server
   tags:
     - murmur_servers
@@ -35,6 +39,7 @@
   hosts: nginx_http_servers
   become: yes
   roles:
+    - freebsd
     - nginx_http_server
   tags:
     - nginx_http_servers
@@ -43,6 +48,7 @@
   hosts: nginx_https_servers
   become: yes
   roles:
+    - freebsd
     - nginx_https_server
   tags:
     - nginx_https_servers
@@ -50,6 +56,7 @@
 - name: configure dovecot servers
   hosts: dovecot_servers
   roles:
+    - freebsd
     - dovecot_server
   tags:
     - dovecot_servers
@@ -57,6 +64,7 @@
 - name: configure erlang webservers
   hosts: erlang_web_servers
   roles:
+    - freebsd
     - erlang_web_server
   tags:
     - erlang_web_servers
@@ -64,6 +72,7 @@
 - name: configure wiki servers
   hosts: mediawiki_servers
   roles:
+    - freebsd
     - mediawiki_server
   tags:
     - mediawiki_servers
@@ -71,6 +80,7 @@
 - name: configure nginx ssh servers
   hosts: nginx_ssh_servers
   roles:
+    - freebsd
     - nginx_ssh_server
   handlers:
     - include: handlers/handlers.yml
@@ -80,6 +90,7 @@
 - name: configure postfix servers
   hosts: postfix_servers
   roles:
+    - freebsd
     - postfix_server
   tags:
     - postfix_servers
@@ -87,6 +98,7 @@
 - name: configure tor servers
   hosts: tor_servers
   roles:
+    - freebsd
     - tor_server
   tags:
     - tor_servers

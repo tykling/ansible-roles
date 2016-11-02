@@ -6,6 +6,15 @@ All notable changes to these roles will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v0.0.8][2-nov-2016]
+### Added
+- freebsd role to create users and install basic packages
+
+### Changed
+- playbook includes freebsd role for all roles
+- role dependencies on poudriere_client removed, now included in freebsd role
+
+
 ## [v0.0.7][29-oct-2016]
 ### Changed
 - nginx_https_server: Added default true for letsencrypt
