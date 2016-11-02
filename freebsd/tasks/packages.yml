@@ -1,7 +1,7 @@
 ---
-- name: Install packages
+- name: Install basic packages
   pkgng:
-    name=smartmontools
+    name={{ item }}
     state=present
   with_items: "{{ packages }}"
 

@@ -6,4 +6,5 @@ packages:
   - sudo
   - stow
   - git
+  - bind-tools
 
