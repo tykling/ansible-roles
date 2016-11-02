@@ -6,6 +6,11 @@ All notable changes to these roles will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v0.0.9][2-nov-2016]
+### Changed
+- jail_host: renamed ansible_authorized_keys_file to ezjail_flavour_ansible_authorized_keys_file to clarify its purpose
+
+
 ## [v0.0.8][2-nov-2016]
 ### Added
 - freebsd role to create users and install basic packages
