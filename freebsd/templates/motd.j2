@@ -16,11 +16,13 @@
                                                               
                                                               
                                                               
-          OS          : {{ ansible_distribution }} {{ ansible_distribution_version }}
-          Hostname    : {{ ansible_hostname }}
-          IP address  : {{ ansible_eth0.ipv4.address }}
-          System type : {{ ansible_system }}
-          Virt type   : {{ ansible_virtualization_type }} 
+          Hostname      : {{ ansible_hostname }}
+          Uname         : {{ ansible_distribution_version }}
+          IPv4          : {{ ansible_all_ipv4_addresses }}
+          IPv6          : {{ ansible_all_ipv6_addresses }}
+          Jail host     : {{ jail_host | default("Yes") }} 
+          Jail Host CPU : {{ ansible_processor_count }} cores
+          Jail Host RAM : {{ ansible_memtotal_mb }} MB
 
 ---------------------------------------------------------------------------------------------
 
