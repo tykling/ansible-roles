@@ -18,8 +18,8 @@
                                                               
           Hostname      : {{ ansible_nodename }}
           Uname         : {{ ansible_distribution_version }}
-          IPv4          : {{ ansible_all_ipv4_addresses }}
-          IPv6          : {{ ansible_all_ipv6_addresses }}
+          IPv4          : {{ ansible_all_ipv4_addresses | join(", ") }}
+          IPv6          : {{ ansible_all_ipv6_addresses | join(", ") }}
           Jail host     : {{ jail_host | default("Yes") }} 
           Jail Host CPU : {{ ansible_processor_count }} cores
           Jail Host RAM : {{ ansible_memtotal_mb }} MB
