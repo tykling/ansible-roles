@@ -6,6 +6,10 @@ All notable changes to these roles will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v0.0.11][3-nov-2016]
+### Added
+- freebsd: Create /etc/motd
+
 ## [v0.0.10][2-nov-2016]
 ### Changed
 - jail_host: Add dummy placeholder file one more place because git doesn't do empty folders

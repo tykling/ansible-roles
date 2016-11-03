@@ -1,0 +1,26 @@
+
+                    This system is managed by Ansible. 
+                                                              
+                                                              
+         ________                        ________     ____  ________   
+         `MMMMMMM                        `MMMMMMMb.  6MMMMb\`MMMMMMMb. 
+         _MM    \                         MM    `Mb 6M'    ` MM    `Mb 
+         _MM    ___  __   ____     ____   MM     MM MM       MM     MM 
+         _MM   ,`MM 6MM  6MMMMb   6MMMMb  MM    .M9 YM.      MM     MM 
+         _MMMMMM MM69 " 6M'  `Mb 6M'  `Mb MMMMMMM(   YMMMMb  MM     MM 
+         _MM   ` MM'    MM    MM MM    MM MM    `Mb      `Mb MM     MM 
+         _MM     MM     MMMMMMMM MMMMMMMM MM     MM       MM MM     MM 
+         _MM     MM     MM       MM       MM     MM       MM MM     MM 
+         _MM     MM     YM    d9 YM    d9 MM    .M9 L    ,M9 MM    .M9 
+         _MM_   _MM_     YMMMM9   YMMMM9 _MMMMMMM9' MYMMMM9 _MMMMMMM9' 
+                                                              
+                                                              
+                                                              
+          OS          : {{ ansible_distribution }} {{ ansible_distribution_version }}
+          Hostname    : {{ ansible_hostname }}
+          IP address  : {{ ansible_eth0.ipv4.address }}
+          System type : {{ ansible_system }}
+          Virt type   : {{ ansible_virtualization_type }} 
+
+---------------------------------------------------------------------------------------------
+
