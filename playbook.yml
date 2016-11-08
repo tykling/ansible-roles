@@ -77,15 +77,13 @@
   tags:
     - mediawiki_servers
 
-- name: configure nginx ssh servers
-  hosts: nginx_ssh_servers
+- name: configure people servers
+  hosts: people_servers
   roles:
     - freebsd
-    - nginx_ssh_server
-  handlers:
-    - include: handlers/handlers.yml
+    - people_server
   tags:
-    - nginx_ssh_servers
+    - people_servers
 
 - name: configure postfix servers
   hosts: postfix_servers

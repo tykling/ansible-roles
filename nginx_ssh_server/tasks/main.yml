@@ -1,6 +1,0 @@
----
-- include: pkg.yml
-- include: letsencrypt.yml
-- include: nginx.yml
-- include: sshd.yml
-- include: users.yml
