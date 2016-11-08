@@ -5,13 +5,13 @@
     comment="{{ item.value.comment }}"
     password="$1$gbSjoDr0$NgvOjcEBSzdK.WqjWGEfw0"
     update_password="on_create"
-  with_dict: "{{ users }}"
+  with_dict: "{{ users | default({}) }}"
 
 - name: Add ssh authorized_keys
   authorized_key:
     user="{{ item.key }}"
     key="{{ item.value.key }}"
-  with_dict: "{{ users }}"
+  with_dict: "{{ users | default({}) }}"
 
 - name: Add users to sudoers
   lineinfile:
@@ -20,5 +20,5 @@
     regexp="^{{ item.key }} ALL\=\(ALL\) ALL$"
     line="{{ item.key }} ALL=(ALL) ALL"
     validate="visudo -cf %s"
-  with_dict: "{{ users }}"
+  with_dict: "{{ users | default({}) }}"
 
