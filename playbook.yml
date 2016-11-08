@@ -55,6 +55,7 @@
 
 - name: configure dovecot servers
   hosts: dovecot_servers
+  become: yes
   roles:
     - freebsd
     - dovecot_server
@@ -63,6 +64,7 @@
 
 - name: configure erlang webservers
   hosts: erlang_web_servers
+  become: yes
   roles:
     - freebsd
     - erlang_web_server
@@ -71,6 +73,7 @@
 
 - name: configure wiki servers
   hosts: mediawiki_servers
+  become: yes
   roles:
     - freebsd
     - mediawiki_server
@@ -79,6 +82,7 @@
 
 - name: configure people servers
   hosts: people_servers
+  become: yes
   roles:
     - freebsd
     - people_server
@@ -87,6 +91,7 @@
 
 - name: configure postfix servers
   hosts: postfix_servers
+  become: yes
   roles:
     - freebsd
     - postfix_server
@@ -95,6 +100,7 @@
 
 - name: configure tor servers
   hosts: tor_servers
+  become: yes
   roles:
     - freebsd
     - tor_server
