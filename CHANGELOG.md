@@ -5,6 +5,9 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.12][8-nov-2016]
+### Changed
+- nginx_ssh_server: Rename role to people_server, and include all the nginx stuff from nginx_https_server role
 
 ## [v0.0.11][3-nov-2016]
 ### Added
