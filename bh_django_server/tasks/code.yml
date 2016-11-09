@@ -1,10 +1,4 @@
 ---
-- name: Install git
-  become: yes
-  pkgng:
-    name=git
-    state=present
-
 - name: Remove old code
   become: yes
   file:

@@ -1,5 +1,5 @@
 ---
-- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-passwords.yml"
+- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
   tags:
     - always
 
@@ -8,14 +8,6 @@
   template:
     src=roles/django_server/templates/.env.j2
     dest="{{ django_env_path }}"
-  tags:
-    - codedeploy
-
-- name: Copy .env file into place.. again
-  become: yes
-  template:
-    src=roles/django_server/templates/.env.j2
-    dest="{{ django_env_path2 }}"
   tags:
     - codedeploy
 
@@ -102,3 +94,4 @@
     state=restarted
   tags:
     - codedeploy
+

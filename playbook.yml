@@ -107,3 +107,22 @@
   tags:
     - tor_servers
 
+- name: configure django servers
+  hosts: django_servers
+  become: yes
+  role:
+    - freebsd
+    - django_server
+  tags:
+    - django_servers
+
+- name: configure bornhack django servers
+  hosts: bh_django_servers
+  become: yes
+  role:
+    - freebsd
+    - bh_django_server
+  tags:
+    - bh_django_servers
+
+

@@ -1,8 +1,7 @@
 ---
-- include: nginx.yml
-- include: git.yml
+- include: code.yml
 - include: postgres.yml
-- include: pip.yml
+- include: pip-packages.yml
 - include: uwsgi.yml
 - include: django-configuration.yml
 
