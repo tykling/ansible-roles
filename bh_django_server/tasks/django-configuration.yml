@@ -6,7 +6,7 @@
 - name: Copy .env file into place
   become: yes
   template:
-    src=roles/django_server/templates/.env.j2
+    src=.env.j2
     dest="{{ django_env_path }}"
   tags:
     - codedeploy
@@ -39,7 +39,7 @@
 - name: Copy djangomanage rc.d script
   become: yes
   template:
-    src=roles/django_server/templates/djangomanage.j2
+    src=djangomanage.j2
     dest="/usr/local/etc/rc.d/djangomanage"
     owner=root
     group=wheel
