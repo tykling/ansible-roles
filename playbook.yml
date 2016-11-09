@@ -110,7 +110,7 @@
 - name: configure django servers
   hosts: django_servers
   become: yes
-  role:
+  roles:
     - freebsd
     - django_server
   tags:
@@ -119,7 +119,7 @@
 - name: configure bornhack django servers
   hosts: bh_django_servers
   become: yes
-  role:
+  roles:
     - freebsd
     - bh_django_server
   tags:
