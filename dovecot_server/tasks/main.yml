@@ -1,7 +1,7 @@
 ---
 - include: packages.yml
-- include: configuration.yml
 - include: usergroup.yml
+- include: configuration.yml
 - include: syslog.yml
 - include: dovecot.yml
 
