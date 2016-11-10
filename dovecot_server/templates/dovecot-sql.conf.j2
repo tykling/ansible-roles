@@ -1,5 +1,5 @@
 driver = pgsql
-connect = host={{ postgres_host }} dbname={{ postgres_dbname }} user={{ postgres_user }} password={{ postgres_password }}
+connect = host={{ postgres_host }} dbname={{ dovecot_postgres_dbname }} user={{ dovecot_postgres_user }} password={{ dovecot_postgres_password }}
 default_pass_scheme = BLF-CRYPT
 
 password_query = SELECT localpart AS user, domain as domain, password, '/usr/mailboxes/'||domain||'/'||localpart||'/' as userdb_home, \

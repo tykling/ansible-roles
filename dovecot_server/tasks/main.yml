@@ -1,5 +1,7 @@
 ---
-- include: pkg.yml
-- include: letsencrypt.yml
-- include: nginx.yml
+- include: packages.yml
+- include: configuration.yml
+- include: usergroup.yml
+- include: syslog.yml
 - include: dovecot.yml
+
