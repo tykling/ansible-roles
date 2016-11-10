@@ -5,6 +5,11 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.13][11-nov-2016]
+### Changed
+- nginx_https_server: remove must-staple from cli.ini - causes problems for thunderbird
+- dovecot_server: depend on nginx_https_server
+
 ## [v0.0.12][8-nov-2016]
 ### Changed
 - nginx_ssh_server: Rename role to people_server, and include all the nginx stuff from nginx_https_server role
