@@ -55,7 +55,7 @@ auth_mechanisms = plain login
 # SASL listener for postfix
 service auth {
   inet_listener auth {
-    address = {{ vhost_v4ip }}
+    address = {{ nginx_v4_proxy_ip }}
     port = 12
   }
 }
@@ -63,7 +63,7 @@ service auth {
 # LMTP listener for postfix
 service lmtp {
   inet_listener lmtp {
-    address = {{ vhost_v4ip }}
+    address = {{ nginx_v4_proxy_ip }}
     port = 24
   }
 }
@@ -82,3 +82,4 @@ protocol lmtp {
 }
 plugin/sieve = %h/.dovecot.sieve
 plugin/sieve_dir = %h/sieve
+
