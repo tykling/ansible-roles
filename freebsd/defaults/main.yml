@@ -7,4 +7,5 @@ packages:
   - stow
   - git
   - bind-tools
+  - bash
 
