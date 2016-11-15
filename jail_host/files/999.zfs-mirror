@@ -1,0 +1,122 @@
+#!/bin/sh
+#set -x
+
+### check pidfile
+if [ -f /var/run/$(basename $0).pid ]; then
+        echo "pidfile /var/run/$(basename $0).pid exists, bailing out"
+        exit 1
+fi
+echo $$ > /var/run/$(basename $0).pid
+
+
+### If there is a global system configuration file, suck it in.
+if [ -r /etc/defaults/periodic.conf ]; then
+        . /etc/defaults/periodic.conf
+        source_periodic_confs
+fi
+
+case "$daily_zfs_mirror_enable" in
+    [Yy][Ee][Ss])
+        ;;
+    *)
+        exit
+        ;;
+esac
+
+### check for mbuffer
+if ! [ -f /usr/local/bin/mbuffer ]; then
+	echo '/usr/local/bin/mbuffer not found'
+	exit 1
+fi
+
+pools=$daily_zfs_mirror_pools
+if [ -z "$pools" ]; then
+        pools='tank'
+fi
+
+targethost=$daily_zfs_mirror_targethost
+if [ -z "$targethost" ]; then
+        echo '$daily_zfs_mirror_targethost must be set in /etc/periodic.conf'
+        exit 1
+fi
+
+targetuser=$daily_zfs_mirror_targetuser
+if [ -z "$targetuser" ]; then
+        echo '$daily_zfs_mirror_targetuser must be set in /etc/periodic.conf'
+        exit 1
+fi
+
+targetfs=$daily_zfs_mirror_targetfs
+if [ -z "$targetfs" ]; then
+        echo '$daily_zfs_mirror_targetfs must be set in /etc/periodic.conf'
+        exit 1
+fi
+
+if [ -n "$daily_zfs_mirror_skip" ]; then
+        egrep="($(echo $daily_zfs_mirror_skip | sed "s/ /|/g"))"
+fi
+
+### get todays date for later use
+tday=$(date +%Y-%m-%d)
+
+### check if the destination fs exists
+ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh list ${targetfs} > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+        echo "Creating destination fs on target server"
+        echo ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh create ${targetfs}
+        ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh create ${targetfs}
+fi
+
+echo -n "Doing daily ZFS mirroring - "
+date
+
+### loop through the configured pools
+for pool in $pools; do
+        echo "    Processing pool $pool ..."
+        ### enumerate datasets with daily snapshots from today
+        if [ -n "$egrep" ]; then
+                datasets=$(zfs list -t snapshot -o name | grep "^$pool[\/\@]" | egrep -v "$egrep" | grep "@daily-$tday")
+        else
+                datasets=$(zfs list -t snapshot -o name | grep "^$pool[\/\@]" | grep "@daily-$tday")
+        fi
+
+        echo "found datasets: $datasets"
+
+        for snapshot in $datasets; do
+                dataset=$(echo -n $snapshot | cut -d "@" -f 1)
+                echo "working on dataset $dataset"
+                ### find the latest daily snapshot of this dataset on the remote node, if any
+                echo ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh list -t snapshot \| grep "^${targetfs}/${dataset}@daily-" \| cut -d " " -f 1 \| tail -1
+                lastgoodsnap=$(ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh list -t snapshot | grep "^${targetfs}/${dataset}@daily-" | cut -d " " -f 1 | tail -1)
+                if [ -z $lastgoodsnap ]; then
+                        echo "No remote daily snapshot found for local daily snapshot $snapshot - cannot send incremental - sending full backup"
+                        zfs send -v $snapshot | /usr/local/bin/mbuffer | ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh receive -v -F -u $targetfs/$dataset
+                        if [ $? -ne 0 ]; then
+                                echo "    Unable to send full snapshot of $dataset to $targetfs on host $targethost"
+                        else
+                                echo "    Successfully sent a full snapshot of $dataset to $targetfs on host $targethost - future sends will be incremental"
+                        fi
+                else
+                        ### check if this snapshot has already been sent for some reason, skip if so..."
+                        temp=$(echo $snapshot | cut -d "/" -f 2-)
+                        lastgoodsnap="$(echo $lastgoodsnap | sed "s,${targetfs}/,,")"
+                        if [ "$temp" = "$lastgoodsnap" ]; then
+                                echo "    The snapshot $snapshot has already been sent to $targethost, skipping..."
+                        else
+                                ### zfs send the difference between latest remote snapshot and todays local snapshot
+                                echo "    Sending the diff between local snapshot $(hostname)@$lastgoodsnap and $(hostname)@$pool/$snapshot to ${targethost}@${targetfs}/${pool} ..."
+                                zfs send -I $lastgoodsnap $snapshot | /usr/local/bin/mbuffer | ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh receive -v -F -u $targetfs/$dataset
+                                if [ $? -ne 0 ]; then
+                                        echo "    There was a problem sending the diff between $lastgoodsnap and $snapshot to $targetfs on $targethost"
+                                else
+                                        echo "    Successfully sent the diff between $lastgoodsnap and $snapshot to $targethost"
+                                fi
+                        fi
+                fi
+        done
+done
+
+### remove pidfile
+rm /var/run/$(basename $0).pid
+
+
