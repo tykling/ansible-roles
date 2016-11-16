@@ -8,5 +8,6 @@ ssl_session_cache               shared:SSL:10m;
 ssl_session_tickets             off;
 ssl_stapling                    on;
 ssl_stapling_verify             on;
-resolver                        {{ dns_resolver_ip }};
+resolver                        {{ dns_resolver_ips | join(" ") }};
 more_set_headers                "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload;";
+
