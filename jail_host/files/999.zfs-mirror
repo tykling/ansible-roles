@@ -90,7 +90,7 @@ for pool in $pools; do
                 lastgoodsnap=$(ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh list -t snapshot | grep "^${targetfs}/${dataset}@daily-" | cut -d " " -f 1 | tail -1)
                 if [ -z $lastgoodsnap ]; then
                         echo "No remote daily snapshot found for local daily snapshot $snapshot - cannot send incremental - sending full backup"
-                        zfs send -v $snapshot | /usr/local/bin/mbuffer | ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh receive -v -F -u $targetfs/$dataset
+                        zfs send -v $snapshot | /usr/local/bin/mbuffer | ssh ${targetuser}@${targethost} /usr/home/tykbackup/zfscmd.sh receive -v -u $targetfs/$dataset
                         if [ $? -ne 0 ]; then
                                 echo "    Unable to send full snapshot of $dataset to $targetfs on host $targethost"
                         else
