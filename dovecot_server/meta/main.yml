@@ -1,3 +1,3 @@
 ---
 dependencies:
-  - { role: nginx_https_server }
+  - { role: nginx_server, nginx_proxy: True }
