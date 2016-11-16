@@ -35,23 +35,14 @@
   tags:
     - murmur_servers
 
-- name: configure all http servers
-  hosts: nginx_http_servers
+- name: configure all nginx http and https servers
+  hosts: nginx_servers
   become: yes
   roles:
     - freebsd
-    - nginx_http_server
+    - nginx_server
   tags:
-    - nginx_http_servers
-
-- name: configure all https servers
-  hosts: nginx_https_servers
-  become: yes
-  roles:
-    - freebsd
-    - nginx_https_server
-  tags:
-    - nginx_https_servers
+    - nginx_servers
 
 - name: configure dovecot servers
   hosts: dovecot_servers

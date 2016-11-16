@@ -5,6 +5,14 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.17][16-nov-2016]
+### Changed
+- nginx_http_server: Removed
+- nginx_https_server: Removed
+- nginx_server: Added combined role. Make the following changes:
+  - Change inventory files to use nginx_server instead of nginx_http_server and nginx_https_server
+  - Add nginx_proxy: True to host_vars for former nginx_https_server hosts
+
 ## [v0.0.16][16-nov-2016]
 ### Added
 - nginx_http_server: Add local7.none to /var/log/messages line in /etc/syslog.conf

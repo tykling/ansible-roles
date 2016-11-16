@@ -1,3 +1,0 @@
----
-nginx_worker_processes: 10
-nginx_worker_connections: 1024

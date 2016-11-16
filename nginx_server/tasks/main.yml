@@ -1,5 +1,6 @@
 ---
 - include: letsencrypt.yml
+  when: nginx_proxy | default(False)
 - include: syslog.yml
 - include: nginx.yml
 
