@@ -4,7 +4,7 @@ load_module                     /usr/local/libexec/nginx/ngx_http_lua_module.so;
 
 ### default error log
 error_log                               /usr/local/www/logs/error.log;
-error_log                               syslog:server=unix:/var/run/log,facility=local6 debug;
+error_log                               syslog:server=unix:/var/run/log; # defaults to facility local7
 
 ### max clients = worker_processes * worker_connections
 worker_processes                4;
@@ -15,10 +15,9 @@ events {
 http {
     include                     mime.types;
     default_type                application/octet-stream;
-    log_format                  main  '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"';
     log_format                  timing '$time_local - $http_host - $remote_addr - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id';
     access_log                  /usr/local/www/logs/proxytiming.log timing;
-    access_log                  syslog:server=unix:/var/run/log,facility=local6 timing;
+    access_log                  syslog:server=unix:/var/run/log timing; # defaults to facility local7
     sendfile                    off;
     keepalive_timeout           65;
     client_max_body_size        100m;

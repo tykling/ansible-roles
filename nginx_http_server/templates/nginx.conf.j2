@@ -1,5 +1,5 @@
 worker_processes  {{ nginx_worker_processes }};
-error_log syslog:server=unix:/var/run/log debug;
+error_log syslog:server=unix:/var/run/log;
 error_log /usr/local/www/logs/error.log;
 
 events {
@@ -11,11 +11,11 @@ http {
     include       mime.types;
     default_type  application/octet-stream;
 
-    log_format  main  '$host - $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_time';
+    log_format  main  '$host - $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id';
 
     sendfile        off;
     keepalive_timeout  65;
-    client_max_body_size        10m;
+    client_max_body_size        100m;
 
     server {
         listen       80;
@@ -23,7 +23,7 @@ http {
         set_real_ip_from   {{ nginx_v4_proxy_ip }};
         real_ip_header     X-Forwarded-For;
 
-        access_log syslog:server=unix:/var/run/log,facility=local6 main;
+        access_log syslog:server=unix:/var/run/log main;
         access_log /usr/local/www/logs/access.log  main;
 
         uwsgi_buffers 256 4k;
