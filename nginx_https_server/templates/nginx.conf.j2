@@ -7,9 +7,9 @@ error_log                               /usr/local/www/logs/error.log;
 error_log                               syslog:server=unix:/var/run/log; # defaults to facility local7
 
 ### max clients = worker_processes * worker_connections
-worker_processes                4;
+worker_processes                {{ nginx_worker_processes }};
 events {
-    worker_connections          1024;
+    worker_connections          {{ nginx_worker_connections }};
 }
 
 http {
