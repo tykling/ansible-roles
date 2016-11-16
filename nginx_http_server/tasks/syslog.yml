@@ -1,8 +1,7 @@
 ---
-- name: Make sure nginx logs do not go into /var/log/messages
+- name: Add local7.none to the /var/log/messages line in /etc/syslog.conf to keep nginx logs out of that file
   replace:
     dest: /etc/syslog.conf
-    regexp: '^(.+)\s/var/log/messages$'
-    replace: 'local7.none;\1	/var/log/messages'
-    backup: yes
+    regexp: '^((?!.*?local7\.none).*)\s+/var/log/messages$'
+    replace: 'local7.none;\1    /var/log/messages'
 
