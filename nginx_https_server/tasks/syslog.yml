@@ -3,7 +3,7 @@
   replace:
     dest: /etc/syslog.conf
     regexp: '^((?!.*?local7\.none).*)\s+/var/log/messages$'
-    replace: '\1;local7.none    /var/log/messages'
+    replace: '\1;local7.none	/var/log/messages'
   notify:
     - reload syslogd
 
