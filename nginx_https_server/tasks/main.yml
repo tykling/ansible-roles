@@ -1,3 +1,5 @@
 ---
 - include: letsencrypt.yml
+- include: syslog.yml
 - include: nginx.yml
+

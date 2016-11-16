@@ -5,6 +5,11 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.16][16-nov-2016]
+### Added
+- nginx_http_server: Add local7.none to /var/log/messages line in /etc/syslog.conf
+- nginx_https_server: Add local7.none to /var/log/messages line in /etc/syslog.conf
+
 ## [v0.0.15][16-nov-2016]
 ### Added
 - freebsd: add /etc/resolv.conf handling (set dns_resolver_ips to the desired list of ips, defaults to uncensoreddns 91.239.100.100 and 89.233.43.71)
@@ -12,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [v0.0.14][16-nov-2016]
 ### Changed
 - nginx_https_server: increase client_body_buffer_size to 1MB to match proxy_buffers size
-- nginx_https_server: increase client_max_body_size from 10 to 100 MB
+- nginx_https_server: increase client_max_body_size from 10 tto 100 MB
 - nginx_http_server: add X-request-id from frontend to access log format
 - nginx_http_server: increase client_max_body_size from 10 to 100MB to match the frontend setting
 
