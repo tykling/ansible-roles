@@ -1,48 +1,48 @@
 ---
 - name: Install nginx
   pkgng:
-    name=nginx
-    state=present
+    name: nginx
+    state: present
 
 - name: Enable nginx
   service:
-    name=nginx
-    enabled=yes
+    name: nginx
+    enabled: yes
 
 - name: Copy nginx config
   template:
-    src=nginx.conf.j2
-    dest=/usr/local/etc/nginx/nginx.conf
+    src: nginx.conf.j2
+    dest: /usr/local/etc/nginx/nginx.conf
 
 - name: Copy nginx TLS config
   template:
-    src=tls.conf.j2
-    dest=/usr/local/etc/nginx/tls.conf
+    src: tls.conf.j2
+    dest: /usr/local/etc/nginx/tls.conf
 
 - name: Copy nginx securityheaders.conf
   template:
-    src=securityheaders.conf.j2
-    dest=/usr/local/etc/nginx/securityheaders.conf
+    src: securityheaders.conf.j2
+    dest: /usr/local/etc/nginx/securityheaders.conf
 
 - name: Copy nginx proxyheaders.conf
   template:
-    src=proxyheaders.conf.j2
-    dest=/usr/local/etc/nginx/proxyheaders.conf
+    src: proxyheaders.conf.j2
+    dest: /usr/local/etc/nginx/proxyheaders.conf
 
 - name: Create nginx logfile directory
   file:
-    path=/usr/local/www/logs
-    state=directory
+    path: /usr/local/www/logs
+    state: directory
 
 - name: Create nginx vhosts directory
   file:
-    path=/usr/local/etc/nginx/vhosts
-    state=directory
+    path: /usr/local/etc/nginx/vhosts
+    state: directory
 
 - name: Create nginx certificates directory
   file:
-    path=/usr/local/etc/nginx/certificates
-    state=directory
+    path: /usr/local/etc/nginx/certificates
+    state: directory
 
 - name: Create dhparam
   shell: "/usr/local/bin/openssl dhparam 4096 > {{ nginx_dhparam_path }}"
@@ -56,11 +56,11 @@
 
 - name: Create nginx extra include configs (acls and more)
   copy:
-    owner=root
-    group=wheel
-    mode=600
-    content="{{ item.value.content }}"
-    dest="/usr/local/etc/nginx/{{ item.value.filename }}"
+    owner: root
+    group: wheel
+    mode: 600
+    content: "{{ item.value.content }}"
+    dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_extra_configs | default({}) }}"
 
 - name: Include vhosts.yml to configure all vhosts
@@ -72,52 +72,52 @@
 
 - name: Create .htpasswd files
   copy:
-    owner=www
-    group=www
-    mode=600
-    content="{{ item.value.content }}"
-    dest="/usr/local/etc/nginx/{{ item.value.filename }}"
+    owner: www
+    group: www
+    mode: 600
+    content: "{{ item.value.content }}"
+    dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_htpasswd_files | default({}) }}"
 
 - name: Start Nginx (if not running)
   service:
-    name=nginx
-    state=started
+    name: nginx
+    state: started
 
 - name: Reload nginx config
   service:
-    name=nginx
-    state=reloaded
+    name: nginx
+    state: reloaded
 
 - name: Copy nginx OCSP priming script
   copy:
-    owner=root
-    group=wheel
-    mode=755
-    src=prime_nginx_ocsp.sh
-    dest=/usr/local/bin/prime_nginx_ocsp.sh
+    owner: root
+    group: wheel
+    mode: 755
+    src: prime_nginx_ocsp.sh
+    dest: /usr/local/bin/prime_nginx_ocsp.sh
 
 - name: Run nginx ocsp priming script
   command: /usr/local/bin/prime_nginx_ocsp.sh
 
 - name: Make sure hourly cronjob for nginx ocsp priming is in place
   cron:
-    name="nginx ocsp priming script (every hour)"
-    minute="{{ 59 |random }}"
-    job="/usr/local/bin/prime_nginx_ocsp.sh"
-    cron_file="/etc/crontab"
-    user="nobody"
+    name: "nginx ocsp priming script (every hour)"
+    minute: "{{ 59 |random }}"
+    job: "/usr/local/bin/prime_nginx_ocsp.sh"
+    cron_file: "/etc/crontab"
+    user: "nobody"
 
 - name: Make sure /usr/local/etc/newsyslog.conf.d/ exists
   file:
-    path=/usr/local/etc/newsyslog.conf.d
-    state=directory
+    path: /usr/local/etc/newsyslog.conf.d
+    state: directory
 
 - name: Make sure nginx newsyslog config file exists
   copy:
-    owner=root
-    group=wheel
-    mode=755
-    src=nginx-newsyslog.conf
-    dest=/usr/local/etc/newsyslog.conf.d/nginx
+    owner: root
+    group: wheel
+    mode: 755
+    src: nginx-newsyslog.conf
+    dest: /usr/local/etc/newsyslog.conf.d/nginx
 

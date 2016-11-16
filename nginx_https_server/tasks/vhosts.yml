@@ -7,17 +7,19 @@
 
 - name: Copy vhost http configs
   template:
-    src=http-vhost.conf.j2
-    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
+    src: http-vhost.conf.j2
+    dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
   with_dict: "{{ vhosts }}"
 
 - name: Reload nginx configs
-  service: name=nginx state=reloaded
+  service:
+    name: nginx
+    state: reloaded
 
 - name: Create letsencrypt config files for all vhosts
   template:
-    src=cli.ini.j2
-    dest="/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
+    src: cli.ini.j2
+    dest: "/usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini"
   with_dict: "{{ vhosts }}"
   when: item.value.letsencrypt | default(True)
 
@@ -30,47 +32,47 @@
 
 - name: Make sure letsencrypt renew cronjob is in place for all LE vhosts
   cron:
-    name="LetsEncrypt Renew Job for domain {{ item.value.hostnames[0] }} ({{ item.value.hostnames|length }} domains total)"
-    minute="{{ 59 |random }}"
-    hour="2"
-    weekday="1"
-    job="/usr/local/bin/certbot certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini --post-hook '/usr/sbin/service -R'"
-    cron_file="/etc/crontab"
-    user="root"
+    name: "LetsEncrypt Renew Job for domain {{ item.value.hostnames[0] }} ({{ item.value.hostnames|length }} domains total)"
+    minute: "{{ 59 |random }}"
+    hour: 2
+    weekday: 1
+    job: "/usr/local/bin/certbot certonly --non-interactive --config /usr/local/etc/letsencrypt/{{ item.value.hostnames[0] }}-letsencrypt.ini --post-hook '/usr/sbin/service -R'"
+    cron_file: "/etc/crontab"
+    user: "root"
   with_dict: "{{ vhosts }}"
   when: item.value.letsencrypt | default(True)
 
 - name: Create private key files for non-LE vhosts (if any)
   copy:
-    owner=root
-    group=wheel
-    mode=600
-    content="{{ item.value.privkey }}"
-    dest="/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
+    owner: root
+    group: wheel
+    mode: 600
+    content: "{{ item.value.privkey }}"
+    dest: "/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
   with_dict: '{{ vhosts_cert_privkeys | default({}) }}'
 
 - name: Create certificate files for non-LE vhosts
   copy:
-    owner=root
-    group=wheel
-    mode=600
-    content="{{ item.value.certificate }}"
-    dest="/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
+    owner: root
+    group: wheel
+    mode: 600
+    content: "{{ item.value.certificate }}"
+    dest: "/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
   with_dict: "{{ vhosts }}"
   when: not item.value.letsencrypt | default(True)
 
 - name: Copy vhost https configs
   template:
-    src=https-vhost.conf.j2
-    dest="/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
+    src: https-vhost.conf.j2
+    dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
   with_dict: "{{ vhosts }}"
 
 - name: Copy custom vhosts
   copy:
-    owner=root
-    group=wheel
-    mode=600
-    content="{{ item.value.content }}"
-    dest="/usr/local/etc/nginx/vhosts/{{ item.value.filename }}.conf"
+    owner: root
+    group: wheel
+    mode: 600
+    content: "{{ item.value.content }}"
+    dest: "/usr/local/etc/nginx/vhosts/{{ item.value.filename }}.conf"
   with_dict: "{{ custom_vhosts | default({}) }}"
  
