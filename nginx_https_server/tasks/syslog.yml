@@ -3,5 +3,5 @@
   replace:
     dest: /etc/syslog.conf
     regexp: '^((?!.*?local7\.none).*)\s+/var/log/messages$'
-    replace: 'local7.none;\1    /var/log/messages'
+    replace: '\1;local7.none    /var/log/messages'
 
