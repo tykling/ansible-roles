@@ -21,7 +21,8 @@ http {
     access_log                  syslog:server=unix:/var/run/log,facility=local6 timing;
     sendfile                    off;
     keepalive_timeout           65;
-    client_max_body_size        10m;
+    client_max_body_size        100m;
+    client_body_buffer_size     1m;
     proxy_buffers               256 4k;
     server_tokens               off;
 
