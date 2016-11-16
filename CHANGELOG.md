@@ -5,6 +5,13 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.14][16-nov-2016]
+### Changed
+- nginx_https_server: increase client_body_buffer_size to 1MB to match proxy_buffers size
+- nginx_https_server: increase client_max_body_size from 10 to 100 MB
+- nginx_http_server: add X-request-id from frontend to access log format
+- nginx_http_server: increase client_max_body_size from 10 to 100MB to match the frontend setting
+
 ## [v0.0.13][11-nov-2016]
 ### Changed
 - nginx_https_server: remove must-staple from cli.ini - causes problems for thunderbird
