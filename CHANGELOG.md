@@ -5,6 +5,10 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.15][16-nov-2016]
+### Added
+- freebsd: add /etc/resolv.conf handling (set dns_resolver_ips to the desired list of ips, defaults to uncensoreddns 91.239.100.100 and 89.233.43.71)
+
 ## [v0.0.14][16-nov-2016]
 ### Changed
 - nginx_https_server: increase client_body_buffer_size to 1MB to match proxy_buffers size
