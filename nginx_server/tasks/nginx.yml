@@ -64,7 +64,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 600
+    mode: 0600
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_extra_configs | default({}) }}"
