@@ -83,7 +83,7 @@
   copy:
     owner: www
     group: www
-    mode: 600
+    mode: 0600
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_htpasswd_files | default({}) }}"
