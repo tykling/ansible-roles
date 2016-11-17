@@ -4,27 +4,28 @@
 - name: Install mediawiki
   become: yes
   pkgng:
-    name=mediawiki126
-    state=present
+    name: mediawiki126
+    state: present
 
 - name: Configure mediawiki
   become: yes
   template:
-    src=LocalSettings.php.j2
-    dest=/usr/local/www/mediawiki/LocalSettings.php
+    src: LocalSettings.php.j2
+    dest: /usr/local/www/mediawiki/LocalSettings.php
 
 - name: Install calendar extension
   become: yes
   git:
-    repo="https://github.com/improper/mediawiki-extensions-yasec"
-    dest="/usr/local/www/mediawiki/extensions/yasec"
-    version="master"
+    repo: "https://github.com/improper/mediawiki-extensions-yasec"
+    dest: "/usr/local/www/mediawiki/extensions/yasec"
+    version: "master"
 
 - name: Copy wiki logo
   become: yes
   copy:
-    src=roles/mediawiki_server/files/bornhacklogo.png
-    dest=/usr/local/www/mediawiki/resources/assets/
-    owner=root
-    group=wheel
-    mode=0755
+    src: bornhacklogo.png
+    dest: /usr/local/www/mediawiki/resources/assets/
+    owner: root
+    group: wheel
+    mode: 0755
+

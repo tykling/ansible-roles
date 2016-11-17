@@ -2,18 +2,18 @@
 - name: Remove old code
   become: yes
   file:
-    path={{ django_root }}
-    state=absent
+    path: "{{ django_root }}"
+    state: absent
   tags:
     - codedeploy
   
 - name: Get code from git
   become: yes
   git:
-    repo={{ github_repo_url }}
-    dest={{ django_root }}
-    force=yes
-    version={{ github_branch }}
+    repo: "{{ django_github_repo_url }}"
+    dest: "{{ django_root }}"
+    force: yes
+    version: "{{ django_github_branch }}"
   tags:
     - codedeploy
 

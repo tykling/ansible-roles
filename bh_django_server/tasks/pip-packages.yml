@@ -2,10 +2,11 @@
 - name: Install pip
   become: yes
   pkgng:
-    name=py27-pip
-    state=present
+    name: py27-pip
+    state: present
 
 - name: Install needed pip modules
   become: yes
-  pip: requirements={{ django_pip_requirements_path }}
+  pip:
+    requirements: "{{ django_pip_requirements_path }}"
 

@@ -1,13 +1,13 @@
 ---
 - name: Install uwsgi
   pkgng:
-    name=uwsgi
-    state=present
+    name: uwsgi
+    state: present
 
 - name: Enable uwsgi
   service:
-    name=uwsgi
-    enabled=yes
+    name: uwsgi
+    enabled: yes
 
 - name: Define uwsgi profiles in rc.conf
   sysrc:
@@ -21,23 +21,23 @@
 
 - name: Create uwsgi config directory
   file:
-    path=/usr/local/etc/uwsgi
-    state=directory
+    path: /usr/local/etc/uwsgi
+    state: directory
 
 - name: Copy uwsgi config file
   template:
-    src=uwsgi.ini.j2
-    dest=/usr/local/etc/uwsgi/uwsgi.ini
+    src: uwsgi.ini.j2
+    dest: /usr/local/etc/uwsgi/uwsgi.ini
 
 - name: Start uwsgi (if neccesary)
   service:
-    name=uwsgi
-    state=started
+    name: uwsgi
+    state: started
 
 - name: Reload uwsgi
   service:
-    name=uwsgi
-    state=reloaded
+    name: uwsgi
+    state: reloaded
   tags:
     - codedeploy
 

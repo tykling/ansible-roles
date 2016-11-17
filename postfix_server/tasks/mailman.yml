@@ -2,23 +2,23 @@
 - name: Install mailman
   become: yes
   pkgng:
-    name=mailman
-    state=present
+    name: mailman
+    state: present
 
 - name: Enable mailman
   become: yes
   service:
-    name=mailman
-    enabled=yes
+    name: mailman
+    enabled: yes
 
 - name: Install postfix-to-mailman.py
   become: yes
   copy:
-    owner=mailman
-    group=mailman
-    mode=740
-    src=postfix-to-mailman.py
-    dest=/usr/local/mailman/postfix-to-mailman.py
+    owner: mailman
+    group: mailman
+    mode: 740
+    src: postfix-to-mailman.py
+    dest: /usr/local/mailman/postfix-to-mailman.py
 
 - name: Add postfix-to-mailman.py to master.cf
   become: yes
@@ -34,72 +34,72 @@
 - name: Configure mailman DEFAULT_EMAIL_HOST
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_EMAIL_HOST = "
-    line="DEFAULT_EMAIL_HOST = '{{ postfix_virtual_alias_domains[0] }}'"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_EMAIL_HOST = "
+    line: "DEFAULT_EMAIL_HOST = '{{ postfix_virtual_alias_domains[0] }}'"
 
 - name: Configure mailman DEFAULT_URL_HOST
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_URL_HOST = "
-    line="DEFAULT_URL_HOST = '{{ ansible_nodename }}'"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_URL_HOST = "
+    line: "DEFAULT_URL_HOST = '{{ ansible_nodename }}'"
 
 - name: Configure mailman DEFAULT_URL_PATTERN
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_URL_PATTERN = "
-    line="DEFAULT_URL_PATTERN = 'https://%s/mailman/'"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_URL_PATTERN = "
+    line: "DEFAULT_URL_PATTERN = 'https://%s/mailman/'"
 
 - name: Configure mailman DEFAULT_FROM_IS_LIST
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_FROM_IS_LIST = "
-    line="DEFAULT_FROM_IS_LIST = 1"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_FROM_IS_LIST = "
+    line: "DEFAULT_FROM_IS_LIST = 1"
 
 - name: Configure mailman DEFAULT_LIST_ADVERTISED
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_LIST_ADVERTISED = "
-    line="DEFAULT_LIST_ADVERTISED = Yes"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_LIST_ADVERTISED = "
+    line: "DEFAULT_LIST_ADVERTISED = Yes"
 
 - name: Configure mailman DEFAULT_SUBSCRIBE_POLICY
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_SUBSCRIBE_POLICY = "
-    line="DEFAULT_SUBSCRIBE_POLICY = 3"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_SUBSCRIBE_POLICY = "
+    line: "DEFAULT_SUBSCRIBE_POLICY = 3"
 
 - name: Configure mailman DEFAULT_ARCHIVE_PRIVATE
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_ARCHIVE_PRIVATE = "
-    line="DEFAULT_ARCHIVE_PRIVATE = 1"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_ARCHIVE_PRIVATE = "
+    line: "DEFAULT_ARCHIVE_PRIVATE = 1"
 
 - name: Configure mailman DEFAULT_FIRST_STRIP_REPLY_TO
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_FIRST_STRIP_REPLY_TO = "
-    line="DEFAULT_FIRST_STRIP_REPLY_TO = 1"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_FIRST_STRIP_REPLY_TO = "
+    line: "DEFAULT_FIRST_STRIP_REPLY_TO = 1"
 
 - name: Configure mailman DEFAULT_REPLY_GOES_TO_LIST
   become: yes
   lineinfile:
-    dest=/usr/local/mailman/Mailman/mm_cfg.py
-    regexp="^DEFAULT_REPLY_GOES_TO_LIST = "
-    line="DEFAULT_REPLY_GOES_TO_LIST = 1"
+    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    regexp: "^DEFAULT_REPLY_GOES_TO_LIST = "
+    line: "DEFAULT_REPLY_GOES_TO_LIST = 1"
 
 - name: Fix permissions on mailman private archive dir
   become: yes
   file:
-    path=/usr/local/mailman/archives/private
-    state=directory
-    mode=02770
+    path: /usr/local/mailman/archives/private
+    state: directory
+    mode: 02770
 
 - name: generate mailman list password
   shell: "openssl rand -base64 33 | tr -d '='"
@@ -135,8 +135,8 @@
 - name: Start mailman
   become: yes
   service:
-    name=mailman
-    state=started
+    name: mailman
+    state: started
 
 - name: generate mailinglist passwords
   shell: "openssl rand -base64 33 | tr -d '='"
@@ -176,5 +176,6 @@
 - name: Reload Postfix
   become: yes
   service:
-    name=postfix
-    state=reloaded
+    name: postfix
+    state: reloaded
+

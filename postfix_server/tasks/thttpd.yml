@@ -2,23 +2,24 @@
 - name: Install thttpd
   become: yes
   pkgng:
-    name=thttpd
-    state=present
+    name: thttpd
+    state: present
 
 - name: Enable thttpd
   become: yes
   service:
-    name=thttpd
-    enabled=yes
+    name: thttpd
+    enabled: yes
 
 - name: Copy thttpd config
   become: yes
   template:
-    src=thttpd.conf.j2
-    dest=/usr/local/etc/thttpd.conf
+    src: thttpd.conf.j2
+    dest: /usr/local/etc/thttpd.conf
 
 - name: Start thttpd (if not running)
   become: yes
   service:
-    name=thttpd
-    state=started
+    name: thttpd
+    state: started
+

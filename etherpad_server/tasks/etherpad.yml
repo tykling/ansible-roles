@@ -3,54 +3,54 @@
 
 - name: Install node
   pkgng:
-    name=node
-    state=present
+    name: node
+    state: present
 
 - name: Install npm
   pkgng:
-    name=npm
-    state=present
+    name: npm
+    state: present
 
 - name: Install git
   pkgng:
-    name=git
-    state=present
+    name: git
+    state: present
   
 - name: add etherpad user
   user:
-    name="etherpad"
-    comment="etherpad user"
-    home="{{ etherpad_home }}"
+    name: "etherpad"
+    comment: "etherpad user"
+    home: "{{ etherpad_home }}"
 
 - name: Get etherpad-lite code from git
   git:
-    repo="git://github.com/ether/etherpad-lite.git"
-    dest="{{ etherpadlite_root }}"
-    version="master"
+    repo: "git://github.com/ether/etherpad-lite.git"
+    dest: "{{ etherpadlite_root }}"
+    version: "master"
 
 - name: Copy etherpad-lite config
   template:
-    src=settings.json.j2
-    dest="{{ etherpadlite_root }}/settings.json"
+    src: settings.json.j2
+    dest: "{{ etherpadlite_root }}/settings.json"
 
 - name: fix ownership and permissions of etherpad-lite folder
   file:
-    path="{{ etherpadlite_root }}"
-    owner="etherpad"
-    group="etherpad"
-    recurse=yes
+    path: "{{ etherpadlite_root }}"
+    owner: "etherpad"
+    group: "etherpad"
+    recurse: yes
 
 - name: Copy etherpad-lite rc.d script
   template:
-    src=etherpad.j2
-    dest="/usr/local/etc/rc.d/etherpad"
+    src: etherpad.j2
+    dest: "/usr/local/etc/rc.d/etherpad"
 
 - name: Make the etherpad-lite rc.d script executable
   file:
-    path="/usr/local/etc/rc.d/etherpad"
-    owner=root
-    group=wheel
-    mode=0555
+    path: "/usr/local/etc/rc.d/etherpad"
+    owner: root
+    group: wheel
+    mode: 0555
 
 - name: Enable etherpad-lite in rc.conf
   sysrc:
@@ -64,5 +64,6 @@
 
 - name: Restart etherpad-lite
   service:
-    name=etherpad
-    state=restarted
+    name: etherpad
+    state: restarted
+

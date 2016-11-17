@@ -2,44 +2,44 @@
 - name: Install nginx
   become: yes
   pkgng:
-    name=nginx
-    state=present
+    name: nginx
+    state: present
 
 - name: Enable nginx
   become: yes
   service:
-    name=nginx
-    enabled=yes
+    name: nginx
+    enabled: yes
 
 - name: Copy nginx config
   become: yes
   template:
-    src=nginx.conf.j2
-    dest=/usr/local/etc/nginx/nginx.conf
+    src: nginx.conf.j2
+    dest: /usr/local/etc/nginx/nginx.conf
 
 - name: Copy nginx TLS config
   become: yes
   template:
-    src=tls.conf.j2
-    dest=/usr/local/etc/nginx/tls.conf
+    src: tls.conf.j2
+    dest: /usr/local/etc/nginx/tls.conf
 
 - name: Create nginx logfile directory
   become: yes
   file:
-    path=/usr/local/www/logs
-    state=directory
+    path: /usr/local/www/logs
+    state: directory
 
 - name: Create nginx vhosts directory
   become: yes
   file:
-    path=/usr/local/etc/nginx/vhosts
-    state=directory
+    path: /usr/local/etc/nginx/vhosts
+    state: directory
 
 - name: Create nginx certificates directory
   become: yes
   file:
-    path=/usr/local/etc/nginx/certificates
-    state=directory
+    path: /usr/local/etc/nginx/certificates
+    state: directory
 
 - name: Create dhparam
   become: yes
@@ -52,12 +52,12 @@
 - name: Start Nginx (if not running)
   become: yes
   service:
-    name=nginx
-    state=started
+    name: nginx
+    state: started
 
 - name: Reload nginx config
   become: yes
   service:
-    name=nginx
-    state=reloaded
+    name: nginx
+    state: reloaded
 

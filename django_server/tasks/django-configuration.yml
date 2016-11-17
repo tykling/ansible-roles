@@ -5,21 +5,22 @@
 
 - name: Copy environment_settings.py into place
   template:
-    src=roles/django_server/templates/environment_settings.py.j2
-    dest="{{ django_env_settings_path }}"
+    src: environment_settings.py.j2
+    dest: "{{ django_env_settings_path }}"
   tags:
     - codedeploy
 
 - name: Run collectstatic
   django_manage:
-    command=collectstatic
-    app_path="{{ django_root }}"
+    command: collectstatic
+    app_path: "{{ django_root }}"
   tags:
     - codedeploy
 
 - name: Run compilemessages
   django_manage:
-    command=compilemessages
-    app_path="{{ django_root }}"
+    command: compilemessages
+    app_path: "{{ django_root }}"
   tags:
     - codedeploy
+

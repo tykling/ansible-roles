@@ -1,9 +1,10 @@
 ---
 - name: Install pip
   pkgng:
-    name=py27-pip
-    state=present
+    name: py27-pip
+    state: present
 
 - name: Install needed pip modules
-  pip: requirements={{ pip_requirements_path }}
+  pip:
+    requirements: "{{ pip_requirements_path }}"
 

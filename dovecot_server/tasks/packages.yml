@@ -2,12 +2,12 @@
 - name: Install dovecot
   become: yes
   pkgng:
-    name=dovecot2
-    state=present
+    name: dovecot2
+    state: present
 
 - name: Install dovecot-managesieve
   become: yes
   pkgng:
-    name=dovecot-pigeonhole
-    state=present
+    name: dovecot-pigeonhole
+    state: present
 

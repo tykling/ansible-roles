@@ -1,48 +1,48 @@
 ---
 - name: Delete the ezjail flavour
   file:
-    path=/usr/jails/flavours/{{ ezjail_flavourname }}/
-    state=absent
+    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
+    state: absent
 
 - name: Create ezjail flavour directory
   file:
-    path=/usr/jails/flavours/{{ ezjail_flavourname }}/
-    state=directory
+    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
+    state: directory
 
 - name: Copy ezjail flavour
   copy:
-    owner=root
-    group=wheel
-    mode=644
-    src=ezjailflavour/
-    dest=/usr/jails/flavours/{{ ezjail_flavourname }}/
+    owner: root
+    group: wheel
+    mode: 644
+    src: ezjailflavour/
+    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
 
 - name: Find placeholder files because git is stupid
   find:
-    paths=/usr/jails/flavours/{{ ezjail_flavourname }}/
-    patterns=dummy_file_because_git_is_stupid
-    recurse=yes
+    paths: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
+    patterns: dummy_file_because_git_is_stupid
+    recurse: yes
   register: result
 
 - name: Delete placeholder files because git is stupid
   file:
-    path="{{item.path}}"
-    state=absent
+    path: "{{item.path}}"
+    state: absent
   with_items: "{{ result.files }}"
 
 - name: Add the ssh key for the ansible user
   copy:
-    owner=1337
-    group=1337
-    mode=644
-    content="{{ ezjail_flavour_ansible_authorized_keys_file }}"
-    dest="/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/authorized_keys"
+    owner: 1337
+    group: 1337
+    mode: 644
+    content: "{{ ezjail_flavour_ansible_authorized_keys_file }}"
+    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/authorized_keys"
 
 - name: Copy the ezjail flavour script template
   template:
-    src=ezjail.flavour.j2
-    dest=/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}
-    owner=root
-    group=wheel
-    mode=0744
+    src: ezjail.flavour.j2
+    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}"
+    owner: root
+    group: wheel
+    mode: 0744
 

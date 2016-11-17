@@ -6,44 +6,44 @@
 - name: Copy .env file into place
   become: yes
   template:
-    src=.env.j2
-    dest="{{ django_env_path }}"
+    src: ".env.j2"
+    dest: "{{ django_env_path }}"
   tags:
     - codedeploy
 
 - name: Run collectstatic
   become: yes
   django_manage:
-    command=collectstatic
-    app_path="{{ django_root }}"
+    command: collectstatic
+    app_path: "{{ django_root }}"
   tags:
     - codedeploy
 
 - name: Create django media root directory
   become: yes
   file:
-    path={{ django_media_root }}
-    state=directory
-    owner=www
-    group=www
+    path: {{ django_media_root }}
+    state: directory
+    owner: www
+    group: www
 
 - name: Create django media root subdirectories
   become: yes
   file:
-    path={{ django_media_root }}/{{ item }}
-    state=directory
-    owner=www
-    group=www
+    path: {{ django_media_root }}/{{ item }}
+    state: directory
+    owner: www
+    group: www
   with_items: "{{ django_media_root_subdirs }}"
 
 - name: Copy djangomanage rc.d script
   become: yes
   template:
-    src=djangomanage.j2
-    dest="/usr/local/etc/rc.d/djangomanage"
-    owner=root
-    group=wheel
-    mode=555
+    src: djangomanage.j2
+    dest: "/usr/local/etc/rc.d/djangomanage"
+    owner: root
+    group: wheel
+    mode: 555
 
 - name: Configure djangomanage_path
   become: yes
@@ -84,14 +84,14 @@
 - name: Enable djangomanage
   become: yes
   service:
-    name=djangomanage
-    enabled=yes
+    name: djangomanage
+    enabled: yes
 
 - name: Restart djangomanage workers
   become: yes
   service:
-    name=djangomanage
-    state=restarted
+    name: djangomanage
+    state: restarted
   tags:
     - codedeploy
 
