@@ -6,12 +6,14 @@
     password="$1$gbSjoDr0$NgvOjcEBSzdK.WqjWGEfw0"
     update_password="on_create"
   with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
 
 - name: Add ssh authorized_keys
   authorized_key:
     user="{{ item.key }}"
     key="{{ item.value.key }}"
   with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
 
 - name: Add users to sudoers
   lineinfile:
@@ -21,4 +23,5 @@
     line="{{ item.key }} ALL=(ALL) ALL"
     validate="visudo -cf %s"
   with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
 
