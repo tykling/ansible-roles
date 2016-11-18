@@ -19,7 +19,7 @@
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
-    regexp: "^{{ item.key }} ALL\=\(ALL\) ALL$"
+    regexp: "^{{ item.key }} ALL=\\(ALL\\) ALL$"
     line: "{{ item.key }} ALL=(ALL) ALL"
     validate: "visudo -cf %s"
   with_dict: "{{ users | default({}) }}"
