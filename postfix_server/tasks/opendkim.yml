@@ -12,7 +12,7 @@
     state: directory
     owner: postfix
     group: wheel
-    mode: 755
+    mode: "755"
 
 - name: Copy opendkim.conf
   become: yes
@@ -27,7 +27,7 @@
     dest: /usr/local/etc/opendkim.keytable
     owner: root
     group: wheel
-    mode: 644
+    mode: "644"
 
 - name: Install opendkim.signingtable
   become: yes
@@ -36,7 +36,7 @@
     dest: /usr/local/etc/opendkim.signingtable
     owner: root
     group: wheel
-    mode: 644
+    mode: "644"
 
 - name: Create opendkim key directory
   become: yes
@@ -45,14 +45,14 @@
     state: directory
     owner: postfix
     group: postfix
-    mode: 500
+    mode: "500"
 
 - name: Create opendkim keys
   become: yes
   copy:
     owner: postfix
     group: postfix
-    mode: 600
+    mode: "600"
     content: "{{ item.value }}"
     dest: "/usr/local/etc/opendkim/{{ item.key }}-default.private"
   with_dict: "{{ dkimkeys }}"

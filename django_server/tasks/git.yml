@@ -28,7 +28,7 @@
 - name: Make manage.py executable
   file:
     path: "{{ django_root }}manage.py"
-    mode: 0755
+    mode: "755"
   tags:
     - codedeploy
 

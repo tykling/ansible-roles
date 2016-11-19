@@ -10,14 +10,14 @@
   template:
     src: dovecot-sql.conf.j2
     dest: /usr/local/etc/dovecot/dovecot-sql.conf
-    mode: 600
+    mode: "600"
 
 - name: Create mailbox folder
   become: yes
   file:
     path: /usr/mailboxes
     state: directory
-    mode: 0700
+    mode: "700"
     owner: "{{ dovecot_vmail_username}}"
     group: "{{ dovecot_vmail_groupname}}"
 

@@ -16,7 +16,7 @@
   copy:
     owner: mailman
     group: mailman
-    mode: 740
+    mode: "740"
     src: postfix-to-mailman.py
     dest: /usr/local/mailman/postfix-to-mailman.py
 
@@ -99,7 +99,7 @@
   file:
     path: /usr/local/mailman/archives/private
     state: directory
-    mode: 02770
+    mode: "2770"
 
 - name: generate mailman list password
   shell: "openssl rand -base64 33 | tr -d '='"

@@ -4,7 +4,7 @@
   file:
     path: /usr/webhomes
     state: directory
-    mode: 0755
+    mode: "755"
 
 - name: Create webusers group
   become: yes
@@ -17,7 +17,7 @@
   file:
     path: "/usr/webhomes/{{ item.key }}chroot"
     state: directory
-    mode: 0755
+    mode: "755"
   with_dict: "{{ webusers }}"
   tags:
     - usermanagement
@@ -39,7 +39,7 @@
   file:
     path: "/usr/webhomes/{{ item.key }}chroot/{{ item.key }}/wwwroot"
     state: directory
-    mode: 0755
+    mode: "755"
     owner: "{{ item.key }}"
     group: webusers
   with_dict: "{{ webusers }}"

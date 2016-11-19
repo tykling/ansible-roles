@@ -64,7 +64,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 0600
+    mode: "600"
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_extra_configs | default({}) }}"
@@ -83,7 +83,7 @@
   copy:
     owner: www
     group: www
-    mode: 0600
+    mode: "600"
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_htpasswd_files | default({}) }}"
@@ -103,7 +103,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 755
+    mode: "755"
     src: prime_nginx_ocsp.sh
     dest: /usr/local/bin/prime_nginx_ocsp.sh
   when: nginx_proxy | default(False)
@@ -130,7 +130,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 755
+    mode: "755"
     src: nginx-newsyslog.conf
     dest: /usr/local/etc/newsyslog.conf.d/nginx
 

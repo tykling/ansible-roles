@@ -11,7 +11,7 @@
   file:
     path: /var/log/dovecot.log
     state: touch
-    mode: 0600
+    mode: "600"
 
 - name: Reload syslogd
   become: yes

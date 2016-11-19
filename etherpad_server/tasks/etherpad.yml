@@ -50,7 +50,7 @@
     path: "/usr/local/etc/rc.d/etherpad"
     owner: root
     group: wheel
-    mode: 0555
+    mode: "555"
 
 - name: Enable etherpad-lite in rc.conf
   sysrc:

@@ -43,7 +43,7 @@
     dest: "/usr/local/etc/rc.d/djangomanage"
     owner: root
     group: wheel
-    mode: 555
+    mode: "555"
 
 - name: Configure djangomanage_path
   become: yes

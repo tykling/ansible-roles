@@ -32,7 +32,7 @@
     state: directory
     owner: _tor
     group: _tor
-    mode: 700
+    mode: "700"
   with_dict: "{{hiddenservices}}"
 
 - name: Copy hidden service hostnames
@@ -42,7 +42,7 @@
     dest: "/var/db/tor/{{ item.key }}/hostname"
     owner: _tor
     group: _tor
-    mode: 600
+    mode: "600"
   with_dict: "{{hiddenservices}}"
 
 - name: Copy hidden service keys
@@ -52,7 +52,7 @@
     dest: "/var/db/tor/{{ item.key }}/private_key"
     owner: _tor
     group: _tor
-    mode: 600
+    mode: "600"
   with_dict: "{{hiddenservices}}"
 
 - name: Start tor (if not running)

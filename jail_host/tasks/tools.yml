@@ -3,7 +3,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 755
+    mode: "755"
     src: 999.zfs-mirror
     dest: /usr/local/etc/periodic/daily/999.zfs-mirror
 

@@ -22,21 +22,21 @@
   template:
     src: smtpd_sender_login_maps.sql
     dest: /usr/local/etc/postfix/smtpd_sender_login_maps.sql
-    mode: 0600
+    mode: "600"
 
 - name: Copy postfix virtual_alias_maps.sql
   become: yes
   template:
     src: virtual_alias_maps.sql
     dest: /usr/local/etc/postfix/virtual_alias_maps.sql
-    mode: 0600
+    mode: "600"
 
 - name: Copy postfix virtual_mailbox_maps.sql
   become: yes
   template:
     src: smtpd_sender_login_maps.sql
     dest: /usr/local/etc/postfix/virtual_mailbox_maps.sql
-    mode: 0600
+    mode: "600"
 
 - name: Run postalias
   become: yes
@@ -45,7 +45,7 @@
 - name: Copy postfix transport file
   become: yes
   template:
-    mode: 0644
+    mode: "644"
     src: transport.j2
     dest: /usr/local/etc/postfix/transport
 

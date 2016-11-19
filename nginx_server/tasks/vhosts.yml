@@ -46,7 +46,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 600
+    mode: "600"
     content: "{{ item.value.privkey }}"
     dest: "/usr/local/etc/nginx/certificates/{{ item.value.hostname }}.key"
   with_dict: '{{ vhosts_cert_privkeys | default({}) }}'
@@ -55,7 +55,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 600
+    mode: "600"
     content: "{{ item.value.certificate }}"
     dest: "/usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt"
   with_dict: "{{ vhosts }}"
@@ -71,7 +71,7 @@
   copy:
     owner: root
     group: wheel
-    mode: 600
+    mode: "600"
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.filename }}.conf"
   with_dict: "{{ custom_vhosts | default({}) }}"
