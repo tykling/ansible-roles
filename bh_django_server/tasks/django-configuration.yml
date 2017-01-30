@@ -16,7 +16,7 @@
   django_manage:
     command: collectstatic
     app_path: "{{ django_root }}"
-    virtualenv: "{{ django_env_path }}"
+    virtualenv: "{{ django_virtualenv_path }}"
   tags:
     - codedeploy
 
