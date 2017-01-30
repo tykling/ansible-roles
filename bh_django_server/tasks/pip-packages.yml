@@ -11,7 +11,7 @@
 
 - name: Install python 3.5 for django
   pkgng:
-    name: python3.5
+    name: python35
     state: present
 
 - name: Install needed pip modules
