@@ -12,6 +12,6 @@
 - name: Install needed pip modules
   pip:
     requirements: "{{ django_pip_requirements_path }}"
-    virtualenv: "{{ django_pip_requirements_path: }}"
+    virtualenv: "{{ django_pip_requirements_path }}"
     virtualenv_python: "{{ django_python_path }}"
 
