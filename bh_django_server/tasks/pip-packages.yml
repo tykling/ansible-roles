@@ -14,6 +14,12 @@
     name: python35
     state: present
 
+- name: Install OS dependencies for django
+  pkgng:
+    name: {{ item }}
+    state: present
+  with_items: "{{ django_os_dependencies | default([]) }}"
+
 - name: Install needed pip modules
   pip:
     requirements: "{{ django_pip_requirements_path }}"
