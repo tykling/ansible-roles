@@ -1,5 +1,5 @@
 ---
 django_github_branch: master
-django_pip_requirements_path: /usr/local/virtualenv
+django_virtualenv_path: /usr/local/virtualenv
 django_python_path: /usr/local/bin/python3.5
 
