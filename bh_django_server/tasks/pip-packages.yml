@@ -4,6 +4,11 @@
     name: py27-pip
     state: present
 
+- name: Install virtualenv
+  pkgng:
+    name: py27-virtualenv
+    state: present
+
 - name: Install python 3.5 for django
   pkgng:
     name: python35
