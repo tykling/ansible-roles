@@ -50,7 +50,7 @@
   become: yes
   sysrc:
     name: djangomanage_path
-    value: "{{ django_root }}manage.py"
+    value: "{{ django_root }}/manage.py"
 
 - name: Configure djangomanage_user
   become: yes
