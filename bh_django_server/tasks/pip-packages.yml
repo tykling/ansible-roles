@@ -1,12 +1,17 @@
 ---
 - name: Install pip
-  become: yes
   pkgng:
     name: py27-pip
     state: present
 
+- name: Install python 3.5 for django
+  pkgng:
+    name: python35
+    state: present
+
 - name: Install needed pip modules
-  become: yes
   pip:
     requirements: "{{ django_pip_requirements_path }}"
+    virtualenv: "{{ django_pip_requirements_path: }}"
+    virtualenv_python: "{{ django_python_path }}"
 
