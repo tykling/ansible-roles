@@ -11,17 +11,17 @@
     name: uwsgi
     enabled: yes
 
-- name: Define uwsgi profiles in rc.conf
-  become: yes
-  sysrc:
-    name: uwsgi_profiles
-    value: "django"
-
 - name: Define uwsgi flags in rc.conf
   become: yes
   sysrc:
-    name: uwsgi_django_flags
+    name: uwsgi_flags
     value: "--ini /usr/local/etc/uwsgi/uwsgi.ini --logger syslog --stats /tmp/uwsgi-stats.sock"
+
+- name: Define uwsgi program in rc.conf
+  become: yes
+  sysrc:
+    name: uwsgi_program
+    value: "{{ django_virtualenv_path }}/bin/uwsgi"
 
 - name: Create uwsgi config directory
   become: yes

@@ -20,6 +20,12 @@
     state: present
   with_items: "{{ django_os_dependencies | default([]) }}"
 
+- name: Install uwsgi from pip (fix for fuckery with py2/3 on freebsd)
+  pip:
+    name: "uwsgi"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+
 - name: Install needed pip modules
   pip:
     requirements: "{{ django_pip_requirements_path }}"
