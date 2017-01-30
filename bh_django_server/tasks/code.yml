@@ -2,7 +2,7 @@
 - name: Remove old code
   become: yes
   file:
-    path: "{{ django_root }}"
+    path: "{{ django_checkout_path }}"
     state: absent
   tags:
     - codedeploy
@@ -11,7 +11,7 @@
   become: yes
   git:
     repo: "{{ django_github_repo_url }}"
-    dest: "{{ django_root }}"
+    dest: "{{ django_checkout_path }}"
     force: yes
     version: "{{ django_github_branch }}"
   tags:
