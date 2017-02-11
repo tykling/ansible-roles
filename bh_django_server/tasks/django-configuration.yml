@@ -15,7 +15,7 @@
 - name: Put environment_settings.py into place
   template:
     src: "/tmp/environment_settings.py.dist"
-    dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"
+    dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py"
   tags:
     - codedeploy
 
