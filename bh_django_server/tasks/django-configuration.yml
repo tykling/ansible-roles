@@ -18,10 +18,13 @@
     dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"
   tags:
     - codedeploy
+
 - name: Delete temporary environment_settings.py.dist
   file:
     path: "/tmp/environment_settings.py.dist"
     state: absent
+  tags:
+    - codedeploy
 
 - name: Run collectstatic
   django_manage:
