@@ -3,16 +3,27 @@
   tags:
     - always
 
-- name: Copy .env file into place
-  become: yes
-  template:
-    src: ".env.j2"
-    dest: "{{ django_env_path }}"
+- name: Get environment_settings.py.dist file from remote repo
+  fetch:
+    src: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"
+    dest: "/tmp/environment_settings.py.dist"
+    flat: yes
+    fail_on_missing: yes
   tags:
     - codedeploy
 
+- name: Put environment_settings.py into place
+  template:
+    src: "/tmp/environment_settings.py.dist"
+    dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"
+  tags:
+    - codedeploy
+- name: Delete temporary environment_settings.py.dist
+  file:
+    path: "/tmp/environment_settings.py.dist"
+    state: absent
+
 - name: Run collectstatic
-  become: yes
   django_manage:
     command: collectstatic
     app_path: "{{ django_root }}"
@@ -21,7 +32,6 @@
     - codedeploy
 
 - name: Create django media root directory
-  become: yes
   file:
     path: "{{ django_media_root }}"
     state: directory
@@ -29,7 +39,6 @@
     group: www
 
 - name: Create django media root subdirectories
-  become: yes
   file:
     path: "{{ django_media_root }}/{{ item }}"
     state: directory
@@ -38,7 +47,6 @@
   with_items: "{{ django_media_root_subdirs }}"
 
 - name: Copy djangomanage rc.d script
-  become: yes
   template:
     src: djangomanage.j2
     dest: "/usr/local/etc/rc.d/djangomanage"
@@ -47,49 +55,41 @@
     mode: "555"
 
 - name: Configure djangomanage_path
-  become: yes
   sysrc:
     name: djangomanage_path
     value: "{{ django_root }}/manage.py"
 
 - name: Configure djangomanage_user
-  become: yes
   sysrc:
     name: djangomanage_user
     value: "www"
 
 - name: Configure djangomanage_group
-  become: yes
   sysrc:
     name: djangomanage_group
     value: "www"
 
 - name: Configure djangomanage_profiles
-  become: yes
   sysrc:
     name: djangomanage_profiles
     value: "invoice"
 
 - name: Configure djangomanage_invoice_args
-  become: yes
   sysrc:
     name: djangomanage_invoice_args
     value: "invoice-worker"
 
 - name: Configure djangomanage_invoice_logfile
-  become: yes
   sysrc:
     name: djangomanage_invoice_logfile
     value: "/var/log/bornhack-invoice-worker.log"
 
 - name: Enable djangomanage
-  become: yes
   service:
     name: djangomanage
     enabled: yes
 
 - name: Restart djangomanage workers
-  become: yes
   service:
     name: djangomanage
     state: restarted
