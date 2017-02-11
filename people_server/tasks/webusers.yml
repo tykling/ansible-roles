@@ -1,19 +1,16 @@
 ---
 - name: Create webusers homedir
-  become: yes
   file:
     path: /usr/webhomes
     state: directory
     mode: "755"
 
 - name: Create webusers group
-  become: yes
   group:
     name: webusers
     state: present
 
 - name: Create chroots
-  become: yes
   file:
     path: "/usr/webhomes/{{ item.key }}chroot"
     state: directory
@@ -23,7 +20,6 @@
     - usermanagement
 
 - name: Create web users
-  become: yes
   user:
     name: "{{ item.key }}"
     comment: "{{ item.value.name }}"
@@ -35,7 +31,6 @@
     - usermanagement
 
 - name: Create wwwroots
-  become: yes
   file:
     path: "/usr/webhomes/{{ item.key }}chroot/{{ item.key }}/wwwroot"
     state: directory
@@ -47,7 +42,6 @@
     - usermanagement
 
 - name: Add SSH keys
-  become: yes
   authorized_key:
     user: "{{ item.key }}"
     key: "{{ item.value.pubkey }}"

@@ -1,13 +1,11 @@
 ---
 - name: Create virtual mail group
-  become: yes
   group:
     name: "{{ dovecot_vmail_groupname }}"
     gid: "{{ dovecot_vmail_gid}}"
     state: present
 
 - name: Create virtual mail user
-  become: yes
   user:
     name: "{{ dovecot_vmail_username}}"
     comment: "virtual mail user"

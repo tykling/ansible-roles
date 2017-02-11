@@ -1,48 +1,40 @@
 ---
 - name: Install uwsgi
-  become: yes
   pkgng:
     name: uwsgi
     state: present
 
 - name: Enable uwsgi
-  become: yes
   service:
     name: uwsgi
     enabled: yes
 
 - name: Define uwsgi flags in rc.conf
-  become: yes
   sysrc:
     name: uwsgi_flags
     value: "--ini /usr/local/etc/uwsgi/uwsgi.ini --logger syslog --stats /tmp/uwsgi-stats.sock"
 
 - name: Define uwsgi program in rc.conf
-  become: yes
   sysrc:
     name: uwsgi_program
     value: "{{ django_virtualenv_path }}/bin/uwsgi"
 
 - name: Create uwsgi config directory
-  become: yes
   file:
     path: /usr/local/etc/uwsgi
     state: directory
 
 - name: Copy uwsgi config file
-  become: yes
   template:
     src: uwsgi.ini.j2
     dest: /usr/local/etc/uwsgi/uwsgi.ini
 
 - name: Start uwsgi (if neccesary)
-  become: yes
   service:
     name: uwsgi
     state: started
 
 - name: Reload uwsgi
-  become: yes
   service:
     name: uwsgi
     state: reloaded

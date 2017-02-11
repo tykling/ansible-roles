@@ -1,56 +1,47 @@
 ---
 - name: Install postfix
-  become: yes
   pkgng:
     name: postfix
     state: present
 
 - name: Enable postfix
-  become: yes
   service:
     name: postfix
     enabled: yes
 
 - name: Copy postfix main.cf
-  become: yes
   template:
     src: main.cf.j2
     dest: /usr/local/etc/postfix/main.cf
 
 - name: Copy postfix smtpd_sender_login_maps.sql
-  become: yes
   template:
     src: smtpd_sender_login_maps.sql
     dest: /usr/local/etc/postfix/smtpd_sender_login_maps.sql
     mode: "600"
 
 - name: Copy postfix virtual_alias_maps.sql
-  become: yes
   template:
     src: virtual_alias_maps.sql
     dest: /usr/local/etc/postfix/virtual_alias_maps.sql
     mode: "600"
 
 - name: Copy postfix virtual_mailbox_maps.sql
-  become: yes
   template:
     src: smtpd_sender_login_maps.sql
     dest: /usr/local/etc/postfix/virtual_mailbox_maps.sql
     mode: "600"
 
 - name: Run postalias
-  become: yes
   shell: /usr/local/sbin/postalias /etc/aliases
 
 - name: Copy postfix transport file
-  become: yes
   template:
     mode: "644"
     src: transport.j2
     dest: /usr/local/etc/postfix/transport
 
 - name: Enable submission in master.cf
-  become: yes
   blockinfile:
     create: yes
     dest: /usr/local/etc/postfix/master.cf
@@ -69,13 +60,11 @@
         -o milter_macro_daemon_name=ORIGINATING
 
 - name: Restart Postfix
-  become: yes
   service:
     name: postfix
     state: restarted
 
 - name: Add keep a years maillogs in newsyslog.conf
-  become: yes
   lineinfile:
     dest: /etc/newsyslog.conf
     regexp: "^/var/log/maillog "

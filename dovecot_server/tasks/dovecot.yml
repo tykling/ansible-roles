@@ -1,18 +1,15 @@
 ---
 - name: Enable dovecot
-  become: yes
   service:
     name: dovecot
     enabled: yes
 
 - name: Start dovecot (if not running)
-  become: yes
   service:
     name: dovecot
     state: started
 
 - name: Reload dovecot config
-  become: yes
   service:
     name: dovecot
     state: reloaded

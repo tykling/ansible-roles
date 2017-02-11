@@ -1,6 +1,5 @@
 ---
 - name: Remove old code
-  become: yes
   file:
     path: "{{ django_checkout_path }}"
     state: absent
@@ -8,7 +7,6 @@
     - codedeploy
   
 - name: Get code from git
-  become: yes
   git:
     repo: "{{ django_github_repo_url }}"
     dest: "{{ django_checkout_path }}"
