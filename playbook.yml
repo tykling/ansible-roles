@@ -1,4 +1,10 @@
 ---
+- name: configure freebsd hosts (physical servers)
+  hosts: freebsd_hosts
+  become: yes
+  roles:
+    - freebsd_host
+
 - name: configure ezjail hosts
   hosts: ezjail_hosts
   become: yes
@@ -14,12 +20,6 @@
     - anycast_jail_host
   tags:
     - anycast_jail_hosts
-
-- name: configure freebsd hosts (physical servers)
-  hosts: freebsd_hosts
-  become: yes
-  roles:
-    freebsd_host
 
 ##############################################################################
 ### application roles below here
