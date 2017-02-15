@@ -1,4 +1,15 @@
 ---
+- name: Find out if poudriere.tyknet.dk repo is already enabled
+  stat:
+    path: /usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
+    register: poudriere_config_status
+
+- name: Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)
+  template:
+    src: poudriere_tyknet_dk.conf.j2
+    dest: /usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
+  when: poudriere_config_status.stat.exists == True
+
 - name: Install ca_root_nss
   pkgng:
     name: ca_root_nss
