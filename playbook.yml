@@ -3,7 +3,6 @@
   hosts: ezjail_hosts
   become: yes
   roles:
-    - freebsd_base
     - ezjail_host
   tags:
     - ezjail_hosts
@@ -12,7 +11,6 @@
   hosts: anycast_jail_hosts
   become: yes
   roles:
-    - freebsd_base
     - anycast_jail_host
   tags:
     - anycast_jail_hosts
@@ -30,7 +28,6 @@
   hosts: etherpad_servers
   become: yes
   roles:
-    - freebsd_base
     - etherpad_server
   tags:
     - etherpad_servers
@@ -39,7 +36,6 @@
   hosts: murmur_servers
   become: yes
   roles:
-    - freebsd_base
     - murmur_server
   tags:
     - murmur_servers
@@ -48,7 +44,6 @@
   hosts: nginx_servers
   become: yes
   roles:
-    - freebsd_base
     - nginx_server
   tags:
     - nginx_servers
@@ -57,7 +52,6 @@
   hosts: dovecot_servers
   become: yes
   roles:
-    - freebsd_base
     - dovecot_server
   tags:
     - dovecot_servers
@@ -66,7 +60,6 @@
   hosts: erlang_web_servers
   become: yes
   roles:
-    - freebsd_base
     - erlang_web_server
   tags:
     - erlang_web_servers
@@ -75,7 +68,6 @@
   hosts: mediawiki_servers
   become: yes
   roles:
-    - freebsd_base
     - mediawiki_server
   tags:
     - mediawiki_servers
@@ -84,7 +76,6 @@
   hosts: people_servers
   become: yes
   roles:
-    - freebsd_base
     - people_server
   tags:
     - people_servers
@@ -93,7 +84,6 @@
   hosts: postfix_servers
   become: yes
   roles:
-    - freebsd_base
     - postfix_server
   tags:
     - postfix_servers
@@ -102,7 +92,6 @@
   hosts: tor_servers
   become: yes
   roles:
-    - freebsd_base
     - tor_server
   tags:
     - tor_servers
@@ -111,7 +100,6 @@
   hosts: django_servers
   become: yes
   roles:
-    - freebsd_base
     - django_server
   tags:
     - django_servers
@@ -120,7 +108,6 @@
   hosts: bh_django_servers
   become: yes
   roles:
-    - freebsd_base
     - bh_django_server
   tags:
     - bh_django_servers
