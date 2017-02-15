@@ -1,0 +1,6 @@
+---
+host_packages:
+  - smartmontools
+  - pftop 
+  - openntpd
+

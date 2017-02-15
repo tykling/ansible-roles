@@ -1,0 +1,7 @@
+---
+- name: Install FreeBSD host packages
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ host_packages }}"
+
