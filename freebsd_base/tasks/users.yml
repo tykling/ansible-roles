@@ -23,5 +23,6 @@
     line: "{{ item.key }} ALL=(ALL) ALL"
     validate: "visudo -cf %s"
   with_dict: "{{ users | default({}) }}"
+  when: item.value.sudo
   tags: usermanagement
 

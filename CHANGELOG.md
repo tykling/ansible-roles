@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added:
 - freebsd_host: A role for physical hardware servers which installs packages like smartmontools and openntpd,
                 stuff that is only relevant on servers you can stomp your foot on.
+- freebsd_base: Only add user to sudoers if he has sudo: True in the users dict
 
 
 ## [v0.0.17][16-nov-2016]
