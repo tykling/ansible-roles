@@ -5,6 +5,16 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.18][16-feb-2017]
+### Changed
+- jail_host: Renamed to ezjail_host
+- freebsd: Renamed to freebsd_base
+
+### Added:
+- freebsd_host: A role for physical hardware servers which installs packages like smartmontools and openntpd,
+                stuff that is only relevant on servers you can stomp your foot on.
+
+
 ## [v0.0.17][16-nov-2016]
 ### Changed
 - nginx_http_server: Removed
@@ -13,14 +23,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Change inventory files to use nginx_server instead of nginx_http_server and nginx_https_server
   - Add nginx_proxy: True to host_vars for former nginx_https_server hosts
 
+
 ## [v0.0.16][16-nov-2016]
 ### Added
 - nginx_http_server: Add local7.none to /var/log/messages line in /etc/syslog.conf
 - nginx_https_server: Add local7.none to /var/log/messages line in /etc/syslog.conf
 
+
 ## [v0.0.15][16-nov-2016]
 ### Added
 - freebsd: add /etc/resolv.conf handling (set dns_resolver_ips to the desired list of ips, defaults to uncensoreddns 91.239.100.100 and 89.233.43.71)
+
 
 ## [v0.0.14][16-nov-2016]
 ### Changed
@@ -29,18 +42,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - nginx_http_server: add X-request-id from frontend to access log format
 - nginx_http_server: increase client_max_body_size from 10 to 100MB to match the frontend setting
 
+
 ## [v0.0.13][11-nov-2016]
 ### Changed
 - nginx_https_server: remove must-staple from cli.ini - causes problems for thunderbird
 - dovecot_server: depend on nginx_https_server
 
+
 ## [v0.0.12][8-nov-2016]
 ### Changed
 - nginx_ssh_server: Rename role to people_server, and include all the nginx stuff from nginx_https_server role
 
+
 ## [v0.0.11][3-nov-2016]
 ### Added
 - freebsd: Create /etc/motd
+
 
 ## [v0.0.10][2-nov-2016]
 ### Changed
@@ -67,6 +84,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - nginx_https_server: Added default true for letsencrypt
 - nginx_https_server: Add default false for default_vhost
+
 
 ## [v0.0.6][27-oct-2016]
 ### Added
