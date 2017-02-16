@@ -9,4 +9,5 @@ packages:
   - git
   - bind-tools
   - bash
+disable_ssh_password_login: False
 
