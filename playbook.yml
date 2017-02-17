@@ -22,6 +22,16 @@
     - anycast_jail_hosts
 
 ##############################################################################
+### generic hosts with no application role
+- name: configure generic servers
+  hosts: generic_servers
+  become: yes
+  roles:
+    - freebsd_base
+  tags:
+    - generic_servers
+
+##############################################################################
 ### application roles below here
 
 - name: configure etherpad servers
