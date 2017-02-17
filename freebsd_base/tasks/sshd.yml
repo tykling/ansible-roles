@@ -1,7 +1,7 @@
 ---
 - name: Disable PAM authentication (password login) in /etc/ssh/sshd_config
   lineinfile:
-    path: /etc/ssh/sshd_config
+    dest: /etc/ssh/sshd_config
     regexp: '^ChallengeResponseAuthentication'
     line: 'ChallengeResponseAuthentication no'
     state: present
@@ -11,7 +11,7 @@
 
 - name: Disable UseDNS /etc/ssh/sshd_config
   lineinfile:
-    path: /etc/ssh/sshd_config
+    dest: /etc/ssh/sshd_config
     regexp: '^UseDNS'
     line: 'UseDNS no'
     state: present
