@@ -48,6 +48,8 @@
     owner: www
     group: www
   with_items: "{{ django_media_root_subdirs }}"
+  tags:
+    - codedeploy
 
 - name: Copy djangomanage rc.d script
   template:
