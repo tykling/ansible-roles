@@ -14,6 +14,16 @@
     name: uwsgi_flags
     value: "--ini /usr/local/etc/uwsgi/uwsgi.ini --logger syslog --stats /tmp/uwsgi-stats.sock"
 
+- name: Define uwsgi uid in rc.conf
+  sysrc:
+    name: uwsgi_uid
+    value: "80"
+
+- name: Define uwsgi gid in rc.conf
+  sysrc:
+    name: uwsgi_gid
+    value: "80"
+
 - name: Define uwsgi program in rc.conf
   sysrc:
     name: uwsgi_program
