@@ -28,7 +28,7 @@
 
 - name: Remove buggy line from uwsgi rc.d script
   lineinfile:
-    path: "/usr/local/etc/rc.d/uwsgi"
+    dest: "/usr/local/etc/rc.d/uwsgi"
     line: ': ${uwsgi_procname="${command}"}'
     state: absent
 
