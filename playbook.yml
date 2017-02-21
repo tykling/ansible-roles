@@ -21,6 +21,14 @@
   tags:
     - anycast_jail_hosts
 
+- name: configure iocage jail hosts
+  hosts: iocage_hosts
+  become: yes
+  roles:
+    - iocage_host
+  tags:
+    - iocage_hosts
+
 ##############################################################################
 ### generic hosts with no application role
 - name: configure generic servers
