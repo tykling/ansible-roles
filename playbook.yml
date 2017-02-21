@@ -29,6 +29,14 @@
   tags:
     - iocage_hosts
 
+- name: configure chyves bhyve hosts
+  hosts: chyves_hosts
+  become: yes
+  roles:
+    - chyves_host
+  tags:
+    - chyves_hosts
+
 ##############################################################################
 ### generic hosts with no application role
 - name: configure generic servers

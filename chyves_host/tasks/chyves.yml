@@ -1,0 +1,6 @@
+---
+- name: Install chyves 
+  pkgng:
+    name: "chyves" 
+    state: present
+
