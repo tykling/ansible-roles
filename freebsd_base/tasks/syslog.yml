@@ -2,7 +2,6 @@
 - name: Set remote loghost in /etc/syslog.conf
   lineinfile:
     dest: /etc/syslog.conf
-    regexp: "*.*"
     line: "*.*                                        @{{ syslog_server_ip }}"
   when: syslog_server_ip | default(False)
   notify: "Reload syslogd"

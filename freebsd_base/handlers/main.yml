@@ -1,11 +1,11 @@
 ---
-- name: restart sshd
+- name: "restart sshd"
   service:
-    name=sshd
-    state=restarted
+    name: sshd
+    state: restarted
 
-- name: reload syslogd sshd
+- name: "Reload syslogd"
   service:
-    name=syslogd
-    state=reloaded
+    name: syslogd
+    state: reloaded
 
