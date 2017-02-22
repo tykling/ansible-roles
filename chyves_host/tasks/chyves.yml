@@ -1,6 +1,9 @@
 ---
-- name: Install chyves 
+- name: "Install chyves"
   pkgng:
     name: "chyves" 
-    state: present
+    state: "present"
+
+- name: "setup chyves on zpool"
+  command: "/usr/local/sbin/chyves dataset {{ chyves_zpool }} install"
 
