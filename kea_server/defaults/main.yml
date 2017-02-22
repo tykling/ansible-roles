@@ -1,0 +1,5 @@
+---
+kea_dbtype: "postgres"
+kea_dbname: "keadb"
+kea_dbhost: "127.0.0.1"
+

@@ -5,6 +5,10 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.23][22-feb-2017]
+### Added
+- kea_server: Added role to install kea dhcp server
+
 
 ## [v0.0.22][22-feb-2017]
 ### Changed
