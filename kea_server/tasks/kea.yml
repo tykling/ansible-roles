@@ -8,13 +8,19 @@
     name: "kea"
     state: "present"
 
-- name: "Copy kea.conf into place"
-  template:
-    src: "kea.conf.j2"
-    dest: "/usr/local/etc/kea/kea.conf"
-
 - name: "Enable kea in rc.conf"
   sysrc:
     name: "kea_enable"
     value: "YES"
+
+- name: "Copy kea.conf into place"
+  template:
+    src: "kea.conf.j2"
+    dest: "/usr/local/etc/kea/kea.conf"
+  notify: "Reload kea"
+
+- name: "Make sure kea is running"
+  service:
+    name: "kea"
+    state: "started"
 
