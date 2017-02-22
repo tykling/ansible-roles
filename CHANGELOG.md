@@ -5,6 +5,12 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [v0.0.22][22-feb-2017]
+### Changed
+- freebsd_base: Add syslogd.yml setting remote loghost in /etc/syslogd.conf if syslog_server_ip is set
+
+
 ## [v0.0.21][21-feb-2017]
 ### Changed
 - Stop using role dependencies - use seperate groups for all roles instead. Make the following changes:
