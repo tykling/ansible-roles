@@ -1,5 +1,4 @@
 ---
 dependencies:
-  - { role: freebsd_base }
   - { role: nginx_server }
 

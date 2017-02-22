@@ -5,13 +5,19 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.0.21][21-feb-2017]
+### Changed
+- Stop using role dependencies - use seperate groups for all roles instead. Make the following changes:
+  - Add all freebsd servers/jails/hosts to the freebsd group
+
+
 ## [v0.0.20][21-feb-2017]
-### CAdded
+### Added
 - chyves_host: Started work on a role for chyves bhyve vm hosts.
 
 
 ## [v0.0.19][21-feb-2017]
-### CAdded
+### Added
 - iocage_host: Started work on a role for py-iocage jailhosts.
 
 

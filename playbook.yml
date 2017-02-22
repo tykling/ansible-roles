@@ -1,4 +1,12 @@
 ---
+- name: configure basic freebsd stuff
+  hosts: freebsd
+  become: yes
+  roles:
+    - freebsd_base
+  tags:
+    - freebsd_base
+
 - name: configure freebsd hosts (physical servers)
   hosts: freebsd_hosts
   become: yes
