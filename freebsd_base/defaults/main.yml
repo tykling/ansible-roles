@@ -9,5 +9,6 @@ packages:
   - git
   - bind-tools
   - bash
+  - vim-lite
 disable_ssh_password_login: False
 
