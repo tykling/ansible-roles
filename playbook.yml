@@ -4,6 +4,8 @@
   become: yes
   roles:
     - freebsd_host
+  tags:
+    - freebsd_hosts
 
 - name: configure ezjail hosts
   hosts: ezjail_hosts
