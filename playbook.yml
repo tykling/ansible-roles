@@ -138,4 +138,12 @@
   tags:
     - bh_django_servers
 
+- name: configure kea dhcp servers
+  hosts: kea_servers
+  become: yes
+  roles:
+    - kea_server
+  tags:
+    - kea_servers
+
 
