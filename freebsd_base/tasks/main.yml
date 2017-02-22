@@ -5,4 +5,5 @@
 - include: motd.yml
 - include: resolvconf.yml
 - include: sshd.yml
+- include: syslog.yml
 
