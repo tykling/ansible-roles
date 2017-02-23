@@ -6,4 +6,5 @@
 - include: resolvconf.yml
 - include: sshd.yml
 - include: syslog.yml
+- include: resolvconf.yml
 
