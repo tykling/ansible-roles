@@ -13,6 +13,12 @@
     name: "kea_enable"
     value: "YES"
 
+- name: "Disable dhcpv6 in kea.conf"
+  lineinfile:
+    dest: "/usr/local/etc/kea/keactrl.conf"
+    regexp: "^dhcp6="
+    line: "dhcp6=no"
+
 - name: "Copy kea.conf into place"
   template:
     src: "kea.conf.j2"
