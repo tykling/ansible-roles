@@ -1,3 +1,5 @@
 ---
 - include: kea.yml
+- include: syslog.yml
+- include: newsyslog.yml
 

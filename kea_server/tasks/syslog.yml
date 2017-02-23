@@ -1,0 +1,16 @@
+- name: "Add kea.log to syslog.conf"
+    lineinfile:
+      dest: "/etc/syslog.conf"
+      line: "local0.*                                        /var/log/kea.log"
+    notify: "Reload syslogd"
+
+- name: "Make sure the kea logfile exists"
+  copy:
+    dest: "/var/log/kea.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "Reload syslogd"
+
