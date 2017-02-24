@@ -2,3 +2,5 @@
 nginx_worker_processes: 10
 nginx_worker_connections: 1024
 nginx_dhparam_path: "/usr/local/etc/nginx/certificates/dhparam.pem"
+nginx_proxy: False
+

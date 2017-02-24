@@ -72,7 +72,6 @@
 
 - name: "Include vhosts.yml to configure all vhosts (nginx proxies only)"
   include: "vhosts.yml"
-  static: no
   when: nginx_proxy | default(False)
 
 - name: "Include secrets if present (nginx proxies only)"
