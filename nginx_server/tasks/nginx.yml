@@ -18,19 +18,19 @@
   template:
     src: "tls.conf.j2"
     dest: "/usr/local/etc/nginx/tls.conf"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Copy nginx securityheaders.conf (nginx proxies only)"
   template:
     src: "securityheaders.conf.j2"
     dest: "/usr/local/etc/nginx/securityheaders.conf"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Copy nginx proxyheaders.conf (nginx proxies only)"
   template:
     src: "proxyheaders.conf.j2"
     dest: "/usr/local/etc/nginx/proxyheaders.conf"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Create nginx logfile directory"
   file:
@@ -41,24 +41,24 @@
   file:
     path: "/usr/local/etc/nginx/vhosts"
     state: "directory"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Create nginx certificates directory (nginx proxies only)"
   file:
     path: "/usr/local/etc/nginx/certificates"
     state: "directory"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Create dhparam (nginx proxies only)"
   shell: "/usr/local/bin/openssl dhparam 4096 > {{ nginx_dhparam_path }}"
   args:
     creates: "{{ nginx_dhparam_path }}"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
  
 - name: "Include nginx_extra_configs.yml where needed (nginx proxies only)"
   include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Create nginx extra include configs (acls and more) (nginx proxies only)"
   copy:
@@ -68,17 +68,17 @@
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_extra_configs | default({}) }}"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Include vhosts.yml to configure all vhosts (nginx proxies only)"
   include: "vhosts.yml"
   static: no
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Include secrets if present (nginx proxies only)"
   include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
   ignore_errors: yes
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Create .htpasswd files (nginx proxies only)"
   copy:
@@ -88,7 +88,7 @@
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
   with_dict: "{{ nginx_htpasswd_files | default({}) }}"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Start Nginx (if not running)"
   service:
@@ -107,11 +107,11 @@
     mode: "755"
     src: "prime_nginx_ocsp.sh"
     dest: "/usr/local/bin/prime_nginx_ocsp.sh"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Run nginx ocsp priming script (nginx proxies only)"
   command: "/usr/local/bin/prime_nginx_ocsp.sh"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Make sure hourly cronjob for nginx ocsp priming is in place (nginx proxies only)"
   cron:
@@ -120,7 +120,7 @@
     job: "/usr/local/bin/prime_nginx_ocsp.sh"
     cron_file: "/etc/crontab"
     user: "nobody"
-  when: nginx_proxy | default(False)
+  when: nginx_proxy
 
 - name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
   file:
