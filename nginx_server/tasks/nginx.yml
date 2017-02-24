@@ -97,8 +97,8 @@
 - name: "Reload nginx config"
   service:
     name: "nginx"
-    state: "reloaded
-"
+    state: "reloaded"
+
 - name: "Copy nginx OCSP priming script"
   copy:
     owner: "root"
