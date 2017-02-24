@@ -146,4 +146,12 @@
   tags:
     - kea_servers
 
+- name: configure znc servers
+  hosts: znc_servers
+  become: yes
+  roles:
+    - znc_server
+  tags:
+    - znc_servers
+
 

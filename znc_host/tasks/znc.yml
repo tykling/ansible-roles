@@ -1,0 +1,6 @@
+---
+- name: Install znc
+  pkgng:
+    name: "znc"
+    state: present
+
