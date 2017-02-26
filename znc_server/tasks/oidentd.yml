@@ -1,0 +1,20 @@
+---
+- name: Install oidentd
+  pkgng:
+    name: "oidentd"
+    state: present
+
+- name: Copy oidentd config file
+  file:
+    src: oidentd.conf
+    dest: /usr/local/etc/oidentd.conf
+
+- name: Enable oidentd
+  sysrc:
+    name: "oidentd_enable"
+    value: "YES"
+
+- name: Start oidentd
+  service: oidentd
+  state: started
+
