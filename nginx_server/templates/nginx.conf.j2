@@ -51,7 +51,7 @@ http {
     {% endif %}
 }
 
-{% if nginx_extraconf | Default(False) %}
+{% if nginx_extraconf | default(False) %}
 {{ nginx_extraconf }}
 {% endif %}
 
