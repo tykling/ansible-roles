@@ -1,6 +1,7 @@
 ### modules
 load_module                     /usr/local/libexec/nginx/ngx_http_headers_more_filter_module.so;
 load_module                     /usr/local/libexec/nginx/ngx_http_lua_module.so;
+load_module                     /usr/local/libexec/nginx/ngx_stream_module.so;
 
 ### default error log
 error_log                               /usr/local/www/logs/error.log;
@@ -49,4 +50,8 @@ http {
     }
     {% endif %}
 }
+
+{% if nginx_extraconf | Default(False %}
+{{ nginx_extraconf }}
+{% endif %}
 

@@ -5,7 +5,7 @@
     state: present
 
 - name: "Copy oidentd config file"
-  file:
+  copy:
     src: "oidentd.conf"
     dest: "/usr/local/etc/oidentd.conf"
 
