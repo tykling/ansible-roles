@@ -12,7 +12,7 @@ server {
 
     {% if item.value.https_redirect | default(True) %}
     location / {
-        return              301 https://$server_name$request_uri;
+        return              301 https://$host$request_uri;
     }
     {% else %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
