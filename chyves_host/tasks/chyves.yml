@@ -4,6 +4,12 @@
     name: "chyves" 
     state: "present"
 
+- name: "check if zpool has been configured for use with chyves"
+  shell: "/sbin/zfs list {{ chyves_zpool }}/chyves"
+  register: chyves_zpool_result
+  ignore_errors: True
+
 - name: "setup chyves on zpool"
   command: "/usr/local/sbin/chyves dataset {{ chyves_zpool }} install"
+  when: chyves_zpool_result.rc == 1
 
