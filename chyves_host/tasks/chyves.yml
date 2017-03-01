@@ -13,3 +13,15 @@
   command: "/usr/local/sbin/chyves dataset {{ chyves_zpool }} install"
   when: chyves_zpool_result.rc == 1
 
+- name: "check if chyves bridge interfaces exist"
+  command: "/sbin/ifconfig {{ item.key }}"
+  register: interface_results
+  with_items: "{{ chyves_bridges }}"
+
+- name: "setup chyves bridge network interfaces"
+  command: "/usr/local/sbin/chyves network {{ item.key }} attach {{ item.value.interface }}"
+  with_together:
+    - "{{ chyves_bridges }}"
+    - "{{ interface_results.results }}"
+  when: item.1.rc == 1
+
