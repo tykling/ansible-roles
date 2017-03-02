@@ -19,7 +19,7 @@
   with_dict: "{{ chyves_bridges }}"
   ignore_errors: True
 
-- name: "setup chyves bridge network interfaces"
+- name: "setup chyves bridge network interfaces (skip bridge0)"
   command: "/usr/local/sbin/chyves network {{ item.0 }} attach {{ chyves_bridges[item.0].interface }}"
   with_together:
     - "{{ chyves_bridges }}"
