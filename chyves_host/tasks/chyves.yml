@@ -16,7 +16,8 @@
 - name: "check if chyves bridge interfaces exist"
   command: "/sbin/ifconfig {{ item.key }}"
   register: interface_results
-  with_items: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges }}"
+  ignore_errors: True
 
 - name: "setup chyves bridge network interfaces"
   command: "/usr/local/sbin/chyves network {{ item.key }} attach {{ item.value.interface }}"
