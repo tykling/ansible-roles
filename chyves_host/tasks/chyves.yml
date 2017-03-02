@@ -20,7 +20,7 @@
   ignore_errors: True
 
 - name: "setup chyves bridge network interfaces"
-  command: "/usr/local/sbin/chyves network {{ item.key }} attach {{ item.value.interface }}"
+  command: "/usr/local/sbin/chyves network {{ item.0 }} attach {{ chyves_bridges[item.0].interface }}"
   with_together:
     - "{{ chyves_bridges }}"
     - "{{ interface_results.results }}"
