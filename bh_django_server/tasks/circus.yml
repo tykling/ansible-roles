@@ -19,11 +19,14 @@
   template:
     src: "circusd.ini.j2"
     dest: "/usr/local/etc/circusd.ini"
+  notify:
+    - "start circusd"
+    - "reload circusd"
 
 - name: "Enable circusd in rc.conf"
   sysrc:
-    - name: "circusd_enable"
-      value: "YES"
+    name: "circusd_enable"
+    value: "YES"
 
 - name: "Copy rc.d script for circusd"
   template:
