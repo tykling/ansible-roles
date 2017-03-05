@@ -19,3 +19,8 @@ gid = 80
 [env:django_wsgi_worker]
 PYTHONPATH = {{ django_root }}
 
+{% for worker in djangomanage_workers %}
+[watcher:djangomanage_{{ worker }}]
+cmd = {{ django_virtualenv_path }}/bin/python {{ django_root }}/manage.py {{ djangomanage_workers[worker].command }} {{ djangomanage_workers[worker].args }}
+
+{% endfor %}
