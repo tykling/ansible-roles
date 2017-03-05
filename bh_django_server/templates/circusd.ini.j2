@@ -2,6 +2,10 @@
 logoutput = syslog:///var/run/log?local2
 pidfile = /var/run/circusd/circusd.pid
 endpoint = tcp://127.0.0.1:5555
+statsd = True
+httpd = True
+httpd_host = localhost
+httpd_port = 8000
 
 [socket:django_weblistener]
 host = 127.0.0.1
