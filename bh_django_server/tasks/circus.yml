@@ -1,0 +1,39 @@
+---
+- name: "Install circus, circus-web and chaussette from pip"
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+  with_items:
+    - "circus"
+    - "circus-web"
+    - "chaussette"
+
+- name: "Unfuck circusctl wrapper script, see https://github.com/circus-tent/circus/issues/962"
+  template:
+    src: "circusctl.j2"
+    dest: "{{ django_virtualenv_path }}/bin/circusctl"
+    mode: "755"
+
+- name: "Copy circusd.ini config file"
+  template:
+    src: "circusd.ini.j2"
+    dest: "/usr/local/etc/circusd.ini"
+
+- name: "Enable circusd in rc.conf"
+  sysrc:
+    - name: "circusd_enable"
+      value: "YES"
+
+- name: "Copy rc.d script for circusd"
+  template:
+    src: "circusd.j2"
+    dest: "/usr/local/etc/rc.d/circusd"
+
+- name: "Create folder for circusd pidfile"
+  file:
+    path: "/var/run/circusd"
+    state: "directory"
+    owner: "www"
+    group: "www"
+

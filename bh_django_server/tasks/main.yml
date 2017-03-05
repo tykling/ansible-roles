@@ -2,6 +2,8 @@
 - include: code.yml
 - include: postgres.yml
 - include: pip-packages.yml
-- include: uwsgi.yml
+- include: circus.yml
 - include: django-configuration.yml
+- include: syslog.yml
+- include: newsyslog.yml
 
