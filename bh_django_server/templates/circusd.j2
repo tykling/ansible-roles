@@ -37,6 +37,7 @@ circusd_stop()
     if [ $? -eq 0 ]; then
       echo "Stopping circusd"
       /bin/pkill -QUIT -F $pidfile
+      /bin/pwait -v $(cat $pidfile)
     else
       echo "circusd is not running, removing old pidfile"
       /bin/rm $pidfile
