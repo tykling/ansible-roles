@@ -26,3 +26,9 @@
     - "{{ interface_results.results }}"
   when: item.1.rc == 1
 
+- name: "Install vmdktool"
+  pkgng:
+    name: "vmdktool" 
+    state: "present"
+
+
