@@ -154,4 +154,12 @@
   tags:
     - znc_servers
 
+- name: configure isc dhcp servers
+  hosts: isc_dhcpd_servers
+  become: yes
+  roles:
+    - isc_dhcpd_server
+  tags:
+    - isc_dhcpd_servers
+
 
