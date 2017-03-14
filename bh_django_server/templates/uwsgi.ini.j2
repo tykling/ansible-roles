@@ -1,0 +1,13 @@
+[uwsgi]
+chdir={{ django_root }}
+module={{ django_mainapp }}.wsgi:application
+master=True
+pidfile=/tmp/uwsgi.pid
+vacuum=True
+max-requests=5000
+daemonize=/var/log/uwsgi.log
+socket=/tmp/uwsgi.sock
+processes=20
+threads=2
+virtualenv={{ django_virtualenv_path }}
+

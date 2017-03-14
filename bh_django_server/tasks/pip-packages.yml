@@ -20,9 +20,21 @@
     state: present
   with_items: "{{ django_os_dependencies | default([]) }}"
 
+- name: Install uwsgi from pip (fix for fuckery with py2/3 on freebsd)
+  pip:
+    name: "uwsgi"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+
+- name: Remove buggy line from uwsgi rc.d script
+  lineinfile:
+    dest: "/usr/local/etc/rc.d/uwsgi"
+    line: ': ${uwsgi_procname="${command}"}'
+    state: absent
+
 - name: Install needed pip modules
   pip:
     requirements: "{{ django_pip_requirements_path }}"
     virtualenv: "{{ django_virtualenv_path }}"
-    virtualenv_python: "{{ django_system_python_path }}"
+    virtualenv_python: "{{ django_python_path }}"
 

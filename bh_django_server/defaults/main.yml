@@ -1,6 +1,5 @@
 ---
-django_github_branch: "master"
-django_virtualenv_path: "/usr/local/virtualenv"
-django_system_python_path: "/usr/local/bin/python3.5"
-django_python_path: "{{ django_virtualenv_path }}/bin/python"
+django_github_branch: master
+django_virtualenv_path: /usr/local/virtualenv
+django_python_path: /usr/local/bin/python3.5
 
