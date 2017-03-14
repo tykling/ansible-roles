@@ -1,0 +1,12 @@
+---
+- name: Install supervisord
+  pkgng:
+    name: py-supervisor
+    state: present
+
+- name: Enable supervisord
+  service:
+    name: supervisord
+    enabled: yes
+
+
