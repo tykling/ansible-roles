@@ -9,7 +9,7 @@
     name: py27-virtualenv
     state: present
 
-- name: Install python 3.5 for django
+- name: Install python 3.5 for django virtualenv
   pkgng:
     name: python35
     state: present
@@ -20,7 +20,7 @@
     state: present
   with_items: "{{ django_os_dependencies | default([]) }}"
 
-- name: Install uwsgi from pip (fix for fuckery with py2/3 on freebsd)
+- name: Install uwsgi from pip inside virtualenv (fix for fuckery with py2/3 on freebsd)
   pip:
     name: "uwsgi"
     virtualenv: "{{ django_virtualenv_path }}"

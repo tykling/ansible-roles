@@ -1,7 +1,7 @@
 ---
 - include: code.yml
 - include: postgres.yml
-- include: pip-packages.yml
 - include: uwsgi.yml
+- include: pip-packages.yml
 - include: django-configuration.yml
 
