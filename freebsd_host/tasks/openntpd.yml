@@ -22,6 +22,6 @@
 - name: "Configure ntpdate"
   sysrc:
     name: "ntpdate_hosts"
-    value: "{{ ntp_servers | join(" ") }}"
+    value: "{{ ntp_servers | join(' ') }}"
 
 
