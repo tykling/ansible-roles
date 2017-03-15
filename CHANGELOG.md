@@ -5,6 +5,16 @@ All notable changes to these roles will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [v0.0.25][15-mar-2017]
+### Added:
+- isc_dhcpd_server: Add role to install an isc dhcpd server
+
+### Changed
+- freebsd_host: configure ntpdate and openntpd
+- freebsd_host: split packages into default_host_packages and extra_host_packages
+
+
 ## [v0.0.24][23-feb-2017]
 ### Added
 - znc_server: Added role to install a znc irc bouncer server

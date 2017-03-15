@@ -1,0 +1,16 @@
+---
+- name: "Configure smartd"
+  template:
+    src: "smartd.conf.j2"
+    dest: "/usr/local/etc/smartd.conf"
+
+- name: "Enable smartd"
+  service:
+    name: "smartd"
+    state: "enabled"
+
+- name: "Make sure smartd is running"
+  service:
+    name: "smartd"
+    state: "started"
+

@@ -8,3 +8,5 @@ default_host_packages:
 ntp_servers:
   - "dk.pool.ntp.org"
 
+smartd_email: "admin@example.com"
+
