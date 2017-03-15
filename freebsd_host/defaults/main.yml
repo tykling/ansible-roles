@@ -1,6 +1,10 @@
 ---
-host_packages:
-  - smartmontools
-  - pftop 
-  - openntpd
+default_host_packages:
+  - "smartmontools"
+  - "pftop"
+  - "openntpd"
+  - "beadm"
+
+ntp_servers:
+  - "dk.pool.ntp.org"
 

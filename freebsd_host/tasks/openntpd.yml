@@ -1,0 +1,27 @@
+---
+- name: "Configure OpenNTPd"
+  template:
+    src: "ntpd.conf.j2"
+    dest: "/usr/local/etc/ntpd.conf"
+
+- name: "Enable OpenNTPd"
+  service:
+    name: "openntpd"
+    state: "enabled"
+
+- name: "Make sure OpenNTPd is running"
+  service:
+    name: "openntpd"
+    state: "started"
+
+- name: "Enable ntpdate"
+  service:
+    name: "ntpdate"
+    state: "enabled"
+
+- name: "Configure ntpdate"
+  sysrc:
+    name: "ntpdate_hosts"
+    value: "{{ ntp_servers | join(" ") }}"
+
+
