@@ -26,7 +26,12 @@
     - "{{ interface_results.results }}"
   when: item.1.rc == 1
 
-- name: "Install vmdktool"
+- name: "Enable chyves on boot (loads kernel modul, setup bridge0 etc)"
+  service:
+    name: "chyves"
+    state: "enabled"
+
+- name: "Install vmdktool (to convert images if needed)"
   pkgng:
     name: "vmdktool" 
     state: "present"
