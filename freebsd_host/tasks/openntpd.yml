@@ -7,7 +7,7 @@
 - name: "Enable OpenNTPd"
   service:
     name: "openntpd"
-    state: "enabled"
+    enabled: "yes"
 
 - name: "Make sure OpenNTPd is running"
   service:
@@ -17,7 +17,7 @@
 - name: "Enable ntpdate"
   service:
     name: "ntpdate"
-    state: "enabled"
+    enabled: "yes"
 
 - name: "Configure ntpdate"
   sysrc:

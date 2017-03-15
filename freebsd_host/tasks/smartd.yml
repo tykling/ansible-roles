@@ -7,7 +7,7 @@
 - name: "Enable smartd"
   service:
     name: "smartd"
-    state: "enabled"
+    enabled: "yes"
 
 - name: "Make sure smartd is running"
   service:
