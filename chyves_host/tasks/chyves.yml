@@ -29,7 +29,7 @@
 - name: "Enable chyves on boot (loads kernel modul, setup bridge0 etc)"
   service:
     name: "chyves"
-    state: "enabled"
+    enabled: "yes"
 
 - name: "Install vmdktool (to convert images if needed)"
   pkgng:
