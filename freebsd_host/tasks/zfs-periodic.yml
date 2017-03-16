@@ -1,0 +1,21 @@
+---
+- name: "configure zfs-periodic"
+  blockinfile:
+    path: "/etc/periodic.conf"
+    block: |
+      daily_zfs_snapshot_enable="YES"
+      daily_zfs_snapshot_pools="{{ zfs_periodic_pools | join(' ') }}"
+      daily_zfs_snapshot_keep={{ zfs_periodic_retention[daily] }}
+      daily_zfs_snapshot_skip="{{ zfs_periodic_datasets_skip | join(' ') }}"
+
+      weekly_zfs_snapshot_enable="YES"
+      weekly_zfs_snapshot_pools="{{ zfs_periodic_pools | join(' ') }}"
+      weekly_zfs_snapshot_keep={{ zfs_periodic_retention[weekly] }}
+      weekly_zfs_snapshot_skip="{{ zfs_periodic_datasets_skip | join(' ') }}"
+
+      monthly_zfs_snapshot_enable="YES"
+      monthly_zfs_snapshot_pools="{{ zfs_periodic_pools | join(' ') }}"
+      monthly_zfs_snapshot_keep={{ zfs_periodic_retention[monthly] }}
+      monthly_zfs_snapshot_skip="{{ zfs_periodic_datasets_skip | join(' ') }}"
+
+

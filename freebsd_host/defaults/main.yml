@@ -11,3 +11,15 @@ ntp_servers:
 
 smartd_email: "admin@example.com"
 
+zfs_periodic_pools:
+  - "tank"
+zfs_periodic_datasets_skip:
+  - "tank/backups"
+  - "tank/reserved"
+zfs_periodic_retention:
+  daily: 14
+  weekly: 8
+  monthly: 15
+
+zfs_scrub_interval_days: 30
+
