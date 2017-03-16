@@ -4,6 +4,7 @@ default_host_packages:
   - "pftop"
   - "openntpd"
   - "beadm"
+  - "zfs-periodic"
 
 ntp_servers:
   - "dk.pool.ntp.org"
