@@ -1,6 +1,6 @@
 ---
 - name: "Configure periodic zfs scrubs"
-blockinfile:
+  blockinfile:
     path: "/etc/periodic.conf"
     block: |
       #monthly zfs scrub
