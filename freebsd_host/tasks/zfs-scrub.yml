@@ -3,6 +3,7 @@
   blockinfile:
     dest: "/etc/periodic.conf"
     create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK zfs-scrub"
     block: |
       #monthly zfs scrub
       daily_scrub_zfs_enable="YES"
