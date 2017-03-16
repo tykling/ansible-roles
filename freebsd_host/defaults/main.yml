@@ -5,6 +5,7 @@ default_host_packages:
   - "openntpd"
   - "beadm"
   - "zfs-periodic"
+  - "netdata"
 
 ntp_servers:
   - "dk.pool.ntp.org"

@@ -4,4 +4,5 @@
 - include: smartd.yml
 - include: zfs-periodic.yml
 - include: zfs-scrub.yml
+- include: netdata.yml
 

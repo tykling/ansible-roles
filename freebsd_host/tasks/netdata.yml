@@ -1,0 +1,11 @@
+---
+- name: "Enable netdata"
+  service:
+    name: "netdata"
+    enabled: "yes"
+
+- name: "Make sure netdata is running"
+  service:
+    name: "netdata"
+    state: "started"
+
