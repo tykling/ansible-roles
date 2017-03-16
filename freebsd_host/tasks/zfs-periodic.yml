@@ -1,7 +1,7 @@
 ---
 - name: "configure zfs-periodic"
   blockinfile:
-    path: "/etc/periodic.conf"
+    dest: "/etc/periodic.conf"
     block: |
       daily_zfs_snapshot_enable="YES"
       daily_zfs_snapshot_pools="{{ zfs_periodic_pools | join(' ') }}"

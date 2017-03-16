@@ -1,7 +1,7 @@
 ---
 - name: "Configure periodic zfs scrubs"
   blockinfile:
-    path: "/etc/periodic.conf"
+    dest: "/etc/periodic.conf"
     block: |
       #monthly zfs scrub
       daily_scrub_zfs_enable="YES"
