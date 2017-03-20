@@ -5,7 +5,7 @@
     state: "directory"
 
 - name: "Make sure uwsgi newsyslog config file exists"
-  copy:
+  template:
     owner: "root"
     group: "wheel"
     mode: "755"
