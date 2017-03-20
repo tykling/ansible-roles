@@ -34,6 +34,7 @@
     dest: "/var/log/uwsgi/{{ item }}.log"
     state: "touch"
     mode: "644"
+  with_items: "{{ djangomanage_workers }}"
 
 - name: "Reload syslogd"
   service:
