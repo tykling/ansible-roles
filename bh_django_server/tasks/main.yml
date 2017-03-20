@@ -1,5 +1,7 @@
 ---
 - include: code.yml
+- include: syslog.yml
+- include: newsyslog.yml
 - include: postgres.yml
 - include: pip-packages.yml
 - include: uwsgi.yml
