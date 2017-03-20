@@ -40,6 +40,8 @@
     state: directory
     owner: www
     group: www
+  tags:
+    - codedeploy
 
 - name: Create django media root subdirectories
   file:
@@ -48,56 +50,6 @@
     owner: www
     group: www
   with_items: "{{ django_media_root_subdirs }}"
-  tags:
-    - codedeploy
-
-- name: Copy djangomanage rc.d script
-  template:
-    src: djangomanage.j2
-    dest: "/usr/local/etc/rc.d/djangomanage"
-    owner: root
-    group: wheel
-    mode: "555"
-
-- name: Configure djangomanage_path
-  sysrc:
-    name: djangomanage_path
-    value: "{{ django_root }}/manage.py"
-
-- name: Configure djangomanage_user
-  sysrc:
-    name: djangomanage_user
-    value: "www"
-
-- name: Configure djangomanage_group
-  sysrc:
-    name: djangomanage_group
-    value: "www"
-
-- name: Configure djangomanage_profiles
-  sysrc:
-    name: djangomanage_profiles
-    value: "invoice"
-
-- name: Configure djangomanage_invoice_args
-  sysrc:
-    name: djangomanage_invoice_args
-    value: "invoice-worker"
-
-- name: Configure djangomanage_invoice_logfile
-  sysrc:
-    name: djangomanage_invoice_logfile
-    value: "/var/log/bornhack-invoice-worker.log"
-
-- name: Enable djangomanage
-  service:
-    name: djangomanage
-    enabled: yes
-
-- name: Restart djangomanage workers
-  service:
-    name: djangomanage
-    state: restarted
   tags:
     - codedeploy
 

@@ -10,4 +10,6 @@ socket=/tmp/uwsgi.sock
 processes=20
 threads=2
 virtualenv={{ django_virtualenv_path }}
-
+{% for worker in djangomanage_workers  %}
+attach-daemon2 = cmd={{ django_virtualenv_path }}bin/python {{ django_root }}/manage.py {{ worker }},pidfile=/var/run/django/{{ worker }}.pid,uid=80,gid=80,chdir={{ django_root }},daemonize=yes
+{% endfor %}
