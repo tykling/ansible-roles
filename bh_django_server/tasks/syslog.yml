@@ -1,0 +1,42 @@
+---
+- name: "Create uwsgi logfile directory"
+  file:
+    path: "/var/log/uwsgi"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+
+- name: "Add django.log to syslog.conf"
+  blockinfile:
+    dest: "/etc/syslog.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK for uwsgi django log"
+    block: |
+      !uwsgi
+      *.*                                             /var/log/uwsgi/django.log
+
+- name: "Create django.log if it doesn't exist"
+  file:
+    path: "/var/log/uwsgi/django.log"
+    state: "touch"
+    mode: "644"
+
+- name: "Add djangomanage workers to syslog.conf"
+  blockinfile:
+    dest: "/etc/syslog.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ item }}"
+    block: |
+      !{{ item }}
+      *.*                                             /var/log/uwsgi/{{ item }}.log
+  with_items: "{{ djangomanage_workers }}"
+
+- name: "Create djangomanage logs if they don't exist"
+  file:
+    dest: "/var/log/uwsgi/{{ item }}.log"
+    state: "touch"
+    mode: "644"
+
+- name: "Reload syslogd"
+  service:
+    name: "syslogd"
+    state: "reloaded"
+

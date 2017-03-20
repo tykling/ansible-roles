@@ -1,0 +1,5 @@
+# path                               mode  copies  size  time  flags
+/var/log/uwsgi/django.log              644     7      *    @T00   JX
+{% for worker in djangomanage_workers %}
+/var/log/uwsgi/{{ worker }}.log        644     7      *    @T00   JX
+{% endfor %}
