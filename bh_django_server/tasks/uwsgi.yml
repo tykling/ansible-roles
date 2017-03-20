@@ -45,6 +45,13 @@
     src: uwsgi.ini.j2
     dest: /usr/local/etc/uwsgi/uwsgi.ini
 
+- name: Create uwsgi django worker pidfile directory
+  file:
+    path: /var/run/django
+    state: directory
+    owner: www
+    group: www
+
 - name: Start uwsgi (if neccesary)
   service:
     name: uwsgi
