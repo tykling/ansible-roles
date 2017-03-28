@@ -12,7 +12,7 @@ threads=2
 virtualenv={{ django_virtualenv_path }}
 logger=syslog
 stats=/tmp/uwsgi-stats.sock
-{% for worker in django_manage_workers  %}
-attach-daemon2 = cmd={{ django_virtualenv_path }}/bin/python {{ django_root }}/manage.py runworker {{ django_manage_workers[worker][commandline] }},pidfile=/var/run/django/{{ worker }}.pid,uid=80,gid=80,chdir={{ django_root }},daemonize=yes,stop_signal=2,reload_signal=1
+{% for workername, workerconfig in django_manage_workers.iteritems()  %}
+attach-daemon2 = cmd={{ django_virtualenv_path }}/bin/python {{ django_root }}/manage.py runworker {{ workerconfig.commandline }},pidfile=/var/run/django/{{ workername }}.pid,uid=80,gid=80,chdir={{ django_root }},daemonize=yes,stop_signal=2,reload_signal=1
 {% endfor %}
 
