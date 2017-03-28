@@ -64,3 +64,8 @@
   tags:
     - codedeploy
 
+- name: Reload djangomanage workers
+  action: "/bin/pkill -F /var/run/django/{{ item.key }}.pid"
+  ignore_errors: yes
+  with_dict: "{{ django_manage_workers }}"
+
