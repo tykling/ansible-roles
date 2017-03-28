@@ -1,5 +1,6 @@
 ---
-django_github_branch: master
-django_virtualenv_path: /usr/local/virtualenv
-django_python_path: /usr/local/bin/python3.5
+django_github_branch: "master"
+django_virtualenv_path: "/usr/local/virtualenv"
+django_python_path: "/usr/local/bin/python3.5"
+wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 
