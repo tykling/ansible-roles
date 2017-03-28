@@ -3,7 +3,7 @@
   tags:
     - always
 
-- name: Get environment_settings.py.dist file from remote repo
+- name: "Get environment_settings.py.dist file from remote repo"
   fetch:
     src: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"
     dest: "/tmp/environment_settings.py.dist"
@@ -12,44 +12,53 @@
   tags:
     - codedeploy
 
-- name: Put environment_settings.py into place
+- name: "Put environment_settings.py into place"
   template:
     src: "/tmp/environment_settings.py.dist"
     dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py"
   tags:
     - codedeploy
 
-- name: Delete temporary environment_settings.py.dist
+- name: "Delete temporary environment_settings.py.dist"
   file:
     path: "/tmp/environment_settings.py.dist"
     state: absent
   tags:
     - codedeploy
 
-- name: Run collectstatic
+- name: "Run collectstatic"
   django_manage:
-    command: collectstatic
+    command: "collectstatic"
     app_path: "{{ django_root }}"
     virtualenv: "{{ django_virtualenv_path }}"
   tags:
     - codedeploy
 
-- name: Create django media root directory
+- name: "Create django media root directory"
   file:
     path: "{{ django_media_root }}"
-    state: directory
-    owner: www
-    group: www
+    state: "directory"
+    owner: "www"
+    group: "www"
   tags:
     - codedeploy
 
-- name: Create django media root subdirectories
+- name: "Create django media root subdirectories"
   file:
     path: "{{ django_media_root }}/{{ item }}"
-    state: directory
-    owner: www
-    group: www
+    state: "directory"
+    owner: "www"
+    group: "www"
   with_items: "{{ django_media_root_subdirs }}"
+  tags:
+    - codedeploy
+
+- name: "Create PDF archive directory"
+  file:
+    path: "{{ pdf_archive_path }}"
+    state: "directory"
+    owner: "www"
+    group: "www"
   tags:
     - codedeploy
 
