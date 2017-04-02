@@ -1,0 +1,11 @@
+---
+- name: "Start prosody" 
+  service:
+    name: "prosody"
+    state: "started"
+
+- name: "Reload prosody" 
+  service:
+    name: "prosody"
+    state: "reloaded"
+

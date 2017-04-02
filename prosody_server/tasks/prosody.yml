@@ -1,0 +1,13 @@
+---
+- name: "Install prosody"
+  pkgng:
+    name: "prosody"
+    state: "present"
+
+- name: "Enable prosody in rc.conf"
+  sysrc:
+    name: "prosody_enable"
+    value: "YES"
+
+- name: "Copy prosody config file"
+
