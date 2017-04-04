@@ -1,5 +1,4 @@
 ---
-- include: pkg.yml
 - include: postfix.yml
 - include: opendkim.yml
 - include: mailman.yml
