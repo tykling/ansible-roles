@@ -162,4 +162,12 @@
   tags:
     - isc_dhcpd_servers
 
+- name: configure metabase servers
+  hosts: metabase_servers
+  become: yes
+  roles:
+    - metabase_server
+  tags:
+    - metabase_servers
+
 
