@@ -1,0 +1,3 @@
+---
+- include: openjdk-jre.yml
+

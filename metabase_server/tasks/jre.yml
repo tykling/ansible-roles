@@ -1,0 +1,6 @@
+---
+- name: "Install openjdk jre"
+  pkgng:
+    name: "openjdk8-jre"
+    state: "present"
+
