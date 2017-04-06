@@ -1,0 +1,9 @@
+---
+- name: "Add metabase user"
+  user:
+    name: "metabase"
+    comment: "metabase user"
+    shell: "/usr/sbin/nologin"
+    createhome: no
+    home: "/nonexistent"
+

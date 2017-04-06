@@ -1,3 +1,4 @@
 ---
 - include: openjdk-jre.yml
+- include: user.yml
 

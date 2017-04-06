@@ -1,0 +1,9 @@
+---
+- name: "Copy metabase config file"
+  template:
+    src: "metabase.j2"
+    dest: "/usr/local/etc/metabase.conf"
+    owner: "metabase"
+    group: "metabase"
+    mode: "600"
+
