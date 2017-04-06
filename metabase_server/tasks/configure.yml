@@ -7,9 +7,14 @@
 
 - name: "Copy metabase config file"
   template:
-    src: "metabase.j2"
+    src: "metabase.conf.j2"
     dest: "/usr/local/etc/metabase.conf"
     owner: "metabase"
     group: "metabase"
     mode: "600"
+
+- name: "Enable metabase in rc.conf"
+  service:
+    name: "metabase"
+    enabled: "yes"
 

@@ -1,0 +1,17 @@
+---
+- name: "Install (download) metabase jar file"
+  get_url:
+    url: http://downloads.metabase.com/v0.23.1/metabase.jar
+    dest: /usr/local/lib/metabase.jar
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+
+- name: "Install metabase rc.d script"
+  template:
+    src: "metabase.j2"
+    dest: "/usr/local/etc/rc.d/metabase"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"
+
