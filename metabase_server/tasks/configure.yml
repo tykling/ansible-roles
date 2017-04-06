@@ -1,4 +1,10 @@
 ---
+- name: "Include host_vars/{{ ansible_nodename }}-secrets.yml if it exists"
+  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+  ignore_errors: yes
+  tags:
+    - always
+
 - name: "Copy metabase config file"
   template:
     src: "metabase.j2"
