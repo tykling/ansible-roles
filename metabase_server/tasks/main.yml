@@ -1,5 +1,6 @@
 ---
 - include: openjdk-jre.yml
 - include: user.yml
+- include: install.yml
 - include: configure.yml
 
