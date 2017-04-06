@@ -1,8 +1,13 @@
 ---
+metabase_user: "metabase"
+metabase_group: "metabase"
+
 metabase_db_type: "postgres"
 metabase_db_name: "metabasedb"
 metabase_db_port: 5432
 metabase_db_user: "metabaseuser"
 metabase_db_pass: "metabasepass"
 metabase_db_host: "localhost"
+
+metabase_java_binary: "/usr/local/bin/java"
 

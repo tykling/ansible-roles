@@ -27,13 +27,13 @@ load_rc_config ${name}
 pidfile="/var/run/metabase/${name}.pid"
 procname=%%JAVA%%
 command="/usr/sbin/daemon"
-command_args="-f -p ${pidfile} %%JAVA%% ${metabase_javaflags} -jar lib/metabase.jar"
+command_args="-f -p ${pidfile} {{ metabase_java_binary }} ${metabase_javaflags} -jar lib/metabase.jar"
 start_precmd=start_precmd
 
 start_precmd()
 {
 	if [ ! -e /var/run/metabase ] ; then
-		install -d -o %%USERS%% -g %%GROUPS%% /var/run/metabase;
+		install -d -o {{ metabase_user }} -g {{ metabase_group }} /var/run/metabase;
 	fi
 }
 

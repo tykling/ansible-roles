@@ -9,8 +9,8 @@
   template:
     src: "metabase.conf.j2"
     dest: "/usr/local/etc/metabase.conf"
-    owner: "metabase"
-    group: "metabase"
+    owner: {{ metabase_user }}
+    group: {{ metabase_group }}
     mode: "600"
 
 - name: "Enable metabase in rc.conf"

@@ -1,7 +1,7 @@
 ---
 - name: "Add metabase user"
   user:
-    name: "metabase"
+    name: {{ metabase_user }}
     comment: "metabase user"
     shell: "/usr/sbin/nologin"
     createhome: no
