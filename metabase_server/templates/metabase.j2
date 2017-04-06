@@ -19,15 +19,21 @@ name=metabase
 rcvar=metabase_enable
 load_rc_config ${name}
 
+
 : ${metabase_enable:=NO}
 : ${metabase_user:="metabase"}
 : ${metabase_group:="metabase"}
+: ${metabase_conf:="/usr/local/etc/metabase.conf"}
 : ${metabase_javaflags:=""}
 
+if [ -f ${metabase_conf} ]; then
+    . ${metabase_conf}
+fi
+
 pidfile="/var/run/metabase/${name}.pid"
-procname=%%JAVA%%
+procname=java
 command="/usr/sbin/daemon"
-command_args="-f -p ${pidfile} {{ metabase_java_binary }} ${metabase_javaflags} -jar lib/metabase.jar"
+command_args="-f -p ${pidfile} {{ metabase_java_binary }} ${metabase_javaflags} -jar /usr/local/lib/metabase.jar"
 start_precmd=start_precmd
 
 start_precmd()
