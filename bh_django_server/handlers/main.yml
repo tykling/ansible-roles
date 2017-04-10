@@ -1,0 +1,4 @@
+---
+- name: "reload uwsgi"
+  command: "/usr/bin/touch /var/run/uwsgi-touch-to-reload"
+

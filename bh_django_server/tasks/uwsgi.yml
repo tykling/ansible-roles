@@ -52,11 +52,6 @@
     owner: www
     group: www
 
-- name: Touch uwsgi touch-chain-reload file
-  command: "/usr/bin/touch /var/run/uwsgi-touch-to-reload"
-  tags:
-    - codedeploy
-
 - name: Start uwsgi (if neccesary)
   service:
     name: uwsgi
