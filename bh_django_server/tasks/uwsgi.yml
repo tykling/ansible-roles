@@ -68,4 +68,7 @@
   command: "/bin/pkill -F /var/run/django/{{ item.key }}.pid"
   ignore_errors: yes
   with_dict: "{{ django_manage_workers }}"
+  tags:
+    - codedeploy
+
 
