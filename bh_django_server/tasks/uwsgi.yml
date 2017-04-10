@@ -52,23 +52,13 @@
     owner: www
     group: www
 
+- name: Touch uwsgi touch-chain-reload file
+  command: "/usr/bin/touch /var/run/uwsgi-touch-to-reload"
+  tags:
+    - codedeploy
+
 - name: Start uwsgi (if neccesary)
   service:
     name: uwsgi
     state: started
-
-- name: Reload uwsgi
-  service:
-    name: uwsgi
-    state: reloaded
-  tags:
-    - codedeploy
-
-- name: Reload djangomanage workers
-  command: "/bin/pkill -F /var/run/django/{{ item.key }}.pid"
-  ignore_errors: yes
-  with_dict: "{{ django_manage_workers }}"
-  tags:
-    - codedeploy
-
 
