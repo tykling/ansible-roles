@@ -1,11 +1,4 @@
 ---
-- name: Remove old code
-  file:
-    path: "{{ django_checkout_path }}"
-    state: absent
-  tags:
-    - codedeploy
-  
 - name: Get code from git
   git:
     repo: "{{ django_github_repo_url }}"
