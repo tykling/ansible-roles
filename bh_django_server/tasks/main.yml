@@ -3,6 +3,7 @@
 - include: syslog.yml
 - include: newsyslog.yml
 - include: postgres.yml
+- include: redis.yml
 - include: pip-packages.yml
 - include: django-configuration.yml
 - include: supervisord.yml
