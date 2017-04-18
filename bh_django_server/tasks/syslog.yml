@@ -1,7 +1,7 @@
 ---
-- name: "Create uwsgi logfile directory"
+- name: "Create supervisord logfile directory"
   file:
-    path: "/var/log/uwsgi"
+    path: "/var/log/supervisord"
     state: "directory"
     owner: "root"
     group: "wheel"
@@ -9,14 +9,14 @@
 - name: "Add django.log to syslog.conf"
   blockinfile:
     dest: "/etc/syslog.conf"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK for uwsgi django log"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK for supervisord django log"
     block: |
-      !uwsgi
-      *.*                                             /var/log/uwsgi/django.log
+      !supervisord
+      *.*                                             /var/log/supervisord/django.log
 
 - name: "Create django.log if it doesn't exist"
   file:
-    path: "/var/log/uwsgi/django.log"
+    path: "/var/log/supervisord/django.log"
     state: "touch"
     mode: "644"
 

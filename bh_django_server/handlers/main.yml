@@ -1,6 +1,0 @@
----
-- name: "reload uwsgi"
-  file:
-    path: "/var/run/uwsgi-touch-to-reload"
-    state: "touch"
-

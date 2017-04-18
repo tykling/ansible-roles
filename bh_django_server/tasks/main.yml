@@ -4,6 +4,6 @@
 - include: newsyslog.yml
 - include: postgres.yml
 - include: pip-packages.yml
-- include: uwsgi.yml
 - include: django-configuration.yml
+- include: supervisord.yml
 

@@ -7,5 +7,4 @@
     version: "{{ django_github_branch }}"
   tags:
     - codedeploy
-  notify: "reload uwsgi"
 

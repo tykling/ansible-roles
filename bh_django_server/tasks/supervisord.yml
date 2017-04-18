@@ -1,0 +1,16 @@
+---
+- name: "Install supervisord"
+  pkgng:
+    name: "py27-supervisor"
+    state: "present"
+
+- name: "Enable supervisord"
+  service:
+    name: "supervisord"
+    enabled: yes
+
+- name: "Copy supervisor config"
+  template:
+    src: "supervisord.conf.j2"
+    dest: "/usr/local/etc/supervisord.conf"
+

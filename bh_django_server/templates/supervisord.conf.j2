@@ -1,0 +1,51 @@
+[unix_http_server]
+file=/var/run/supervisor/supervisor.sock   ; (the path to the socket file)
+
+[supervisord]
+logfile=syslog              ; (main log file;default $CWD/supervisord.log)
+loglevel=info               ; (log level;default info; others: debug,warn,trace)
+pidfile=/var/run/supervisor/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+nodaemon=false              ; (start in foreground if true;default false)
+minfds=1024                 ; (min. avail startup file descriptors;default 1024)
+minprocs=200                ; (min. avail process descriptors;default 200)
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; program definitions below here
+
+; run redis
+[program:redis]
+command=/usr/local/bin/redis-server /usr/local/etc/redis.conf
+redirect_stderr=true
+user=535
+stdout_logfile=syslog
+
+; daphne (http to asgi server)
+[program:daphne]
+command={{ django_virtualenv_path }}bin/daphne {{ django_mainapp }}.asgi:channel_layer
+redirect_stderr=true
+user={{ django_daphne_user }}
+stdout_logfile=syslog
+directory={{ django_root }}
+
+; runworker (runs a number of asgi workers)
+[program:runworker]
+command={{ django_virtualenv_path }}bin/python {{ django_root }}/manage.py runworker
+numprocs=20
+process_name=%(program_name)s_%(process_num)03d
+redirect_stderr=true
+user=www
+stdout_logfile=syslog
+
+{% for workername, workerconfig in django_manage_workers.iteritems() %}
+[program:{{ workername }}]
+command={{ django_virtualenv_path }}bin/python {{ django_root }}/manage.py {{ workerconfig.commandline }}
+redirect_stderr=true
+user=www
+stdout_logfile=syslog
+{% endfor %}
+
