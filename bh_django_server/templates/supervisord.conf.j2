@@ -26,7 +26,7 @@ stdout_logfile=syslog
 
 ; daphne (http to asgi server)
 [program:daphne]
-command={{ django_virtualenv_path }}/bin/python -u {{ django_virtualenv_path }}/bin/daphne {{ django_mainapp }}.asgi:channel_layer
+command={{ django_virtualenv_path }}/bin/python -u {{ django_virtualenv_path }}/bin/daphne --access-log - --proxy-headers {{ django_mainapp }}.asgi:channel_layer
 redirect_stderr=true
 user={{ django_daphne_user }}
 stdout_logfile=syslog
