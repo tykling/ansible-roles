@@ -21,7 +21,7 @@ http {
     access_log                  /usr/local/www/logs/proxytiming.log timing;
     access_log                  syslog:server=unix:/var/run/log timing; # defaults to facility local7
     {% else %}
-    log_format                  main  '$host - $remote_addr:$remote_port - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id';
+    log_format                  main  '$host - $remote_addr:$http_x_forwarded_port - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id';
     access_log                  syslog:server=unix:/var/run/log main;
     access_log                  /usr/local/www/logs/access.log  main;
     {% endif %}
