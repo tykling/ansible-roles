@@ -32,6 +32,11 @@ http {
     proxy_buffers               256 4k;
     server_tokens               off;
 
+    map $http_upgrade $connection_upgrade {
+        default   upgrade;
+        ''        close;
+    }
+
     {% if nginx_proxy | default(False) %}
     include /usr/local/etc/nginx/vhosts/*.conf;
     {% else %}
