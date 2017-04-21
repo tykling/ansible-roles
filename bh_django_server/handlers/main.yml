@@ -4,5 +4,5 @@
 
 - name: "restart django manage.py worker instances"
   command: "/usr/local/bin/supervisorctl restart {{ item }}"
-  with_dict: "{{ django_manage_workers | default({}) %}
+  with_dict: "{{ django_manage_workers | default({}) }}"
 
