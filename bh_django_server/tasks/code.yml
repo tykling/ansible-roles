@@ -7,4 +7,7 @@
     version: "{{ django_github_branch }}"
   tags:
     - codedeploy
+  notify:
+    - "restart django runworker instances"
+    - "restart django manage.py worker instances"
 
