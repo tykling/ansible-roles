@@ -1,0 +1,11 @@
+---
+- name: "Install charybdis"
+  pkgng:
+    name: "charybdis"
+    state: "present"
+
+- name: "Enable charybdis"
+  service:
+    name: "charybdis"
+    enabled: yes
+

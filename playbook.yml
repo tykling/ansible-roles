@@ -176,3 +176,9 @@
   roles:
     - certgrinder_server
 
+- name: configure charybdis ircd servers
+  hosts: ircd_servers
+  become: yes
+  roles:
+    - ircd_server
+
