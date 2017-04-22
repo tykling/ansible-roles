@@ -48,3 +48,8 @@
     path: "{{ letsencrypt_webroot }}"
     state: "directory"
 
+- name: "Create letsencrypt config file"
+  template:
+    src: "letsencrypt.ini.j2"
+    dest: "/usr/local/etc/letsencrypt/letsencrypt.ini"
+
