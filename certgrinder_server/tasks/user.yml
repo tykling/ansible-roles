@@ -14,7 +14,7 @@
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
-    regexp: "^certgrinder ALL=\\(ALL\\) ALL$"
-    line: "{{ item.key }} ALL=(ALL) /usr/local/bin/certbot"
+    regexp: "^{{ certgrinder_user }} ALL=\\(ALL\\) /usr/local/bin/certbot$"
+    line: "{{ certgrinder_user }} ALL=(ALL) /usr/local/bin/certbot"
     validate: "visudo -cf %s"
 
