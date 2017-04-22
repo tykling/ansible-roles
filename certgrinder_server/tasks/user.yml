@@ -1,0 +1,20 @@
+---
+- name: "Add certgrinder user"
+  user:
+    name: "{{ certgrinder_user }}"
+    comment: "certgrinder user"
+
+- name: "Add ssh authorized_keys for certgrinder user"
+  authorized_key:
+    user: "{{ item.key }}"
+    key: "{{ item.value.key }}"
+  with_dict: "{{ users | default({}) }}"
+
+- name: "Add certgrinder user to sudoers"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    regexp: "^certgrinder ALL=\\(ALL\\) ALL$"
+    line: "{{ item.key }} ALL=(ALL) /usr/local/bin/certbot"
+    validate: "visudo -cf %s"
+

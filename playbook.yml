@@ -170,4 +170,9 @@
   tags:
     - metabase_servers
 
+- name: configure certgrinder servers
+  hosts: certgrinder_servers
+  become: yes
+  roleS:
+    - certgrinder_server
 
