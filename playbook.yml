@@ -173,6 +173,6 @@
 - name: configure certgrinder servers
   hosts: certgrinder_servers
   become: yes
-  roleS:
+  roles:
     - certgrinder_server
 
