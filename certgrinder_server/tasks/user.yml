@@ -6,9 +6,9 @@
 
 - name: "Add ssh authorized_keys for certgrinder user"
   authorized_key:
-    user: "{{ item.key }}"
-    key: "{{ item.value.key }}"
-  with_dict: "{{ users | default({}) }}"
+    user: "{{ certgrinder_user }}"
+    key: "{{ item }}"
+  with_items: "{{ certgrinder_authorized_keys }}"
 
 - name: "Add certgrinder user to sudoers"
   lineinfile:

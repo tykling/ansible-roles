@@ -1,3 +1,4 @@
 ---
 letsencrypt_webroot: "/usr/local/www/letsencrypt-auto"
+certgrinder_user: "certgrinder"
 
