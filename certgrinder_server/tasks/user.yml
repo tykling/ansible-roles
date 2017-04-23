@@ -7,8 +7,9 @@
 - name: "Add ssh authorized_keys for certgrinder user"
   authorized_key:
     user: "{{ certgrinder_user }}"
-    key: "{{ item }}"
-  with_items: "{{ certgrinder_authorized_keys }}"
+    key: "{{ item.value.authkey }}"
+    key_options: "from={{ item.value.fromip }},command=/usr/local/bin/certgrinder,no-port-forwarding,no-x11-forwarding,no-agent-forwarding"
+  with_dict: "{{ certgrinder_authorized_keys }}"
 
 - name: "Add certgrinder user to sudoers"
   lineinfile:
