@@ -1,48 +1,48 @@
 ---
-- name: Find out if poudriere.tyknet.dk repo is already enabled
+- name: "Find out if poudriere.tyknet.dk repo is already enabled"
   stat:
-    path: /usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
+    path: "/usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf"
   register: poudriere_config_status
 
-- name: Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)
+- name: "Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)"
   template:
-    src: poudriere_tyknet_dk.conf.j2
-    dest: /usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
-  when: poudriere_config_status.stat.exists == True
+    src: "pkg_repo.conf.j2"
+    dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
+    when: poudriere_config_status.stat.exists == True
 
-- name: Install ca_root_nss
+- name: "Install ca_root_nss"
   pkgng:
-    name: ca_root_nss
-    state: present
+    name: "ca_root_nss"
+    state: "present"
 
-- name: Create repo config directory
+- name: "Create repo config directory"
   file:
-    path: /usr/local/etc/pkg/repos
-    state: directory
+    path: "/usr/local/etc/pkg/repos"
+    state: "directory"
 
-- name: Copy repo config file
+- name: "Copy repo config file"
   template:
-    src: pkg_repo.conf.j2
-    dest: /usr/local/etc/pkg/repos/{{ pkg_repository_filename }}
+    src: "pkg_repo.conf.j2"
+    dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
 
-- name: Disable default FreeBSD repo
+- name: "Disable default FreeBSD repo"
   copy:
-    owner: root
-    group: wheel
+    owner: "root"
+    group: "wheel"
     mode: "644"
-    src: FreeBSD.conf
-    dest: /usr/local/etc/pkg/repos/FreeBSD.conf
+    src: "FreeBSD.conf"
+    dest: "/usr/local/etc/pkg/repos/FreeBSD.conf"
 
-- name: Create repo cert directory
+- name: "Create repo cert directory"
   file:
-    path: /usr/local/etc/ssl/certs
-    state: directory
+    path: "/usr/local/etc/ssl/certs"
+    state: "directory"
 
-- name: Copy poudriere pubkey
+- name: "Copy poudriere public key"
   copy:
-    owner: root
-    group: wheel
+    owner: "root"
+    group: "wheel"
     mode: "600"
-    content: {{ poudriere_cert }}
-    dest: /usr/local/etc/ssl/certs/poudriere.cert
+    content: "{{ poudriere_cert }}"
+    dest: "/usr/local/etc/ssl/certs/poudriere.cert"
 
