@@ -1,4 +1,9 @@
 ---
 dependencies:
-  - { role: nginx_server }
+    - { role: nginx_server, nginx_locationslash: |
+      location '/.well-known/acme-challenge' {
+              default_type        "text/plain";
+              alias               {{ letsencrypt_webroot }};
+      }
+    }
 
