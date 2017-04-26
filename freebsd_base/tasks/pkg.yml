@@ -43,6 +43,6 @@
     owner: root
     group: wheel
     mode: "600"
-    src: poudriere.tyknet.dk.cert
+    content: {{ poudriere_cert }}
     dest: /usr/local/etc/ssl/certs/poudriere.cert
 
