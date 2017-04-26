@@ -22,8 +22,8 @@
 
 - name: Copy repo config file
   template:
-    src: poudriere_tyknet_dk.conf.j2
-    dest: /usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf
+    src: pkg_repo.conf.j2
+    dest: /usr/local/etc/pkg/repos/{{ pkg_repository_filename }}
 
 - name: Disable default FreeBSD repo
   copy:

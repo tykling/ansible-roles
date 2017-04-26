@@ -14,3 +14,7 @@ packages:
   - vim-lite
 disable_ssh_password_login: False
 
+pkg_repository_filename: poudriere_tyknet_dk.conf
+poudriere_repo_name: poudriere_tyknet_dk
+poudriere_repo_hostname: poudriere.tyknet.dk
+
