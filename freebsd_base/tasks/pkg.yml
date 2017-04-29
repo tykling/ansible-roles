@@ -8,7 +8,7 @@
   template:
     src: "pkg_repo.conf.j2"
     dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
-    when: poudriere_config_status.stat.exists == True
+  when: poudriere_config_status.stat.exists == True
 
 - name: "Install ca_root_nss"
   pkgng:
