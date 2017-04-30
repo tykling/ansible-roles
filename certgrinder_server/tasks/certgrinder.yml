@@ -1,0 +1,14 @@
+---
+- name: "Get certgrinder code from git"
+  git:
+    repo: "https://github.com/tykling/certgrinder"
+    dest: "/usr/home/{{ certgrinder_user }}/certgrinder"
+    force: yes
+    version: "master"
+
+- name: "Create symlink to csrgrinder binary"
+  file:
+    src: "/usr/home/{{ certgrinder_user }}/certgrinder/csrgrinder"
+    dest: "/usr/local/bin/csrgrinder"
+    state: "link"
+
