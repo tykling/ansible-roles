@@ -3,7 +3,7 @@
   blockinfile:
     create: yes
     dest: /etc/hosts
-    marker: "# {mark} ANSIBLE MANAGED BLOCK submission"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK /etc/hosts"
     content: "{{ etchosts }}"
   when: etchosts is defined
 
