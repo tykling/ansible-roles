@@ -1,0 +1,9 @@
+---
+- name: "Configure /etc/hosts"
+  blockinfile:
+    create: yes
+    dest: /etc/hosts
+    marker: "# {mark} ANSIBLE MANAGED BLOCK submission"
+    content: {{ etchosts }}
+  when: etchosts is defined
+
