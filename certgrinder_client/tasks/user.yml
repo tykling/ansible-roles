@@ -1,0 +1,6 @@
+---
+- name: "Add certgrinder user"
+  user:
+    name: "{{ certgrinder_user }}"
+    comment: "certgrinder user"
+

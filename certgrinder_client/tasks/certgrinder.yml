@@ -1,0 +1,8 @@
+---
+- name: "Get certgrinder code from git"
+  git:
+    repo: "https://github.com/tykling/certgrinder"
+    dest: "/usr/home/{{ certgrinder_user }}/certgrinder"
+    force: yes
+    version: "master"
+
