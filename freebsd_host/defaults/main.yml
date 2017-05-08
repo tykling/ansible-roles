@@ -6,6 +6,7 @@ default_host_packages:
   - "beadm"
   - "zfs-periodic"
   - "netdata"
+  - "zfs-stats"
 
 ntp_servers:
   - "dk.pool.ntp.org"
