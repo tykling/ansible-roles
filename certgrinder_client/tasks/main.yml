@@ -1,4 +1,4 @@
 ---
-include: user.yml
-include: certgrinder.yml
+- include: user.yml
+- include: certgrinder.yml
 
