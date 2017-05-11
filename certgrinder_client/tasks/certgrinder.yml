@@ -6,3 +6,10 @@
     force: yes
     version: "master"
 
+- name: "Fix permissions of certgrinder dir"
+  file:
+    path: "/usr/home/{{ certgrinder_user }}/certgrinder"
+    owner: "{{ certgrinder_user }}"
+    group: "{{ certgrinder_user }}"
+    recurse: yes
+
