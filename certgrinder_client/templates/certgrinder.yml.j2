@@ -3,16 +3,14 @@
 path: "/home/user/{{ certgrinder_user }}/certificates"
 
 # a list of sets of domains to get certificates for
-domainlist:
-  "{{ certgrinder_hostname_sets | to_nice_yaml }}"
+{{ certgrinder_hostname_sets | to_nice_yaml(indent=2) }}
 
 # hostname of the certgrinder server
 server: "{{ certgrinder_ssh_server }}"
 
 # x509 properties for certificate subject,
 # the first domain in the lists above will be added as CN
-x509:
-  "{{ certgrinder_x509_properties | to_nice_yaml }}"
+{{ certgrinder_x509_properties | to_nice_yaml(indent=2) }}
 
 # renew certificate when this many days or fewer validity left
 cert_renew_threshold_days: 30
