@@ -1,7 +1,7 @@
 ---
 - name: "Create certificates directory"
   file:
-    path: "/usr/home/{{ certgrinder_user }}/certificates"
+    dest: "/usr/home/{{ certgrinder_user }}/certificates"
     state: "directory"
     mode: "0600"
     owner: "{{ certgrinder_user }}"
@@ -9,7 +9,7 @@
 - name: "Create certgrinder.yml config file"
   template:
     src: "certgrinder.yml.j2"
-    path: "/usr/home/{{ certgrinder_user }}/certgrinder.yml"
+    dest: "/usr/home/{{ certgrinder_user }}/certgrinder.yml"
     owner: "{{ certgrinder_user }}"
     mode: "0644"
 
