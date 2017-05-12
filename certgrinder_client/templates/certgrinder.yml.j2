@@ -1,0 +1,22 @@
+---
+# where to put keys and certificates
+path: "/home/user/{{ certgrinder_user }}/certificates"
+
+# a list of sets of domains to get certificates for
+domainlist:
+  "{{ certgrinder_hostname_sets | to_nice_yaml }}"
+
+# hostname of the certgrinder server
+server: "{{ certgrinder_ssh_server }}"
+
+# x509 properties for certificate subject,
+# the first domain in the lists above will be added as CN
+x509:
+  "{{ certgrinder_x509_properties | to_nice_yaml }}"
+
+# renew certificate when this many days or fewer validity left
+cert_renew_threshold_days: 30
+
+# the path of the certgrinder binary on the remote server
+csrgrinder_path: '/usr/local/bin/csrgrinder'
+
