@@ -1,0 +1,16 @@
+---
+- name: "Install pip"
+  pkgng:
+    name: "py27-pip"
+    state: "present"
+
+- name: "Install virtualenv"
+  pkgng:
+    name: "py27-virtualenv"
+    state: "present"
+
+- name: "Create virtualenv and install requirements.txt modules with pip"
+  pip:
+    requirements: "/usr/home/{{ certgrinder_user }}/certgrinder/requirements.txt"
+    virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
+
