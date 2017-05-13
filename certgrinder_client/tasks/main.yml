@@ -1,6 +1,10 @@
 ---
 - include: user.yml
+  tags: certgrinder
 - include: code.yml
+  tags: certgrinder
 - include: configuration.yml
+  tags: certgrinder
 - include: python.yml
+  tags: certgrinder
 
