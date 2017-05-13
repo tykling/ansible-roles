@@ -1,6 +1,6 @@
 ---
 # where to put keys and certificates
-path: "/home/user/{{ certgrinder_user }}/certificates"
+path: "/usr/home/{{ certgrinder_user }}/certificates"
 
 # a list of sets of domains to get certificates for
 {{ certgrinder_hostname_sets | to_nice_yaml(indent=2) }}
