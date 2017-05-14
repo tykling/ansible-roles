@@ -9,6 +9,9 @@ certgrinder_hostname_sets:
  - "example.com,www.example.com"
  - "example.org,www.example.org"
 
+Optionally certgrinder can restart local services after a cert is renewed.
+certgrinder_post_renew_hook: "/usr/sbin/service -R"
+
 Something to handle the HTTP redirect is also needed. nginx_server role can be used with something like the following nginx_locationslash:
 
 nginx_locationslash:

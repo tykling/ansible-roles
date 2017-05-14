@@ -1,3 +1,4 @@
 ---
 certgrinder_user: "certgrinder"
+certgrinder_post_renew_hook: "/usr/sbin/service -R"
 
