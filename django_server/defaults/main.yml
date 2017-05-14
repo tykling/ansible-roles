@@ -1,3 +1,4 @@
 ---
 github_branch: "master"
+postgres_port: 5432
 
