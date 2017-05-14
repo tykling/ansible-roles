@@ -5,8 +5,7 @@ server {
 
     {% if item.value.letsencrypt | default(True) %}
     location '/.well-known/acme-challenge' {
-        default_type        "text/plain";
-        root                /tmp/letsencrypt-auto;
+          return 301 {{ certgrinder_http_redirect }}$request_uri;
     }
     {% endif %}
 
