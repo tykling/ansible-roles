@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: certgrinder_client, when: nginx_proxy }
+

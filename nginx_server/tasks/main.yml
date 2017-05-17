@@ -1,4 +1,7 @@
 ---
 - include: syslog.yml
+- include: directories.yml
+- include: configs.yml
 - include: nginx.yml
+- include: ocsp.yml
 

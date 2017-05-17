@@ -1,0 +1,19 @@
+---
+- name: "Create nginx logfile directory"
+  file:
+    path: "/usr/local/www/logs"
+    state: "directory"
+
+- name: "Create nginx vhosts directory"
+  file:
+    path: "/usr/local/etc/nginx/vhosts"
+    state: "directory"
+  when: nginx_proxy
+
+- name: "Create nginx certificates directory"
+  file:
+    path: "/usr/local/etc/nginx/certificates"
+    state: "directory"
+  when: nginx_proxy
+
+

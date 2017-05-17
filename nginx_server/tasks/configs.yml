@@ -1,0 +1,57 @@
+---
+- name: "Copy nginx.conf"
+  template:
+    src: "nginx.conf.j2"
+    dest: "/usr/local/etc/nginx/nginx.conf"
+  notify: "reload nginx"
+
+- name: "Copy default nginx TLS config"
+  template:
+    src: "tls.conf.j2"
+    dest: "/usr/local/etc/nginx/tls.conf"
+  when: nginx_proxy
+  notify: "reload nginx"
+
+- name: "Copy nginx securityheaders.conf"
+  template:
+    src: "securityheaders.conf.j2"
+    dest: "/usr/local/etc/nginx/securityheaders.conf"
+  when: nginx_proxy
+  notify: "reload nginx"
+
+- name: "Copy nginx proxyheaders.conf"
+  template:
+    src: "proxyheaders.conf.j2"
+    dest: "/usr/local/etc/nginx/proxyheaders.conf"
+  when: nginx_proxy
+  notify: "reload nginx"
+
+- name: "Include nginx_extra_configs.yml where needed"
+  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+  ignore_errors: yes
+  when: nginx_proxy
+  notify: "reload nginx"
+
+- name: "Create nginx extra include configs (acls and more)"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "600"
+    content: "{{ item.value.content }}"
+    dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
+  with_dict: "{{ nginx_extra_configs | default({}) }}"
+  when: nginx_proxy
+  notify: "reload nginx"
+
+- name: "Copy vhost http configs"
+  template:
+    src: "http-vhost.conf.j2"
+    dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
+  with_dict: "{{ vhosts }}"
+
+- name: "Copy vhost https configs"
+  template:
+    src: "https-vhost.conf.j2"
+    dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
+  with_dict: "{{ vhosts }}"
+

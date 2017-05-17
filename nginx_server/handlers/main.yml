@@ -1,6 +1,12 @@
 ---
-- name: reload syslogd
+- name: "reload syslogd"
   service:
-    name: syslogd
-    state: reloaded
+    name: "syslogd"
+    state: "reloaded"
+
+- name: "reload nginx"
+  service:
+    name: "nginx"
+    state: "reloaded"
+
 
