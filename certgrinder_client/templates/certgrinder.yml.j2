@@ -3,7 +3,8 @@
 path: "/usr/home/{{ certgrinder_user }}/certificates"
 
 # a list of sets of domains to get certificates for
-{{ certgrinder_hostname_sets | to_nice_yaml(indent=2) }}
+hostnames:
+{{ certgrinder_hostname_sets | to_nice_yaml }}
 
 # hostname of the certgrinder server
 server: "{{ certgrinder_ssh_server }}"
@@ -15,5 +16,6 @@ cert_renew_threshold_days: 30
 csrgrinder_path: '/usr/local/bin/csrgrinder'
 
 # run these after renewal of one or more certificates
-{{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml(indent=2) }}
+post_renew_hooks:
+{{ certgrinder_post_renew_hooks | default(None) }}
 
