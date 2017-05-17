@@ -19,5 +19,5 @@ cert_renew_threshold_days: 30
 csrgrinder_path: '/usr/local/bin/csrgrinder'
 
 # run these after renewal of one or more certificates
-{{ certgrinder_post_renew_hooks | to_nice_yaml(indent=2)
+{{ certgrinder_post_renew_hooks | to_nice_yaml(indent=2) }}
 
