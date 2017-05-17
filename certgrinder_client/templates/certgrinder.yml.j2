@@ -17,5 +17,5 @@ csrgrinder_path: '/usr/local/bin/csrgrinder'
 
 # run these after renewal of one or more certificates
 post_renew_hooks:
-{{ certgrinder_post_renew_hooks | default(None) }}
+{{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml }}
 
