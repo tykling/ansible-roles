@@ -14,7 +14,7 @@
     enabled: "yes"
 
 - name: "Run certgrinder"
-  command: "/usr/home/{{ certgrinder_user }}/venv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py"
+  command: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py"
   when: nginx_proxy
 
 - name: "Create dhparams"
