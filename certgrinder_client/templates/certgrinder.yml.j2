@@ -3,7 +3,7 @@
 path: "/usr/home/{{ certgrinder_user }}/certificates"
 
 # a list of sets of domains to get certificates for
-hostnames:
+domainlist:
 {{ certgrinder_hostname_sets | to_nice_yaml }}
 
 # hostname of the certgrinder server
