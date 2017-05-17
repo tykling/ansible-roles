@@ -19,3 +19,6 @@ csrgrinder_path: '/usr/local/bin/csrgrinder'
 post_renew_hooks:
 {{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml }}
 
+# enable fallback to selfsigned certificates?
+selfsigned_fallback: True
+
