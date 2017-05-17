@@ -5,7 +5,7 @@ server {
 
     {% if item.value.letsencrypt | default(True) %}
     location '/.well-known/acme-challenge' {
-          return 301 {{ certgrinder_http_redirect }}$request_uri;
+          return 301 {{ certgrinder_redirect_url }}$request_uri;
     }
     {% endif %}
 
