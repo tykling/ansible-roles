@@ -5,6 +5,7 @@ The following settings are needed:
 
 certgrinder_ssh_server: "certgrinder.servers.example.org"
 certgrinder_redirect_url: "https://certgrinder.example.org"
+certgrinder_admin_email: "admin@example.com"
 certgrinder_hostname_sets:
   domainlist:
     - "example.com,www.example.com"

@@ -5,4 +5,6 @@
     comment: "certgrinder user"
     ssh_key_type: "ed25519"
     generate_ssh_key: True
+  notify:
+    - "certgrinder ssh key created email"
 
