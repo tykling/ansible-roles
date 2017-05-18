@@ -13,7 +13,6 @@
     dest: "/usr/local/etc/sudoers"
     state: "present"
     regexp: "^{{ certgrinder_user }} ALL=\\(ALL\\) NOPASSWD: {{ item | join(' ') }}$"
-    line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: /usr/local/bin/certbot"
     validate: "visudo -cf %s"
   with_items: "{{ certgrinder_post_renew_hooks }}"
 
