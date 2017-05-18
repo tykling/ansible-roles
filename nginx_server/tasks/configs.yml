@@ -48,10 +48,14 @@
     src: "http-vhost.conf.j2"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
   with_dict: "{{ vhosts }}"
+  when: nginx_proxy
+  notify: "reload nginx"
 
 - name: "Copy vhost https configs"
   template:
     src: "https-vhost.conf.j2"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
   with_dict: "{{ vhosts }}"
+  when: nginx_proxy
+  notify: "reload nginx"
 
