@@ -1,0 +1,6 @@
+---
+- name: "reload sysctl.conf"
+  service:
+    name: "sysctl"
+    state: "reloaded"
+
