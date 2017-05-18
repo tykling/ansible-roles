@@ -20,5 +20,6 @@
   lineinfile:
     dest: "/usr/home/{{ certgrinder_user }}/.ssh/known_hosts"
     state: "present"
+    create: yes
     line: "{{ certgrinder_ssh_server }} ecdsa-sha2-nistp256 {{ certgrinder_server_ssh_pubkey }}"
 
