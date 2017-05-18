@@ -7,15 +7,13 @@ certgrinder_ssh_server: "certgrinder.servers.example.org"
 certgrinder_redirect_url: "https://certgrinder.example.org"
 certgrinder_admin_email: "admin@example.com"
 certgrinder_hostname_sets:
-  domainlist:
-    - "example.com,www.example.com"
-    - "example.org,www.example.org"
+  - "example.com,www.example.com"
+  - "example.org,www.example.org"
 
 Optionally certgrinder can restart local services after a cert is renewed:
 
 certgrinder_post_renew_hooks:
-  post_renew_hooks:
-    - "/usr/sbin/service -R"
+  - "/usr/sbin/service -R"
 
 Something to handle the challenge HTTP redirect is also needed. nginx_server role can be used with something like the following nginx_locationslash:
 
