@@ -3,6 +3,6 @@
   user:
     name: "{{ certgrinder_user }}"
     comment: "certgrinder user"
+    ssh_key_type: "ed25519"
     generate_ssh_key: True
-
 
