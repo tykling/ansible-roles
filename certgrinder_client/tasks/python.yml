@@ -11,6 +11,7 @@
 
 - name: "Create virtualenv and install requirements.txt modules with pip"
   pip:
+    virtualenv_python: "python"
     requirements: "/usr/home/{{ certgrinder_user }}/certgrinder/requirements.txt"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
 
