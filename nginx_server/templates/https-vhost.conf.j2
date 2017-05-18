@@ -4,18 +4,18 @@ server {
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
     ssl                     on;
-    {% if item.value.letsencrypt | default(True) %}
+{% if item.value.letsencrypt | default(True) %}
     ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}.crt;
     ssl_certificate_key     /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}.key;
-    {% else %}
+{% else %}
     ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt;
     ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.key;
-    {% endif %}
+{% endif %}
     include                 /usr/local/etc/nginx/tls.conf;
     include                 /usr/local/etc/nginx/securityheaders.conf;
-    {% if 'csp' in item.value %}
+{% if 'csp' in item.value %}
     more_set_headers        "Content-Security-Policy: {{ item.value.csp }}";
-    {% endif %}
+{% endif %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 
     location = /__nginx_ocsp_priming/ {
