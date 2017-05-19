@@ -4,7 +4,7 @@
     name: "Run certgrinder daily"
     minute: "{{ 59 | random }}"
     hour: "{{ 23 | random }}"
-    job: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder /usr/home/{{ certgrinder_user }}/certgrinder.yml"
+    job: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml"
     cron_file: "/etc/crontab"
     user: "certgrinder"
 
