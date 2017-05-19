@@ -3,4 +3,5 @@
 - include: code.yml
 - include: configuration.yml
 - include: python.yml
+- include: cron.yml
 
