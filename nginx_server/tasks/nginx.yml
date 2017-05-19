@@ -15,7 +15,7 @@
 
 - name: "Run certgrinder"
   include_role:
-    name: "certgrinder_client"
+    name: "certgrinder_run"
     tasks_from: "run_certgrinder"
 
 - name: "Create dhparams"

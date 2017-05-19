@@ -1,6 +1,0 @@
----
-# permit duplicates so we can include_role this role to
-# run certgrinder from other roles, even though the certgrinder_client
-# role has already been applied earlier in the play
-allow_duplicates: yes
-

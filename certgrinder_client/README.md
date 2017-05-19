@@ -20,14 +20,14 @@ Remove certgrinder_post_renew_hooks if nothing needs to be done after a renew.
 
 Running certgrinder from Ansible
 ---------------------------------
-To run certgrinder from an ansible task in another role include the run_certgrinder.yml task like so:
+To run certgrinder from an ansible task in another role include the run_certgrinder.yml file from the certgrinder_run role like so:
 
     - name: "Run certgrinder"
       include_role:
-        name: "certgrinder_client"
+        name: "certgrinder_run"
         tasks_from: "run_certgrinder"
 
-This should come after the certgrinder_client role which should probably be included as a role dependency.
+This should come after the certgrinder_client role (which configures certgrinder and should probably be included as a role dependency).
 
 
 Challenges
