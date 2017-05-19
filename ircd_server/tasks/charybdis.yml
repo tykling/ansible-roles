@@ -10,7 +10,5 @@
     enabled: yes
 
 - name: "Run certgrinder"
-  include_role:
-    name: "certgrinder_run"
-    tasks_from: "run_certgrinder"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
 
