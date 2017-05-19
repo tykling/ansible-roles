@@ -9,3 +9,8 @@
     name: "charybdis"
     enabled: yes
 
+- name: "Run certgrinder"
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "run_certgrinder"
+

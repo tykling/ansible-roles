@@ -13,11 +13,10 @@
     name: "nginx"
     enabled: "yes"
 
-# using su manually triggers the following warning:  [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather than running su
-# however some problems chown'ing temporary files or something has made this 
 - name: "Run certgrinder"
-  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
-  when: nginx_proxy
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "run_certgrinder"
 
 - name: "Create dhparams"
   shell: "/usr/local/bin/openssl dhparam 4096 > {{ nginx_dhparam_path }}"
