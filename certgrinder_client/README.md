@@ -22,10 +22,10 @@ Running certgrinder from Ansible
 ---------------------------------
 To run certgrinder from an ansible task in another role include the run_certgrinder.yml task like so:
 
-- name: "Run certgrinder"
-  include_role:
-    name: "certgrinder_client"
-    tasks_from: "run_certgrinder"
+    - name: "Run certgrinder"
+      include_role:
+        name: "certgrinder_client"
+        tasks_from: "run_certgrinder"
 
 This should come after the certgrinder_client role which should probably be included as a role dependency.
 
