@@ -6,3 +6,6 @@
   command: "/usr/local/bin/supervisorctl restart {{ item }}"
   with_dict: "{{ django_manage_workers | default({}) }}"
 
+- name: "reread and update supervisord"
+  command: "/usr/local/bin/supervisorctl reread && /usr/local/bin/supervisorctl update"
+

@@ -13,6 +13,7 @@
   template:
     src: "supervisord.conf.j2"
     dest: "/usr/local/etc/supervisord.conf"
+  notify: "reread and update supervisord"
 
 - name: "Start supervisord"
   service:
