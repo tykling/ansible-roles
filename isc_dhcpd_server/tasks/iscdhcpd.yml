@@ -9,4 +9,8 @@
     name: "dhcpd_enable"
     value: "YES"
 
+- name: "Copy dhcpd.conf"
+  template:
+    src: "dhcpd.conf.j2"
+    dest: "/usr/local/etc/dhcpd.conf"
 
