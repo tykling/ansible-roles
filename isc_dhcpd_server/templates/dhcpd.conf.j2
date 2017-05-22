@@ -7,6 +7,7 @@ ddns-update-style none;
 authoritative;
 log-facility local7;
 
+{% if isc_dhcpd_primary_peer | default(False) or isc_dhcpd_secondary_peer | default(False) %}
 # omapi
 omapi-port 7911;
 omapi-key omapi_key;
@@ -14,7 +15,7 @@ key omapi_key {
      algorithm hmac-md5;
      secret {{ isc_dhcpd_peer_key }};
 }
-
+{% endif %}
 
 {% if isc_dhcpd_secondary_peer | default(False) %}
 # failover
