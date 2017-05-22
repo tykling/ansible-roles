@@ -12,7 +12,7 @@ omapi-port 7911;
 omapi-key omapi_key;
 key omapi_key {
      algorithm hmac-md5;
-     secret Ofakekeyfakekeyfakekey==;
+     secret {{ isc_dhcpd_peer_key }};
 }
 
 
