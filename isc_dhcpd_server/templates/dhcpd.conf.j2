@@ -5,7 +5,7 @@ default-lease-time 8640;
 max-lease-time 86400;
 ddns-update-style none;
 authoritative;
-log-facility local7;
+log-facility local6;
 
 {% if isc_dhcpd_primary_peer | default(False) or isc_dhcpd_secondary_peer | default(False) %}
 # omapi
