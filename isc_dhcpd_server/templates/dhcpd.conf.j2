@@ -51,7 +51,7 @@ failover peer "failover-partner" {
 
 ######### SUBNETS ####################
 # Define an empty subnet for the DHCP servers local network
-subnet 185.96.180.192 netmask 255.255.255.224 {
+subnet {{ ansible_default_ipv4.address }} netmask {{ ansible_default_ipv4.netmask }} {
 }
 
 {{ isc_dhcpd_subnets }}
