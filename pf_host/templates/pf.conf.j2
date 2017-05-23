@@ -1,0 +1,77 @@
+####################################################################################################
+### THIS pf.conf IS MANAGED BY ANSIBLE, CHANGES WILL BE OVERWRITTEN!
+####################################################################################################
+
+####################################################################################################
+################ options ###############################
+set limit states 500000 # increased from default 10000
+set limit frags 10000 # increased frm default 5000
+set block-policy drop
+
+
+####################################################################################################
+################ macros ################################
+if="{{ ansible_default_ipv4.device }}"
+nat_if="lo1"
+jail_if="lo2"
+jail_nat_ip="{{ pf_jail_nat_ip }}"
+main_v4_ip="{{ pf_main_v4_ip }}"
+main_v6_ip="{{ pf_main_v6_ip }}"
+
+
+################ external address macros ###############
+{{ pf_external_address_macros | default(None) }}
+
+
+################ local addresses #######################
+{{ pf_local_address_macros | default(None) }}
+
+
+####################################################################################################
+############### scrubbing ##############################
+scrub in on $if all fragment reassemble
+
+
+####################################################################################################
+############### translation NAT ########################
+nat on $if from ($nat_if) to ! ($if) -> $jailnat
+
+
+############### translation RDR ########################
+{{ pf_rdr_rules | default(None) }}
+
+
+####################################################################################################
+############### filtering ##############################
+### block everything
+block log all
+
+### skip loopback interface(s)
+set skip on lo0
+
+### pass outgoing
+pass out quick on $if all
+pass out quick on $nat_if all
+pass out quick on $jail_if all
+
+### pass incoming icmp
+pass in quick on { $if $jail_if } inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass in quick on { $if $jail_if } inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+
+### pass incoming ssh
+pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port 22
+
+### pass traffic from jail to itself
+{% for v4ip in hostvars[ansible_hostname]['ansible_lo1']['ipv4'] %}
+pass quick on { $nat_if } from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% endfor %}
+{% for v4ip in hostvars[ansible_hostname]['ansible_lo2']['ipv4'] %}
+pass quick on { $jail_if } from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% endfor %}
+{% for v4ip in hostvars[ansible_hostname]['ansible_lagg0']['ipv4'] %}
+pass quick on { $if } from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% endfor %}
+
+### jail rules
+{{ jail_rules | default(None) }}
+
