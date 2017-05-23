@@ -25,8 +25,8 @@ failover peer "failover-partner" {
     port 519;
     peer address {{ isc_dhcpd_secondary_peer }};
     peer port 520;
-    max‐response‐delay 60;
-    max‐unacked‐updates 10;
+    max-response-delay 60;
+    max-unacked-updates 10;
     mclt 3600;
     split 128;
     load balance max seconds 3;
@@ -39,8 +39,8 @@ failover peer "failover-partner" {
     port 520;
     peer address {{ isc_dhcpd_primary_peer }};
     peer port 519;
-    max‐response‐delay 60;
-    max‐unacked‐updates 10;
+    max-response-delay 60;
+    max-unacked-updates 10;
     load balance max seconds 3;
 }
 {% endif %}
