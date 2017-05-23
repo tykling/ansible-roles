@@ -22,9 +22,9 @@ key omapi_key {
 failover peer "failover-partner" {
     primary;
     address {{ ansible_host }};
-    port 519;
+    port 647;
     peer address {{ isc_dhcpd_secondary_peer }};
-    peer port 520;
+    peer port 847;
     max-response-delay 60;
     max-unacked-updates 10;
     mclt 3600;
@@ -36,9 +36,9 @@ failover peer "failover-partner" {
 failover peer "failover-partner" {
     secondary;
     address {{ ansible_host }};
-    port 520;
+    port 847;
     peer address {{ isc_dhcpd_primary_peer }};
-    peer port 519;
+    peer port 647;
     max-response-delay 60;
     max-unacked-updates 10;
     load balance max seconds 3;
