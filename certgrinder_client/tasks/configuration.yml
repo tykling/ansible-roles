@@ -3,7 +3,7 @@
   file:
     dest: "/usr/home/{{ certgrinder_user }}/certificates"
     state: "directory"
-    mode: "0700"
+    mode: "0750"
     owner: "{{ certgrinder_user }}"
 
 - name: "Create certgrinder.yml config file"
