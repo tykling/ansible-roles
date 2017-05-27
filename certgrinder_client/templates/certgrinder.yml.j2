@@ -22,3 +22,8 @@ post_renew_hooks:
 # enable fallback to selfsigned certificates?
 selfsigned_fallback: True
 
+# use this ssh source ip
+{% if certgrinder_bind_ip is defined %}
+bind_ip: {{ certgrinder_bind_ip }}
+{% endif %}
+
