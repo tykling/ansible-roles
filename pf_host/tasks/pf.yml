@@ -4,15 +4,20 @@
     src: "pf.conf.j2"
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
-  #notify: "reload pf"
+  notify: "reload pf"
 
 - name: "Enable pf"
   sysrc:
     name: "pf_enable"
     value: "yes"
+  notify:
+    - "kldload pf module"
 
 - name: "Enable pflog"
   sysrc:
     name: "pflog_enable"
     value: "yes"
+  notify:
+    - "kldload pflog module"
+    - "start pf"
 
