@@ -13,7 +13,4 @@
   service:
     name: "pf"
     state: "reloaded"
-  async: 0
-  poll: 0
-  ignore_errors: true
 
