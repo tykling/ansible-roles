@@ -34,7 +34,7 @@ scrub in on $if all fragment reassemble
 
 ####################################################################################################
 ############### translation NAT ########################
-nat on $if from ($nat_if) to ! ($if) -> $jailnat
+nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
 
 
 ############### translation RDR ########################
