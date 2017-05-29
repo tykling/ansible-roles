@@ -11,3 +11,8 @@
     name: "pf_enable"
     value: "yes"
 
+- name: "Enable pflog"
+  sysrc:
+    name: "pflog_enable"
+    value: "yes"
+
