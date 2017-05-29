@@ -8,3 +8,8 @@
   tags:
     - "pf"
 
+- name: "Enable pf"
+  sysrc:
+    name: "pf_enable"
+    value: "yes"
+
