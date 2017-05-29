@@ -19,5 +19,4 @@
     value: "yes"
   notify:
     - "kldload pflog module"
-    - "start pf"
 
