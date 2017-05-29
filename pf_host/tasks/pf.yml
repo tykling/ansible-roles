@@ -3,10 +3,8 @@
   template:
     src: "pf.conf.j2"
     dest: "{{ pf_conf_path }}"
-    #validate: 'pfctl -n -f %s'
+    validate: 'pfctl -n -f %s'
   #notify: "reload pf"
-  tags:
-    - "pf"
 
 - name: "Enable pf"
   sysrc:

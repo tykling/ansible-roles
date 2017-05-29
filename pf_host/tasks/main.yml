@@ -1,3 +1,5 @@
 ---
 - include: "pf.yml"
+  tags:
+    - "pf"
 
