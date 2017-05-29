@@ -1,9 +1,11 @@
 ---
-- name: "kldload pf module"
-  command: "/sbin/kldload pf"
-
 - name: "kldload pflog module"
   command: "/sbin/kldload pflog"
+  creates: "/dev/pf"
+
+- name: "kldload pf module"
+  command: "/sbin/kldload pf"
+  creates: "/dev/pf"
 
 - name: "reload pf"
   service:
