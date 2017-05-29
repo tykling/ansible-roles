@@ -13,8 +13,7 @@
   service:
     name: "pf"
     state: "reloaded"
-
-- name: "start pf"
-  service:
-    state: "started"
+    async: 0
+    poll: 0
+    ignore_errors: true
 
