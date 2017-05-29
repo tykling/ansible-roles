@@ -1,10 +1,12 @@
 ---
 - name: "kldload pflog module"
   command: "/sbin/kldload pflog"
+  args:
     creates: "/dev/pf"
 
 - name: "kldload pf module"
   command: "/sbin/kldload pf"
+  args:
     creates: "/dev/pf"
 
 - name: "reload pf"
