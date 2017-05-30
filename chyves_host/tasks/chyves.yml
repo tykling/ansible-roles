@@ -16,7 +16,7 @@
 - name: "Add chyves bridge interfaces to autobridge_interfaces in /etc/rc.conf"
   sysrc:
     name: "autobridge_interfaces"
-    value: "{{ chyves_bridges.keys | join(' ') }}"
+    value: "{{ chyves_bridges.keys() | join(' ') }}"
 
 - name: "Configure chyves bridge interfaces in /etc/rc.conf"
   sysrc:
