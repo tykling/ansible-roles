@@ -1,6 +1,5 @@
 ---
 - include: ezjail.yml
 - include: flavour.yml
-- include: packages.yml
 - include: tools.yml
 
