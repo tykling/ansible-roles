@@ -1,0 +1,35 @@
+---
+- name: "check if chyves bridge interfaces exists"
+  command: "/sbin/ifconfig {{ item.key }}"
+  register: interface_results
+  with_dict: "{{ chyves_bridges }}"
+  ignore_errors: True
+
+- name: "Create missing chyves bridge interfaces"
+  command: "/sbin/ifconfig {{ item.0 }} create"
+  with_together:
+    - "{{ chyves_bridges }}"
+    - "{{ interface_results.results }}"
+  when: item.1.rc == 1
+
+- name: "Add outside network interfaces to newly created chyves bridge interfaces"
+  command: "/sbin/ifconfig {{ item.0 }} addm {{ chyves_bridges[item.0].interface }}"
+  with_together:
+    - "{{ chyves_bridges }}"
+    - "{{ interface_results.results }}"
+  when: item.1.rc == 1
+
+- name: "Add chyves bridge interfaces to cloned_interfaces in /etc/rc.conf"
+  command: "/usr/sbin/sysrc cloned_interfaces+={{ chyves_bridges.keys() | join(' ') }}"
+
+- name: "Add chyves bridge interfaces to autobridge_interfaces in /etc/rc.conf"
+  sysrc:
+    name: "autobridge_interfaces"
+    value: "{{ chyves_bridges.keys() | join(' ') }}"
+
+- name: "Configure chyves autobridge interfaces in /etc/rc.conf"
+  sysrc:
+    name: "autobridge_{{ item.key }}"
+    value: "{{ item.value.interface }}"
+  with_dict: "{{ chyves_bridges }}"
+
