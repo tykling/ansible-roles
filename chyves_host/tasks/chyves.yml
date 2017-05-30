@@ -13,20 +13,38 @@
   command: "/usr/local/sbin/chyves dataset {{ chyves_zpool }} install"
   when: chyves_zpool_result.rc == 1
 
-- name: "check if chyves bridge interfaces exist"
+- name: "Add chyves bridge interfaces to autobridge_interfaces in /etc/rc.conf"
+  sysrc:
+    name: "autobridge_interfaces"
+    value: "{{ chyves_bridges.keys | join(' ') }}"
+
+- name: "Configure chyves bridge interfaces in /etc/rc.conf"
+  sysrc:
+    name: "autobridge_{{ item.key }}"
+    value: "{{ item.value.interface }}"
+  with_dict: "{{ chyves_bridges }}"
+
+- name: "check if chyves bridge interfaces exists"
   command: "/sbin/ifconfig {{ item.key }}"
   register: interface_results
   with_dict: "{{ chyves_bridges }}"
   ignore_errors: True
 
-- name: "setup chyves bridge network interfaces (skip bridge0)"
-  command: "/usr/local/sbin/chyves network {{ item.0 }} attach {{ chyves_bridges[item.0].interface }}"
+- name: "Create missing chyves bridge interfaces"
+  command: "/sbin/ifconfig {{ item.0 }} create"
   with_together:
     - "{{ chyves_bridges }}"
     - "{{ interface_results.results }}"
   when: item.1.rc == 1
 
-- name: "Enable chyves on boot (loads kernel modul, setup bridge0 etc)"
+- name: "Add outside network interfaces to newly created chyves bridge interfaces"
+  command: "/sbin/ifconfig {{ item.0 }} attach {{ chyves_bridges[item.0].interface }}"
+  with_together:
+    - "{{ chyves_bridges }}"
+    - "{{ interface_results.results }}"
+  when: item.1.rc == 1
+
+- name: "Enable chyves on boot (loads kernel module and starts rcboot vms etc)"
   service:
     name: "chyves"
     enabled: "yes"
