@@ -1,4 +1,10 @@
 ---
+- name: "Create nginx config directory"
+  file:
+    path: "/usr/local/etc/nginx"
+    state: "directory"
+    mode: "0755"
+
 - name: "Create nginx logfile directory"
   file:
     path: "/usr/local/www/logs"
