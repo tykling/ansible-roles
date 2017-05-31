@@ -20,7 +20,7 @@
   when: item.1.rc == 1
 
 - name: "Add chyves bridge interfaces to cloned_interfaces in /etc/rc.conf"
-  command: "/usr/sbin/sysrc cloned_interfaces+={{ chyves_bridges.keys() | join(' ') }}"
+  command: "/usr/sbin/sysrc cloned_interfaces+=\"{{ chyves_bridges.keys() | join(' ') }}\""
 
 - name: "Add chyves bridge interfaces to autobridge_interfaces in /etc/rc.conf"
   sysrc:
