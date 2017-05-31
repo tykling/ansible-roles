@@ -1,13 +1,7 @@
 ---
-- name: "Create ezjail flavour directory"
+- name: "Create ezjail flavours /etc/rc.d/ directory (recursively)"
   file:
-    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
-    state: "directory"
-    recurse: yes
-
-- name: "Create ezjail flavours /etc/rc.d/ directory"
-  file:
-    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/"
+    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d"
     state: "directory"
     recurse: yes
 
