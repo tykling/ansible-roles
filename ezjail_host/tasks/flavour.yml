@@ -3,6 +3,7 @@
   file:
     path: "/usr/jails/flavours/{{ ezjail_flavourname }}/"
     state: "directory"
+    recurse: yes
 
 - name: "Create ezjail flavours /etc/rc.d/ directory"
   file:
