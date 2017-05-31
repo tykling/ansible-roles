@@ -1,0 +1,8 @@
+---
+- name: "Enable load of AESNI in /boot/loader.conf"
+  sysrc:
+    name: "aesni_load"
+    value: "yes"
+    dest: "/boot/loader.conf"
+  notify: "load AESNI module"
+

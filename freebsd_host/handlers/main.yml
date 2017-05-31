@@ -1,0 +1,4 @@
+---
+- name: "load AESNI module"
+  command: "/sbin/kldload aesni"
+
