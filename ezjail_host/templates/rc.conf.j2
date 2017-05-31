@@ -1,9 +1,11 @@
 # Prevent loads of jails doing their cron jobs at the same time
 cron_flags="$cron_flags -J 15"
 
-# Prevent syslog to open sockets
+# Prevent syslog from listening on *:514
 syslogd_flags="-s"
 
-# Bring up sshd, it takes some time and uses some entropy on first startup
+# Enable sshd
 sshd_enable="YES"
+
+########### JAIL SERVICES BELOW HERE ##########################
 
