@@ -48,7 +48,9 @@
     src: "http-vhost.conf.j2"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
   with_dict: "{{ vhosts }}"
-  when: nginx_proxy
+  when:
+    - nginx_proxy
+    - (('http' in item.value and item.value.http) or 'http' not in item.value)
   notify: "reload nginx"
 
 - name: "Copy vhost https configs for https enabled vhosts"
@@ -58,6 +60,6 @@
   with_dict: "{{ vhosts }}"
   when:
     - nginx_proxy
-    - not item.value.http_only
+    - (('https' in item.value and item.value.http) or 'https' not in item.value)
   notify: "reload nginx"
 
