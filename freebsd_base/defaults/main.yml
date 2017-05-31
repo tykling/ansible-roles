@@ -12,7 +12,7 @@ packages:
   - bind-tools
   - bash
   - vim-lite
-disable_ssh_password_login: False
+disable_ssh_password_login: True
 
 pkg_repository_filename: poudriere_tyknet_dk.conf
 poudriere_repo_name: poudriere_tyknet_dk
