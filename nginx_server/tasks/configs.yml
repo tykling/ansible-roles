@@ -51,11 +51,13 @@
   when: nginx_proxy
   notify: "reload nginx"
 
-- name: "Copy vhost https configs"
+- name: "Copy vhost https configs for https enabled vhosts"
   template:
     src: "https-vhost.conf.j2"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-https.conf"
   with_dict: "{{ vhosts }}"
-  when: nginx_proxy
+  when:
+    - nginx_proxy
+    - not item.value.http_only
   notify: "reload nginx"
 
