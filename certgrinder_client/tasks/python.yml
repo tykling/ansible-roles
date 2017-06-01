@@ -1,4 +1,9 @@
 ---
+- name: "Install python"
+  pkgng:
+    name: "python"
+    state: "present"
+
 - name: "Install pip"
   pkgng:
     name: "py27-pip"
