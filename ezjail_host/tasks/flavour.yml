@@ -1,40 +1,40 @@
 ---
 - name: "Create ezjail flavours /etc/rc.d/ directory (recursively)"
   file:
-    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d"
+    path: "{{ ezjail_flavour_root }}/etc/rc.d"
     state: "directory"
     recurse: yes
 
 - name: "Create temporary /etc/resolv.conf file inside ezjail flavour {{ ezjail_flavourname }} - will eventually be replaced by ansible inside the newly created jails"
   template:
     src: "resolv.conf.j2"
-    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/resolv.conf"
+    dest: "{{ ezjail_flavour_root }}/etc/resolv.conf"
 
 - name: "Create /etc/rc.conf inside ezjail flavour {{ ezjail_flavourname }}"
   template:
     src: "rc.conf.j2"
-    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.conf"
+    dest: "{{ ezjail_flavour_root }}/etc/rc.conf"
 
-- name: "Create ansible users $HOME/.ssh directory"
+- name: "Create ansible users $HOME/.ssh directory inside ezjail flavour {{ ezjail_flavourname }}"
   file:
-    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/"
+    path: "{{ ezjail_flavour_root }}/usr/home/ansible/.ssh/"
     state: "directory"
     recurse: yes
     owner: "{{ ezjail_ansible_userid }}"
     group:  "{{ ezjail_ansible_userid }}"
     mode: "0755"
 
-- name: "Add the ssh key for the ansible user"
+- name: "Add the ssh key for the ansible user inside ezjail flavour {{ ezjail_flavourname }}"
   copy:
     owner:  "{{ ezjail_ansible_userid }}"
     group:  "{{ ezjail_ansible_userid }}"
     mode: "0644"
     content: "{{ ezjail_flavour_ansible_authorized_keys_file }}"
-    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/usr/home/ansible/.ssh/authorized_keys"
+    dest: "{{ ezjail_flavour_root }}/usr/home/ansible/.ssh/authorized_keys"
 
 - name: "Create /usr/local/etc/ directory inside ezjail flavour {{ ezjail_flavourname }}"
   file:
-    path: "/usr/jails/flavours/{{ ezjail_flavourname }}/usr/local/etc/"
+    path: "{{ ezjail_flavour_root }}/usr/local/etc/"
     state: "directory"
     recurse: yes
 
@@ -44,13 +44,13 @@
     group: "wheel"
     mode: "0644"
     content: "ansible ALL=(ALL) NOPASSWD: ALL"
-    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/usr/local/etc/sudoers"
+    dest: "{{ ezjail_flavour_root }}/usr/local/etc/sudoers"
 
-- name: "Copy the ezjail flavour script template"
+- name: "Copy the ezjail flavour script template for flavour {{ ezjail_flavourname }}"
   template:
     src: "ezjail.flavour.j2"
-    dest: "/usr/jails/flavours/{{ ezjail_flavourname }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}"
+    dest: "{{ ezjail_flavour_root }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}"
     owner: "root"
     group: "wheel"
-    mode: "744"
+    mode: "0744"
 

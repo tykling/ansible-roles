@@ -1,16 +1,19 @@
 ---
-- name: Install ezjail
+- name: "Install ezjail"
   pkgng:
-    name: ezjail
-    state: present
+    name: "ezjail"
+    state: "present"
 
-- name: Enable ezjail
+- name: "Enable ezjail"
   service:
-    name: ezjail
-    enabled: yes
+    name: "ezjail"
+    enabled: "yes"
 
-- name: Copy ezjail config
+- name: "Copy ezjail config"
   template:
-    src: ezjail.conf.j2
-    dest: /usr/local/etc/ezjail.conf
+    src: "ezjail.conf.j2"
+    dest: "/usr/local/etc/ezjail.conf"
+
+- name: "Bootstrap ezjail (requires a built world in /usr/obj"
+  command: "ezjail-admin update -i"
 
