@@ -1,5 +1,4 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: pf_host }
 

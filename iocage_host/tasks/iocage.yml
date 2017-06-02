@@ -1,6 +1,0 @@
----
-- name: Install iocage
-  pkgng:
-    name: "py27-iocage" 
-    state: present
-

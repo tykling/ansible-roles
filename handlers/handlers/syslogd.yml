@@ -1,12 +1,6 @@
 ---
-- name: "Reload isc dhcpd"
-  service:
-    name: "dhcpd"
-    state: "reloaded"
-
 - name: "Reload syslogd"
   service:
     name: "syslogd"
     state: "reloaded"
-
 

@@ -14,11 +14,12 @@
     src: "ezjail.conf.j2"
     dest: "/usr/local/etc/ezjail.conf"
 
-- name: "Bootstrap ezjail (requires a built world in /usr/obj"
+- name: "Bootstrap ezjail (requires a built world in /usr/obj)"
   command: "ezjail-admin update -i"
-  creates: "{{ ezjail_root }}/basejail"
+  args:
+    creates: "{{ ezjail_root }}/basejail"
 
-- name: "Set syslogd_flags to -s to prevend listening on all ip"
+- name: "Set syslogd_flags to -s to prevent it listening on all ips"
   sysrc:
     name: "syslogd_flags"
     value: "-s"

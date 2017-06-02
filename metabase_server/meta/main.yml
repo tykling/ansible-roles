@@ -1,4 +1,5 @@
 ---
 dependencies:
+  - { role: handlers }
   - { role: nginx_server }
 
