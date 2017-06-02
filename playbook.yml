@@ -1,182 +1,188 @@
 ---
-- name: configure basic freebsd stuff
-  hosts: freebsd
-  become: yes
+- name: "configure basic freebsd stuff"
+  hosts: "freebsd"
+  become: "yes"
   roles:
-    - freebsd_base
+    - "freebsd_base"
   tags:
-    - freebsd_base
+    - "freebsd_base"
 
-- name: configure freebsd hosts (physical servers)
-  hosts: freebsd_hosts
+- name: "configure freebsd hosts (physical servers)"
+  hosts: "freebsd_hosts"
   become: yes
   roles:
-    - freebsd_host
+    - "freebsd_host"
   tags:
-    - freebsd_hosts
+    - "freebsd_hosts"
 
-- name: configure ezjail hosts
-  hosts: ezjail_hosts
+- name: "configure ezjail hosts"
+  hosts: "ezjail_hosts"
   become: yes
   roles:
-    - ezjail_host
+    - "ezjail_host"
   tags:
-    - ezjail_hosts
+    - "ezjail_hosts"
 
-- name: configure censurfridns anycast jail hosts
-  hosts: anycast_jail_hosts
+- name: "configure censurfridns anycast jail hosts"
+  hosts: "anycast_jail_hosts"
   become: yes
   roles:
-    - anycast_jail_host
+    - "anycast_jail_host"
   tags:
-    - anycast_jail_hosts
+    - "anycast_jail_hosts"
 
-- name: configure chyves bhyve hosts
-  hosts: chyves_hosts
+- name: "configure chyves bhyve hosts"
+  hosts: "chyves_hosts"
   become: yes
   roles:
-    - chyves_host
+    - "chyves_host"
   tags:
-    - chyves_hosts
+    - "chyves_hosts"
 
 ##############################################################################
 ### application roles below here
 
-- name: configure etherpad servers
-  hosts: etherpad_servers
+- name: "configure etherpad servers"
+  hosts: "etherpad_servers"
   become: yes
   roles:
-    - etherpad_server
+    - "etherpad_server"
   tags:
-    - etherpad_servers
+    - "etherpad_servers"
 
-- name: configure all murmur servers
-  hosts: murmur_servers
+- name: "configure all murmur servers"
+  hosts: "murmur_servers"
   become: yes
   roles:
-    - murmur_server
+    - "murmur_server"
   tags:
-    - murmur_servers
+    - "murmur_servers"
 
-- name: configure all nginx http and https servers
-  hosts: nginx_servers
+- name: "configure all nginx http and https servers"
+  hosts: "nginx_servers"
   become: yes
   roles:
-    - nginx_server
+    - "nginx_server"
   tags:
-    - nginx_servers
+    - "nginx_servers"
 
-- name: configure dovecot servers
-  hosts: dovecot_servers
+- name: "configure dovecot servers"
+  hosts: "dovecot_servers"
   become: yes
   roles:
-    - dovecot_server
+    - "dovecot_server"
   tags:
-    - dovecot_servers
+    - "dovecot_servers"
 
-- name: configure erlang webservers
-  hosts: erlang_web_servers
+- name: "configure erlang webservers"
+  hosts: "erlang_web_servers"
   become: yes
   roles:
-    - erlang_web_server
+    - "erlang_web_server"
   tags:
-    - erlang_web_servers
+    - "erlang_web_servers"
 
-- name: configure wiki servers
-  hosts: mediawiki_servers
+- name: "configure wiki servers"
+  hosts: "mediawiki_servers"
   become: yes
   roles:
-    - mediawiki_server
+    - "mediawiki_server"
   tags:
-    - mediawiki_servers
+    - "mediawiki_servers"
 
-- name: configure people servers
-  hosts: people_servers
+- name: "configure people servers"
+  hosts: "people_servers"
   become: yes
   roles:
-    - people_server
+    - "people_server"
   tags:
-    - people_servers
+    - "people_servers"
 
-- name: configure postfix servers
-  hosts: postfix_servers
+- name: "configure postfix servers"
+  hosts: "postfix_servers"
   become: yes
   roles:
-    - postfix_server
+    - "postfix_server"
   tags:
-    - postfix_servers
+    - "postfix_servers"
 
-- name: configure tor servers
-  hosts: tor_servers
+- name: "configure tor servers"
+  hosts: "tor_servers"
   become: yes
   roles:
-    - tor_server
+    - "tor_server"
   tags:
-    - tor_servers
+    - "tor_servers"
 
-- name: configure django servers
-  hosts: django_servers
+- name: "configure django servers"
+  hosts: "django_servers"
   become: yes
   roles:
-    - django_server
+    - "django_server"
   tags:
-    - django_servers
+    - "django_servers"
 
-- name: configure bornhack django servers
-  hosts: bh_django_servers
+- name: "configure bornhack django servers"
+  hosts: "bh_django_servers"
   become: yes
   roles:
-    - bh_django_server
+    - "bh_django_server"
   tags:
-    - bh_django_servers
+    - "bh_django_servers"
 
-- name: configure kea dhcp servers
-  hosts: kea_servers
+- name: "configure kea dhcp servers"
+  hosts: "kea_servers"
   become: yes
   roles:
-    - kea_server
+    - "kea_server"
   tags:
-    - kea_servers
+    - "kea_servers"
 
-- name: configure znc servers
-  hosts: znc_servers
+- name: "configure znc servers"
+  hosts: "znc_servers"
   become: yes
   roles:
-    - znc_server
+    - "znc_server"
   tags:
-    - znc_servers
+    - "znc_servers"
 
-- name: configure isc dhcp servers
-  hosts: isc_dhcpd_servers
+- name: "configure isc dhcp servers"
+  hosts: "isc_dhcpd_servers"
   become: yes
   roles:
-    - isc_dhcpd_server
+    - "isc_dhcpd_server"
   tags:
-    - isc_dhcpd_servers
+    - "isc_dhcpd_servers"
 
-- name: configure metabase servers
-  hosts: metabase_servers
+- name: "configure metabase servers"
+  hosts: "metabase_servers"
   become: yes
   roles:
-    - metabase_server
+    - "metabase_server"
   tags:
-    - metabase_servers
+    - "metabase_servers"
 
-- name: configure certgrinder servers
-  hosts: certgrinder_servers
+- name: "configure certgrinder servers"
+  hosts: "certgrinder_servers"
   become: yes
   roles:
-    - certgrinder_server
+    - "certgrinder_server"
 
-- name: configure certgrinder clients
-  hosts: certgrinder_clients
+- name: "configure certgrinder clients"
+  hosts: "certgrinder_clients"
   become: yes
   roles:
-    - certgrinder_client
+    - "certgrinder_client"
 
-- name: configure charybdis ircd servers
-  hosts: ircd_servers
+- name: "configure charybdis ircd servers"
+  hosts: "ircd_servers"
   become: yes
   roles:
-    - ircd_server
+    - "ircd_server"
+
+- name: "configure PostgreSQL servers"
+  hosts: "postgresql_servers"
+  become: yes
+  roles:
+    - "postgresql_server"
 
