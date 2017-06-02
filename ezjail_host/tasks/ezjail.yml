@@ -16,4 +16,11 @@
 
 - name: "Bootstrap ezjail (requires a built world in /usr/obj"
   command: "ezjail-admin update -i"
+  creates: "{{ ezjail_root }}/basejail"
+
+- name: "Set syslogd_flags to -s to prevend listening on all ip"
+  sysrc:
+    name: "syslogd_flags"
+    value: "-s"
+  notify: "restart syslogd"
 
