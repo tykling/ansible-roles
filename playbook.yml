@@ -31,14 +31,6 @@
   tags:
     - anycast_jail_hosts
 
-- name: configure iocage jail hosts
-  hosts: iocage_hosts
-  become: yes
-  roles:
-    - iocage_host
-  tags:
-    - iocage_hosts
-
 - name: configure chyves bhyve hosts
   hosts: chyves_hosts
   become: yes
