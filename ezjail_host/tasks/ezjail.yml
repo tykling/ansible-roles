@@ -19,9 +19,9 @@
   args:
     creates: "{{ ezjail_root }}/basejail"
 
-- name: "Set syslogd_flags to -s to prevent it listening on all ips"
+- name: "Set syslogd_flags to prevent it listening on all ips"
   sysrc:
     name: "syslogd_flags"
-    value: "-s"
+    value: "-s -b 127.0.0.1:514 -b [::1]:514"
   notify: "restart syslogd"
 
