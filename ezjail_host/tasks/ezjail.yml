@@ -25,3 +25,12 @@
     value: "-s -b 127.0.0.1:514 -b [::1]:514"
   notify: "restart syslogd"
 
+- name: "check if jailstorage zfs exists"
+  shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
+  register: ezjail_jailstorage_result
+  ignore_errors: True
+
+- name: "Create main jailstorage zfs if neded"
+  command: "/sbin/zfs create {{ ezjail_jailstorage_dataset }}"
+  when: ezjail_jailstorage_result.rc == 1
+
