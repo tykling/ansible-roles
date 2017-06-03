@@ -12,7 +12,7 @@
 - name: "Initialise PostgreSQL database"
   command: "/usr/sbin/service postgresql initdb"
   args:
-    creates: "{{ postgresql_homedir }}/data"
+    creates: "{{ postgresql_homedir }}/data96"
 
 - name: "Start PostgreSQL"
   service:
