@@ -49,7 +49,7 @@
 - name: "Copy the ezjail flavour script template for flavour {{ ezjail_flavourname }}"
   template:
     src: "ezjail.flavour.j2"
-    dest: "{{ ezjail_flavour_root }}/etc/rc.d/ezjail.flavour.{{ ezjail_flavourname }}"
+    dest: "{{ ezjail_flavour_root }}/etc/rc.d/ezjail_flavour_{{ ezjail_flavourname }}"
     owner: "root"
     group: "wheel"
     mode: "0744"
