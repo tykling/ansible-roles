@@ -77,7 +77,7 @@ pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port
 {% for jail in pf_jail_rules %}
 # {{ jail }} jail
 {% for rule in pf_jail_rules[jail] %}
-pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }}{% endfor %} } to {{ rule.table }} port {{% for port in rule.port %}{{ port }} {% endfor %}}
+pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }}{% endfor %} } to {{ rule.table }} port { {% for port in rule.ports %}{{ port }} {% endfor %}}
 {% endfor %}
 {% endfor %}
 
