@@ -43,7 +43,7 @@
   when: nginx_proxy
   notify: "reload nginx"
 
-- name: "Copy vhost http configs"
+- name: "Copy vhost http configs for http enabled vhosts"
   template:
     src: "http-vhost.conf.j2"
     dest: "/usr/local/etc/nginx/vhosts/{{ item.value.hostnames[0] }}-http.conf"
