@@ -1,16 +1,20 @@
 ---
-- name: Enable dovecot
+- name: "Enable dovecot"
   service:
-    name: dovecot
+    name: "dovecot"
     enabled: yes
 
-- name: Start dovecot (if not running)
-  service:
-    name: dovecot
-    state: started
+- name: "Run certgrinder"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
+  when: nginx_proxy
 
-- name: Reload dovecot config
+- name: "Start dovecot (if not running)"
   service:
-    name: dovecot
-    state: reloaded
+    name: "dovecot"
+    state: "started"
+
+- name: "Reload dovecot config"
+  service:
+    name: "dovecot"
+    state: "reloaded"
 
