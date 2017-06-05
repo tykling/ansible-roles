@@ -6,7 +6,6 @@
 
 - name: "Run certgrinder"
   command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
-  when: nginx_proxy
 
 - name: "Start dovecot (if not running)"
   service:
