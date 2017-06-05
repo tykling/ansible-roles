@@ -1,50 +1,55 @@
 ---
-- name: Install postfix
+- name: "Install postfix"
   pkgng:
-    name: postfix
-    state: present
+    name: "postfix"
+    state: "present"
 
-- name: Enable postfix
+- name: "Enable postfix"
   service:
-    name: postfix
+    name: "postfix"
     enabled: yes
 
-- name: Copy postfix main.cf
+- name: "Copy postfix main.cf"
   template:
-    src: main.cf.j2
-    dest: /usr/local/etc/postfix/main.cf
+    src: "main.cf.j2"
+    dest: "/usr/local/etc/postfix/main.cf"
+  notify: "reload postfix"
 
-- name: Copy postfix smtpd_sender_login_maps.sql
+- name: "Copy postfix smtpd_sender_login_maps.sql"
   template:
-    src: smtpd_sender_login_maps.sql
-    dest: /usr/local/etc/postfix/smtpd_sender_login_maps.sql
+    src: "smtpd_sender_login_maps.sql"
+    dest: "/usr/local/etc/postfix/smtpd_sender_login_maps.sql"
     mode: "600"
+  notify: "reload postfix"
 
-- name: Copy postfix virtual_alias_maps.sql
+- name: "Copy postfix virtual_alias_maps.sql"
   template:
-    src: virtual_alias_maps.sql
-    dest: /usr/local/etc/postfix/virtual_alias_maps.sql
+    src: "virtual_alias_maps.sql"
+    dest: "/usr/local/etc/postfix/virtual_alias_maps.sql"
     mode: "600"
+  notify: "reload postfix"
 
-- name: Copy postfix virtual_mailbox_maps.sql
+- name: "Copy postfix virtual_mailbox_maps.sql"
   template:
-    src: smtpd_sender_login_maps.sql
-    dest: /usr/local/etc/postfix/virtual_mailbox_maps.sql
+    src: "smtpd_sender_login_maps.sql"
+    dest: "/usr/local/etc/postfix/virtual_mailbox_maps.sql"
     mode: "600"
+  notify: "reload postfix"
 
-- name: Run postalias
-  shell: /usr/local/sbin/postalias /etc/aliases
+- name: "Run postalias"
+  shell: "/usr/local/sbin/postalias /etc/aliases"
 
-- name: Copy postfix transport file
+- name: "Copy postfix transport file"
   template:
     mode: "644"
-    src: transport.j2
-    dest: /usr/local/etc/postfix/transport
+    src: "transport.j2"
+    dest: "/usr/local/etc/postfix/transport"
+  notify: "reload postfix"
 
-- name: Enable submission in master.cf
+- name: "Enable submission in master.cf"
   blockinfile:
     create: yes
-    dest: /usr/local/etc/postfix/master.cf
+    dest: "/usr/local/etc/postfix/master.cf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK submission"
     content: |
       submission inet n       -       n       -       -       smtpd
@@ -58,15 +63,14 @@
         -o smtpd_recipient_restrictions=
         -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
         -o milter_macro_daemon_name=ORIGINATING
+  notify: "reload postfix"
 
-- name: Restart Postfix
-  service:
-    name: postfix
-    state: restarted
-
-- name: Add keep a years maillogs in newsyslog.conf
+- name: "Change so we keep a years maillogs in newsyslog.conf"
   lineinfile:
-    dest: /etc/newsyslog.conf
+    dest: "/etc/newsyslog.conf"
     regexp: "^/var/log/maillog "
     line: "/var/log/maillog                        640  365   *    @T00  JC"
+
+- name: "Run certgrinder"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
 
