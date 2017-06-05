@@ -1,5 +1,7 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: nginx_server, nginx_locationslash: "location '/.well-known/acme-challenge' { default_type text/plain; root {{ letsencrypt_webroot }}; }" }
+  - { role: nginx_server, nginx_proxy: True }
+
+# nginx_locationslash: "location '/.well-known/acme-challenge' { default_type text/plain; root {{ letsencrypt_webroot }}; }" }
 
