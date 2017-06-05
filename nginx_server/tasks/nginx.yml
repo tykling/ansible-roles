@@ -23,7 +23,9 @@
   shell: "/usr/local/bin/openssl dhparam 4096 > {{ nginx_dhparam_path }}"
   args:
     creates: "{{ nginx_dhparam_path }}"
-  when: nginx_proxy
+  when:
+    - nginx_proxy
+    - certgrinder_hostname_sets is defined
  
 - name: "Make sure nginx is started"
   service:
