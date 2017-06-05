@@ -60,6 +60,6 @@
   with_dict: "{{ vhosts }}"
   when:
     - nginx_proxy
-    - (('https' in item.value and item.value.http) or 'https' not in item.value)
+    - (('https' in item.value and item.value.https) or 'https' not in item.value)
   notify: "reload nginx"
 
