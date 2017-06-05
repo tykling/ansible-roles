@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client, when: nginx_proxy }
+  - { role: certgrinder_client, when: (nginx_proxy and certgrinder_hostname_sets is defined) }
 
