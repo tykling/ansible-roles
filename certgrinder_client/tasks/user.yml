@@ -21,6 +21,8 @@
     dest: "/usr/home/{{ certgrinder_user }}/.ssh/known_hosts"
     state: "present"
     create: yes
+    owner: "{{ certgrinder_user }}"
+    group: "{{ certgrinder_user }}"
     line: "{{ certgrinder_ssh_server }} ecdsa-sha2-nistp256 {{ certgrinder_ssh_server_pubkey }}"
 
 - name: "add users to certgrinder group so they can read certificates"
