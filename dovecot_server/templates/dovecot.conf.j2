@@ -2,8 +2,8 @@
 #   SSL settings
 disable_plaintext_auth=yes
 ssl=required
-ssl_cert = </usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/fullchain.pem
-ssl_key = </usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/privkey.pem
+ssl_cert = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt
+ssl_key = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.key
 ssl_protocols = !SSLv2 !SSLv3
 #ssl_cipher_list = ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:DH+AES:!3DES:!RSA:!AES128:!ADH:!AECDH:!MD5:!DSS
 
