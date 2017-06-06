@@ -11,4 +11,5 @@
 - include: sysctl.yml
 - include: syslogd.yml
 - include: postfix.yml
+- include: syslogng.yml
 

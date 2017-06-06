@@ -1,0 +1,35 @@
+@version:3.7
+@include "scl.conf"
+
+#
+# these options are suitable for a jailhost syslog-ng which then forwards to a central loghost
+#
+options {
+    chain_hostnames(no);
+    flush_lines(0);
+    threaded(yes);
+    use_fqdn(yes);
+    keep_hostname(no);
+    use-dns(yes);
+    dns-cache-hosts(/etc/hosts);
+    stats-freq(60);
+    stats-level(0);
+}; 
+
+# define source, listen on v4 and v6
+source src { udp(ip("127.0.0.1")); udp6(ip("::1")); }; 
+
+# define destination
+destination loghost{
+    syslog(
+        "{{ central_syslog_hostname }}"
+        transport("tls")
+        port(1999)
+        tls(peer-verify(required-untrusted))
+        log-fifo-size(100000)
+    );
+};
+
+# send everything from the source to the destination, employ flow-control to avoid loosing messages
+log { source(src); destination(loghost); flags(flow-control); }; 
+

@@ -4,3 +4,9 @@
     name: "syslog-ng"
     state: "present"
 
+- name: "Copy syslog-ng.conf"
+  template:
+    src: "syslog-ng.conf.j2"
+    dest: "/usr/local/etc/syslog-ng.conf"
+  notify: "reload syslog-ng"
+
