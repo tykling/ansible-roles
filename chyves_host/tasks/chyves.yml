@@ -23,6 +23,11 @@
     name: "qemu-utils" 
     state: "present"
 
+- name: "Install grub2-bhyve (linux bootloader)"
+  pkgng:
+    name: "grub2-bhyve"
+    state: "present"
+
 - name: "Disable filtering on bridge interfaces (we filter on the individual tap interfaces instead)"
   lineinfile:
     dest: "/etc/sysctl.conf"
