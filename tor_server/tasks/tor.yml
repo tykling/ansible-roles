@@ -1,60 +1,60 @@
 ---
 - include_vars: /usr/local/etc/ansible/host_vars/bornhack-torgw.bornhack.org-hiddenservices.yml
 
-- name: Install openssl
+- name: "Install openssl"
   pkgng:
-    name: openssl
-    state: present
+    name: "openssl"
+    state: "present"
 
-- name: Install tor
+- name: "Install tor"
   pkgng:
-    name: tor
-    state: present
+    name: "tor"
+    state: "present"
 
-- name: Enable tor
+- name: "Enable tor"
   service:
-    name: tor
+    name: "tor"
     enabled: yes
 
-- name: Configure tor
+- name: "Configure tor"
   template:
-    src: torrc.j2
-    dest: /usr/local/etc/tor/torrc
+    src: "torrc.j2"
+    dest: "/usr/local/etc/tor/torrc"
 
-- name: Create hidden service folders
+- name: "Create hidden service folders"
   file:
     path: "/var/db/tor/{{ item.key }}"
-    state: directory
-    owner: _tor
-    group: _tor
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
     mode: "700"
   with_dict: "{{hiddenservices}}"
 
-- name: Copy hidden service hostnames
+- name: "Copy hidden service hostnames"
   copy:
     content: "{{ item.value.onion_hostname }}"
     dest: "/var/db/tor/{{ item.key }}/hostname"
-    owner: _tor
-    group: _tor
+    owner: "_tor"
+    group: "_tor"
     mode: "600"
   with_dict: "{{hiddenservices}}"
 
-- name: Copy hidden service keys
+- name: "Copy hidden service keys"
   copy:
     content: "{{ item.value.private_key }}"
     dest: "/var/db/tor/{{ item.key }}/private_key"
-    owner: _tor
-    group: _tor
+    owner: "_tor"
+    group: "_tor"
     mode: "600"
   with_dict: "{{hiddenservices}}"
 
-- name: Start tor (if not running)
+- name: "Start tor (if not running)"
   service:
-    name: tor
-    state: started
+    name: "tor"
+    state: "started"
 
-- name: Reload tor config
+- name: "Reload tor config"
   service:
-    name: tor
-    state: reloaded
+    name: "tor"
+    state: "reloaded"
 
