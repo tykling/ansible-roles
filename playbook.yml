@@ -192,3 +192,9 @@
   roles:
     - "unbound_server"
 
+- name: "configure syslog-ng servers"
+  hosts: "syslogng_servers"
+  become: yes
+  roles:
+    - "syslogng_server"
+

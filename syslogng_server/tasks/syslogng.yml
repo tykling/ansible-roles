@@ -1,0 +1,6 @@
+---
+- name: "Install syslog-ng"
+  pkgng:
+    name: "syslog-ng"
+    state: "present"
+
