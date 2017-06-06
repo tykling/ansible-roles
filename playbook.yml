@@ -186,3 +186,9 @@
   roles:
     - "postgresql_server"
 
+- name: "configure Unbound servers"
+  hosts: "unbound_servers"
+  become: yes
+  roles:
+    - "unbound_server"
+

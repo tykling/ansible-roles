@@ -1,0 +1,19 @@
+---
+- name: "Install unbound"
+  pkgng:
+    name: "unbound"
+    state: "present"
+
+- name: "Copy ubound config file"
+  template:
+    src: "unbound.conf.j2"
+    dest: "/usr/local/etc/unbound/unbound.conf"
+    mode: "0644"
+  notify: "start/reload unbound"
+
+- name: "Enable unbound"
+  service:
+    name: "unbound"
+    enabled: yes
+  notify: "start/reload unbound"
+
