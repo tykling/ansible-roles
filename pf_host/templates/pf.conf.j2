@@ -19,12 +19,12 @@ main_v4_ip="{{ pf_main_v4_ip }}"
 main_v6_ip="{{ pf_main_v6_ip }}"
 
 
-################ external address macros ###############
-{{ pf_external_address_macros | default(None) }}
+################ common address macros ###############
+{{ pf_common_address_macros | default("# No common macros found") }}
 
 
-################ local addresses #######################
-{{ pf_local_address_macros | default(None) }}
+################ macros specific to {{ ansible_nodename }} #######################
+{{ pf_local_address_macros | default("# No local macros found") }}
 
 
 ####################################################################################################
@@ -38,7 +38,7 @@ nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
 
 
 ############### translation RDR ########################
-{{ pf_rdr_rules | default(None) }}
+{{ pf_rdr_rules | default("# No RDR rules found") }}
 
 
 ####################################################################################################
