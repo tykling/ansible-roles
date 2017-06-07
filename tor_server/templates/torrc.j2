@@ -2,7 +2,7 @@ Log notice syslog
 RunAsDaemon 1
 DataDirectory /var/db/tor
 
-{% if tor_relay %}
+{% if tor_relay_nickname is defined %}
 Address {{ ansible_nodename }}
 Nickname {{ tor_relay_nickname }}
 ContactInfo {{ tor_relay_contactinfo }}
