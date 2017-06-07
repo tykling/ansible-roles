@@ -1,6 +1,24 @@
 Log notice syslog
 RunAsDaemon 1
 DataDirectory /var/db/tor
+
+{% if tor_relay %}
+Address {{ ansible_nodename }}
+Nickname {{ tor_relay_nickname }}
+ContactInfo {{ tor_relay_contactinfo }}
+MyFamily {{ tor_relay_family | join(",") }}
+
+ExitPolicy reject *:*
+
+ORPort 443 NoListen
+ORPort 9090 NoAdvertise
+
+DirPort 80 NoListen
+DirPort 9091 NoAdvertise
+
+ControlPort 9051
+{% endif %}
+
 {% if hiddenservices is defined %}{% for key, value in hiddenservices.iteritems() %}
 HiddenServiceDir /var/db/tor/{{ key }}/
 HiddenServicePort {{ value.hiddenserviceport }}
