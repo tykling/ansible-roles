@@ -39,6 +39,6 @@
 - name: "Make chyves understand vlan interface syntax"
   lineinfile:
     dest: "/chyves/{{ chyves_zpool }}/.config/global.cfg"
-    regex: "^vlan_iface_base_name="
+    regexp: "^vlan_iface_base_name="
     line: "vlan_iface_base_name={{ chyves_vlan_base_interface }}."
 
