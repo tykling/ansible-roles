@@ -1,5 +1,5 @@
 ---
-- name: Add dovecot.log to syslog.conf
+- name: Add dhcpd.log to syslog.conf
   lineinfile:
     dest: /etc/syslog.conf
     regexp: "^local6"
