@@ -89,7 +89,7 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 ### bhyve interfaces
 {% if chyves_bridges is defined %}
 {% for bridge in chyves_bridges %}
-# first permit everything on the interface {{ chyves_bridges[bridge]['interface'] }} (chyves_bridges[bridge]['description']), since we do the filtering on the tap interfaces
+# first permit everything on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
 pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet from any to chyves_bridges[bridge]['networkv4']
 pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet from chyves_bridges[bridge]['networkv4'] to any
 pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from any to chyves_bridges[bridge]['networkv6']
@@ -110,5 +110,6 @@ pass in quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['tab
 pass out quick on {{ pf_vm_rules[vm]['interface'] }} proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to {{ pf_vm_rules[vm]['table'] }} port { {% for port in rule.ports %}{{ port }} {% endfor %}}
 
 {% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
