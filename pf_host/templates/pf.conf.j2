@@ -90,10 +90,10 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 {% if chyves_bridges is defined %}
 {% for bridge in chyves_bridges %}
 # first permit everything on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
-pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet from any to chyves_bridges[bridge]['networkv4']
-pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet from chyves_bridges[bridge]['networkv4'] to any
-pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from any to chyves_bridges[bridge]['networkv6']
-pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from chyves_bridges[bridge]['networkv6'] to any
+pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet from any to {{ chyves_bridges[bridge]['networkv4'] }}
+pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet from {{ chyves_bridges[bridge]['networkv4'] }} to any
+pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from any to {{ chyves_bridges[bridge]['networkv6'] }}
+pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from {{ chyves_bridges[bridge]['networkv6'] }} to any
 {% endfor %}
 
 # permit incoming icmp v4 and v6 from the world to vms
