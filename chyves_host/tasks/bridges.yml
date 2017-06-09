@@ -27,6 +27,18 @@
     name: "autobridge_interfaces"
     value: "{{ chyves_bridges.keys() | join(' ') }}"
 
+- name: "UP chyves bridge interfaces in /etc/rc.conf"
+  sysrc:
+    name: "ifconfig_{{ item.key }}"
+    value: "UP"
+  with_dict: "{{ chyves_bridges }}"
+
+- name: "UP chyves bridge vlan interfaces in /etc/rc.conf"
+  sysrc:
+    name: "ifconfig_{{ item.value.interface }}"
+    value: "UP"
+  with_dict: "{{ chyves_bridges }}"
+
 - name: "Configure chyves autobridge interfaces in /etc/rc.conf"
   sysrc:
     name: "autobridge_{{ item.key }}"
