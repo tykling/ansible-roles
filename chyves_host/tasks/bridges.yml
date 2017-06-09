@@ -35,7 +35,7 @@
 
 - name: "UP chyves bridge vlan interfaces in /etc/rc.conf"
   sysrc:
-    name: "ifconfig_{{ item.value.interface }}"
+    name: "ifconfig_{{ item.value.interface | replace('.','_') }}"
     value: "UP"
   with_dict: "{{ chyves_bridges }}"
 
