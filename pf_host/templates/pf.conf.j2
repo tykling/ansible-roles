@@ -110,4 +110,5 @@ pass in quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['tab
 pass out quick on {{ pf_vm_rules[vm]['interface'] }} proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to {{ pf_vm_rules[vm]['table'] }} port { {% for port in rule.ports %}{{ port }} {% endfor %}}
 
 {% endfor %}
+{% endfor %}
 {% endif %}
