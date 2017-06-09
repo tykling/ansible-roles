@@ -73,6 +73,8 @@ pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port
 {% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on $if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 
+
+####################################################################################################
 ### jail rules
 {% for jail in pf_jail_rules %}
 # {{ jail }} jail
@@ -83,7 +85,7 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 {% endfor %}
 
 
-##############
+####################################################################################################
 ### bhyve interfaces
 {% if chyves_bridges is defined %}
 {% for bridge in chyves_bridges %}
@@ -99,7 +101,7 @@ pass out quick on tap inet6 proto icmp6 all icmp6-type {echoreq, echorep, neighb
 pass out quick on tap inet proto icmp all icmp-type { unreach, echoreq, timex }
 {% if pf_vm_rules is defined %}
 {% for vm in pf_vm_rules %}
-####### {{ pf_vm_rules[vm]['description']
+####### {{ pf_vm_rules[vm]['description'] }}
 # permit all outgoing traffic from the vm to the world
 pass in quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['table'] }} to any
 
@@ -107,4 +109,5 @@ pass in quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['tab
 # {{ rule.description }}
 pass out quick on {{ pf_vm_rules[vm]['interface'] }} proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to {{ pf_vm_rules[vm]['table'] }} port { {% for port in rule.ports %}{{ port }} {% endfor %}}
 
+{% endfor %}
 {% endif %}
