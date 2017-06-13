@@ -107,6 +107,9 @@ pass out quick on tap inet proto icmp all icmp-type { unreach, echoreq, timex }
 
 {% for vm in pf_vm_rules %}
 ### {{ pf_vm_rules[vm]['description'] }}
+# permit traffic from the vm to itself
+pass quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['table'] }} to {{ pf_vm_rules[vm]['table'] }}
+
 # permit all outgoing traffic from the vm to the world
 pass in quick on {{ pf_vm_rules[vm]['interface'] }} from {{ pf_vm_rules[vm]['table'] }} to any
 
