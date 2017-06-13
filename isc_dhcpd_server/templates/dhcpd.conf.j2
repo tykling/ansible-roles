@@ -18,7 +18,7 @@ key omapi_key {
 {% endif %}
 
 {% if isc_dhcpd_secondary_peer | default(False) %}
-# failover
+# failover configuration, this server is primary
 failover peer "failover-partner" {
     primary;
     address {{ ansible_host }};
@@ -33,6 +33,7 @@ failover peer "failover-partner" {
 }
 {% endif %}
 {% if isc_dhcpd_primary_peer | default(False) %}
+# failover configuration, this server is secondary
 failover peer "failover-partner" {
     secondary;
     address {{ ansible_host }};
