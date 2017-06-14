@@ -1,5 +1,5 @@
 ---
-- name: "Reload isc dhcpd"
+- name: "reload isc dhcpd"
   service:
     name: "dhcpd"
     state: "reloaded"

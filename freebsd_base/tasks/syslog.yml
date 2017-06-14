@@ -4,5 +4,5 @@
     dest: /etc/syslog.conf
     line: "*.*                                        @{{ syslog_server_ip }}"
   when: syslog_server_ip | default(False)
-  notify: "Reload syslogd"
+  notify: "reload syslogd"
 
