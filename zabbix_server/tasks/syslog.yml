@@ -1,0 +1,16 @@
+---
+- name: "add syslog.d config for zabbix_server"
+  file:
+    src: "zabbix_server_syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/zabbix_server.conf"
+ notify:
+    - "reload syslogd"
+
+- name: "Make sure zabbix newsyslog config file exists"
+  template:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "zabbix_server_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/zabbix_server"
+
