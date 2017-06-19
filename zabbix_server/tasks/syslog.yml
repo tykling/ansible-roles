@@ -1,9 +1,9 @@
 ---
 - name: "add syslog.d config for zabbix_server"
-  file:
+  copy:
     src: "zabbix_server_syslogd.conf"
     dest: "/usr/local/etc/syslog.d/zabbix_server.conf"
- notify:
+  notify:
     - "reload syslogd"
 
 - name: "Make sure zabbix newsyslog config file exists"
