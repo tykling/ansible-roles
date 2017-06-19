@@ -1,0 +1,32 @@
+# logging
+LogType=syslog
+
+# database settings
+DBHost={{ zabbix_db_host }}
+DBName={{ zabbix_db_name }}
+DBUser={{ zabbix_db_user }}
+DBPassword={{ zabbix_db_pass }}
+DBPort={{ zabbix_db_port }}
+
+# cache sizes
+CacheSize=512M
+TrendCacheSize=16M
+ValueCacheSize=512M
+
+# number of processes
+StartPollersUnreachable=48
+StartPollers=30
+StartDiscoverers=4
+StartPingers=20
+
+# timeouts
+UnavailableDelay=900
+UnreachableDelay=5
+UnreachablePeriod=15
+Timeout=20
+
+# paths
+FpingLocation=/usr/local/sbin/fping
+Fping6Location=/usr/local/sbin/fping6
+AlertScriptsPath=/usr/local/etc/zabbix32/zabbix/alertscripts
+
