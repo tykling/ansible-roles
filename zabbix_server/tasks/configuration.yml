@@ -1,4 +1,8 @@
 ---
+- name: "Include secrets file if present"
+  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+  ignore_errors: yes
+
 - name: "copy zabbix_server.conf"
   template:
     src: "zabbix_server.conf.j2"
