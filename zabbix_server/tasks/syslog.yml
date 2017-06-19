@@ -9,7 +9,7 @@
 - name: "Make sure /var/log/zabbix_server.log exists"
   file:
     dest: "/var/log/zabbix_server.log"
-    state: "touch"
+    state: "file"
   notify:
     - "reload syslogd"
 
