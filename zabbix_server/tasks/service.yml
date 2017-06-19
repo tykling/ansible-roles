@@ -1,7 +1,7 @@
 ---
 - name: "Enable zabbix"
   service:
-    name: "zabbix32_server"
+    name: "zabbix_server"
     enabled: "yes"
   notify: "reload zabbix server"
 
