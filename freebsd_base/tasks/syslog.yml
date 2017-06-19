@@ -1,8 +1,18 @@
 ---
-- name: Set remote loghost in /etc/syslog.conf
-  lineinfile:
-    dest: /etc/syslog.conf
-    line: "*.*                                        @{{ syslog_server_ip }}"
+- name: "Make sure /usr/local/etc/syslog.d/ exists"
+  file:
+    path: "/usr/local/etc/syslog.d"
+    state: "directory"
+
+- name: "Enable logging to central loghost in syslog"
+  file:
+    src: "central_syslog.conf"
+    dest: "/usr/local/etc/syslog.d/central_syslog.conf"
   when: syslog_server_ip | default(False)
   notify: "reload syslogd"
+
+- name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
+  file:
+    path: "/usr/local/etc/newsyslog.conf.d"
+    state: "directory"
 
