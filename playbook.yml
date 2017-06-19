@@ -208,5 +208,5 @@
   hosts: "zabbix_frontend_servers"
   become: yes
   roles:
-    - "zabbix_fronetend_server"
+    - "zabbix_frontend_server"
 
