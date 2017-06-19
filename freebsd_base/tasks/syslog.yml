@@ -5,7 +5,7 @@
     state: "directory"
 
 - name: "Enable logging to central loghost in syslog"
-  file:
+  copy:
     src: "central_syslog.conf"
     dest: "/usr/local/etc/syslog.d/central_syslog.conf"
   when: syslog_server_ip | default(False)
