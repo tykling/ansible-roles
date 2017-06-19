@@ -1,0 +1,8 @@
+---
+- name: "copy zabbix_server.conf"
+  template:
+    src: "zabbix_server.conf.j2"
+    dest: "/usr/local/etc/zabbix32/zabbix_server.conf"
+    mode: "0600"
+  notify: "reload zabbix server"
+
