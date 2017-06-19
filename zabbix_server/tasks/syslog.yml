@@ -10,6 +10,8 @@
   file:
     dest: "/var/log/zabbix_server.log"
     state: "present"
+  notify:
+    - "reload syslogd"
 
 - name: "Make sure zabbix newsyslog config file exists"
   template:
