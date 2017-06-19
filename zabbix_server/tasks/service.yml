@@ -3,5 +3,5 @@
   service:
     name: "zabbix_server"
     enabled: "yes"
-  notify: "reload zabbix server"
+  notify: "restart zabbix server"
 
