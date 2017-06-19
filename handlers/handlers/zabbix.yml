@@ -1,0 +1,6 @@
+---
+- name: "reload zabbix server"
+  service:
+    name: "zabbix_server"
+    state: "reloaded"
+

@@ -198,3 +198,15 @@
   roles:
     - "syslogng_server"
 
+- name: "configure zabbix servers"
+  hosts: "zabbix_servers"
+  become: yes
+  roles:
+    - "zabbix_server"
+
+- name: "configure zabbix frontend servers"
+  hosts: "zabbix_frontend_servers"
+  become: yes
+  roles:
+    - "zabbix_fronetend_server"
+

@@ -13,4 +13,5 @@
 - include: postfix.yml
 - include: syslogng.yml
 - include: tor.yml
+- include: zabbix.yml
 
