@@ -15,3 +15,9 @@
     name: "syslog-ng"
     enabled: yes
 
+- name: "set syslog-ng pidfile path in /etc/rc.conf"
+  sysrc:
+    name: "syslog_ng_pid"
+    value: "/var/run/syslog-ng.pid"
+  notify: "reload syslog-ng"
+
