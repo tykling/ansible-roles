@@ -9,6 +9,13 @@
     name: "postgresql"
     enabled: yes
 
+- name: "Make sure postgres homedir is owned by postgres:postgres"
+  file:
+    dest: "{{ postgresql_homedir }}"
+    owner: "postgres"
+    group: "postgres"
+    state: "directory"
+
 - name: "Initialise PostgreSQL database"
   command: "/usr/sbin/service postgresql initdb"
   args:
