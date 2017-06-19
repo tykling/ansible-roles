@@ -6,6 +6,11 @@
   notify:
     - "reload syslogd"
 
+- name: "Make sure /var/log/zabbix_server.log exists"
+  file:
+    dest: "/var/log/zabbix_server.log"
+    state: "present"
+
 - name: "Make sure zabbix newsyslog config file exists"
   template:
     owner: "root"
