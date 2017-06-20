@@ -1,3 +1,4 @@
 ---
 - include: "phpfpm.yml"
+- include: "syslog.yml"
 
