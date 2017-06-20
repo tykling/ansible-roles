@@ -6,7 +6,7 @@
 
 - name: "Enable php-fpm"
   service:
-    name: "php_fpm"
+    name: "php-fpm"
     enabled: "yes"
   notify: "reload php-fpm"
 
