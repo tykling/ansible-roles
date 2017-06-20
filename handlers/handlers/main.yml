@@ -1,17 +1,18 @@
 ---
-- include: certgrinder.yml
-- include: django.yml
-- include: isc-dhcpd.yml
-- include: kea.yml
-- include: kldload-aesni.yml
-- include: nginx.yml
-- include: pf.yml
-- include: prosody.yml
-- include: sshd.yml
-- include: sysctl.yml
-- include: syslogd.yml
-- include: postfix.yml
-- include: syslogng.yml
-- include: tor.yml
-- include: zabbix.yml
+- include: "certgrinder.yml"
+- include: "django.yml"
+- include: "isc-dhcpd.yml"
+- include: "kea.yml"
+- include: "kldload-aesni.yml"
+- include: "nginx.yml"
+- include: "pf.yml"
+- include: "prosody.yml"
+- include: "sshd.yml"
+- include: "sysctl.yml"
+- include: "syslogd.yml"
+- include: "postfix.yml"
+- include: "syslogng.yml"
+- include: "tor.yml"
+- include: "zabbix.yml"
+- include: "php-fpm.yml"
 
