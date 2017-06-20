@@ -8,7 +8,7 @@
 
 - name: "Make sure php-fpm logfile exists"
   file:
-    dest: "{{ php-fpm_logfile_path }}"
+    dest: "{{ php_fpm_logfile_path }}"
     state: "file"
   notify:
     - "reload syslogd"
