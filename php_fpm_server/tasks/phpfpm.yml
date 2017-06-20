@@ -1,0 +1,27 @@
+---
+- name: "Install php"
+  pkgng:
+    name: "php56"
+    state: "present"
+
+- name: "Enable php-fpm"
+  service:
+    name: "php_fpm"
+    enabled: "yes"
+  notify: "reload php-fpm"
+
+- name: "Copy php-fpm.conf"
+  template:
+    src: "php-fpm.conf.j2"
+    dest: "/usr/local/etc/php-fpm.conf"
+  notify: "reload php-fpm"
+
+- name: "Create /var/run/php/ socket directory for php-fpm"
+  file:
+    dest: "/var/run/php/"
+    state: "directory"
+    owner: "www"
+    group: "www"
+    mode: "0600"
+  notify: "reload php-fpm"
+

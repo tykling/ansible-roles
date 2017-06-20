@@ -1,0 +1,3 @@
+---
+php-fpm_logfile_path: "/var/log/php-fpm.log"
+

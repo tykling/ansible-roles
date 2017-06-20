@@ -2,4 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: nginx_server }
+  - { role: php_fpm_server }
 

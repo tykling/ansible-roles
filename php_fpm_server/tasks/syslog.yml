@@ -1,0 +1,20 @@
+---
+- name: "add syslog.d config for zabbix_server"
+  copy:
+    src: "php-fpm_syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/php-fpm.conf"
+  notify:
+    - "reload syslogd"
+
+- name: "Make sure {{ php-fpm_logfile_path }} exists"
+  file:
+    dest: "{{ php-fpm_logfile_path }}"
+    state: "file"
+  notify:
+    - "reload syslogd"
+
+- name: "Make sure php-fpm newsyslog config file exists"
+  template:
+    src: "php-fpm_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/php-fpm"
+
