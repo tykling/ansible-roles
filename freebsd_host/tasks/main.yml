@@ -6,4 +6,5 @@
 - include: zfs-scrub.yml
 - include: netdata.yml
 - include: aesni.yml
+- include: tykroutefix.yml
 

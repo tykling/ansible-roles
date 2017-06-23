@@ -1,0 +1,14 @@
+---
+- name: "install tykroutefix rc.d script"
+  file:
+    src: "tykroutefix"
+    dest: "/etc/rc.d/tykroutefix"
+    mode: "0755"
+  when: tykroutefix | default(False)
+
+- name: "enable tykroutefix in rc.conf"
+  service:
+    name: "tykroutefix"
+    state: "enabled"
+  when: tykroutefix | default(False)
+
