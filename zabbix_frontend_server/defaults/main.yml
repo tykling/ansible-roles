@@ -1,5 +1,9 @@
 ---
 zabbix_server_port: "10051"
+zabbix_db_host: "{{ postgres_host }}"
+zabbix_db_name: "zabbixdb"
+zabbix_db_user: "zabbix"
+zabbix_db_port: "5432"
 
 nginx_locationslash: |
     root /usr/local/www/zabbix32;
