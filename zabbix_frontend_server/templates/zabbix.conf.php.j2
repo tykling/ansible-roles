@@ -1,0 +1,20 @@
+<?php
+// Zabbix GUI configuration file.
+global $DB;
+
+$DB['TYPE']     = 'POSTGRESQL';
+$DB['SERVER']   = '{{ zabbix_db_host }}';
+$DB['PORT']     = '{{ zabbix_db_port }}';
+$DB['DATABASE'] = '{{ zabbix_db_name }}';
+$DB['USER']     = '{{ zabbix_db_user }}';
+$DB['PASSWORD'] = '{{ zabbix_db_pass }}';
+
+// Schema name. Used for IBM DB2 and PostgreSQL.
+$DB['SCHEMA'] = '';
+
+$ZBX_SERVER      = '{{ zabbix_server_hostname }}';
+$ZBX_SERVER_PORT = '{{ zabbix_server_port }}';
+$ZBX_SERVER_NAME = '';
+
+$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+

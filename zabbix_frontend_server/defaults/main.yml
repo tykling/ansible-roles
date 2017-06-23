@@ -1,4 +1,6 @@
 ---
+zabbix_server_port: "10051"
+
 nginx_locationslash: |
     root /usr/local/www/zabbix32;
 
