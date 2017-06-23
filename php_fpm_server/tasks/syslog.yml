@@ -1,5 +1,5 @@
 ---
-- name: "add syslog.d config for zabbix_server"
+- name: "add syslog.d config for php-fpm"
   copy:
     src: "php-fpm_syslogd.conf"
     dest: "/usr/local/etc/syslog.d/php-fpm.conf"
