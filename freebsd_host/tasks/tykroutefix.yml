@@ -9,6 +9,6 @@
 - name: "enable tykroutefix in rc.conf"
   service:
     name: "tykroutefix"
-    state: "enabled"
+    enabled: yes
   when: tykroutefix | default(False)
 
