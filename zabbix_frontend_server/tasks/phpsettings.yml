@@ -1,0 +1,25 @@
+---
+- name: "set post_max_size to 16MB in php.ini"
+  lineinfile:
+    regex: "^post_max_size = "
+    line: "post_max_size = 16M"
+    dest: "/usr/local/etc/php.ini"
+
+- name: "set max_execution_time to 300 secs in php.ini"
+  lineinfile:
+    regex: "^max_execution_time = "
+    line: "max_execution_time = 300"
+    dest: "/usr/local/etc/php.ini"
+
+- name: "set date.timezone to UTC in php.ini"
+  lineinfile:
+    regex: "^date.timezone = "
+    line: "date.timezone = UTC"
+    dest: "/usr/local/etc/php.ini"
+
+- name: "set always_populate_raw_post_data to off in php.ini"
+  lineinfile:
+    regex: "^always_populate_raw_post_data = "
+    line: "always_populate_raw_post_data = -1"
+    dest: "/usr/local/etc/php.ini"
+
