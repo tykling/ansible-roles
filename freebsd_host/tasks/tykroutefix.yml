@@ -1,6 +1,6 @@
 ---
 - name: "install tykroutefix rc.d script"
-  file:
+  copy:
     src: "tykroutefix"
     dest: "/etc/rc.d/tykroutefix"
     mode: "0755"
