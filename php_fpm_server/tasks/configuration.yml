@@ -1,0 +1,6 @@
+---
+- name: "copy php.ini-production to php.ini if needed"
+  command: "cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini"
+  args:
+    creates: "/usr/local/etc/php.ini"
+
