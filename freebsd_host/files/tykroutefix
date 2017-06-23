@@ -1,0 +1,15 @@
+#!/bin/sh
+# PROVIDE: tykroutefix
+# REQUIRE: routing
+
+. /etc/rc.subr
+. /etc/network.subr
+
+name="tykroutefix"
+
+for ip in $(netstat -rnf inet | grep lo0 | grep -v 127.0.0.1 | cut -d " " -f1); do
+        echo "tykroutefix deleting host route for $ip ..."
+        route delete $ip
+done
+echo "tykroutefix done"
+
