@@ -7,8 +7,8 @@
   when: tykroutefix | default(False)
 
 - name: "enable tykroutefix in rc.conf"
-  service:
-    name: "tykroutefix"
-    enabled: yes
+  sysrc:
+    name: "tykroutefix_enable"
+    value: "YES"
   when: tykroutefix | default(False)
 
