@@ -8,6 +8,6 @@
   tags:
     - codedeploy
   notify:
-    - "restart django runworker instances"
+    - "restart django runworker instances using supersorctl"
     - "restart django manage.py worker instances"
 
