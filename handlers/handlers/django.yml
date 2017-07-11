@@ -1,5 +1,5 @@
 ---
-- name: "restart django runworker instances using supersorctl"
+- name: "restart django runworker instances using supervisorctl"
   shell: "for worker in $(/usr/local/bin/supervisorctl status runworker: | cut -d ' ' -f 1); do /usr/local/bin/supervisorctl restart $worker; done"
 
 - name: "restart django manage.py worker instances"
