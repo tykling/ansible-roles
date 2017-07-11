@@ -15,4 +15,5 @@
 - include: "tor.yml"
 - include: "zabbix.yml"
 - include: "php-fpm.yml"
+- include: "unbound.yml"
 
