@@ -1,6 +1,6 @@
 ---
-- name: "reload syslogd"
+- name: "restart syslogd"
   service:
     name: "syslogd"
-    state: "reloaded"
+    state: "restarted"
 
