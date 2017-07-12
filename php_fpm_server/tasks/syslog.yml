@@ -4,14 +4,14 @@
     src: "php-fpm_syslogd.conf"
     dest: "/usr/local/etc/syslog.d/php-fpm.conf"
   notify:
-    - "reload syslogd"
+    - "restart syslogd"
 
 - name: "Make sure php-fpm logfile exists"
   file:
     dest: "{{ php_fpm_logfile_path }}"
     state: "file"
   notify:
-    - "reload syslogd"
+    - "restart syslogd"
 
 - name: "Make sure php-fpm newsyslog config file exists"
   template:

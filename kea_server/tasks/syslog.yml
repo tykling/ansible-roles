@@ -3,7 +3,7 @@
   lineinfile:
     dest: "/etc/syslog.conf"
     line: "local0.*                                        /var/log/kea.log"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: "Make sure the kea logfile exists"
   copy:
@@ -13,5 +13,5 @@
     owner: "root"
     group: "wheel"
     mode: "644"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 

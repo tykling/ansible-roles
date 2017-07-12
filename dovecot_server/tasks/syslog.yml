@@ -4,14 +4,14 @@
     dest: /etc/syslog.conf
     regexp: "^local3"
     line: "local3.*                                        /var/log/dovecot.log"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: Create dovecot.log if it doesn't exist
   file:
     path: /var/log/dovecot.log
     state: touch
     mode: "600"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: Add dovecot.log to newsyslog.conf
   lineinfile:

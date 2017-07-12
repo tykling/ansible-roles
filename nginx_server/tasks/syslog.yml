@@ -5,7 +5,7 @@
     regexp: '^((?!.*?local7\.none).*)\s+/var/log/messages$'
     replace: '\1;local7.none	/var/log/messages'
   notify:
-    - reload syslogd
+    - "restart syslogd"
 
 - name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
   file:

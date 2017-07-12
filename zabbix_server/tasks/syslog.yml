@@ -4,14 +4,14 @@
     src: "zabbix_server_syslogd.conf"
     dest: "/usr/local/etc/syslog.d/zabbix_server.conf"
   notify:
-    - "reload syslogd"
+    - "restart syslogd"
 
 - name: "Make sure /var/log/zabbix_server.log exists"
   file:
     dest: "/var/log/zabbix_server.log"
     state: "file"
   notify:
-    - "reload syslogd"
+    - "restart syslogd"
 
 - name: "Make sure zabbix newsyslog config file exists"
   template:

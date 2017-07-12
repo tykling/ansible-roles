@@ -4,14 +4,14 @@
     dest: /etc/syslog.conf
     regexp: "^local6"
     line: "local6.*                                        /var/log/dhcpd.log"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: Create dhcpd.log if it doesn't exist
   file:
     path: /var/log/dhcpd.log
     state: touch
     mode: "640"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: Add dhcpd.log to newsyslog.conf
   lineinfile:

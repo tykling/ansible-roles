@@ -13,12 +13,12 @@
     block: |
       !supervisord
       *.*                                             /var/log/supervisord/django.log
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
 - name: "Create django.log if it doesn't exist"
   file:
     path: "/var/log/supervisord/django.log"
     state: "file"
     mode: "644"
-  notify: "reload syslogd"
+  notify: "restart syslogd"
 
