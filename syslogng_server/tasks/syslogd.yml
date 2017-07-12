@@ -1,0 +1,7 @@
+---
+- name: "Set syslogd_flags to prevent it listening on all ips"
+  sysrc:
+    name: "syslogd_flags"
+    value: "-s -N"
+  notify: "restart syslogd"
+
