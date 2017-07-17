@@ -14,10 +14,10 @@ TrendCacheSize=16M
 ValueCacheSize=512M
 
 # number of processes
-StartPollersUnreachable=48
-StartPollers=30
-StartDiscoverers=4
-StartPingers=20
+StartPollersUnreachable={{ zabbix_start_pollers_unreachable }}
+StartPollers={{ zabbix_start_pollers }}
+StartDiscoverers={{ zabbix_start_discoverers }}
+StartPingers={{ zabbix_start_pingers }}
 
 # timeouts
 UnavailableDelay=900
