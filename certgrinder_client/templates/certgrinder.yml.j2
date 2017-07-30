@@ -20,7 +20,7 @@ post_renew_hooks:
 {{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml }}
 {% endif %}
 # enable fallback to selfsigned certificates?
-selfsigned_fallback: True
+selfsigned_fallback: False
 
 # use this ssh source ip
 {% if certgrinder_bind_ip is defined %}
