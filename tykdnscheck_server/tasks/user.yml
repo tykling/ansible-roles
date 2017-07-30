@@ -1,0 +1,6 @@
+---
+- name: "Add tykdnscheck user"
+  user:
+    name: "{{ tykdnscheck_user }}"
+    comment: "tykdnscheck user"
+

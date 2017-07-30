@@ -210,3 +210,9 @@
   roles:
     - "zabbix_frontend_server"
 
+- name: "configure tykdnscheck servers"
+  hosts: "tykdnscheck_servers"
+  become: yes
+  roles:
+    - "tykdnscheck_server"
+

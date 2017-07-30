@@ -1,0 +1,6 @@
+---
+tykdnscheck_user: "tykdnscheck"
+tykdnscheck_github_repo_url: "https://github.com/tykling/tykdnscheck"
+tykdnscheck_checkout_path: "/usr/home/{{ tykdnscheck_user }}/tykdnscheck"
+tykdnscheck_github_branch: "master"
+
