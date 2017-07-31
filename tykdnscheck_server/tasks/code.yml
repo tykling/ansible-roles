@@ -5,6 +5,4 @@
     dest: "{{ tykdnscheck_checkout_path }}"
     force: yes
     version: "{{ tykdnscheck_github_branch }}"
-  notify:
-    - "restart tykdnscheck"
 
