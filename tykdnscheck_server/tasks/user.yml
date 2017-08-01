@@ -4,3 +4,10 @@
     name: "{{ tykdnscheck_user }}"
     comment: "tykdnscheck user"
 
+- name: "Add sudoers permission so the tykdnscheck user can bind to port 53"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    line: "{{ tykdnscheck_user }} ALL=(ALL) NOPASSWD: /usr/home/{{ tykdnscheck_user }}/tykdnscheck/tykdnscheck.py"
+    validate: "visudo -cf %s"
+
