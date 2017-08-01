@@ -8,6 +8,6 @@
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
-    line: "{{ tykdnscheck_user }} ALL=(ALL) NOPASSWD: /usr/home/{{ tykdnscheck_user }}/tykdnscheck/tykdnscheck.py"
+    line: "{{ tykdnscheck_user }} ALL=(ALL) NOPASSWD: /usr/home/{{ tykdnscheck_user }}/tykdnscheck/tykdnscheck.sh"
     validate: "visudo -cf %s"
 
