@@ -2,4 +2,7 @@
 - include: postfix.yml
 - include: opendkim.yml
 - include: mailman.yml
+  when: mailman
 - include: thttpd.yml
+  when: mailman
+
