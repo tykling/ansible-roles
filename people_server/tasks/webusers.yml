@@ -15,7 +15,7 @@
     path: "/usr/webhomes/{{ item.key }}chroot"
     state: directory
     mode: "755"
-  with_dict: "{{ webusers }}"
+  with_dict: "{{ webusers | default({}) }}"
   tags:
     - usermanagement
 
@@ -26,7 +26,7 @@
     group: webusers
     home: "/usr/webhomes/{{ item.key }}chroot/{{ item.key }}"
     shell: "/bin/sh"
-  with_dict: "{{ webusers }}"
+  with_dict: "{{ webusers | default({}) }}"
   tags:
     - usermanagement
 
@@ -37,7 +37,7 @@
     mode: "755"
     owner: "{{ item.key }}"
     group: webusers
-  with_dict: "{{ webusers }}"
+  with_dict: "{{ webusers | default({}) }}"
   tags:
     - usermanagement
 
@@ -47,7 +47,7 @@
     key: "{{ item.value.pubkey }}"
     state: present
     exclusive: yes
-  with_dict: "{{ webusers }}"
+  with_dict: "{{ webusers | default({}) }}"
   tags:
     - usermanagement
 

@@ -13,7 +13,7 @@
   template:
     src: murmur.ini.j2
     dest: /usr/local/etc/murmur.ini
-  with_dict: "{{ vhosts }}"
+  with_dict: "{{ vhosts | default({}) }}"
 
 - name: Start murmur (if not running)
   service:

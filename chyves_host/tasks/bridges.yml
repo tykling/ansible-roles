@@ -2,7 +2,7 @@
 - name: "check if chyves bridge interfaces exists"
   command: "/sbin/ifconfig {{ item.key }}"
   register: interface_results
-  with_dict: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges | default({}) }}"
   ignore_errors: True
 
 - name: "Create missing chyves bridge interfaces"
@@ -31,23 +31,23 @@
   sysrc:
     name: "ifconfig_{{ item.key }}"
     value: "UP"
-  with_dict: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges | default({}) }}"
 
 - name: "UP chyves bridge vlan interfaces in /etc/rc.conf"
   sysrc:
     name: "ifconfig_{{ item.value.interface | replace('.','_') }}"
     value: "UP"
-  with_dict: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges | default({}) }}"
 
 - name: "Configure chyves autobridge interfaces in /etc/rc.conf"
   sysrc:
     name: "autobridge_{{ item.key }}"
     value: "{{ item.value.interface }}"
-  with_dict: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges | default({}) }}"
 
 - name: "Configure chyves bridge interfaces in global.cfg"
   lineinfile:
     dest: "/chyves/{{ chyves_zpool }}/.config/global.cfg"
     line: "{{ item.key }}_phy_attach={{ item.value.interface  }}"
-  with_dict: "{{ chyves_bridges }}"
+  with_dict: "{{ chyves_bridges | default({}) }}"
 

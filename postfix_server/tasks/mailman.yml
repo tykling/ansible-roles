@@ -126,7 +126,7 @@
   args:
     creates: "/usr/local/mailman/lists/{{ item.key }}"
   register: passwords
-  with_dict: "{{ lists }}"
+  with_dict: "{{ lists | default({}) }}"
 
 - name: Create mailinglists
   shell: "/usr/local/mailman/bin/newlist -a {{ item.0 }} {{ lists[item.0] }} {{ item.1.stdout }}"
@@ -152,7 +152,7 @@
       {{ item.key }}-request@{{ postfix_virtual_alias_domains[0] }}      {{ item.key }}-request@{{ fake_mailman_domain }}
       {{ item.key }}-subscribe@{{ postfix_virtual_alias_domains[0] }}    {{ item.key }}-subscribe@{{ fake_mailman_domain }}
       {{ item.key }}-unsubscribe@{{ postfix_virtual_alias_domains[0] }}  {{ item.key }}-unsubscribe@{{ fake_mailman_domain }}
-  with_dict: "{{ lists }}"
+  with_dict: "{{ lists | default({}) }}"
 
 - name: Reload Postfix
   service:
