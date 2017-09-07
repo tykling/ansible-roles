@@ -16,8 +16,23 @@ virtual_mailbox_maps = pgsql:/usr/local/etc/postfix/virtual_mailbox_maps.sql
 mailman_destination_recipient_limit = 1
 {% endif %}
 
+# define a restriction class that just permits all mail,
+# this restriction class can be used to accept mail from servers with internal hostnames
+# which would otherwise be rejected by the spam checks.
+smtpd_restriction_classes = relaxed
+relaxed = permit
+
+smtpd_relay_restrictions =
+    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination
+
+
 # Recipient restrictions
 smtpd_recipient_restrictions =
+    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
+    permit_mynetworks,
     permit_sasl_authenticated,
     reject_invalid_helo_hostname,
     reject_non_fqdn_helo_hostname,
@@ -30,7 +45,6 @@ smtpd_recipient_restrictions =
     reject_rhsbl_helo dbl.spamhaus.org,
     reject_rhsbl_client dbl.spamhaus.org,
     reject_rhsbl_sender dbl.spamhaus.org,
-    permit_mynetworks,
     reject_unauth_destination
 
 # TLS settings
