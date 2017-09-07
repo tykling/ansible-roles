@@ -65,6 +65,11 @@
     name: "milteropendkim_uid"
     value: "postfix"
 
+- name: "Set milteropendkim_socket in rc.conf (workaround ports PR 222122)"
+  sysrc:
+    name: "milteropendkim_socket"
+    value: "local:/var/spool/postfix/opendkim/opendkim.sock"
+
 - name: "Restart milteropendkim"
   service:
     name: "milter-opendkim"
