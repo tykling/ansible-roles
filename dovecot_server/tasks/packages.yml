@@ -1,7 +1,7 @@
 ---
 - name: Install dovecot
   pkgng:
-    name: dovecot2
+    name: dovecot
     state: present
 
 - name: Install dovecot-managesieve
