@@ -1,6 +1,6 @@
 ---
 roundcube_temp_path: "/tmp/roundcube/"
-roundcube_logfile_path: "/var/log/roundcube"
+roundcube_logfile_path: "/var/log/roundcube.log"
 
 nginx_locationslash: |
     root   /usr/local/www/roundcube/;
