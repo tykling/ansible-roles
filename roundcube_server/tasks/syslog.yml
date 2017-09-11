@@ -16,6 +16,6 @@
 
 - name: "Make sure roundcube newsyslog config file exists"
   template:
-    src: "roundcube-newsyslog.conf.j2"
+    src: "roundcube_newsyslog.conf.j2"
     dest: "/usr/local/etc/newsyslog.conf.d/roundcube"
 
