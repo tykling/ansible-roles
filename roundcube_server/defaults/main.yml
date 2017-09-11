@@ -1,0 +1,17 @@
+---
+roundcube_temp_path: "/tmp/roundcube/"
+
+nginx_locationslash: |
+    root   /usr/local/www/roundcube/;
+
+    location / {
+            index  index.php;
+    }
+
+    location ~ \.php$ {
+            try_files       $uri =404;
+            include         fastcgi_params;
+            fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_pass    unix:/var/php/php-fpm.socket;
+    }
+

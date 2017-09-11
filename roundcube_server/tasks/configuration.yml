@@ -1,0 +1,9 @@
+---
+- name: "copy roundcube config.inc.php config file"
+  template:
+    src: "config.inc.php.j2"
+    dest: "/usr/local/www/roundcube/config/config.inc.php"
+    owner: "www"
+    group: "wheel"
+    mode: "0600"
+

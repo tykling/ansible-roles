@@ -216,3 +216,9 @@
   roles:
     - "tykdnscheck_server"
 
+- name: "configure roundcube servers"
+  hosts: "roundcube_servers"
+  become: yes
+  roles:
+    - "roundcube_server"
+

@@ -1,0 +1,6 @@
+---
+- name: "install roundcube"
+  pkgng:
+    name: "roundcube"
+    state: "present"
+

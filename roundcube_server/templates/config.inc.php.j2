@@ -1,0 +1,26 @@
+<?php
+    $config['db_dsnw'] = 'pgsql://{{ roundcube_postgres_user }}:{{ roundcube_postgres_password }}@{{ postgres_host }}/{{ roundcube_postgres_dbname }}';
+    $config['log_driver'] = 'syslog';
+    $config['syslog_facility'] = LOG_LOCAL3;
+    $config['default_host'] = '{{ roundcube_imap_default_server }}';
+    $config['default_port'] = {{ roundcube_imap_default_port }};
+    $config['smtp_server'] = '{{ roundcube_smtp_server }}';
+    $config['smtp_port'] = {{ roundcube_smtp_port }};
+    $config['smtp_user'] = '%u';
+    $config['smtp_pass'] = '%p';
+    $config['support_url'] = '{{ roundcube_support_url }}';
+    $config['temp_dir'] = '{{ roundcube_temp_path }}';
+    $config['des_key'] = "{{ lookup('password', '/dev/null chars=ascii_letters,digits') }}";
+    $config['cipher_method'] = 'AES-256-CBC';
+    $config['username_domain'] = '{{ roundcube_username_domain }}';
+    $config['product_name'] = '{{ roundcube_product_name }}';
+    $config['identities_level'] = 3;
+    $config['plugins'] = array('markasjunk', 'password');
+    $config['language'] = '{{ roundcube_language }}';
+    $config['enable_spellcheck'] = false;
+    $config['spellcheck_engine'] = 'atd';
+    $config['preview_pane'] = true;
+    $config['mime_param_folding'] = 0;
+    $config['mime_types'] = '/usr/local/www/roundcube/config/mime.types';
+?>
+
