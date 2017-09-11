@@ -1,6 +1,6 @@
 ---
 - name: "add syslog.d config for php-fpm"
-  copy:
+  template:
     src: "php-fpm_syslogd.conf"
     dest: "/usr/local/etc/syslog.d/php-fpm.conf"
   notify:
