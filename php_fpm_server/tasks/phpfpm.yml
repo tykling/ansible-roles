@@ -1,7 +1,7 @@
 ---
 - name: "Install php"
   pkgng:
-    name: "php56"
+    name: "php71"
     state: "present"
 
 - name: "Enable php-fpm"
