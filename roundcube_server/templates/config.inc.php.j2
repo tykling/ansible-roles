@@ -1,7 +1,7 @@
 <?php
     $config['db_dsnw'] = 'pgsql://{{ roundcube_postgres_user }}:{{ roundcube_postgres_password }}@{{ postgres_host }}/{{ roundcube_postgres_dbname }}';
     $config['log_driver'] = 'syslog';
-    $config['syslog_facility'] = LOG_LOCAL3;
+    $config['syslog_facility'] = LOG_LOCAL4;
     $config['default_host'] = '{{ roundcube_imap_default_server }}';
     $config['default_port'] = {{ roundcube_imap_default_port }};
     $config['smtp_server'] = '{{ roundcube_smtp_server }}';

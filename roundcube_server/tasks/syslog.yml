@@ -1,0 +1,21 @@
+---
+- name: "add syslog.d config for roundcube"
+  template:
+    src: "roundcube_syslogd.conf.j2"
+    dest: "/usr/local/etc/syslog.d/roundcube.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure roundcube logfile exists"
+  copy:
+    dest: "{{ roundcube_logfile_path }}"
+    content: ""
+    force: "no"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure roundcube newsyslog config file exists"
+  template:
+    src: "roundcube-newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/roundcube"
+
