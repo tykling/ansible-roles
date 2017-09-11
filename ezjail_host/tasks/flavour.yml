@@ -15,6 +15,15 @@
     src: "rc.conf.j2"
     dest: "{{ ezjail_flavour_root }}/etc/rc.conf"
 
+- name: "Create /usr/home directory inside ezjail flavour {{ ezjail_flavourname }}"
+  file:
+    path: "{{ ezjail_flavour_root }}/usr/home/"
+    state: "directory"
+    recurse: yes
+    owner: "root"
+    group:  "wheel"
+    mode: "0755"
+
 - name: "Create ansible users $HOME/.ssh directory inside ezjail flavour {{ ezjail_flavourname }}"
   file:
     path: "{{ ezjail_flavour_root }}/usr/home/ansible/.ssh/"
