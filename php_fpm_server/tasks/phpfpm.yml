@@ -16,9 +16,9 @@
     dest: "/usr/local/etc/php-fpm.conf"
   notify: "reload php-fpm"
 
-- name: "Create /var/run/php/ socket directory for php-fpm"
+- name: "Create socket directory for php-fpm"
   file:
-    dest: "/var/run/php/"
+    dest: "{{ php_fpm_socket_path | dirname }}"
     state: "directory"
     owner: "www"
     group: "www"
