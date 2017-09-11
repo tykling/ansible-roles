@@ -29,6 +29,13 @@
     mode: "600"
   notify: "reload postfix"
 
+- name: "Copy postfix transport.sql"
+  template:
+    src: "transport.sql.j2"
+    dest: "/usr/local/etc/postfix/transport.sql"
+    mode: "600"
+  notify: "reload postfix"
+
 - name: "Copy postfix virtual_alias_maps.sql"
   template:
     src: "virtual_alias_maps.sql.j2"

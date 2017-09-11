@@ -5,7 +5,7 @@ inet_protocols = ipv4 ipv6
 mynetworks_style = host
 relay_domains  = {{ ansible_nodename }}
 alias_maps = hash:/etc/aliases
-transport_maps = texthash:/usr/local/etc/postfix/transport
+transport_maps = texthash:/usr/local/etc/postfix/transport,pgsql:/usr/local/etc/postfix/transport.sql
 
 # virtual(8) settings
 virtual_transport = lmtp:inet:{{ lmtp_server_ip }}:{{ lmtp_server_port }}
