@@ -1,6 +1,6 @@
 ---
 - name: Install postgresql client
   pkgng:
-    name: postgresql93-client
+    name: postgresql96-client
     state: present
 
