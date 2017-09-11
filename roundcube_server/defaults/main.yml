@@ -13,7 +13,7 @@ nginx_locationslash: |
             try_files       $uri =404;
             include         fastcgi_params;
             fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_pass    unix:/var/php/php-fpm.socket;
+            fastcgi_pass    unix:{{ php_fpm_socket_path }};
     }
 
     location /.well-known/acme-challenge/ {

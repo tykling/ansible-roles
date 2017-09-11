@@ -6,7 +6,7 @@ syslog.facility = local3
 [www]
 user = www
 group = www
-listen = /var/run/php/php.socket
+listen = {{ php_fpm_socket_path }}
 listen.owner = www
 listen.group = www
 

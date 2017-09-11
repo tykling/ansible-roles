@@ -14,7 +14,7 @@ nginx_locationslash: |
 
     location ~ \.php$ {
             try_files $uri =404;
-            fastcgi_pass unix:/var/run/php/php.socket;
+            fastcgi_pass unix:[[ php_fpm_socket_path }};
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_param SCRIPT_NAME $fastcgi_script_name;
