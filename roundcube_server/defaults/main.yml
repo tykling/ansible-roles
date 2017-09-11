@@ -16,3 +16,7 @@ nginx_locationslash: |
             fastcgi_pass    unix:/var/php/php-fpm.socket;
     }
 
+    location /.well-known/acme-challenge/ {
+            return 301 {{ certgrinder_redirect_url }}$request_uri;
+    }
+
