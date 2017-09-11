@@ -31,11 +31,18 @@
     group:  "wheel"
     mode: "0755"
 
+- name: "Create ansible users $HOME directory inside ezjail flavour {{ ezjail_flavourname }}"
+  file:
+    path: "{{ ezjail_flavour_root }}/usr/home/ansible/"
+    state: "directory"
+    owner: "{{ ezjail_ansible_userid }}"
+    group:  "{{ ezjail_ansible_userid }}"
+    mode: "0755"
+
 - name: "Create ansible users $HOME/.ssh directory inside ezjail flavour {{ ezjail_flavourname }}"
   file:
     path: "{{ ezjail_flavour_root }}/usr/home/ansible/.ssh/"
     state: "directory"
-    recurse: yes
     owner: "{{ ezjail_ansible_userid }}"
     group:  "{{ ezjail_ansible_userid }}"
     mode: "0755"
