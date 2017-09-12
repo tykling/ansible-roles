@@ -46,7 +46,10 @@
     owner: "postfix"
     group: "postfix"
     mode: "600"
-    content: "{{ item.value }}"
+    content: |
+      -----BEGIN RSA PRIVATE KEY-----
+      {{ item.value }}
+      -----END RSA PRIVATE KEY-----
     dest: "/usr/local/etc/opendkim/{{ item.key }}-default.private"
   with_dict: "{{ dkimkeys | default({}) }}"
 
