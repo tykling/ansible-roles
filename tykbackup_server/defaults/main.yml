@@ -1,6 +1,6 @@
 ---
 tykbackup_user: "tykbackup"
 tykbackup_github_repo_url: "https://github.com/tykling/zfs-mirror"
-tykbackup_checkout_path: "/usr/home/{{ tykdnscheck_user }}/zfs-mirror"
+tykbackup_checkout_path: "/usr/home/{{ tykbackup_user }}/zfs-mirror"
 tykbackup_github_branch: "master"
 
