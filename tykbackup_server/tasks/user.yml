@@ -4,3 +4,10 @@
     name: "{{ tykbackup_user }}"
     comment: "tykbackup user"
 
+- name: "Add ssh authorized_keys for all tykbackup clients"
+  authorized_key:
+    user: "{{ tykbackup_user }}"
+    key: "{{ item.value.authkey }}"
+    key_options: 'from="{{ item.value.fromip }}",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty,command="/usr/local/bin/csrgrinder",no-port-forwarding,no-x11-forwarding,no-agent-forwarding'
+  with_dict: "{{ tykbackup_authorized_keys | default({}) }}"
+
