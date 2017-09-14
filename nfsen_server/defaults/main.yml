@@ -1,0 +1,16 @@
+---
+nginx_locationslash: |
+    root /usr/local/www/nfsen;
+
+    location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_pass unix:[[ php_fpm_socket_path }};
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+    }
+
+    location /.well-known/acme-challenge/ {
+            return 301 {{ certgrinder_redirect_url }}$request_uri;
+    }
+

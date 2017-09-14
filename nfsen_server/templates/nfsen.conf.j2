@@ -1,0 +1,36 @@
+$BASEDIR = "/usr/local";
+$BINDIR="${BASEDIR}/bin";
+$LIBEXECDIR="${BASEDIR}/libexec/nfsen";
+$CONFDIR="${BASEDIR}/etc";
+$HTMLDIR    = "/usr/local/www/nfsen";
+$DOCDIR="${HTMLDIR}/doc";
+$VARDIR="/var/nfsen";
+$PROFILESTATDIR="${VARDIR}/profiles-stat";
+$PROFILEDATADIR="${VARDIR}/profiles-data";
+$BACKEND_PLUGINDIR="${LIBEXECDIR}/plugins";
+$FRONTEND_PLUGINDIR="${HTMLDIR}/plugins";
+$PREFIX  = '${BINDIR}';
+$USER    = "www";
+$WWWUSER  = "www";
+$WWWGROUP = "www";
+$BUFFLEN = 200000;
+$SUBDIRLAYOUT = 1;
+$ZIPcollected    = 1;
+$ZIPprofiles     = 1;
+$PROFILERS = 2;
+$DISKLIMIT = 98;
+$PROFILERS = 6;
+%sources = (
+    {% for name, value in nfsen_sources %}
+    '{{ name }}'        => { 'port' => '{{ value[port] }}', 'col'=> '{{ value[colour] }}', 'type'=> '{{ value[type] }}' , 'optarg' => '{{ value[optarg] }}'},
+    {% endfor %}
+);
+$low_water = 90;
+$syslog_facility = 'local4';
+$MAIL_FROM   = '{{ nfsen_mail_from }}';
+$SMTP_SERVER = '{{ nfsen_smtp_server }}';
+$MAIL_BODY       = q{ 
+Alert '@alert@' triggered at timeslot @timeslot@
+};
+1;
+

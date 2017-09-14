@@ -1,0 +1,6 @@
+---
+- name: "copy nfsen.conf config file"
+  template:
+    src: "nfsen.conf.j2"
+    dest: "/usr/local/etc/nfsen.conf"
+

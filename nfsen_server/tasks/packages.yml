@@ -1,0 +1,6 @@
+---
+- name: "install nfsen"
+  pkgng:
+    name: "nfsen"
+    state: "present"
+
