@@ -1,0 +1,8 @@
+---
+- name: "Get code from git"
+  git:
+    repo: "{{ tykbackup_github_repo_url }}"
+    dest: "{{ tykbackup_checkout_path }}"
+    force: yes
+    version: "{{ tykbackup_github_branch }}"
+

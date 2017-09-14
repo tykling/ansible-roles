@@ -228,3 +228,9 @@
   roles:
     - "nfsen_server"
 
+- name: "configure tykbackup servers"
+  hosts: "tykbackup_servers"
+  become: yes
+  roles:
+    - "tykbackup_server"
+
