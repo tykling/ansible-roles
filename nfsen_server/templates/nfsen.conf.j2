@@ -22,7 +22,7 @@ $DISKLIMIT = 98;
 $PROFILERS = 6;
 %sources = (
     {% for name, value in nfsen_sources.iteritems() %}
-    '{{ name }}'        => { 'port' => '{{ value[port] }}', 'col'=> '{{ value[colour] }}', 'type'=> '{{ value[type] }}' , 'optarg' => '{{ value[optarg] }}'},
+    '{{ name }}'        => { 'port' => '{{ value.port }}', 'col'=> '{{ value.colour }}', 'type'=> '{{ value.type }}' , 'optarg' => '{{ value.optarg }}'},
     {% endfor %}
 );
 $low_water = 90;
