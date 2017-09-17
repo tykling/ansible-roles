@@ -7,7 +7,6 @@ nginx_locationslash: |
             fastcgi_pass unix:{{ php_fpm_socket_path }};
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_param SCRIPT_NAME $fastcgi_script_name;
     }
 
     location /.well-known/acme-challenge/ {
