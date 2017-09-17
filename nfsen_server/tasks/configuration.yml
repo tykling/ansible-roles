@@ -3,4 +3,5 @@
   template:
     src: "nfsen.conf.j2"
     dest: "/usr/local/etc/nfsen.conf"
+  notify: "reload nfsen"
 
