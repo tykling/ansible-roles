@@ -10,6 +10,7 @@
   copy:
     dest: "{{ php_fpm_logfile_path }}"
     content: ""
+    force: "no"
   notify:
     - "restart syslogd"
 

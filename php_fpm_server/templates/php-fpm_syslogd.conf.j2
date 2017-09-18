@@ -1,6 +1,3 @@
 # send all local3 logs to the php-fpm logfile
 local3.*                                             {{ php_fpm_logfile_path }}
-#send all php-fpm logs the php-fpm logfile$
-!php-fpm
-*.*                                             {{ php_fpm_logfile_path }}
 
