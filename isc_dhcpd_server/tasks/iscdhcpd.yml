@@ -17,5 +17,5 @@
   template:
     src: "dhcpd.conf.j2"
     dest: "/usr/local/etc/dhcpd.conf"
-  notify: "reload isc dhcpd"
+  notify: "restart isc dhcpd"
 

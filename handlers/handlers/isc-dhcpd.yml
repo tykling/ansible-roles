@@ -1,6 +1,6 @@
 ---
-- name: "reload isc dhcpd"
+- name: "restart isc dhcpd"
   service:
     name: "isc-dhcpd"
-    state: "reloaded"
+    state: "restarted"
 
