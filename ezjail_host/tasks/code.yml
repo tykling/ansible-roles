@@ -1,0 +1,17 @@
+---
+- name: "Get code from git"
+  git:
+    repo: "{{ jailmergemaster_github_repo_url }}"
+    dest: "{{ jailmergemaster_checkout_path }}"
+    force: yes
+    version: "{{ jailmergemaster_github_branch }}"
+
+- name: "Copy jailmergemaster binary to /usr/local/bin/jailmergemaster"
+  copy:
+    remote_src: True
+    src: "/tmp/jailmergemaster/jailmergemaster.sh"
+    dest: "/usr/local/bin/jailmergemaster"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"
+
