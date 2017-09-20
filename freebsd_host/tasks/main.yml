@@ -7,4 +7,5 @@
 - include: netdata.yml
 - include: aesni.yml
 - include: tykroutefix.yml
+- include: fixsyslogd.yml
 

@@ -8,5 +8,4 @@
 - include: sshd.yml
 - include: syslog.yml
 - include: resolvconf.yml
-- include: fixsyslogd.yml
 

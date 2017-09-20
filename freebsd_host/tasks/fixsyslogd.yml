@@ -10,5 +10,5 @@
     mode: "0755"
     owner: "root"
     group: "wheel"
-  when: results.stdout[0] == "fixmig"
+  when: results.stdout.find("fixmig") != -1
 
