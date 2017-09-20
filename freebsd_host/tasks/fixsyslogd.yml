@@ -4,11 +4,11 @@
   register: "results"
 
 - name: "copy patched syslogd binary where needed"
-  file:
+  copy:
     src: "syslogd"
     dest: "/usr/sbin/syslogd"
     mode: "0755"
     owner: "root"
     group: "wheel"
-  when: results.stdout.find("fixmig") != -1
+  when: results.stdout == "fixmig"
 
