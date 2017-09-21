@@ -5,3 +5,9 @@
     dest: "/usr/local/etc/nfsen.conf"
   notify: "reload nfsen"
 
+- name: "patch path to nfsen vardir in /usr/local/www/nfsen/conf.php"
+  lineinfile:
+    path: "/usr/local/www/nfsen/conf.php"
+    regexp: '^\$COMMSOCKET = '
+    line: '$COMMSOCKET = "{{ nfsen_vardir }}/run/nfsen.comm";'
+
