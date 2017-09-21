@@ -13,6 +13,6 @@ nginx_locationslash: |
             return 301 {{ certgrinder_redirect_url }}$request_uri;
     }
 
-nfsen_varpath: "/var/nfsen"
+nfsen_vardir: "/var/nfsen"
 nfsen_logfile_path: "/var/log/nfsen.log"
 
