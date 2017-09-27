@@ -1,2 +1,2 @@
 ---
-- include: etherpad.yml
+- include_tasks: etherpad.yml

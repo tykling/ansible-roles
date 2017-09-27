@@ -1,5 +1,5 @@
 ---
-- include: "phpfpm.yml"
-- include: "syslog.yml"
-- include: "configuration.yml"
+- include_tasks: "phpfpm.yml"
+- include_tasks: "syslog.yml"
+- include_tasks: "configuration.yml"
 

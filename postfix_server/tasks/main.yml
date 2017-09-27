@@ -1,8 +1,8 @@
 ---
-- include: postfix.yml
-- include: opendkim.yml
-- include: mailman.yml
+- include_tasks: postfix.yml
+- include_tasks: opendkim.yml
+- include_tasks: mailman.yml
   when: mailman
-- include: thttpd.yml
+- include_tasks: thttpd.yml
   when: mailman
 

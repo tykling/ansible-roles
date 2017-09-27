@@ -1,4 +1,4 @@
 ---
-- include: znc.yml
-- include: oidentd.yml
+- include_tasks: znc.yml
+- include_tasks: oidentd.yml
 

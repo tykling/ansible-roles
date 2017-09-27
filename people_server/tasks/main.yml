@@ -1,4 +1,4 @@
 ---
-- include: sshd.yml
-- include: webusers.yml
+- include_tasks: sshd.yml
+- include_tasks: webusers.yml
 

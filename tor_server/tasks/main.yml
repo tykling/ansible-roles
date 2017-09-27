@@ -1,2 +1,2 @@
 ---
-- include: tor.yml
+- include_tasks: tor.yml

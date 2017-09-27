@@ -1,7 +1,7 @@
 ---
-- include: user.yml
-- include: code.yml
-- include: configuration.yml
-- include: python.yml
-- include: cron.yml
+- include_tasks: user.yml
+- include_tasks: code.yml
+- include_tasks: configuration.yml
+- include_tasks: python.yml
+- include_tasks: cron.yml
 

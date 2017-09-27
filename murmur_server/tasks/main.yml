@@ -1,2 +1,2 @@
 ---
-- include: murmur.yml
+- include_tasks: murmur.yml

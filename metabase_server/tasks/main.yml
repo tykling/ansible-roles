@@ -1,6 +1,6 @@
 ---
-- include: openjdk-jre.yml
-- include: user.yml
-- include: install.yml
-- include: configure.yml
+- include_tasks: openjdk-jre.yml
+- include_tasks: user.yml
+- include_tasks: install.yml
+- include_tasks: configure.yml
 

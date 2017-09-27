@@ -1,5 +1,5 @@
 ---
-- include: letsencrypt.yml
-- include: user.yml
-- include: certgrinder.yml
+- include_tasks: letsencrypt.yml
+- include_tasks: user.yml
+- include_tasks: certgrinder.yml
 

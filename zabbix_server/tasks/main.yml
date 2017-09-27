@@ -1,6 +1,6 @@
 ---
-- include: "packages.yml"
-- include: "configuration.yml"
-- include: "service.yml"
-- include: "syslog.yml"
+- include_tasks: "packages.yml"
+- include_tasks: "configuration.yml"
+- include_tasks: "service.yml"
+- include_tasks: "syslog.yml"
 

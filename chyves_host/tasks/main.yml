@@ -1,4 +1,4 @@
 ---
-- include: chyves.yml
-- include: bridges.yml
+- include_tasks: chyves.yml
+- include_tasks: bridges.yml
 

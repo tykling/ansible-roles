@@ -1,4 +1,4 @@
 ---
-- include: iscdhcpd.yml
-- include: syslog.yml
+- include_tasks: iscdhcpd.yml
+- include_tasks: syslog.yml
 
