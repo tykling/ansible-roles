@@ -19,6 +19,7 @@
 - name: "Find age of /etc/aliases file"
   stat:
     path: "/etc/aliases"
+    follow: yes
   register: aliases
 
 - name: "Find age of /etc/aliases.db file"
