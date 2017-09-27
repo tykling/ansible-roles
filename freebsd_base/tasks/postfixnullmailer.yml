@@ -31,9 +31,9 @@
   shell: "/usr/local/sbin/postalias /etc/aliases"
   when: not aliasesdb.stat.exists or aliases.stat.mtime > aliasesdb.stat.mtime
 
-- name: "Create empty Postfix main.cf, null mailer needs no config"
+- name: "Create a mostly empty Postfix main.cf, the null mailer needs no config"
   copy:
-    content: ""
+    content: "compatibility_level=2"
     dest: "/usr/local/etc/postfix/main.cf"
   notify: "reload postfix"
 
