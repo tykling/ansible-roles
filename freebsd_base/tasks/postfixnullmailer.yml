@@ -1,0 +1,36 @@
+---
+- name: "activate postfix as null mailer"
+  copy:
+    src: "postfix-mailer.conf"
+    dest: "/usr/local/etc/mail/mailer.conf"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+  notify: "reload postfix"
+
+- name: "Find age of /etc/aliases file"
+  stat:
+    path: "/etc/aliases"
+  register: aliases
+
+- name: "Find age of /etc/aliases.db file"
+  stat:
+    path: "/etc/aliases.db"
+  register: aliasesdb
+
+- name: "Run postalias on /etc/aliases it is newer than /etc/aliases.db"
+  shell: "/usr/local/sbin/postalias /etc/aliases"
+  when: aliases.stat.mtime > aliasesdb.stat.mtime
+
+- name: "Create empty Postfix main.cf, null mailer needs no config"
+  copy:
+    content: ""
+    dest: "/usr/local/etc/postfix/main.cf"
+  notify: "reload postfix"
+
+- name: "Enable postfix"
+  service:
+    name: "postfix"
+    enabled: yes
+  notify: "reload postfix"
+

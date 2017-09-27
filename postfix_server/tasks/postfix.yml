@@ -1,9 +1,4 @@
 ---
-- name: "Install postfix"
-  pkgng:
-    name: "postfix"
-    state: "present"
-
 - name: "Enable postfix"
   service:
     name: "postfix"

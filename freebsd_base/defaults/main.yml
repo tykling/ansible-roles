@@ -4,13 +4,15 @@ dns_resolver_ips:
   - '89.233.43.71'
 poudriere_package_set: 'freebsd_10_3_amd64-default'
 packages:
-  - tmux
-  - screen
-  - sudo
-  - stow
-  - git
-  - bash
-  - vim-lite
+  - "tmux"
+  - "screen"
+  - "sudo"
+  - "stow"
+  - "git"
+  - "bash"
+  - "vim-lite"
+  - "postfix"
+
 disable_ssh_password_login: True
 
 pkg_repository_filename: poudriere_tyknet_dk.conf

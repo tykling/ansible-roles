@@ -1,11 +1,12 @@
 ---
-- include: etchosts.yml
-- include: pkg.yml
-- include: packages.yml
-- include: users.yml
-- include: motd.yml
-- include: resolvconf.yml
-- include: sshd.yml
-- include: syslog.yml
-- include: resolvconf.yml
-
+- include: "etchosts.yml"
+- include: "pkg.yml"
+- include: "packages.yml"
+- include: "users.yml"
+- include: "motd.yml"
+- include: "resolvconf.yml"
+- include: "sshd.yml"
+- include: "syslog.yml"
+- include: "resolvconf.yml"
+- include: "postfixnullmailer.yml"
+  when: "'postfix_servers' not in group_names"
