@@ -2,6 +2,6 @@
 - name: "Enable nfsen"
   service:
     name: "nfsen"
-    enabled: "yes"
+    enabled: yes
   notify: "reload nfsen"
 

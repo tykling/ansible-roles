@@ -7,7 +7,7 @@
 - name: "Enable php-fpm"
   service:
     name: "php-fpm"
-    enabled: "yes"
+    enabled: yes
   notify: "reload php-fpm"
 
 - name: "Copy php-fpm.conf"

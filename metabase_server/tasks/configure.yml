@@ -16,5 +16,5 @@
 - name: "Enable metabase in rc.conf"
   service:
     name: "metabase"
-    enabled: "yes"
+    enabled: yes
 

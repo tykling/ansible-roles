@@ -54,9 +54,9 @@
   with_dict: "{{ dkimkeys | default({}) }}"
 
 - name: "Enable milteropendkim in rc.conf"
-  sysrc:
-    name: "milteropendkim_enable"
-    value: "yes"
+  service:
+    name: "milteropendkim"
+    enabled: yes
 
 - name: "Set milteropendkim_cfgfile in rc.conf"
   sysrc:

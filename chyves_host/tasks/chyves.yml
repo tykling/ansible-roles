@@ -16,7 +16,7 @@
 - name: "Enable chyves on boot (loads kernel module and starts rcboot vms etc)"
   service:
     name: "chyves"
-    enabled: "yes"
+    enabled: yes
 
 - name: "Install qemu-utils (to convert images if needed)"
   pkgng:

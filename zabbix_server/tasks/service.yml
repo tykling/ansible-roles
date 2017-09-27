@@ -2,6 +2,6 @@
 - name: "Enable zabbix"
   service:
     name: "zabbix_server"
-    enabled: "yes"
+    enabled: yes
   notify: "restart zabbix server"
 

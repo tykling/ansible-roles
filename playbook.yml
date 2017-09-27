@@ -1,7 +1,7 @@
 ---
 - name: "configure basic freebsd stuff"
   hosts: "freebsd"
-  become: "yes"
+  become: yes
   roles:
     - "freebsd_base"
   tags:

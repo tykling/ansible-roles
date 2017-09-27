@@ -7,7 +7,7 @@
 - name: "Enable ezjail"
   service:
     name: "ezjail"
-    enabled: "yes"
+    enabled: yes
 
 - name: "Copy ezjail config"
   template:
