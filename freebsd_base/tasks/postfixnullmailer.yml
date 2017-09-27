@@ -1,4 +1,12 @@
 ---
+- name: "create /usr/local/etc/mail/ if needed"
+  file:
+    path: "/usr/local/etc/mail/"
+    state: directory
+    mode: "755"
+    owner: "root"
+    group: "wheel"
+
 - name: "activate postfix as null mailer"
   copy:
     src: "postfix-mailer.conf"
