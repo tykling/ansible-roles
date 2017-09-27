@@ -28,7 +28,7 @@
 
 - name: "Run postalias on /etc/aliases it is newer than /etc/aliases.db"
   shell: "/usr/local/sbin/postalias /etc/aliases"
-  when: aliases.stat.mtime > aliasesdb.stat.mtime
+  when: not aliasesdb.stat.exists or aliases.stat.mtime > aliasesdb.stat.mtime
 
 - name: "Create empty Postfix main.cf, null mailer needs no config"
   copy:
