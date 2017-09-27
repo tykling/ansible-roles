@@ -1,0 +1,8 @@
+---
+- name: "Configure root email forwarding in /etc/aliases"
+  lineinfile:
+    dest: "/etc/aliases"
+    regexp: '^root:'
+    line: 'root: {{ etcaliases_root_forward_email }}'
+  when: etcaliases_root_forward_email is defined
+
