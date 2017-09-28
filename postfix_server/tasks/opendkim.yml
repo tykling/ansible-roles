@@ -55,7 +55,7 @@
 
 - name: "Enable milteropendkim in rc.conf"
   service:
-    name: "milteropendkim"
+    name: "milter-opendkim"
     enabled: yes
 
 - name: "Set milteropendkim_cfgfile in rc.conf"
