@@ -1,5 +1,5 @@
 ---
-- include: "pf.yml"
+- include_tasks: "pf.yml"
   tags:
     - "pf"
 

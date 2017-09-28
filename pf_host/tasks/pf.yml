@@ -1,22 +1,31 @@
 ---
-- name: "Setup pf.conf"
+- name: "Setup pf.conf for jail/vm hosts"
   template:
     src: "pf.conf.j2"
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
+  when: pf_jail_vm_host and not pf_gateway
+  notify: "reload pf"
+
+- name: "Setup pf.conf for gateways"
+  template:
+    src: "pf-gateway.conf.j2"
+    dest: "{{ pf_conf_path }}"
+    validate: 'pfctl -n -f %s'
+  when: pf_gateway and not pf_jail_vm_host
   notify: "reload pf"
 
 - name: "Enable pf"
-  sysrc:
-    name: "pf_enable"
-    value: "yes"
+  service:
+    name: "pf"
+    enabled: yes
   notify:
     - "kldload pf module"
 
 - name: "Enable pflog"
-  sysrc:
-    name: "pflog_enable"
-    value: "yes"
+  service:
+    name: "pflog"
+    enabled: yes
   notify:
     - "kldload pflog module"
 
