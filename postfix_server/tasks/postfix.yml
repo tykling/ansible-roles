@@ -77,7 +77,7 @@
 - name: "Change so we keep a years maillogs in newsyslog.conf"
   lineinfile:
     dest: "/etc/newsyslog.conf"
-    regexp: "^/var/log/maillog "
+    regexp: "^/var/log/maillog"
     line: "/var/log/maillog                        640  365   *    @T00  JC"
 
 - name: "Run certgrinder"
