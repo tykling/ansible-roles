@@ -1,0 +1,9 @@
+---
+downloads_checkout_path: "/usr/local/www/downloads"
+downloads_wwwroot: "{{ downloads_checkout_path }}/wwwroot"
+nginx_locationslash: |
+    location / {
+        root                        {{ downloads_wwwroot }};
+        index                       index.html;
+    }
+

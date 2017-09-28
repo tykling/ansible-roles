@@ -234,3 +234,9 @@
   roles:
     - "tykbackup_server"
 
+- name: "configure download servers"
+  hosts: "download_servers"
+  become: yes
+  roles:
+    - "download_server"
+

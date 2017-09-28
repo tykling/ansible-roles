@@ -1,0 +1,8 @@
+---
+- name: "Get files from git"
+  git:
+    repo: "{{ downloads_git_repo }}"
+    dest: "{{ downloads_checkout_path }}"
+    force: yes
+    version: "master"
+
