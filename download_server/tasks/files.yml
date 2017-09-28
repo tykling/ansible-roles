@@ -1,4 +1,10 @@
 ---
+- name: "make sure we have an ssh key for root"
+  user:
+    name: "root"
+    ssh_key_type: "ed25519"
+    generate_ssh_key: True
+
 - name: "Get files from git"
   git:
     repo: "{{ downloads_git_repo }}"
