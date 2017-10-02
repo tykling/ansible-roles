@@ -1,5 +1,5 @@
 ---
 - name: "onestop sendmail"
   command: "/usr/sbin/service sendmail onestop"
-
+  ignore_errors: True
 
