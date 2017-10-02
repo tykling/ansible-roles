@@ -1,0 +1,5 @@
+---
+- name: "onestop sendmail"
+  command: "/usr/sbin/service sendmail onestop"
+
+

@@ -37,6 +37,12 @@
     dest: "/usr/local/etc/postfix/main.cf"
   notify: "reload postfix"
 
+- name: "Disable sendmail"
+  sysrc:
+    name: "sendmail_enable"
+    value: "none"
+  notify: "onestop sendmail"
+
 - name: "Enable postfix"
   service:
     name: "postfix"
