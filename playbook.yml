@@ -240,3 +240,9 @@
   roles:
     - "download_server"
 
+- name: "configure rt servers"
+  hosts: "rt_servers"
+  become: yes
+  roles:
+    - "rt_server"
+

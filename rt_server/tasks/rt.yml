@@ -1,0 +1,6 @@
+---
+- name: "Install rt44"
+  pkgng:
+    name: "rt44"
+    state: "present"
+
