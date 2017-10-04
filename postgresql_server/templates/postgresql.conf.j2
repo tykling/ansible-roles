@@ -1,0 +1,18 @@
+max_connections = 100
+shared_buffers = 128MB
+dynamic_shared_memory_type = posix
+log_destination = 'syslog'
+log_timezone = 'UTC'
+update_process_title = off
+datestyle = 'iso, mdy'
+timezone = 'UTC'
+lc_messages = 'C'
+lc_monetary = 'C'
+lc_numeric = 'C'
+lc_time = 'C'
+default_text_search_config = 'pg_catalog.english'
+{% if postgresql_server_tls_enable %}
+ssl = on
+ssl_cert_file = 'server.crt'
+ssl_key_file = 'server.key'
+{% endif %}

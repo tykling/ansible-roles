@@ -1,3 +1,18 @@
 ---
 postgresql_homedir: "/var/db/postgres"
+postgresql_datadir: "{{ postgresql_homedir }}/data96"
+
+nginx_locationslash:
+  location /.well-known/acme-challenge/ {
+        return 301 {{ certgrinder_redirect_url }}$request_uri;
+  }
+  location / {
+        deny all;
+  }
+
+certgrinder_hostname_sets:
+  - "{{ ansible_nodename }}"
+
+certgrinder_post_renew_hooks:
+  - "/usr/sbin/service postgresql reload"
 

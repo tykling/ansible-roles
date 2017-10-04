@@ -15,14 +15,20 @@
     owner: "postgres"
     group: "postgres"
     state: "directory"
+  notify: "reload postgresql"
 
 - name: "Initialise PostgreSQL database"
   command: "/usr/sbin/service postgresql initdb"
   args:
-    creates: "{{ postgresql_homedir }}/data96"
+    creates: "{{ postgresql_datadir }}"
+  notify: "reload postgresql"
 
-- name: "Start PostgreSQL"
-  service:
-    name: "postgresql"
-    state: "started"
+- name: "Copy config file"
+  template:
+    src: "postgresql.conf.j2"
+    dest: "{{ postgresql_datadir }}/postgresql.conf"
+    owner: "postgres"
+    group: "postgres"
+    mode: "0600"
+  notify: "reload postgresql"
 
