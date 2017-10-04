@@ -18,4 +18,5 @@
 - import_tasks: "unbound.yml"
 - import_tasks: "nfsen.yml"
 - import_tasks: "sendmail.yml"
+- import_tasks: "spawn-fcgi.yml"
 

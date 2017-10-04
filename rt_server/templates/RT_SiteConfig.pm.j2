@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+use utf8;
+
+Set($rtname, '{{ rt_rtname }}');
+Set($Organization, '{{ rt_organization }}');
+
+# webstuff
+Set($WebDomain, "{{ rt_rtname }}");
+Set($WebPort, 443);
+Set($CanonicalizeRedirectURLs, 1);
+Set($CanonicalizeURLsInFeeds, 1);
+
+# database
+Set($DatabaseHost, "{{ rt_postgres_server }}");
+Set($DatabaseUser, "{{ rt_postgres_user }}");
+Set($DatabasePassword, "{{ rt_postgres_password }}");
+Set($DatabaseName, "{{ rt_postgres_dbname }}");
+

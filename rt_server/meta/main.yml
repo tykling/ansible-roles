@@ -1,5 +1,6 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: nginx_server, nginx_proxy: True }
+  - { role: nginx_server }
+  - { role: spawn_fcgi_server }
 

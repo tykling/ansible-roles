@@ -1,0 +1,21 @@
+---
+- name: "Copy main RT_SiteConfig.pm file"
+  template:
+    src: "RT_SiteConfig.pm.j2"
+    dest: "/usr/local/etc/rt44/RT_SiteConfig.pm"
+    owner: "root"
+    group: "wheel"
+    mode: "600"
+  notify: "restart spawn-fcgi"
+
+- name: "Create RT_SiteConfig.d files"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "600"
+    content: "{{ item.value.content }}"
+    dest: "/usr/local/etc/rt44/RT_SiteConfig.d/{{ item.value.filename }}"
+  with_dict: "{{ rt_siteconfig_d_files | default({}) }}"
+  notify: "restart spawn-fcgi"
+
+
