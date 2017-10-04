@@ -8,11 +8,11 @@
   service:
     name: "spawn-fcgi"
     enabled: yes
-  notify: "reload spawn-fcgi"
+  notify: "restart spawn-fcgi"
 
 - name: "set spawn_fcgi_app in /etc/rc.conf"
   sysrc:
     name: "spawn_fcgi_app"
     value: "/usr/local/sbin/rt-server.fcgi"
-  notify: "reload spawn-fcgi"
+  notify: "restart spawn-fcgi"
 
