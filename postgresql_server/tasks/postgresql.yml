@@ -30,5 +30,5 @@
     owner: "postgres"
     group: "postgres"
     mode: "0600"
-  notify: "reload postgresql"
+  notify: "restart postgresql"
 
