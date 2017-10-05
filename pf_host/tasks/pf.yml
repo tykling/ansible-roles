@@ -24,6 +24,14 @@
   when: pf_gateway and not pf_jail_vm_host
   notify: "reload sysctl.conf"
 
+- name: "add carp_load=yes to /boot/loader.conf"
+  sysrc:
+    dest: "/boot/loader.conf"
+    name: "carp_load"
+    value: "yes"
+  when: pf_gateway and not pf_jail_vm_host
+  notify: "kldload carp module"
+
 - name: "Enable pf"
   service:
     name: "pf"
