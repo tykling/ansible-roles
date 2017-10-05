@@ -14,6 +14,6 @@ default_text_search_config = 'pg_catalog.english'
 {% if postgresql_server_tls_enable %}
 ssl = on
 ssl_cert_file = '/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt'
-ssl_key_file = '/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt'
+ssl_key_file = '/usr/home/certgrinder/certificates/{{ ansible_nodename }}.key'
 {% endif %}
 
