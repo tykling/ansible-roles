@@ -7,5 +7,6 @@
 - include_tasks: netdata.yml
 - include_tasks: aesni.yml
 - include_tasks: tykroutefix.yml
-- include_tasks: fixsyslogd.yml
+# disabled because of https://github.com/ansible/ansible/issues/30836
+#- include_tasks: fixsyslogd.yml
 
