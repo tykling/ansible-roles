@@ -17,5 +17,6 @@ certgrinder_hostname_sets:
 
 certgrinder_post_renew_hooks:
   - "/bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key {{ postgresql_homedir }}"
+  - "/bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
   - "/usr/sbin/service postgresql reload"
 
