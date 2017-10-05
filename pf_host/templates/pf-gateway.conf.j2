@@ -11,15 +11,14 @@ set block-policy drop
 
 ####################################################################################################
 ################ macros ################################
-ext_if="igb1"
-dmz_if="igb2"
-int_if="igb0"
-sync_if="lagg0"
+{% for interface in pf_gateway_interfaces %}
+{{ pf_gateway_interfaces[interface].macro }}="{{ pf_gateway_interfaces[interface].interface }}"
+{% endfor %}
 
 
 ###################################################################################################
 ############### scrubbing ##############################
-scrub in on { $ext_if $dmz_if $int_if } all fragment reassemble
+scrub in on { {% for interface in pf_gateway_interfaces %}{% if pf_gateway_interfaces[interface].scrub %}{{ pf_gateway_interfaces[interface].interface }} {% endif %}{% endfor %}} all fragment reassemble
 
 
 ####################################################################################################
@@ -35,6 +34,6 @@ scrub in on { $ext_if $dmz_if $int_if } all fragment reassemble
 #block log all
 
 ### skip loopback interface(s)
-#set skip on lo0
+set skip on lo0
 
 
