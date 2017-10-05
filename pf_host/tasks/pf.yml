@@ -15,6 +15,15 @@
   when: pf_gateway and not pf_jail_vm_host
   notify: "reload pf"
 
+- name: "Enable CARP preempt in /etc/sysctl.conf"
+  lineinfile:
+    dest: "/etc/sysctl.conf"
+    regexp: "^net.inet.carp.preempt="
+    line: "net.inet.carp.preempt=1"
+    state: "present"
+  when: pf_gateway and not pf_jail_vm_host
+  notify: "reload sysctl.conf"
+
 - name: "Enable pf"
   service:
     name: "pf"
