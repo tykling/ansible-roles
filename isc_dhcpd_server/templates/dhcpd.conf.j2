@@ -27,6 +27,7 @@ failover peer "failover-partner" {
     peer port 847;
     max-response-delay 60;
     max-unacked-updates 10;
+    load balance max seconds 65535;
     mclt 3600;
     split 128;
 }
@@ -41,6 +42,7 @@ failover peer "failover-partner" {
     peer port 647;
     max-response-delay 60;
     max-unacked-updates 10;
+    load balance max seconds 65535;
 }
 {% endif %}
 
