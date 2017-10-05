@@ -46,7 +46,7 @@
 - name: "onestop sendmail when needed"
   command: "/usr/sbin/service sendmail onestop"
   ignore_errors: True
-  when: resultdisable|changed
+  when: disableresult | changed
 
   notify: "onestop sendmail"
 
