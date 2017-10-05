@@ -48,8 +48,6 @@
   ignore_errors: True
   when: disableresult | changed
 
-  notify: "onestop sendmail"
-
 - name: "Enable postfix"
   service:
     name: "postfix"
