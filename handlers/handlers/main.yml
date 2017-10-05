@@ -17,7 +17,6 @@
 - import_tasks: "php-fpm.yml"
 - import_tasks: "unbound.yml"
 - import_tasks: "nfsen.yml"
-- import_tasks: "sendmail.yml"
 - import_tasks: "spawn-fcgi.yml"
 - import_tasks: "postgresql.yml"
 

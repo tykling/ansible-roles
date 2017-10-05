@@ -13,6 +13,7 @@ lc_time = 'C'
 default_text_search_config = 'pg_catalog.english'
 {% if postgresql_server_tls_enable %}
 ssl = on
-ssl_cert_file = 'server.crt'
-ssl_key_file = 'server.key'
+ssl_cert_file = '/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt'
+ssl_key_file = '/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt'
 {% endif %}
+

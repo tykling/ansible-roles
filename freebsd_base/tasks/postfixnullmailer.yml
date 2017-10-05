@@ -41,6 +41,13 @@
   sysrc:
     name: "sendmail_enable"
     value: "none"
+  register: disableresult
+
+- name: "onestop sendmail when needed"
+  command: "/usr/sbin/service sendmail onestop"
+  ignore_errors: True
+  when: resultdisable|changed
+
   notify: "onestop sendmail"
 
 - name: "Enable postfix"
