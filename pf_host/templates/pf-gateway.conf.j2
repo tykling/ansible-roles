@@ -24,7 +24,7 @@ scrub in on { {% for interface in pf_gateway_interfaces %}{% if pf_gateway_inter
 ####################################################################################################
 ############### translation BINAT ########################
 {% for binat in pf_gateway_binat_rules | default({}) %}
-binat on {{ pf_gateway_binat_rules[binat].interface from pf_gateway_binat_rules[binat].inside -> pf_gateway_binat_rules[binat].outside
+binat on {{ pf_gateway_binat_rules[binat].interface }} from {{ pf_gateway_binat_rules[binat].inside }} -> {{ pf_gateway_binat_rules[binat].outside }}
 {% empty %}
 # no BINAT rules found
 {% endfor %}
