@@ -19,10 +19,12 @@ Optionally certgrinder can restart one or more local services after a cert is re
 Remove certgrinder_post_renew_hooks if nothing needs to be done after a renew.
 
 If non-root users need to read the certificates they have to be a member of the certgrinder group. Specify a list of users or remove it if not needed.
+
     certgrinder_cert_users:
       - "ircd"
 
 If source ip selection is important set certgrinder_bind_ip to something:
+
     certgrinder_bind_ip: "192.0.2.34"
 
 Running certgrinder from Ansible
