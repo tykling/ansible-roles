@@ -11,14 +11,14 @@ set block-policy drop
 
 ####################################################################################################
 ################ macros ################################
-{% for interface in pf.pf_gateway_interfaces %}
-{{ pf.pf_gateway_interfaces[interface].macro }}="{{ pf.pf_gateway_interfaces[interface].interface }}"
+{% for interface in pf.gateway_interfaces %}
+{{ interface.macro }}="{{ interface.interface }}"
 {% endfor %}
 
 
 ###################################################################################################
 ############### scrubbing ##############################
-scrub in on { {% for interface in pf.pf_gateway_interfaces %}{% if pf.pf_gateway_interfaces[interface].scrub %}${{ pf.pf_gateway_interfaces[interface].macro }} {% endif %}{% endfor %}} all fragment reassemble
+scrub in on { {% for interface in pf.gateway_interfaces %}{% if interface.scrub %}${{ interface.macro }} {% endif %}{% endfor %}} all fragment reassemble
 
 
 ####################################################################################################
