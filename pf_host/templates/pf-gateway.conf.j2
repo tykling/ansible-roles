@@ -16,11 +16,11 @@ set block-policy drop
 {% endfor %}
 
 ################ common address macros ###############
-{{ pf_common_address_macros | default("# No common macros found") }}
+{{ pf.common_address_macros | default("# No common macros found") }}
 
 
 ################ macros specific to {{ ansible_nodename }} #######################
-{{ pf_local_address_macros | default("# No local macros found") }}
+{{ pf.local_address_macros | default("# No local macros found") }}
 
 
 ###################################################################################################
