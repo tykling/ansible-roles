@@ -1,0 +1,19 @@
+---
+- name: "Enable CARP preempt in /etc/sysctl.conf"
+  lineinfile:
+    dest: "/etc/sysctl.conf"
+    regexp: "^net.inet.carp.preempt="
+    line: "net.inet.carp.preempt=1"
+    state: "present"
+  when: pf_gateway and not pf_jail_vm_host
+  notify: "reload sysctl.conf"
+
+- name: "add carp_load=yes to /boot/loader.conf"
+  sysrc:
+    dest: "/boot/loader.conf"
+    name: "carp_load"
+    value: "yes"
+  when: pf_gateway and not pf_jail_vm_host
+  notify: "kldload carp module"
+
+

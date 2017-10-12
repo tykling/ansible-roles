@@ -1,4 +1,10 @@
 ---
+- name: "Include any pf_vars.yml file that may exist into the variable 'pf'"
+  include_vars:
+    file: "pf_vars.yml"
+    name: "pf"
+  ignore_errors: yes
+
 - name: "Setup pf.conf for jail/vm hosts"
   template:
     src: "pf.conf.j2"
@@ -14,23 +20,6 @@
     validate: 'pfctl -n -f %s'
   when: pf_gateway and not pf_jail_vm_host
   notify: "reload pf"
-
-- name: "Enable CARP preempt in /etc/sysctl.conf"
-  lineinfile:
-    dest: "/etc/sysctl.conf"
-    regexp: "^net.inet.carp.preempt="
-    line: "net.inet.carp.preempt=1"
-    state: "present"
-  when: pf_gateway and not pf_jail_vm_host
-  notify: "reload sysctl.conf"
-
-- name: "add carp_load=yes to /boot/loader.conf"
-  sysrc:
-    dest: "/boot/loader.conf"
-    name: "carp_load"
-    value: "yes"
-  when: pf_gateway and not pf_jail_vm_host
-  notify: "kldload carp module"
 
 - name: "Enable pf"
   service:
