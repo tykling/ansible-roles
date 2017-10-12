@@ -47,6 +47,6 @@ binat on ${{ binat.interface }} from {{ binat.inside }} -> {{ binat.outside }}
 set skip on lo0
 
 {% for rule in pf.host_rules %}
-# pass in quick on {{{ rule.interfaces|join(" ") }}} proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to { {% for ip in rule.ips %}{{ ip }} {% endfor %} } port { {% for port in rule.ports %}{{ port }} {% endfor %} }
+# pass in quick on { {{ rule.interfaces | join(" ") }} } proto { {{ rule.protocols | join(" ") }} } from { {{ rule.clients | join(" ") }} } to { {{ rule.ips | join(" ") }} } port { {{ rule.ports | join(" ") }} }
 {% endfor %}
 
