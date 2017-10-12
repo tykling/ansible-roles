@@ -18,7 +18,7 @@ set block-policy drop
 
 ###################################################################################################
 ############### scrubbing ##############################
-scrub in on { {% for interface in pf.pf_gateway_interfaces %}{% if pf.pf_gateway_interfaces[interface].scrub %}${{ pf.pf_gateway_interfaces[interface].interface }} {% endif %}{% endfor %}} all fragment reassemble
+scrub in on { {% for interface in pf.pf_gateway_interfaces %}{% if pf.pf_gateway_interfaces[interface].scrub %}${{ pf.pf_gateway_interfaces[interface].macro }} {% endif %}{% endfor %}} all fragment reassemble
 
 
 ####################################################################################################
