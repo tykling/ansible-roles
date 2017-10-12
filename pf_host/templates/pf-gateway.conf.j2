@@ -11,19 +11,19 @@ set block-policy drop
 
 ####################################################################################################
 ################ macros ################################
-{% for interface in pf_gateway_interfaces %}
-{{ pf_gateway_interfaces[interface].macro }}="{{ pf_gateway_interfaces[interface].interface }}"
+{% for interface in pf.pf_gateway_interfaces %}
+{{ pf.pf_gateway_interfaces[interface].macro }}="{{ pf.pf_gateway_interfaces[interface].interface }}"
 {% endfor %}
 
 
 ###################################################################################################
 ############### scrubbing ##############################
-scrub in on { {% for interface in pf_gateway_interfaces %}{% if pf_gateway_interfaces[interface].scrub %}${{ pf_gateway_interfaces[interface].interface }} {% endif %}{% endfor %}} all fragment reassemble
+scrub in on { {% for interface in pf.pf_gateway_interfaces %}{% if pf.pf_gateway_interfaces[interface].scrub %}${{ pf.pf_gateway_interfaces[interface].interface }} {% endif %}{% endfor %}} all fragment reassemble
 
 
 ####################################################################################################
 ############### translation BINAT ########################
-{% for binat in pf_gateway_binat_rules | default([]) %}
+{% for binat in pf.pf_gateway_binat_rules | default([]) %}
 binat on ${{ binat.interface }} from {{ binat.inside }} -> {{ binat.outside }}
 {% endfor %}
 
