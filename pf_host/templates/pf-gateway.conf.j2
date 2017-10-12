@@ -41,12 +41,13 @@ binat on ${{ binat.interface }} from {{ binat.inside }} -> {{ binat.outside }}
 ####################################################################################################
 ############### filtering ##############################
 ### block everything
-#block log all
+block log all
 
 ### skip loopback interface(s)
 set skip on lo0
 
 {% for rule in pf.host_rules %}
-# pass in quick on { {{ rule.interfaces | join(" ") }} } proto { {{ rule.protocols | join(" ") }} } from { {{ rule.clients | join(" ") }} } to { {{ rule.ips | join(" ") }} } port { {{ rule.ports | join(" ") }} }
+# {{ rule.comment }}
+pass in quick on { {{ rule.interfaces | join(" ") }} } proto { {{ rule.protocols | join(" ") }} } from { {{ rule.clients | join(" ") }} } to { {{ rule.ips | join(" ") }} } port { {{ rule.ports | join(" ") }} }
 {% endfor %}
 
