@@ -1,7 +1,7 @@
 ---
 - name: "Include any pf_vars.yml file that may exist into the variable 'pf'"
   include_vars:
-    file: "pf_vars.yml"
+    file: "../include_vars/pf_vars.yml"
     name: "pf"
   ignore_errors: yes
 
