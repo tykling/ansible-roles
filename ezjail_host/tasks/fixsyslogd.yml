@@ -1,6 +1,8 @@
 ---
 - name: "check if we need to install a patched syslogd binary"
   shell: 'if [ "$(file /usr/jails/basejail/usr/sbin/syslogd | grep --only-matching "[0-9]\{7\}")" -lt "1101503" ]; then echo "fixmig"; else echo "fintnok"; fi'
+  args:
+    executable: /bin/sh
   register: "results"
 
 - name: "copy patched syslogd binary where needed"
