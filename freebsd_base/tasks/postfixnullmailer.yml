@@ -33,7 +33,9 @@
 
 - name: "Create a mostly empty Postfix main.cf, the null mailer needs no config"
   copy:
-    content: "compatibility_level=2"
+    content: |
+      compatibility_level=2
+      inet_interfaces=localhost
     dest: "/usr/local/etc/postfix/main.cf"
   notify: "reload postfix"
 
