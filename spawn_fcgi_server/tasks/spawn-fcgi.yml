@@ -13,6 +13,13 @@
 - name: "set spawn_fcgi_app in /etc/rc.conf"
   sysrc:
     name: "spawn_fcgi_app"
-    value: "/usr/local/sbin/rt-server.fcgi"
+    value: "{{ spawn_fcgi_app }}"
   notify: "restart spawn-fcgi"
+
+- name: "set spawn_fcgi_command_interpreter in /etc/rc.conf"
+  sysrc:
+    name: "spawn_fcgi_command_interpreter"
+    value: "{{ spawn_fcgi_command_interpreter }}"
+  notify: "restart spawn-fcgi"
+  when: spawn_fcgi_command_interpreter | default(False)
 

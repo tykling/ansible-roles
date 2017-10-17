@@ -8,3 +8,6 @@ nginx_locationslash: |
     fastcgi_pass   127.0.0.1:9000;
   }
 
+spawn_fcgi_app: "/usr/local/sbin/rt-server.fcgi"
+spawn_fcgi_command_interpreter: "/usr/local/bin/perl -w"
+
