@@ -10,4 +10,5 @@ nginx_locationslash: |
 
 spawn_fcgi_app: "/usr/local/sbin/rt-server.fcgi"
 spawn_fcgi_command_interpreter: "/usr/local/bin/perl -w"
+spawn_fcgi_groupname: "rt"
 
