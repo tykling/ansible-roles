@@ -33,7 +33,7 @@
 
 - name: "Create a mostly empty Postfix main.cf, the null mailer needs no config"
   template:
-    src: "postfix-nullmailer-main.cf.j2"
+    src: "postfix_nullmailer_main.cf.j2"
     dest: "/usr/local/etc/postfix/main.cf"
   notify: "reload postfix"
 
