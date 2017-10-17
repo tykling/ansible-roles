@@ -55,11 +55,21 @@
     content: "{{ ezjail_flavour_ansible_authorized_keys_file }}"
     dest: "{{ ezjail_flavour_root }}/usr/home/ansible/.ssh/authorized_keys"
 
+- name: "Create /usr/local/ directory inside ezjail flavour {{ ezjail_flavourname }}"
+  file:
+    path: "{{ ezjail_flavour_root }}/usr/local/"
+    state: "directory"
+    owner: "root"
+    group:  "wheel"
+    mode: "0755"
+
 - name: "Create /usr/local/etc/ directory inside ezjail flavour {{ ezjail_flavourname }}"
   file:
     path: "{{ ezjail_flavour_root }}/usr/local/etc/"
     state: "directory"
-    recurse: yes
+    owner: "root"
+    group:  "wheel"
+    mode: "0755"
 
 - name: "Create sudoers file inside ezjail flavour {{ ezjail_flavourname }}"
   copy:
