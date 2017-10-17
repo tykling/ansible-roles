@@ -10,6 +10,12 @@
     enabled: yes
   notify: "restart spawn-fcgi"
 
+- name: "Set spawn_fcgi_pidfile in /etc/rc.conf"
+  sysrc:
+    name: "spawn_fcgi_pidfile"
+    value: "/tmp/spawn-fcgi.pid"
+  notify: "restart spawn-fcgi"
+
 - name: "set spawn_fcgi_app in /etc/rc.conf"
   sysrc:
     name: "spawn_fcgi_app"
