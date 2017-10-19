@@ -10,7 +10,7 @@ transport_maps = texthash:/usr/local/etc/postfix/transport,pgsql:/usr/local/etc/
 # virtual(8) settings
 virtual_transport = lmtp:inet:{{ lmtp_server_ip }}:{{ lmtp_server_port }}
 virtual_alias_maps = {% if mailman %}texthash:/usr/local/etc/postfix/mailman_virtual_alias_maps, {% endif %}pgsql:/usr/local/etc/postfix/virtual_alias_maps.sql
-virtual_mailbox_domains = {{ postfix_virtual_alias_domains | join(",") }}
+virtual_mailbox_domains = pgsql:/usr/local/etc/postfix/virtual_mailbox_domains.sql
 virtual_mailbox_maps = pgsql:/usr/local/etc/postfix/virtual_mailbox_maps.sql
 {% if mailman %}
 mailman_destination_recipient_limit = 1

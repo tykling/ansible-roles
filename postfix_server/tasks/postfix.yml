@@ -40,7 +40,7 @@
 
 - name: "Copy postfix virtual_mailbox_maps.sql"
   template:
-    src: "smtpd_sender_login_maps.sql.j2"
+    src: "virtual_mailbox_maps.sql.j2"
     dest: "/usr/local/etc/postfix/virtual_mailbox_maps.sql"
     mode: "600"
   notify: "reload postfix"

@@ -1,0 +1,6 @@
+hosts={{ postgres_host }}
+user={{ postgres_user }}
+password={{ postgres_password }}
+dbname={{ postgres_dbname }}
+query = SELECT distinct(domain) from users where lower(domain) = lower('%s') and enabled = 't'
+
