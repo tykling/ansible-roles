@@ -2,5 +2,5 @@ hosts={{ postgres_host }}
 user={{ postgres_user }}
 password={{ postgres_password }}
 dbname={{ postgres_dbname }}
-query = select transport from transport_maps where recipient = '%s' and active = 't'
+query = select transport from transport_maps where recipient = '%s' and enabled = 't'
 
