@@ -92,7 +92,7 @@
     line: "/var/log/maillog                        640  365   *    @T00  JC"
 
 - name: "enable Postfix in mailer.conf"
-  file:
+  copy:
     dest: "/usr/local/etc/mail/mailer.conf"
     mode: "0640"
     owner: "root"
