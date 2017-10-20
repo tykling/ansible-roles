@@ -4,6 +4,17 @@
     name: "postfix"
     enabled: yes
 
+- name: "Disable sendmail stuff in /etc/periodic.conf"
+  blockinfile:
+    create: yes
+    dest: "/etc/periodic.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK disable sendmail tasks"
+    content: |
+      daily_clean_hoststat_enable="NO"
+      daily_status_mail_rejects_enable="NO"
+      daily_status_include_submit_mailq="NO"
+      daily_submit_queuerun="NO"
+
 - name: "Copy postfix main.cf"
   template:
     src: "main.cf.j2"
@@ -79,6 +90,19 @@
     dest: "/etc/newsyslog.conf"
     regexp: "^/var/log/maillog"
     line: "/var/log/maillog                        640  365   *    @T00  JC"
+
+- name: "enable Postfix in mailer.conf"
+  file:
+    dest: "/usr/local/etc/mail/mailer.conf"
+    mode: "0640"
+    owner: "root"
+    group: "wheel"
+    content: |
+      # Execute the Postfix sendmail program, named /usr/local/sbin/sendmail
+      sendmail        /usr/local/sbin/sendmail
+      send-mail       /usr/local/sbin/sendmail
+      mailq           /usr/local/sbin/sendmail
+      newaliases      /usr/local/sbin/sendmail
 
 - name: "Run certgrinder"
   command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
