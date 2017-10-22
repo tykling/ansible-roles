@@ -12,6 +12,7 @@ default_host_packages:
 ntp_servers:
   - "dk.pool.ntp.org"
 
+smartd: yes
 smartd_email: "admin@example.com"
 
 zfs_periodic_pools:
