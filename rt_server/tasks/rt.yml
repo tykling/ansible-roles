@@ -16,6 +16,7 @@
               $signature =~ s/"/&quot;/g;  # "//;
               $signature =~ s/'/&#39;/g;   # '//;
               $signature =~ s{\n}{<br />}g;
+  when: rt_allow_html_signatures | default(no)
   notify:
     - "clear rt mason cache"
     - "restart spawn-fcgi"
