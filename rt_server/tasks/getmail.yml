@@ -1,0 +1,22 @@
+---
+- name: "Install getmail"
+  pkgng:
+    name: "getmail"
+    state: "present"
+
+- name: "add getmail user"
+  user:
+    name: "{{ getmail_user }}"
+    comment: "getmail user"
+
+- name: "add getmail config files"
+  template:
+    src: "getmailrc.j2"
+    dest: "{{ item[1].name }}{{ item[0] }}rc"
+    mode: "0600"
+    owner: "{{ getmail_user }}"
+    group: "{{ getmail_user }}"
+  with_nested:
+    - "{{ getmail_actions | default([]) }}"
+    - "{{ getmail_mailboxes | default([]) }}"
+
