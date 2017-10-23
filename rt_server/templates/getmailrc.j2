@@ -2,8 +2,8 @@
 type = SimpleIMAPSSLRetriever
 server = {{ getmail_imap_server }}
 port = {{ getmail_imap_port }}
-username = {{ item[1].name }}-{{ item[0] }}{{ item[1].maildomain }}
-password = {{ item[1].password }}
+username = {{ item[1].user }}
+password = {{ item[1].pass }}
 
 [destination]
 type = MDA_external
