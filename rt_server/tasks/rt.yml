@@ -4,3 +4,19 @@
     name: "rt44"
     state: "present"
 
+- name: "disable html escaping of signatures"
+  blockinfile:
+    dest: "/usr/local/share/rt44/html/Elements/MessageBox"
+    marker: "### disable html escaping of signatures - patch by ansible ###"
+    state: "absent"
+    content: |
+              $signature =~ s/&/&amp;/g;
+              $signature =~ s/</&lt;/g;
+              $signature =~ s/>/&gt;/g;
+              $signature =~ s/"/&quot;/g;  # "//;
+              $signature =~ s/'/&#39;/g;   # '//;
+              $signature =~ s{\n}{<br />}g;
+  notify:
+    - "clear rt mason cache"
+    - "restart spawn-fcgi"
+
