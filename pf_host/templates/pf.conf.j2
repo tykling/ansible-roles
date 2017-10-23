@@ -24,7 +24,7 @@ main_v6_ip="{{ pf_main_v6_ip }}"
 
 
 ################ common address macros ###############
-{{ pf_common_address_macros | default("# No common macros found") }}
+{{ pf.common_address_macros | default("# No common macros found") }}
 
 
 ################ macros specific to {{ ansible_nodename }} #######################
