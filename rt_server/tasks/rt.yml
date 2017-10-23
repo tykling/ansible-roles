@@ -58,7 +58,7 @@
   lineinfile:
     dest: "/usr/local/share/rt44/html/Elements/MessageBox"
     state: "absent"
-    line: "        $signature =~ s{\n}{<br />}g;"
+    line: "        $signature =~ s{\\n}{<br />}g;"
   when: rt_allow_html_signatures | default(no)
   notify:
     - "clear rt mason cache"
