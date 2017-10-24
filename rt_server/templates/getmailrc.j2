@@ -10,7 +10,7 @@ type = MDA_external
 path = /usr/local/bin/rt-mailgate
 user = {{ getmail_user }}
 group = {{ getmail_user }}
-arguments = ("--url", "https://{{ rt_webhostname }}", "--queue", "{{ item[1].name }} ", "--action", "{{ item[0] }}",)
+arguments = ("--url", "https://{{ rt_webhostname }}", "--queue", "{{ item[1].name }}", "--action", "{{ item[0] }}",)
 
 [options]
 read_all = false
