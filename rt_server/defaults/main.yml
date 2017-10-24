@@ -13,6 +13,8 @@ spawn_fcgi_command_interpreter: "/usr/local/bin/perl -w"
 spawn_fcgi_groupname: "rt"
 
 getmail_user: "getmail"
+getmail_home: "/usr/home/{{ getmail_user }}"
+getmail_path: "{{ getmail_home }}/.getmail"
 getmail_actions:
   - "reply"
   - "comment"
