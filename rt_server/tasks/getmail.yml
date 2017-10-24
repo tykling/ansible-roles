@@ -20,7 +20,7 @@
 - name: "add getmail config files"
   template:
     src: "getmailrc.j2"
-    dest: "/usr/home/{{ getmail_user }}/.getmail/{{ item[1].name }}{{ item[0] }}rc"
+    dest: "/usr/home/{{ getmail_user }}/.getmail/{{ item[1].filename }}{{ item[0] }}rc"
     mode: "0600"
     owner: "{{ getmail_user }}"
     group: "{{ getmail_user }}"
