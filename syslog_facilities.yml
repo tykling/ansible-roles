@@ -1,0 +1,28 @@
+---
+# syslog facilities in use by roles
+
+- local0:
+  - kea_server
+
+- local1:
+  - rt_server
+
+- local2:
+
+- local3:
+  - dovecot_server
+  - php_fpm_server
+
+- local4:
+  - nfsen_server
+  - roundcube_server
+
+- local5:
+
+- local6:
+  - isc_dhcpd_server
+  - mediawiki_server
+
+- local7:
+  - nginx:server
+
