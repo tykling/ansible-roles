@@ -1,0 +1,23 @@
+---
+- name: "add syslog.d config for rt_server"
+  copy:
+    src: "rt_server_syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/rt_server.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure /var/log/rt.log exists"
+  file:
+    dest: "/var/log/rt.log"
+    state: "file"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure rt newsyslog config file exists"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "rt_server_newsyslog.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/rt_server"
+

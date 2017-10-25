@@ -16,3 +16,8 @@ Set($DatabaseUser, "{{ rt_postgres_user }}");
 Set($DatabasePassword, "{{ rt_postgres_password }}");
 Set($DatabaseName, "{{ rt_postgres_dbname }}");
 
+# logging
+Set(@LogToSyslogConf, facility => 'local1');
+Set($LogToSyslog, 'debug');
+Set($LogStackTraces, 'error');
+
