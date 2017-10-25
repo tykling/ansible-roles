@@ -70,7 +70,8 @@ pass in quick on ${{ if.macro }} inet proto icmp from any to (${{ if.macro }}) i
 
 {% for rule in pf.filter_rules %}
 # {{ rule.comment }}
-pass in quick on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}
+pass{% if rule.direction is defined %} {{ rule.direction }}{% endif %} {% if not rule.slow is defined %} quick{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}
+
 
 {% endfor %}
 
