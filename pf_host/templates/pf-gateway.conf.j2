@@ -60,8 +60,17 @@ pass quick on ${{ if.macro }} proto carp keep state (no-sync)
 {% endif %}
 {% endfor %}
 
-{% for rule in pf.host_rules %}
+### permit selected ICMP types on all interfaces
+{% for if in pf.gateway_interfaces %}
+pass in quick on ${{ if.macro }} inet proto icmp from any to (${{ if.macro }}) icmp-type { unreach, ecchreq, timex }
+{% endfor %}
+
+#######################################################
+# CUSTOM FILTER RULES BELOW HERE
+
+{% for rule in pf.filter_rules %}
 # {{ rule.comment }}
-pass in quick on { {{ rule.interfaces | join(" ") }} } proto { {{ rule.protocols | join(" ") }} } from { {{ rule.clients | join(" ") }} } to { {{ rule.ips | join(" ") }} } port { {{ rule.ports | join(" ") }} }
+pass in quick on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports %} port { {{ rule.ports | join(" ") }} }{% endif %}
+
 {% endfor %}
 
