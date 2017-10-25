@@ -7,11 +7,14 @@
     - "restart syslogd"
 
 - name: "Make sure /var/log/rt.log exists"
-  file:
+  copy:
     dest: "/var/log/rt.log"
-    state: "file"
-  notify:
-    - "restart syslogd"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
 
 - name: "Make sure rt newsyslog config file exists"
   copy:
