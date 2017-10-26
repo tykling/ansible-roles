@@ -4,3 +4,11 @@
     name: "msmtp"
     state: "present"
 
+- name: "Copy msmtp config file"
+  template:
+    src: "msmtp.conf.j2"
+    dest: "/usr/local/etc/msmtprc"
+    mode: "0600"
+    owner: "www"
+    group: "www"
+

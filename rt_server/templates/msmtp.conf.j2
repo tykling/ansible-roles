@@ -1,0 +1,10 @@
+defaults
+account default
+host {{ rt_smtp_host }}
+port 587
+tls on
+{% if rt_smtp_user is defined %}
+auth on
+user {{ rt_smtp_user }}
+password {{ rt_smtp_password }}
+{% endif %}
