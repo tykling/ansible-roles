@@ -2,15 +2,15 @@
 type = SimpleIMAPSSLRetriever
 server = {{ getmail_imap_server }}
 port = {{ getmail_imap_port }}
-username = {{ item[1].user }}
-password = {{ item[1].pass }}
+username = {{ item[1].imapuser }}
+password = {{ item[1].imappass }}
 
 [destination]
 type = MDA_external
 path = /usr/local/bin/rt-mailgate
 user = {{ getmail_user }}
 group = {{ getmail_user }}
-arguments = ("--url", "https://{{ rt_webhostname }}", "--queue", "{{ item[1].name }}", "--action", "{{ item[0] }}",)
+arguments = ("--url", "https://{{ rt_webhostname }}", "--queue", "{{ item[1].queuename }}", "--action", "{{ item[0] }}",)
 
 [options]
 read_all = false
