@@ -3,4 +3,5 @@
 - include_tasks: "configuration.yml"
 - include_tasks: "getmail.yml"
 - include_tasks: "syslog.yml"
+- include_tasks: "msmtp.yml"
 

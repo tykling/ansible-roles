@@ -1,0 +1,6 @@
+---
+- name: "Install msmtp"
+  pkgng:
+    name: "msmtp"
+    state: "present"
+
