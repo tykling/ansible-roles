@@ -20,21 +20,17 @@
 - name: "add getmail config files"
   template:
     src: "getmailrc.j2"
-    dest: "{{ getmail_path }}/{{ item[1].filename }}{{ item[0] }}rc"
+    dest: "{{ getmail_path }}/{{ item.filename }}{{ item.action }}rc"
     mode: "0600"
     owner: "{{ getmail_user }}"
     group: "{{ getmail_user }}"
-  with_nested:
-    - "{{ getmail_actions | default([]) }}"
-    - "{{ getmail_mailboxes | default([]) }}"
+  with_items: "{{ getmail_mailboxes | default([]) }}"
 
 - name: "Enable cronjobs to run getmail"
   cron:
-    name: "Run getmail for {{ item[1].filename }} {{ item[0] }}"
-    job: "/usr/local/bin/getmail --rcfile {{ getmail_path }}/{{ item[1].filename }}{{ item[0] }}rc"
+    name: "Run getmail for queue '{{ item.queuename }}' action '{{ item.action }}'"
+    job: "/usr/local/bin/getmail --rcfile {{ getmail_path }}/{{ item.filename }}{{ item.action }}rc"
     cron_file: "/etc/crontab"
     user: "getmail"
-  with_nested:
-    - "{{ getmail_actions | default([]) }}"
-    - "{{ getmail_mailboxes | default([]) }}"
+  with_items: "{{ getmail_mailboxes | default([]) }}"
 
