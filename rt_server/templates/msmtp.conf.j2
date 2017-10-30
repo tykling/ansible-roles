@@ -1,10 +1,22 @@
+# include defaults
 defaults
+
+# server info
 account default
 host {{ rt_smtp_host }}
 port 587
+
+# enable TLS
 tls on
+tls_trust_file /etc/ssl/cert.pem
+
 {% if rt_smtp_user is defined %}
+# account
 auth on
 user {{ rt_smtp_user }}
 password {{ rt_smtp_password }}
 {% endif %}
+
+# get sender from the email envelope
+auto_from on
+
