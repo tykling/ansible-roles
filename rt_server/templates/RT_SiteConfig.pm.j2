@@ -21,3 +21,6 @@ Set(@LogToSyslogConf, facility => 'local1');
 Set($LogToSyslog, 'debug');
 Set($LogStackTraces, 'error');
 
+# send mail using msmtp
+Set($SendmailPath , "/usr/local/bin/msmtp_wrapper.sh");
+

@@ -12,3 +12,11 @@
     owner: "www"
     group: "www"
 
+- name: "Copy msmtp wrapper file"
+  copy:
+    src: "msmtp_wrapper.sh"
+    dest: "/usr/local/bin/msmtp_wrapper.sh"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"
+
