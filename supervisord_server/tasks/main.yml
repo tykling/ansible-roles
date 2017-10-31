@@ -1,4 +1,3 @@
 ---
-- include_tasks: syslog.yml
 - include_tasks: supervisord.yml
 
