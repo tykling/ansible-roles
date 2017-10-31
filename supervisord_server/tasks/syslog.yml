@@ -1,0 +1,17 @@
+---
+- name: "copy supervisord syslog.d config"
+  copy:
+    src: "supervisord-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/supervisord.conf"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+
+- name: "copy supervisord newsyslog.d config"
+  copy:
+    src: "supervisord-syslogd.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/supervisord.conf"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+
