@@ -2,6 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: nginx_server }
-  - { role: spawn_fcgi_server }
   - { role: supervisord_server }
 

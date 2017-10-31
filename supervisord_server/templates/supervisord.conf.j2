@@ -1,29 +1,33 @@
 [unix_http_server]
-file=/var/run/supervisor/supervisor.sock   ; (the path to the socket file)
+file=/var/run/supervisor/supervisor.sock ; supervisorctl management socket
 
-[supervisord]
-logfile=syslog              ; (main log file;default $CWD/supervisord.log)
-loglevel=info               ; (log level;default info; others: debug,warn,trace)
-pidfile=/var/run/supervisor/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
-nodaemon=false              ; (start in foreground if true;default false)
-minfds=1024                 ; (min. avail startup file descriptors;default 1024)
-minprocs=200                ; (min. avail process descriptors;default 200)
+[supervisorctl]
+serverurl=unix:///var/run/supervisor/supervisor.sock ; supervisorctl management socket
 
 [rpcinterface:supervisor]
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
-[supervisorctl]
-serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL  for a unix socket
+[supervisord]
+logfile=/var/log/supervisor-activity.log  ; syslog not supported here for now, see https://github.com/Supervisor/supervisor/pull/289
+loglevel=info
+pidfile=/var/run/supervisor/supervisord.pid
+nodaemon=false
+minfds=1024
+minprocs=200
 
-; program definitions below here
+; fcgi-program definitions below here
 
-{% for program in supervisord_programs | default([]) %}
+{% for program in supervisord_fcgi_programs | default([]) %}
 ; {{ program.comment }}
 [program:{{ program.name }}]
 command={{ program.command }}
-redirect_stderr=true
+socket={{ program.socket }}
+process_name=%(program_name)s_%(process_num)02d
 user={{ program.user }}
+redirect_stderr=true
 stdout_logfile=syslog
+stderr_logfile=syslog
+numprocs=5
 
 {% endfor %}
 
