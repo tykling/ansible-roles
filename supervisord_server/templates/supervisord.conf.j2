@@ -21,7 +21,7 @@ minprocs=200
 
 {% for program in supervisord_fcgi_programs | default([]) %}
 ; {{ program.comment }}
-[program:{{ program.name }}]
+[fcgi-program:{{ program.name }}]
 command={{ program.command }}
 socket={{ program.socket }}
 process_name=%(program_name)s_%(process_num)02d
