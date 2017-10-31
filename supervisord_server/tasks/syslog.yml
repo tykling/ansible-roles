@@ -6,6 +6,8 @@
     mode: "0644"
     owner: "root"
     group: "wheel"
+  notify:
+    - "restart syslogd"
 
 - name: "copy supervisord newsyslog.d config"
   copy:
@@ -14,4 +16,12 @@
     mode: "0644"
     owner: "root"
     group: "wheel"
+
+- name: "Make sure supervisord logfile exists"
+  copy:
+    dest: "/var/log/supervisord.log"
+    content: ""
+    force: "no"
+  notify:
+    - "restart syslogd"
 
