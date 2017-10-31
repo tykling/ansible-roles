@@ -12,7 +12,7 @@
   ignore_errors: yes
   notify:
     - "clear rt mason cache"
-    - "restart spawn-fcgi"
+    - "restart rt"
 
 - name: "apply remove signature footer patch"
   patch:
@@ -22,5 +22,5 @@
   ignore_errors: yes
   notify:
     - "clear rt mason cache"
-    - "restart spawn-fcgi"
+    - "restart rt"
 

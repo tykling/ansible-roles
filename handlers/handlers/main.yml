@@ -20,4 +20,5 @@
 - import_tasks: "spawn-fcgi.yml"
 - import_tasks: "postgresql.yml"
 - import_tasks: "rt.yml"
+- import_tasks: "supervisord.yml"
 

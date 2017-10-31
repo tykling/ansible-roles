@@ -1,0 +1,4 @@
+---
+- name: "reread and update supervisord"
+  command: "/usr/local/bin/supervisorctl reread; /usr/local/bin/supervisorctl update"
+

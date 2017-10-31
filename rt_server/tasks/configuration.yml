@@ -6,7 +6,7 @@
     owner: "root"
     group: "rt"
     mode: "660"
-  notify: "restart spawn-fcgi"
+  notify: "restart rt"
 
 - name: "Create RT_SiteConfig.d files"
   copy:
@@ -16,7 +16,7 @@
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/rt44/RT_SiteConfig.d/{{ item.value.filename }}"
   with_dict: "{{ rt_siteconfig_d_files | default({}) }}"
-  notify: "restart spawn-fcgi"
+  notify: "restart rt"
 
 - name: "add www user to rt group"
   user:
