@@ -1,0 +1,17 @@
+*** /usr/local/share/rt44/html/Elements/MessageBox      Tue Oct 31 02:51:31 2017
+--- MessageBox  Tue Oct 31 20:10:28 2017
+***************
+*** 79,90 ****
+      $signature =~ s/\n*$//;
+
+      if ($Type eq 'text/html') {
+-         $signature =~ s/&/&amp;/g;
+-         $signature =~ s/</&lt;/g;
+-         $signature =~ s/>/&gt;/g;
+-         $signature =~ s/"/&quot;/g;  # "//;
+-         $signature =~ s/'/&#39;/g;   # '//;
+-         $signature =~ s{\n}{<br />}g;
+          $signature = "<br /><p>--&nbsp;<br />$signature</p>";
+      } else {
+          $signature = "\n\n-- \n". $signature . "\n";
+--- 79,84 ----

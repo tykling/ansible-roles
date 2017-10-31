@@ -8,7 +8,7 @@
   patch:
     src: "disable_html_escaping_signatures.patch"
     dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-  when: rt_allow_html_signatures | default(no)
+  when: rt_allow_html_signatures | default(False)
   notify:
     - "clear rt mason cache"
     - "restart spawn-fcgi"
@@ -17,7 +17,7 @@
   patch:
     src: "rt_remove_signature_footer.patch"
     dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-  when: rt_patch_signature_footer | default(no)
+  when: rt_patch_signature_footer | default(False)
   notify:
     - "clear rt mason cache"
     - "restart spawn-fcgi"
