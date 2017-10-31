@@ -8,7 +8,9 @@ serverurl=unix:///var/run/supervisor/supervisor.sock ; supervisorctl management 
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [supervisord]
-logfile=/var/log/supervisor-activity.log  ; syslog not supported here for now, see https://github.com/Supervisor/supervisor/pull/289
+logfile={{ supervisord_activity_logfile }} ; syslog not supported here for now, see https://github.com/Supervisor/supervisor/pull/289
+logfile_maxbytes=10485760                 ; 10 MB, only size based rotation is available
+logfile_backups=30                        ; keep 30 files, compression not supported (big fucking surprise)
 loglevel=info
 pidfile=/var/run/supervisor/supervisord.pid
 nodaemon=false
@@ -26,7 +28,7 @@ process_name=%(program_name)s_%(process_num)02d
 user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
-numprocs=5
+numprocs={{ program.numprocs }}
 
 {% endfor %}
 
