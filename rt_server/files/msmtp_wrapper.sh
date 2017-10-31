@@ -1,3 +1,3 @@
 #!/bin/sh
-/usr/bin/msmtp -t -C /usr/local/etc/msmtprc
+/usr/local/bin/msmtp -t -C /usr/local/etc/msmtprc
 
