@@ -1,0 +1,18 @@
+*** /usr/local/share/rt44/html/Elements/MessageBox      Mon Oct 30 11:07:53 2017
+--- MessageBox  Tue Oct 31 13:59:50 2017
+***************
+*** 78,89 ****
+  if ( $IncludeSignature and $signature =~ /\S/ ) {
+      $signature =~ s/\n*$//;
+  
+-     if ($Type eq 'text/html') {
+-         $signature = "<br /><p>--&nbsp;<br />$signature</p>";
+-     } else {
+-         $signature = "\n\n-- \n". $signature . "\n";
+-     }
+- 
+      if ($message =~ /\S/) {
+          if (RT->Config->Get('SignatureAboveQuote', $session{CurrentUser})) {
+              $signature .= $Type eq 'text/html' ? "<br />" : "\n";
+--- 78,83 ----
+

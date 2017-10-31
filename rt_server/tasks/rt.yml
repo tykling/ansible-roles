@@ -4,64 +4,21 @@
     name: "rt44"
     state: "present"
 
-- name: "disable html escaping of signatures 1/6"
-  lineinfile:
+- name: "disable html escaping of signatures patch"
+  patch:
+    src: "disable_html_escaping_signatures.patch"
     dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: "        $signature =~ s/&/&amp;/g;"
   when: rt_allow_html_signatures | default(no)
   notify:
     - "clear rt mason cache"
     - "restart spawn-fcgi"
 
-- name: "disable html escaping of signatures 2/6"
-  lineinfile:
+- name: "apply remove signature footer patch"
+  patch:
+    src: "rt_remove_signature_footer.patch"
     dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: "        $signature =~ s/</&lt;/g;"
-  when: rt_allow_html_signatures | default(no)
+  when: rt_patch_signature_footer | default(no)
   notify:
     - "clear rt mason cache"
     - "restart spawn-fcgi"
-
-- name: "disable html escaping of signatures 3/6"
-  lineinfile:
-    dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: "        $signature =~ s/>/&gt;/g;"
-  when: rt_allow_html_signatures | default(no)
-  notify:
-    - "clear rt mason cache"
-    - "restart spawn-fcgi"
-
-- name: "disable html escaping of signatures 4/6"
-  lineinfile:
-    dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: '        $signature =~ s/"/&quot;/g;  # "//;'
-  when: rt_allow_html_signatures | default(no)
-  notify:
-    - "clear rt mason cache"
-    - "restart spawn-fcgi"
-
-- name: "disable html escaping of signatures 5/6"
-  lineinfile:
-    dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: "        $signature =~ s/'/&#39;/g;   # '//;"
-  when: rt_allow_html_signatures | default(no)
-  notify:
-    - "clear rt mason cache"
-    - "restart spawn-fcgi"
-
-- name: "disable html escaping of signatures 6/6"
-  lineinfile:
-    dest: "/usr/local/share/rt44/html/Elements/MessageBox"
-    state: "absent"
-    line: "        $signature =~ s{\\n}{<br />}g;"
-  when: rt_allow_html_signatures | default(no)
-  notify:
-    - "clear rt mason cache"
-    - "restart spawn-fcgi"
-
 
