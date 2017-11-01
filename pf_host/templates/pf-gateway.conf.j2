@@ -70,7 +70,7 @@ pass in quick on ${{ if.macro }} inet proto icmp from any to (${{ if.macro }}) i
 
 {% for rule in pf.filter_rules %}
 # {{ rule.comment }}
-{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}
+{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
 
 {% endfor %}
 
