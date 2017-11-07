@@ -1,2 +1,3 @@
+{% if dns_resolver_domain is defined %}domain {{ dns_resolver_domain }}{% endif %}
 {% for nameserver in dns_resolver_ips %}nameserver {{ nameserver }}
 {% endfor %}
