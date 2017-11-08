@@ -1,11 +1,14 @@
 ---
 django_github_branch: "master"
+django_git_deploy_key_needed: no
+django_github_keyfile: ".ssh/id_ed25519.pub"
 django_virtualenv_path: "/usr/local/virtualenv"
 django_python_path: "/usr/local/bin/python3.5"
 wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
+
 nginx_locationslash: |
   location /static/ {
         alias {{ django_nginx_static_root }};
