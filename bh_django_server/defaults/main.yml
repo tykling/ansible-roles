@@ -6,4 +6,24 @@ wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
+nginx_locationslash: |
+  location /static/ {
+        alias {{ django_nginx_static_root }};
+  }
+  location /public/ {
+        internal;
+        root {{ django_media_root }};
+  }
+  location @django {
+      proxy_pass http://127.0.0.1:8000;
+      proxy_http_version 1.1;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+  }
+  location / {
+        root {{ django_nginx_static_root }}img/favicon;
+        try_files $uri @django;
+  }
 
