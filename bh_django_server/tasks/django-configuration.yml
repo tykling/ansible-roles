@@ -52,7 +52,7 @@
     state: "directory"
     owner: "www"
     group: "www"
-  with_items: "{{ django_media_root_subdirs }}"
+  with_items: "{{ django_media_root_subdirs | default([]) }}"
   tags:
     - codedeploy
 
