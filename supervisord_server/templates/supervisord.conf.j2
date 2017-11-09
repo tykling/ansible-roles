@@ -18,6 +18,7 @@ minfds=1024
 minprocs=200
 
 
+{% if supervisord_programs is defined or supervisord_extra_programs is defined %}
 ;-----------------------------------------------------------------------------
 ; program: definitions below here
 
@@ -26,18 +27,20 @@ minprocs=200
 ; {{ program.comment }}
 [program:{{ program.name }}]
 command={{ program.command }}
+{% if program.directory is defined %}directory={{ program.directory }}{% endif %}
 process_name=%(program_name)s_%(process_num)02d
 user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
 numprocs={{ program.numprocs | default(1) }}
-{% if program.directory is defined %}directory={{ program.directory }}{% endif %}
 
 {% endfor %}
 {% endmacro %}
 {{ create_program_definitions(supervisord_programs | default([]) ) }}
 {{ create_program_definitions(supervisord_extra_programs | default([])) }}
 
+{% endif %}
+{% if supervisord_fcgi_programs is defined %}
 ;-----------------------------------------------------------------------------
 ; fcgi-program: definitions below here
 
@@ -53,4 +56,5 @@ stderr_logfile=syslog
 numprocs={{ program.numprocs }}
 
 {% endfor %}
+{% endif %}
 
