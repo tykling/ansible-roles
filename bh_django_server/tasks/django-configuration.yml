@@ -46,7 +46,7 @@
   tags:
     - codedeploy
 
-- name: "Create django media root subdirectories"
+- name: "Create django media root subdirectories as needed"
   file:
     path: "{{ django_media_root }}/{{ item }}"
     state: "directory"
@@ -56,12 +56,13 @@
   tags:
     - codedeploy
 
-- name: "Create PDF archive directory"
+- name: "Create PDF archive directory where needed"
   file:
     path: "{{ pdf_archive_path }}"
     state: "directory"
     owner: "www"
     group: "www"
+  when: pdf_archive_path is defined
   tags:
     - codedeploy
 
