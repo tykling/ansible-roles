@@ -4,40 +4,30 @@
   become: yes
   roles:
     - "freebsd_base"
-  tags:
-    - "freebsd_base"
 
 - name: "configure freebsd hosts (physical servers)"
   hosts: "freebsd_hosts"
   become: yes
   roles:
     - "freebsd_host"
-  tags:
-    - "freebsd_hosts"
 
 - name: "configure ezjail hosts"
   hosts: "ezjail_hosts"
   become: yes
   roles:
     - "ezjail_host"
-  tags:
-    - "ezjail_hosts"
 
 - name: "configure censurfridns anycast jail hosts"
   hosts: "anycast_jail_hosts"
   become: yes
   roles:
     - "anycast_jail_host"
-  tags:
-    - "anycast_jail_hosts"
 
 - name: "configure chyves bhyve hosts"
   hosts: "chyves_hosts"
   become: yes
   roles:
     - "chyves_host"
-  tags:
-    - "chyves_hosts"
 
 ##############################################################################
 ### application roles below here
@@ -47,120 +37,90 @@
   become: yes
   roles:
     - "etherpad_server"
-  tags:
-    - "etherpad_servers"
 
 - name: "configure all murmur servers"
   hosts: "murmur_servers"
   become: yes
   roles:
     - "murmur_server"
-  tags:
-    - "murmur_servers"
 
 - name: "configure all nginx http and https servers"
   hosts: "nginx_servers"
   become: yes
   roles:
     - "nginx_server"
-  tags:
-    - "nginx_servers"
 
 - name: "configure dovecot servers"
   hosts: "dovecot_servers"
   become: yes
   roles:
     - "dovecot_server"
-  tags:
-    - "dovecot_servers"
 
 - name: "configure erlang webservers"
   hosts: "erlang_web_servers"
   become: yes
   roles:
     - "erlang_web_server"
-  tags:
-    - "erlang_web_servers"
 
 - name: "configure wiki servers"
   hosts: "mediawiki_servers"
   become: yes
   roles:
     - "mediawiki_server"
-  tags:
-    - "mediawiki_servers"
 
 - name: "configure people servers"
   hosts: "people_servers"
   become: yes
   roles:
     - "people_server"
-  tags:
-    - "people_servers"
 
 - name: "configure postfix servers"
   hosts: "postfix_servers"
   become: yes
   roles:
     - "postfix_server"
-  tags:
-    - "postfix_servers"
 
 - name: "configure tor servers"
   hosts: "tor_servers"
   become: yes
   roles:
     - "tor_server"
-  tags:
-    - "tor_servers"
 
 - name: "configure django servers"
   hosts: "django_servers"
   become: yes
   roles:
     - "django_server"
-  tags:
-    - "django_servers"
 
-- name: "configure bornhack django servers"
-  hosts: "bh_django_servers"
+- name: "configure django channels servers"
+  hosts: "django_channels_servers"
   become: yes
   roles:
-    - "bh_django_server"
-  tags:
-    - "bh_django_servers"
+    - "django_channels_server"
 
 - name: "configure kea dhcp servers"
   hosts: "kea_servers"
   become: yes
   roles:
     - "kea_server"
-  tags:
-    - "kea_servers"
 
 - name: "configure znc servers"
   hosts: "znc_servers"
   become: yes
   roles:
     - "znc_server"
-  tags:
-    - "znc_servers"
 
 - name: "configure isc dhcp servers"
   hosts: "isc_dhcpd_servers"
   become: yes
   roles:
     - "isc_dhcpd_server"
-  tags:
-    - "isc_dhcpd_servers"
 
 - name: "configure metabase servers"
   hosts: "metabase_servers"
   become: yes
   roles:
     - "metabase_server"
-  tags:
-    - "metabase_servers"
 
 - name: "configure certgrinder servers"
   hosts: "certgrinder_servers"
