@@ -33,6 +33,7 @@ process_name=%(program_name)s_%(process_num)02d
 user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
+startsecs={{ program.startsecs | default(5) }}
 numprocs={{ program.numprocs | default(1) }}
 
 {% endfor %}
