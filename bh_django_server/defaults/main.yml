@@ -20,6 +20,10 @@ django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
 
+django_os_dependencies:
+  - "databases/postgresql96-client"
+  - "databases/redis"
+
 supervisord_programs:
   - name: "redis"
     comment: "run redis"

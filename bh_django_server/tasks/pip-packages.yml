@@ -18,7 +18,7 @@
   pkgng:
     name: "{{ item }}"
     state: "present"
-  with_items: "{{ django_os_dependencies | default([]) }}"
+  with_items: "{{ django_os_dependencies + django_extra_os_dependencies | default([]) }}"
 
 - name: "Install needed pip modules"
   pip:
