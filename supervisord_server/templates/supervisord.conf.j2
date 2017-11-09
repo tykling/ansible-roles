@@ -27,7 +27,8 @@ minprocs=200
 ; {{ program.comment }}
 [program:{{ program.name }}]
 command={{ program.command }}
-{% if program.directory is defined %}directory={{ program.directory }}{% endif %}
+{% if program.directory is defined %}directory={{ program.directory }}
+{% endif %}
 process_name=%(program_name)s_%(process_num)02d
 user={{ program.user }}
 stdout_logfile=syslog
