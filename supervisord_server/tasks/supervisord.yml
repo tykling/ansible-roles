@@ -8,15 +8,14 @@
   service:
     name: "supervisord"
     enabled: yes
+  notify:
+    - "start supervisord"
 
 - name: "Copy supervisor config"
   template:
     src: "supervisord.conf.j2"
     dest: "/usr/local/etc/supervisord.conf"
-  notify: "reread and update supervisord"
-
-- name: "Start supervisord"
-  service:
-    name: "supervisord"
-    state: "started"
+  notify:
+    - "start supervisord"
+    - "reread and update supervisord"
 

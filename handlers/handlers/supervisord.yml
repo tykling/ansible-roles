@@ -2,3 +2,8 @@
 - name: "reread and update supervisord"
   command: "/usr/local/bin/supervisorctl reread; /usr/local/bin/supervisorctl update"
 
+- name: "start supervisord"
+  service:
+    name: "supervisord"
+    state: "started"
+
