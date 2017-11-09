@@ -1,10 +1,7 @@
 ---
 - include_tasks: code.yml
-- include_tasks: syslog.yml
-- include_tasks: newsyslog.yml
 - include_tasks: postgres.yml
 - include_tasks: redis.yml
 - include_tasks: pip-packages.yml
 - include_tasks: django-configuration.yml
-- include_tasks: supervisord.yml
 

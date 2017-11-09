@@ -2,12 +2,32 @@
 django_github_branch: "master"
 django_git_deploy_key_needed: no
 django_github_keyfile: ".ssh/id_ed25519"
+
 django_virtualenv_path: "/usr/local/virtualenv"
 django_python_path: "/usr/local/bin/python3.5"
 wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
+
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
+
+supervisord_programs:
+  - comment: "run redis"
+    command: "/usr/local/bin/redis-server /usr/local/etc/redis.conf"
+    user: "535" # 535 is the redis uid on freebsd
+    priority: "1"
+
+  - comment: "run daphne"
+    command: "{{ django_virtualenv_path }}/bin/python -u {{ django_virtualenv_path }}/bin/daphne --access-log - --proxy-headers {{ django_mainapp }}.asgi:channel_layer"
+    user: "{{ django_daphne_user }}"
+    directory: "{{ django_root }}"
+    priority: "2"
+
+  - comment: "run asgi workers"
+    command: "{{ django_virtualenv_path }}/bin/python -u {{ django_root }}/manage.py runworker"
+    numprocs: "20"
+    user: "www"
+    priority: "3"
 
 nginx_locationslash: |
   location /static/ {
