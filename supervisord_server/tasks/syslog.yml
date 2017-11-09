@@ -6,7 +6,7 @@
     owner: "root"
     group: "wheel"
     mode: "755"
-   notify:
+  notify:
     - "restart syslogd"
 
 - name: "Make sure /var/log/supervisord.log exists"
