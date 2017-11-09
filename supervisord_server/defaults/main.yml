@@ -1,3 +1,4 @@
 ---
 supervisord_activity_logfile: "/var/log/supervisor-activity.log"
+supervisord_logfile: "/var/log/supervisord.log"
 

@@ -1,0 +1,26 @@
+---
+- name: "add syslog.d config for supervisord"
+  copy:
+    src: "supervisord_syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/supervisord.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure /var/log/supervisord.log exists"
+  copy:
+    dest: "{{ supervisord_logfile }}"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+
+- name: "Make sure supervisord newsyslog config file exists"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "supervisord_newsyslog.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/supervisord"
+
