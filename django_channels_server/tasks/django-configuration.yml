@@ -29,6 +29,15 @@
   tags:
     - codedeploy
 
+- name: "Create django static root directory"
+  file:
+    path: "{{ django_nginx_static_root }}"
+    state: "directory"
+    owner: "www"
+    group: "www"
+  tags:
+    - codedeploy
+
 - name: "Run collectstatic"
   django_manage:
     command: "collectstatic"
