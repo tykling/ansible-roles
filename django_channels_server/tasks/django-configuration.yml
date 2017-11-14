@@ -29,16 +29,6 @@
   tags:
     - codedeploy
 
-- name: "Create django static root directory"
-  file:
-    path: "{{ django_nginx_static_root }}"
-    state: "directory"
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-  tags:
-    - codedeploy
-
 - name: "Make sure manage.py is executable"
   file:
     path: "{{ django_root }}/manage.py"
