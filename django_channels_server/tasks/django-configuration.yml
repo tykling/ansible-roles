@@ -32,7 +32,6 @@
 - name: "Make sure manage.py is executable"
   file:
     path: "{{ django_root }}/manage.py"
-    state: "directory"
     owner: "root"
     group: "wheel"
     mode: "0755"
