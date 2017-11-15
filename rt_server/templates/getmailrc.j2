@@ -1,7 +1,7 @@
 [retriever]
 type = SimpleIMAPSSLRetriever
-server = {{ getmail_imap_server }}
-port = {{ getmail_imap_port }}
+server = {{ item.imapserver }}
+port = {{ item.imappport }}
 username = {{ item.imapuser }}
 password = {{ item.imappass }}
 
