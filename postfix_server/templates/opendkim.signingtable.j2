@@ -1,3 +1,3 @@
-{% for domain in dkimkeys %}
-*@{{ domain }}  default._domainkey.{{ domain }}
+{% for key in dkimkeys %}
+*@{{ key.domain }}  {{ key.selector }}._domainkey.{{ key.domain }}
 {% endfor %}
