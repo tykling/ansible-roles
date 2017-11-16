@@ -48,10 +48,10 @@
     mode: "600"
     content: |
       -----BEGIN RSA PRIVATE KEY-----
-      {{ item.value }}
+      {{ item.key }}
       -----END RSA PRIVATE KEY-----
-    dest: "/usr/local/etc/opendkim/{{ item.key }}-default.private"
-  with_dict: "{{ dkimkeys | default({}) }}"
+    dest: "/usr/local/etc/opendkim/{{ item.domain }}-{{ item.selector }}.private"
+  with_items: "{{ dkimkeys | default({}) }}"
 
 - name: "Enable milteropendkim in rc.conf"
   service:
