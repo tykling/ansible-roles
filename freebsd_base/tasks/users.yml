@@ -26,3 +26,13 @@
   when: item.value.sudo
   tags: usermanagement
 
+- name: "Add extra users to sudoers"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    regexp: "^{{ item }} ALL=\\(ALL\\) ALL$"
+    line: "{{ item }} ALL=(ALL) ALL"
+    validate: "visudo -cf %s"
+  with_dict: "{{ sudoers_extra_users | default([]) }}"
+  tags: usermanagement
+
