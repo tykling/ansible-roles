@@ -33,6 +33,6 @@
     regexp: "^{{ item }} ALL=\\(ALL\\) ALL$"
     line: "{{ item }} ALL=(ALL) ALL"
     validate: "visudo -cf %s"
-  with_dict: "{{ sudoers_extra_users | default([]) }}"
+  with_items: "{{ sudoers_extra_users | default([]) }}"
   tags: usermanagement
 
