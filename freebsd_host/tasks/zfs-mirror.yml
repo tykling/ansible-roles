@@ -1,9 +1,29 @@
 ---
-- name: Install periodic zfs mirror script
+- name: "Install periodic tykbackup script"
   copy:
-    owner: root
-    group: wheel
+    owner: "root"
+    group: "wheel"
     mode: "755"
-    src: 999.zfs-mirror
-    dest: /usr/local/etc/periodic/daily/999.zfs-mirror
+    src: "999.zfs-mirror"
+    dest: "/usr/local/etc/periodic/daily/999.zfs-mirror"
+
+- name: "configure tykbackup"
+  blockinfile:
+    dest: "/etc/periodic.conf"
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK tykbackup"
+    block: |
+      #daily zfs mirror / tykbackup
+      daily_zfs_mirror_enable="YES"
+      daily_zfs_mirror_targethost="{{ tykbackup_target_host }}"
+      daily_zfs_mirror_targetuser="{{ tykbackup_target_user }}"
+      daily_zfs_mirror_targetfs="{{ tykbackup_target_zfs }}"
+      daily_zfs_mirror_pools="{{ tykbackup_pools | join(' ') }}"
+      daily_zfs_mirror_skip="{{ tykbackup_skip_datasets | join(' ') }}"           # space seperated list of datasets to skip
+
+- name: "make sure we have an ssh key for root"
+  user:
+    name: "root"
+    ssh_key_type: "ed25519"
+    generate_ssh_key: True
 
