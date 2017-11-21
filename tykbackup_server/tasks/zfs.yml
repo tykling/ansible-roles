@@ -1,0 +1,9 @@
+---
+- name: "Check permissions for zfs dataset for backups"
+  shell: "/sbin/zfs allow {{ tykbackup_zfs_dataset }}"
+  register: tykbackup_storage_result
+
+- name: "Fix permissions for zfs dataset for backups"
+  command: "/sbin/zfs allow {{ tykbackup_user }} atime,compression,create,mount,mountpoint,readonly,receive {{ tykbackup_zfs_dataset }}"
+  when: not tykbackup_storage_result.contains("user tykbackup atime,compression,create,mount,mountpoint,readonly,receive")
+
