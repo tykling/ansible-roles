@@ -11,5 +11,10 @@ tykbackup_authorized_keys:
 ```
 
 Create a ZFS dataset to keep the backups in (and add it to the jail where applicable), set tykbackup_zfs_dataset to the name (not mountpoint):
+
 ```tykbackup_zfs_dataset: "tank/backups"```
+
+Add the following special permissions for the backup jail:
+
+```allow.mount.zfs=1 enforce_statfs=1```
 
