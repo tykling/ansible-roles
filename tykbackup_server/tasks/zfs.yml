@@ -5,5 +5,5 @@
 
 - name: "Fix permissions for zfs dataset for backups"
   command: "/sbin/zfs allow {{ tykbackup_user }} atime,compression,create,mount,mountpoint,readonly,receive {{ tykbackup_zfs_dataset }}"
-  when: tykbackup_storage_result.find("user {{ tykbackup_user }} atime,compression,create,mount,mountpoint,readonly,receive") == -1
+  when: tykbackup_storage_result.stdout.find("user {{ tykbackup_user }} atime,compression,create,mount,mountpoint,readonly,receive") == -1
 
