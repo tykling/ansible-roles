@@ -75,3 +75,12 @@
   tags:
     - codedeploy
 
+- name: "Enable daily cronjob to cleanup django sessions daily"
+  cron:
+    name: "Cleanup django sessions daily"
+    minute: "{{ 59 | random }}"
+    hour: "{{ 23 | random }}"
+    job: "{{ django_virtualenv_path }}/bin/python -u {{ django_root }}/manage.py clearsessions"
+    cron_file: "/etc/crontab"
+    user: "nobody"
+
