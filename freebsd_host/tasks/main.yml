@@ -1,13 +1,13 @@
 ---
-- include_tasks: packages.yml
-- include_tasks: openntpd.yml
-- include_tasks: smartd.yml
+- include_tasks: "packages.yml"
+- include_tasks: "openntpd.yml"
+- include_tasks: "smartd.yml"
   when: smartd
-- include_tasks: zfs-periodic.yml
-- include_tasks: zfs-scrub.yml
-- include_tasks: netdata.yml
-- include_tasks: aesni.yml
-- include_tasks: tykroutefix.yml
-# disabled because of https://github.com/ansible/ansible/issues/30836
-#- include_tasks: fixsyslogd.yml
+- include_tasks: "zfs-periodic.yml"
+- include_tasks: "zfs-scrub.yml"
+- include_tasks: "netdata.yml"
+- include_tasks: "aesni.yml"
+- include_tasks: "tykroutefix.yml"
+- include_tasks: "fixsyslogd.yml"
+- include_tasks: "tykbackup.yml"
 
