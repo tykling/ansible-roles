@@ -32,3 +32,20 @@
     mode: "0600"
   notify: "restart postgresql"
 
+- name: "Enable daily postgres vacuum in /etc/periodic.conf"
+  sysrc:
+    name: "daily_pgsql_vacuum_enable"
+    value: "YES"
+    dest: "/etc/periodic.conf"
+
+- name: "Enable daily postgres backup in /etc/periodic.conf"
+  sysrc:
+    name: "daily_pgsql_backup_enable"
+    value: "YES"
+    dest: "/etc/periodic.conf"
+
+- name: "Set destination dir for postgres backups in /etc/periodic.conf"
+  sysrc:
+    name: "daily_pgsql_backupdir"
+    value: "/var/backups/postgresql"
+
