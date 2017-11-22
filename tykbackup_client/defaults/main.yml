@@ -1,5 +1,5 @@
 ---
+tykbackup_github_repo_url: "https://github.com/tykling/tykbackup"
+tykbackup_github_branch: "master"
 tykbackup_checkout_path: "/tmp/tykbackup"
-tykbackup_pools:
-  - "tank"
 
