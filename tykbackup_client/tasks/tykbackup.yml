@@ -1,4 +1,9 @@
 ---
+- name: "Install mbuffer"
+  pkgng:
+    name: "mbuffer"
+    state: "present"
+
 - name: "Install periodic tykbackup script"
   copy:
     owner: "root"
