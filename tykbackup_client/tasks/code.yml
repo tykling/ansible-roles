@@ -6,10 +6,10 @@
     force: yes
     version: "{{ tykbackup_github_branch }}"
 
-- name: "Copy zfscmd.sh into place"
+- name: "Copy 999.tykbackup periodic script into place"
   copy:
-    src: "{{ tykbackup_checkout_path }}/zfscmd.sh"
-    dest: "/usr/local/bin/zfscmd.sh"
+    src: "{{ tykbackup_checkout_path }}/999.tykbackup"
+    dest: "/usr/local/etc/periodic/daily/999.tykbackup"
     owner: "root"
     group: "wheel"
     mode: "0755"

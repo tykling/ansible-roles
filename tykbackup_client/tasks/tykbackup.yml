@@ -4,14 +4,6 @@
     name: "mbuffer"
     state: "present"
 
-- name: "Install periodic tykbackup script"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-    src: "999.tykbackup"
-    dest: "/usr/local/etc/periodic/daily/999.tykbackup"
-
 - name: "configure tykbackup"
   blockinfile:
     dest: "/etc/periodic.conf"
