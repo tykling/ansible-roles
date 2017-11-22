@@ -8,6 +8,6 @@
   authorized_key:
     user: "{{ tykbackup_user }}"
     key: "{{ item.authkey }}"
-    key_options: 'from="{{ item.fromip }}",restrict,command="/usr/local/bin/csrgrinder" {{ item.comment }}'
+    key_options: 'from="{{ item.fromip }}",restrict,command="/usr/local/bin/zfscmd.sh" {{ item.comment }}'
   with_items: "{{ tykbackup_authorized_keys | default([]) }}"
 
