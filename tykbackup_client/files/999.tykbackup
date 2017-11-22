@@ -15,7 +15,7 @@ if [ -r /etc/defaults/periodic.conf ]; then
         source_periodic_confs
 fi
 
-case "$daily_zfs_mirror_enable" in
+case "$daily_tykbackup_enable" in
     [Yy][Ee][Ss])
         ;;
     *)
@@ -29,31 +29,31 @@ if ! [ -f /usr/local/bin/mbuffer ]; then
 	exit 1
 fi
 
-pools=$daily_zfs_mirror_pools
+pools=$daily_tykbackup_pools
 if [ -z "$pools" ]; then
         pools='tank'
 fi
 
-targethost=$daily_zfs_mirror_targethost
+targethost=$daily_tykbackup_targethost
 if [ -z "$targethost" ]; then
-        echo '$daily_zfs_mirror_targethost must be set in /etc/periodic.conf'
+        echo '$daily_tykbackup_targethost must be set in /etc/periodic.conf'
         exit 1
 fi
 
-targetuser=$daily_zfs_mirror_targetuser
+targetuser=$daily_tykbackup_targetuser
 if [ -z "$targetuser" ]; then
-        echo '$daily_zfs_mirror_targetuser must be set in /etc/periodic.conf'
+        echo '$daily_tykbackup_targetuser must be set in /etc/periodic.conf'
         exit 1
 fi
 
-targetfs=$daily_zfs_mirror_targetfs
+targetfs=$daily_tykbackup_targetfs
 if [ -z "$targetfs" ]; then
-        echo '$daily_zfs_mirror_targetfs must be set in /etc/periodic.conf'
+        echo '$daily_tykbackup_targetfs must be set in /etc/periodic.conf'
         exit 1
 fi
 
-if [ -n "$daily_zfs_mirror_skip" ]; then
-        egrep="($(echo $daily_zfs_mirror_skip | sed "s/ /|/g"))"
+if [ -n "$daily_tykbackup_skip" ]; then
+        egrep="($(echo $daily_tykbackup_skip | sed "s/ /|/g"))"
 fi
 
 ### get todays date for later use
