@@ -3,6 +3,8 @@ postgresql_homedir: "/var/db/postgres"
 postgresql_datadir: "{{ postgresql_homedir }}/data96"
 postgresql_server_tls_enable: no
 postgresql_max_connections: "100"
+postgresql_backup_savedays: "7"
+postgresql_backup_path: "/var/backups/postgresql"
 
 nginx_locationslash:
   location /.well-known/acme-challenge/ {

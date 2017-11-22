@@ -47,5 +47,12 @@
 - name: "Set destination dir for postgres backups in /etc/periodic.conf"
   sysrc:
     name: "daily_pgsql_backupdir"
-    value: "/var/backups/postgresql"
+    value: "{{ postgresql_backup_path }}"
+    dest: "/etc/periodic.conf"
+
+- name: "Set savedays for postgres backups in /etc/periodic.conf"
+  sysrc:
+    name: "daily_pgsql_savedays"
+    value: "{{ postgresql_backup_savedays }}"
+    dest: "/etc/periodic.conf"
 
