@@ -2,5 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: pf_host }
-  - { role: tykbackup_client }
+  - { role: tykbackup_client, when: tykbackup_client }
 
