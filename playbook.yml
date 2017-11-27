@@ -206,3 +206,9 @@
   roles:
     - "rt_server"
 
+- name: "configure radicale servers"
+  hosts: "radicale_servers"
+  become: yes
+  roles:
+    - "radicale_server"
+

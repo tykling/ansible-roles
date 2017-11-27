@@ -1,0 +1,6 @@
+---
+- name: "Install Radicale"
+  pkgng:
+    name: "py27-radicale"
+    state: "present"
+
