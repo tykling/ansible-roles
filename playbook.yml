@@ -212,3 +212,9 @@
   roles:
     - "radicale_server"
 
+- name: "configure elk servers"
+  hosts: "elk_servers"
+  become: yes
+  roles:
+    - "elk_server"
+

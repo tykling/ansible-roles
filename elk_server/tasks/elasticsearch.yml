@@ -1,0 +1,6 @@
+---
+- name: "Install elasticsearch"
+  pkgng:
+    name: "elasticsearch2"
+    state: "present"
+

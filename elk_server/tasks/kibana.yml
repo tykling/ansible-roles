@@ -1,0 +1,6 @@
+---
+- name: "Install kibana5"
+  pkgng:
+    name: "kibana5"
+    state: "present"
+

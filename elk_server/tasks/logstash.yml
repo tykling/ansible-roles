@@ -1,0 +1,6 @@
+---
+- name: "Install logstash5"
+  pkgng:
+    name: "logstash5"
+    state: "present"
+
