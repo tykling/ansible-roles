@@ -27,7 +27,7 @@
     path: "/etc/aliases.db"
   register: aliasesdb
 
-- name: "Run postalias on /etc/aliases it is newer than /etc/aliases.db"
+- name: "Run postalias on /etc/aliases if it is newer than /etc/aliases.db"
   shell: "/usr/local/sbin/postalias /etc/aliases"
   when: not aliasesdb.stat.exists or aliases.stat.mtime > aliasesdb.stat.mtime
 
