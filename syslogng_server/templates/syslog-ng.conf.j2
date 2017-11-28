@@ -25,7 +25,7 @@ destination loghost{
         "{{ central_syslog_hostname }}"
         transport("tls")
         port(1999)
-        tls(peer-verify(required-untrusted))
+        tls(peer-verify(required-trusted))
         log-fifo-size(100000)
     );
 };
