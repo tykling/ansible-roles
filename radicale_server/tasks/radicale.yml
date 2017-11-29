@@ -12,3 +12,19 @@
     group: "wheel"
     mode: "0644"
 
+- name: "Copy radicale logging config"
+  template:
+    src: "radicale-logging.j2"
+    dest: "/usr/local/etc/radicale/logging"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+
+- name: "Fix permissions of radicale storage location"
+  file:
+    dest: "{{ radicale_datadir }}"
+    owner: "radicale"
+    group: "radicale"
+    mode: "0700"
+    state: "directory"
+

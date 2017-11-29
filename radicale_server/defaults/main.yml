@@ -2,7 +2,7 @@
 supervisord_programs:
   - name: "radicale"
     comment: "run radicale"
-    command: "/usr/local/bin/python2.7 /usr/local/bin/radicale -d -p /var/run/radicale/radicale.pid -C /usr/local/etc/radicale/config"
+    command: "/usr/local/bin/python2.7 /usr/local/bin/radicale -C /usr/local/etc/radicale/config"
     user: "radicale"
     priority: "1"
 
@@ -13,4 +13,6 @@ nginx_locationslash: |
       proxy_set_header Host $http_host;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
+
+radicale_datadir: "/usr/local/share/radicale/collections"
 
