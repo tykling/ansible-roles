@@ -4,3 +4,11 @@
     name: "py27-radicale"
     state: "present"
 
+- name: "Copy radicale config"
+  template:
+    src: "radicale-config.j2"
+    dest: "/usr/local/etc/radicale/config"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+
