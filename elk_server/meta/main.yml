@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: syslogng_server }
+  - { role: syslogng_server, elk_syslogng: yes }
 
