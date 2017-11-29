@@ -4,3 +4,8 @@
     name: "kibana5"
     state: "present"
 
+- name: "Enable kibana"
+  service:
+    name: "kibana"
+    enabled: yes
+

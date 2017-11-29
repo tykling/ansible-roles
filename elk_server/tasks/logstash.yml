@@ -4,3 +4,8 @@
     name: "logstash5"
     state: "present"
 
+- name: "Enable logstash"
+  service:
+    name: "logstash"
+    enabled: yes
+

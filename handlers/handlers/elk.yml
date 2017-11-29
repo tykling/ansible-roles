@@ -1,0 +1,16 @@
+---
+- name: "start elasticsearch"
+  service:
+    name: "elasticsearch"
+    state: "started"
+
+- name: "start logstash"
+  service:
+    name: "logstash"
+    state: "started"
+
+- name: "start kibana"
+  service:
+    name: "kibana"
+    state: "started"
+

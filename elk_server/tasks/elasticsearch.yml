@@ -4,3 +4,8 @@
     name: "elasticsearch2"
     state: "present"
 
+- name: "Enable elasticsearch"
+  service:
+    name: "elasticsearch"
+    enabled: yes
+
