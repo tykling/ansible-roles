@@ -1,8 +1,8 @@
 ---
-- name: "start elasticsearch"
+- name: "restart elasticsearch"
   service:
     name: "elasticsearch"
-    state: "started"
+    state: "restarted"
 
 - name: "start logstash"
   service:

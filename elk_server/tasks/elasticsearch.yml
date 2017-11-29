@@ -4,8 +4,18 @@
     name: "elasticsearch2"
     state: "present"
 
+- name: "Copy elasticsearch.yml"
+  template:
+    src: "elasticsearch.yml.j2"
+    dest: "/usr/local/etc/elasticsearch/elasticsearch.yml"
+    owner: "elasticsearch"
+    group: "elasticsearch"
+    mode: "0440"
+  notify: "restart elasticsearch"
+
 - name: "Enable elasticsearch"
   service:
     name: "elasticsearch"
     enabled: yes
+  notify: "restart elasticsearch"
 
