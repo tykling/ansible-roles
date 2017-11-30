@@ -1,0 +1,18 @@
+input {
+  tcp {
+    codec => "plain"
+    mode => server
+    port => 5000
+    type => "syslog-relay"
+  }
+}
+
+
+{{ logstash_filters }}
+
+
+output {
+  # stdout { codec => rubydebug }
+  elasticsearch { hosts => [ "127.0.0.1:9200" ] }
+}
+

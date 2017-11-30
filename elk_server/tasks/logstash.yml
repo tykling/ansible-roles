@@ -10,3 +10,12 @@
     enabled: yes
   notify: "start logstash"
 
+- name: "Configure logstash"
+  template:
+    src: "logstash.conf.j2"
+    dest: "/usr/local/etc/logstash/logstash.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+  notify: "restart logstash"
+

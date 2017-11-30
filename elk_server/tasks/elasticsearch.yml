@@ -10,3 +10,12 @@
     enabled: yes
   notify: "restart elasticsearch"
 
+- name: "Configure elasticsearch"
+  template:
+    src: "elasticsearch.yml.j2"
+    dest: "/usr/local/etc/elasticsearch/elasticsearch.yml"
+    owner: "elasticsearch"
+    group: "elasticsearch"
+    mode: "0440"
+  notify: "restart elasticsearch"
+
