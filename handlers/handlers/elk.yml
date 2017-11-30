@@ -1,4 +1,9 @@
 ---
+- name: "start elasticsearch"
+  service:
+    name: "elasticsearch"
+    state: "started"
+
 - name: "restart elasticsearch"
   service:
     name: "elasticsearch"
@@ -9,8 +14,18 @@
     name: "logstash"
     state: "started"
 
+- name: "restart logstash"
+  service:
+    name: "logstash"
+    state: "restarted"
+
 - name: "start kibana"
   service:
     name: "kibana"
     state: "started"
+
+- name: "restart kibana"
+  service:
+    name: "kibana"
+    state: "restarted"
 
