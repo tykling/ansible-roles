@@ -19,3 +19,22 @@
     mode: "0644"
   notify: "restart logstash"
 
+- name: "Create logstash patterns directory"
+  file:
+    path: "/usr/local/etc/logstash/patterns"
+    state: directory
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  notify: "restart logstash"
+
+- name: "Create logstash pattern files"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+    content: "{{ item.content }}"
+    dest: "/usr/local/etc/logstash/patterns/{{ item.filename }}"
+  with_items: "{{ logstash_pattern_files | default([]) }}"
+  notify: "restart logstash"
+
