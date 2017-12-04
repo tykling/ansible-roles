@@ -30,16 +30,6 @@
   include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
 
-- name: "Create node specific nginx extra include configs"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    content: "{{ item.content }}"
-    dest: "/usr/local/etc/nginx/{{ item.filename }}"
-  with_items: "{{ nginx_extra_configs | default([]) }}"
-  notify: "reload nginx"
-
 - name: "Include include_vars/nginx_extra_configs.yml if it exists..."
   include_vars: "../include_vars/nginx_common_extra_configs.yml"
   ignore_errors: yes
@@ -51,7 +41,7 @@
     mode: "600"
     content: "{{ item.content }}"
     dest: "/usr/local/etc/nginx/{{ item.filename }}"
-  with_items: "{{ nginx_common_extra_configs | default([]) }}"
+  with_items: "{{ nginx_extra_configs | default([]) | combine(nginx_common_extra_configs) | default([]) }}"
   notify: "reload nginx"
 
 - name: "Copy vhost http configs for http enabled vhosts"
