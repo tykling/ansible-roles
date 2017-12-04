@@ -35,7 +35,7 @@
     owner: "root"
     group: "wheel"
     mode: "600"
-    content: "{{ item.value.content }}"
+    content: "{{ item.content }}"
     dest: "/usr/local/etc/nginx/{{ item.filename }}"
   with_items: "{{ nginx_extra_configs | default([]) }}"
   notify: "reload nginx"
