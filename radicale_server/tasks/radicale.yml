@@ -1,8 +1,28 @@
 ---
-- name: "Install Radicale"
+- name: "Install pip"
   pkgng:
-    name: "py27-radicale"
+    name: "py27-pip"
     state: "present"
+
+- name: "Install virtualenv"
+  pkgng:
+    name: "py27-virtualenv"
+    state: "present"
+
+- name: "Install python35"
+  pkgng:
+    name: "python35"
+    state: "present"
+
+- name: "Create virtualenv"
+  pip:
+    virtualenv_python: "python3"
+    virtualenv: "{{ virtualenv_path }}"
+
+- name: "Install radicale in virtualenv"
+  pip:
+    virtualenv: "{{ virtualenv_path }}"
+    name: "radicale"
 
 - name: "Copy radicale config"
   template:

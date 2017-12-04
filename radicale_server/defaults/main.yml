@@ -1,8 +1,10 @@
 ---
+virtualenv_path: "/usr/local/virtualenv"
+
 supervisord_programs:
   - name: "radicale"
     comment: "run radicale"
-    command: "/usr/local/bin/python2.7 /usr/local/bin/radicale -C /usr/local/etc/radicale/config"
+    command: "{{ virtualenv_path }}/bin/python /usr/local/bin/radicale -C /usr/local/etc/radicale/config"
     user: "radicale"
     priority: "1"
 
