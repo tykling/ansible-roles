@@ -14,13 +14,9 @@
     name: "python35"
     state: "present"
 
-- name: "Create virtualenv"
+- name: "Create virtualenv and install radicale in it"
   pip:
     virtualenv_python: "python3"
-    virtualenv: "{{ virtualenv_path }}"
-
-- name: "Install radicale in virtualenv"
-  pip:
     virtualenv: "{{ virtualenv_path }}"
     name: "radicale"
 
