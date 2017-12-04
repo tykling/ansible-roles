@@ -30,7 +30,7 @@
   include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
 
-- name: "Include include_vars/nginx_extra_configs.yml if it exists..."
+- name: "Include include_vars/nginx_common_extra_configs.yml if it exists..."
   include_vars: "../include_vars/nginx_common_extra_configs.yml"
   ignore_errors: yes
 
