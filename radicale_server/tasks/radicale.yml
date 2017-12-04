@@ -20,10 +20,15 @@
     virtualenv: "{{ virtualenv_path }}"
     name: "radicale"
 
+- name: "Create radicale config directory"
+  file:
+    path: "{{ radicale_configdir }}"
+    state: "directory"
+
 - name: "Copy radicale config"
   template:
     src: "radicale-config.j2"
-    dest: "/usr/local/etc/radicale/config"
+    dest: "{{ radicale_configdir }}/config"
     owner: "root"
     group: "wheel"
     mode: "0644"
@@ -31,7 +36,7 @@
 - name: "Copy radicale logging config"
   template:
     src: "radicale-logging.j2"
-    dest: "/usr/local/etc/radicale/logging"
+    dest: "{{ radicale_configdir }}/logging"
     owner: "root"
     group: "wheel"
     mode: "0644"
@@ -39,7 +44,7 @@
 - name: "Copy radicale rights config"
   template:
     src: "radicale-rights.j2"
-    dest: "/usr/local/etc/radicale/rights"
+    dest: "{{ radicale_configdir }}/rights"
     owner: "root"
     group: "wheel"
     mode: "0644"

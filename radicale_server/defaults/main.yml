@@ -1,5 +1,6 @@
 ---
 virtualenv_path: "/usr/local/virtualenv"
+radicale_configdir: "/usr/local/etc/radicale"
 
 supervisord_programs:
   - name: "radicale"
