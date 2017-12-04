@@ -20,6 +20,14 @@
     group: "wheel"
     mode: "0644"
 
+- name: "Copy radicale rights config"
+  template:
+    src: "radicale-rights.j2"
+    dest: "/usr/local/etc/radicale/rights"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+
 - name: "Fix permissions of radicale storage location"
   file:
     dest: "{{ radicale_datadir }}"

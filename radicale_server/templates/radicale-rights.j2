@@ -1,0 +1,6 @@
+# Authenticated users can read and write their own collections.
+[owner-write]
+user = .+
+collection = %(login)s(/.*)?
+permission = rw
+
