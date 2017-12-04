@@ -27,7 +27,9 @@
   notify: "reload nginx"
 
 - name: "Include node specific nginx_extra_configs.yml if it exists..."
-  include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+  include_vars:
+    file: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+    name: "nginx_extra_configs"
   ignore_errors: yes
 
 - name: "Create node specific nginx extra include configs"
