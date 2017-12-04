@@ -26,10 +26,15 @@
   when: nginx_proxy
   notify: "reload nginx"
 
-- name: "Include nginx_extra_configs.yml where needed"
-  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+- name: "Include node specific nginx_extra_configs.yml where needed (legacy, remove when possible)"
+  include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
-  notify: "reload nginx"
+
+- name: "Include common nginx_extra_configs.yml where needed"
+  include_vars:
+    file: "../include_vars/nginx_extra_configs.yml"
+    name: "nginx_common_extra_configs"
+  ignore_errors: yes
 
 - name: "Create nginx extra include configs (acls and more)"
   copy:
@@ -38,7 +43,7 @@
     mode: "600"
     content: "{{ item.value.content }}"
     dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
-  with_dict: "{{ nginx_extra_configs | default({}) }}"
+  with_dict: "{{ nginx_extra_configs | combine(nginx_common_extra_configs) | default({}) }}"
   notify: "reload nginx"
 
 - name: "Copy vhost http configs for http enabled vhosts"
