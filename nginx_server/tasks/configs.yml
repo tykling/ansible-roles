@@ -26,14 +26,18 @@
   when: nginx_proxy
   notify: "reload nginx"
 
-- name: "Create node specific nginx extra include configs (acls and more)"
+- name: "Include node specific nginx_extra_configs.yml if it exists..."
+  include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+  ignore_errors: yes
+
+- name: "Create node specific nginx extra include configs"
   copy:
     owner: "root"
     group: "wheel"
     mode: "600"
     content: "{{ item.value.content }}"
-    dest: "/usr/local/etc/nginx/{{ item.value.filename }}"
-  with_dict: "{{ nginx_extra_configs | default({}) }}"
+    dest: "/usr/local/etc/nginx/{{ item.filename }}"
+  with_items: "{{ nginx_extra_configs | default([]) }}"
   notify: "reload nginx"
 
 - name: "Include include_vars/nginx_extra_configs.yml if it exists..."
