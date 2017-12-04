@@ -16,7 +16,7 @@
 
 - name: "Create virtualenv and install radicale in it"
   pip:
-    virtualenv_python: "python3"
+    virtualenv_python: "/usr/local/bin/python3.5"
     virtualenv: "{{ virtualenv_path }}"
     name: "radicale"
 
