@@ -36,9 +36,9 @@
 
 - name: "Create extra nginx config files..."
   copy:
-    owner: "root"
+    owner: "www"
     group: "wheel"
-    mode: "600"
+    mode: "0640"
     content: "{{ item.content }}"
     dest: "/usr/local/etc/nginx/{{ item.filename }}"
   with_items: "{{ nginx_extra_configs | default([]) }} + {{ nginx_common_extra_configs | default([]) }}"
