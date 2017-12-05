@@ -1,4 +1,12 @@
 ---
+- name: "Add radicale user"
+  user:
+    name: "radicale"
+    comment: "Radicale daemon"
+    home: "/nonexistant"
+    shell: "/usr/sbin/nologin"
+    uid: "974"
+
 - name: "Install pip"
   pkgng:
     name: "py27-pip"
