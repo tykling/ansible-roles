@@ -11,7 +11,7 @@ collection =
 permission = r
 
 {% for section in radicale_rights_sections | default([]) %}
-[section.title]
+[{{ section.title }}]
 user = {{ section.user }}
 collection = {{ section.collection }}
 permission = {{ section.permission }}
