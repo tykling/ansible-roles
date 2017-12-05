@@ -1,8 +1,6 @@
 [server]
 daemon = False
 
-[encoding]
-
 [auth]
 type = http_x_remote_user
 
@@ -13,6 +11,5 @@ file = /usr/local/etc/radicale/rights
 filesystem_folder = {{ radicale_datadir }}
 
 [logging]
-
-[headers]
+config = /usr/local/etc/radicale/logging
 
