@@ -218,3 +218,9 @@
   roles:
     - "elk_server"
 
+- name: "configure iperf servers"
+  hosts: "iperf_servers"
+  become: yes
+  roles:
+    - "iperf_server"
+
