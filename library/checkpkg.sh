@@ -6,7 +6,7 @@ check_inventory() {
         for host in $(grep -Ev "(\\[|^#|^$)" "$1" | sort | uniq); do
                 # get the pkg audit output, run with -F to ensure we have a fresh vuln xml
                 cmd="ansible \"$host\" -m shell -b -a \"/usr/sbin/pkg audit -F\" -i \"$1\""
-                if ! output=$(cmd); then
+                if ! output=$($cmd); then
                         # vulns found, or ansible could not connect, send email regardless
                         echo "$output" | mail -s "$(basename "$1") - $host: Vulnerable packages found!" "$2"
                 fi
