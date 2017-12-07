@@ -34,7 +34,7 @@ user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
 startsecs={{ program.startsecs | default(5) }}
-numprocs={{ program.numprocs | default(1) }}
+{% if program.numprocs is defined and program.numprocs > 1 %}numprocs={{ program.numprocs | default(1) }}{% endif %}
 
 {% endfor %}
 {% endmacro %}
