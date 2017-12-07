@@ -1,5 +1,14 @@
 ---
+supervisord_fcgi_programs:
+  - comment: "rt fcgi server"
+    name: "rt"
+    command: "/usr/local/sbin/rt-server.fcgi"
+    socket: "tcp://localhost:9000"
+    user: "www"
+    numprocs: "10"
+
 rt_postgres_server: "{{ postgres_host }}"
+
 nginx_locationslash: |
   location / {
     include        fastcgi_params;
