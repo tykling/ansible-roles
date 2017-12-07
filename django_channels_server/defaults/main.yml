@@ -15,6 +15,7 @@ django_python_path: "/usr/local/bin/python3.5"
 wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 
 django_timezone: 'Europe/Copenhagen'
+django_admin_prefix: "admin"
 
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
