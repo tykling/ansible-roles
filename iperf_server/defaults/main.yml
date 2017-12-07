@@ -2,7 +2,7 @@
 supervisord_programs:
   - comment: "run iperf3 server"
     name: "iperf3"
-    command: "/usr/local/sbin/iperf3 -s"
+    command: "/usr/local/bin/iperf3 -s"
     user: "nobody"
     numprocs: "1"
 
