@@ -4,5 +4,4 @@ supervisord_programs:
     name: "iperf3"
     command: "/usr/local/bin/iperf3 -s"
     user: "nobody"
-    numprocs: "1"
 
