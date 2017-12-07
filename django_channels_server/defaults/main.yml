@@ -20,6 +20,7 @@ django_admin_prefix: "admin"
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
+django_asgi_worker_count: "20"
 
 django_os_dependencies:
   - "databases/postgresql96-client"
@@ -42,7 +43,7 @@ supervisord_programs:
   - name: "runworker"
     comment: "run asgi workers"
     command: "{{ django_virtualenv_path }}/bin/python -u {{ django_root }}/manage.py runworker"
-    numprocs: "20"
+    numprocs: "{{ django_asgi_worker_count }}"
     user: "www"
     priority: "3"
 
