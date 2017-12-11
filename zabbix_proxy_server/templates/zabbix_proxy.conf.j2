@@ -1,0 +1,36 @@
+# proxy settings
+ProxyMode=0
+ProxyOfflineBuffer=3
+ConfigFrequency=900
+
+# network settings
+Server=185.96.180.166
+ServerPort=10051
+Hostname=zabbixproxy1
+
+# database settings
+DBHost={{ zabbix_proxy_db_host }}
+DBName={{ zabbix_proxy_db_name }}
+DBUser={{ zabbix_proxy_db_user }}
+DBPassword={{ zabbix_proxy_db_pass }}
+DBPort={{ zabbix_proxy_db_port }}
+
+# cache size
+CacheSize=64M
+
+# number of processes
+StartPollers=32
+StartPollersUnreachable=16
+StartPingers=32
+
+# timeouts
+Timeout=5
+UnreachablePeriod=60
+UnavailableDelay=300
+UnreachableDelay=10
+
+# paths
+FpingLocation=/usr/local/sbin/fping
+Fping6Location=/usr/local/sbin/fping6
+LogSlowQueries=3000
+

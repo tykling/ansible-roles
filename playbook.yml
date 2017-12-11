@@ -170,6 +170,12 @@
   roles:
     - "zabbix_frontend_server"
 
+- name: "configure zabbix proxy servers"
+  hosts: "zabbix_proxy_servers"
+  become: yes
+  roles:
+    - "zabbix_proxy_server"
+
 - name: "configure tykdnscheck servers"
   hosts: "tykdnscheck_servers"
   become: yes

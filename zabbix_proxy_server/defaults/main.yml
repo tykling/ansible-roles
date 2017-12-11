@@ -1,0 +1,6 @@
+---
+zabbix_proxy_db_host: "{{ postgres_host }}"
+zabbix_proxy_db_name: "zabbixproxydb"
+zabbix_proxy_db_user: "zabbixproxy"
+zabbix_proxy_db_port: "5432"
+

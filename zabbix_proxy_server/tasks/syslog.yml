@@ -1,0 +1,26 @@
+---
+- name: "add syslog.d config for zabbix_server"
+  copy:
+    src: "zabbix_proxy_syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/zabbix_proxy.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure /var/log/zabbix_proxy.log exists"
+  copy:
+    dest: "/var/log/zabbix_proxy.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+
+- name: "Make sure zabbix proxy newsyslog config file exists"
+  template:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "zabbix_proxy_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/zabbix_proxy"
+

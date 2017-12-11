@@ -4,3 +4,8 @@
     name: "zabbix_server"
     state: "restarted"
 
+- name: "restart zabbix proxy"
+  service:
+    name: "zabbix_proxy"
+    state: "restarted"
+

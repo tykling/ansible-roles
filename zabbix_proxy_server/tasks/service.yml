@@ -1,0 +1,7 @@
+---
+- name: "Enable zabbix proxy"
+  service:
+    name: "zabbix_proxy"
+    enabled: yes
+  notify: "restart zabbix proxy"
+
