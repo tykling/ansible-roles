@@ -34,3 +34,8 @@
   command: "/sbin/zfs create -o mountpoint=none {{ ezjail_jailstorage_dataset }}"
   when: ezjail_jailstorage_result.rc == 1
 
+- name: "Patch ezjail to automount zfs datasets after zfs jailing them"
+  patch:
+    src: "../files/ezjail.zfsautomount.patch"
+    dest: "/usr/local/etc/rc.d/ezjail"
+

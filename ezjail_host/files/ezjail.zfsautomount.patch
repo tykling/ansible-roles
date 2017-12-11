@@ -1,0 +1,12 @@
+--- /usr/local/etc/rc.d/ezjail  2017-12-10 02:04:48.000000000 +0000
++++ ezjail      2017-12-11 21:38:40.878429000 +0000
+@@ -119,6 +119,9 @@
+         /sbin/zfs jail ${ezjail_id} ${zfs} || echo -n "Error: ${zfs} could not be configured"
+       done
+
++      # Mount any datasets that have become available in the jail /tyk
++      /usr/sbin/jexec ${ezjail_id} /sbin/zfs mount -a
++
+       # Configure processor sets for the jail via cpuset(1)
+       [ -z "${ezjail_cpuset}" ] || /usr/bin/cpuset -l ${ezjail_cpuset} -j ${ezjail_id} || echo -n "Error: The defined cpuset is malformed"
+
