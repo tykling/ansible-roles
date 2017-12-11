@@ -6,11 +6,9 @@
     mode: "755"
     src: "prime_nginx_ocsp.sh"
     dest: "/usr/local/bin/prime_nginx_ocsp.sh"
-  when: nginx_proxy
 
 - name: "Run nginx ocsp priming script"
   command: "/usr/local/bin/prime_nginx_ocsp.sh"
-  when: nginx_proxy
 
 - name: "Make sure hourly cronjob for nginx ocsp priming is in place"
   cron:
@@ -19,5 +17,4 @@
     job: "/usr/local/bin/prime_nginx_ocsp.sh"
     cron_file: "/etc/crontab"
     user: "nobody"
-  when: nginx_proxy
 
