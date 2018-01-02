@@ -102,7 +102,7 @@ pass out on {{ rfc1918_vnet_bridge }} to {{ rfc1918_vnet_bridge }}:network no st
 
 ### individual vnet jail rules
 {% for jail in pf_vnet_jail_rules | default([]) %}
-# {{ jail.name }} vnet jail
+# {{ jail.jailname }} vnet jail
 pass in quick on {{ jail.epair }}a from {{ jail.iptable }} no state
 pass out quick on {{ jail.epair }}a to {{ jail.iptable }} no state
 {% for rule in jail.rules %}
