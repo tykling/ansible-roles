@@ -106,8 +106,8 @@ pass out on {{ rfc1918_vnet_bridge }} to {{ rfc1918_vnet_bridge }}:network no st
 pass in quick on {{ jail.epair }}a from {{ jail.iptable }} no state
 pass out quick on {{ jail.epair }}a to {{ jail.iptable }} no state
 {% for rule in jail.rules %}
-# {{ rule.comment }}
-{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
+{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %} # {{ rule.comment }}
+
 {% endfor %}
 
 {% endfor %}
