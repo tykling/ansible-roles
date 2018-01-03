@@ -19,6 +19,7 @@ svc_if="lo3"
 {% endif %}
 
 jail_nat_ip="{{ pf_jail_nat_ip }}"
+jail_nat_range="{{ pf_jail_nat_range }}"
 main_v4_ip="{{ pf_main_v4_ip }}"
 main_v6_ip="{{ pf_main_v6_ip }}"
 
@@ -38,7 +39,10 @@ scrub in on $if all fragment reassemble
 
 ####################################################################################################
 ############### translation NAT ########################
+# regular jail NAT
 nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
+# vnet jail NAT
+nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 
 
 ############### translation RDR ########################
@@ -94,6 +98,9 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 ### common vnet jail rules
 # icmp6
 pass quick on { {% for jail in pf_vnet_jail_rules | default([]) %}{{ jail.epair }} {% endfor %} } inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+
+# regular bridge
+pass quick on {{ vnet_bridge }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
 # rfc1918 bridge
 pass in quick on {{ rfc1918_vnet_bridge }} inet proto icmp from {{ rfc1918_vnet_bridge }}:network to ({{ rfc1918_vnet_bridge }}) icmp-type { unreach, echoreq, timex }
