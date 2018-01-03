@@ -97,7 +97,7 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 ####################################################################################################
 ### common vnet jail rules
 # icmp6
-pass quick on { {% for jail in pf_vnet_jail_rules | default([]) %}{{ jail.epair }} {% endfor %} } inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+pass quick on { {% for jail in pf_vnet_jail_rules | default([]) %}{{ jail.epair }}a {% endfor %}} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
 # regular bridge
 pass quick on {{ vnet_bridge }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
