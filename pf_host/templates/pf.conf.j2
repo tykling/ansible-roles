@@ -12,8 +12,12 @@ set block-policy drop
 ####################################################################################################
 ################ macros ################################
 if="{{ ansible_default_ipv4.device }}"
+{% if hostvars[ansible_host]['ansible_lo1'] is defined %}
 nat_if="lo1"
+{% endif %}
+{% hostvars[ansible_host]['ansible_lo2'] is defined %}
 jail_if="lo2"
+{% endif %}
 {% if anycast_serviceinterface %}
 svc_if="lo3"
 {% endif %}
@@ -69,13 +73,17 @@ pass in quick on { $if $jail_if } inet6 proto icmp6 all icmp6-type { echoreq, ec
 ### pass incoming ssh to host and jails
 pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port 22
 
+{% if hostvars[ansible_host]['ansible_lo1'] is defined %}
 ### pass v4 traffic from jail to itself on $nat_if
 {% for v4ip in hostvars[ansible_host]['ansible_lo1']['ipv4'] %}pass quick on $nat_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
+{% endif %}
 
+{% if hostvars[ansible_host]['ansible_lo2'] is defined %}
 # pass v4 traffic from jails to themselves on $jail_if
 {% for v4ip in hostvars[ansible_host]['ansible_lo2']['ipv4'] %}pass quick on $jail_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
+{% endif %}
 
 # pass v4 traffic from jails to themselves on $if
 {% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on $if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
@@ -96,13 +104,13 @@ pass in quick on { $if $jail_if $nat_if } proto { {% for proto in rule.protocols
 {% if pf_vnet_jail_rules is defined %}
 ####################################################################################################
 ### common vnet jail rules
-# icmp6
+# permit icmp6 for all non-rfc1918 epair interfaces
 pass quick on { {% for jail in pf_vnet_jail_rules | default([]) %}{{ jail.epair }}a {% endfor %}} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
-# regular bridge
+# permit icmp6 on the non-rfc1918 bridge
 pass quick on {{ vnet_bridge }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
-# rfc1918 bridge
+# permit icmp6 on the rfc1918 bridge
 pass in quick on {{ rfc1918_vnet_bridge }} inet proto icmp from {{ rfc1918_vnet_bridge }}:network to ({{ rfc1918_vnet_bridge }}) icmp-type { unreach, echoreq, timex }
 pass in on {{ rfc1918_vnet_bridge }} from {{ rfc1918_vnet_bridge }}:network no state
 pass out on {{ rfc1918_vnet_bridge }} to {{ rfc1918_vnet_bridge }}:network no state
