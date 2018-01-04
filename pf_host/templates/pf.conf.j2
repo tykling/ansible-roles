@@ -15,7 +15,7 @@ if="{{ ansible_default_ipv4.device }}"
 {% if hostvars[ansible_host]['ansible_lo1'] is defined %}
 nat_if="lo1"
 {% endif %}
-{% hostvars[ansible_host]['ansible_lo2'] is defined %}
+{% if hostvars[ansible_host]['ansible_lo2'] is defined %}
 jail_if="lo2"
 {% endif %}
 {% if anycast_serviceinterface %}
