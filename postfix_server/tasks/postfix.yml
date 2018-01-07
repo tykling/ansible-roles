@@ -56,6 +56,13 @@
     mode: "600"
   notify: "reload postfix"
 
+- name: "Copy postfix virtual_mailbox_domains.sql"
+  template:
+    src: "virtual_mailbox_domains.sql.j2"
+    dest: "/usr/local/etc/postfix/virtual_mailbox_domains.sql"
+    mode: "600"
+  notify: "reload postfix"
+
 - name: "Run postalias"
   shell: "/usr/local/sbin/postalias /etc/aliases"
 
