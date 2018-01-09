@@ -37,6 +37,7 @@
     name: "daily_pgsql_vacuum_enable"
     value: "YES"
     dest: "/etc/periodic.conf"
+  when: daily_pgsql_vacuum_enable
 
 - name: "Enable daily postgres backup in /etc/periodic.conf"
   sysrc:

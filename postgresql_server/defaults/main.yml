@@ -22,3 +22,5 @@ certgrinder_post_renew_hooks:
   - "/bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
   - "/usr/sbin/service postgresql reload"
 
+daily_pgsql_vacuum_enable: True
+
