@@ -3,7 +3,7 @@ pf_conf_path: "/etc/pf.conf"
 pf_main_v4_ip: "{{ ansible_default_ipv4.address }}"
 pf_main_v6_ip: "{{ ansible_default_ipv6.address }}" # https://github.com/ansible/ansible/issues/16977
 pf_jail_nat_ip: "{{ pf_main_v4_ip }}"
-pf_jail_vm_host: yes
+pf_jail_vm_host: no
 pf_gateway: no
-anycast_serviceinterface: no
+pf_anycast_host: no
 
