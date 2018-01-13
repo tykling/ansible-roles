@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: openbgpd_host }
+  - { role: openbgpd_server }
 
