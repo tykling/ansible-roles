@@ -37,7 +37,7 @@ options {
                         127.0.0.1;
                         ::1;
                         {% for client in bind_dampening_exempt_clients %}{{ client.ip }}; // {{ client.comment }}
-                        {% endfor %}
+{% endfor %}
                 };
                 score-qtype-any 2000;
                 score-duplicates 1000;
