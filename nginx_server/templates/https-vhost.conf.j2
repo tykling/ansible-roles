@@ -1,6 +1,10 @@
 server {
+    {% if item.value.listen_on_all_ips | default(False) %}
+    listen                  [::]:443 ssl http2 ipv6only=off{% if item.value.default_vhost | default(False) %} default{% endif %};
+    {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:443 ssl http2{% if item.value.default_vhost | default(False) %} default{% endif %};
     listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2 default;
+    {% endif %}
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
     ssl                     on;
@@ -16,7 +20,9 @@ server {
 {% if 'csp' in item.value %}
     more_set_headers        "Content-Security-Policy: {{ item.value.csp }}";
 {% endif %}
+{% if item.value.reverse_proxy | default(True) %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
+{% endif %}
 
     location = /__nginx_ocsp_priming/ {
         return 200 'OK';
