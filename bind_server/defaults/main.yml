@@ -1,3 +1,9 @@
 ---
 bind_dampening: no
 
+supervisord_programs:
+  - name: "bind"
+    comment: "run bind"
+    command: "/usr/local/sbin/named -g -u bind -c /usr/local/etc/namedb/named.conf"
+    user: "0"
+

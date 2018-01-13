@@ -3,4 +3,5 @@ dependencies:
   - { role: handlers }
   - { role: openbgpd_server }
   - { role: bind_server, bind_dampening: yes }
+  - { role: supervisord_server }
 

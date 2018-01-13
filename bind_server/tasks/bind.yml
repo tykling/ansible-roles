@@ -11,13 +11,3 @@
     mode: "0644"
   notify: "reload bind"
 
-- name: "Enable bind"
-  sysrc:
-    name: "named_enable"
-    value: "YES"
-
-- name: "Start bind"
-  service:
-    name: "named"
-    state: "started"
-
