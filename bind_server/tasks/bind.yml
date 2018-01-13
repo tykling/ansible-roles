@@ -1,0 +1,23 @@
+---
+- name: "Install bind 9.10"
+  pkgng:
+    name: "bind910"
+    state: "present"
+
+- name: "Install bind config file"
+  template:
+    src: "named.conf.j2"
+    dest: "/usr/local/etc/namedb/named.conf"
+    mode: "0644"
+  notify: "reload bind"
+
+- name: "Enable bind"
+  sysrc:
+    name: "named_enable"
+    value: "YES"
+
+- name: "Start bind"
+  service:
+    name: "named"
+    state: "started"
+
