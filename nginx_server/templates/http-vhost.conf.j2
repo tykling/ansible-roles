@@ -18,7 +18,9 @@ server {
         return              301 https://$host$request_uri;
     }
 {% else %}
+{% if item.value.reverse_proxy | default(True) %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
+{% endif %}
 {{ item.value.locationslash | indent( width=4, indentfirst=True) }}
 {% endif %}
 }
