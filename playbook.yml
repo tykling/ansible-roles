@@ -230,9 +230,9 @@
   roles:
     - "iperf_server"
 
-- name: "configure named servers"
-  hosts: "named_servers"
+- name: "configure bind servers"
+  hosts: "bind_servers"
   become: yes
   roles:
-    - "named_server"
+    - "bind_server"
 
