@@ -29,6 +29,12 @@
   roles:
     - "chyves_host"
 
+- name: "censurfridns anycast servers"
+  hosts: "cfd_anycast_servers"
+  become: yes
+  roles:
+    - "cfd_anycast_server"
+
 ##############################################################################
 ### application roles below here
 
