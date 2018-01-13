@@ -17,12 +17,6 @@
   roles:
     - "ezjail_host"
 
-- name: "configure censurfridns anycast jail hosts"
-  hosts: "anycast_jail_hosts"
-  become: yes
-  roles:
-    - "anycast_jail_host"
-
 - name: "configure chyves bhyve hosts"
   hosts: "chyves_hosts"
   become: yes
