@@ -1,6 +1,4 @@
 ---
-- name: "reload bind"
-  service:
-    name: "named"
-    state: "reloaded"
+- name: "restart bind"
+  command: "/usr/local/bin/supervisorctl restart bind"
 

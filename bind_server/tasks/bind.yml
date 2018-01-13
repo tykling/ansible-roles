@@ -9,5 +9,6 @@
     src: "named.conf.j2"
     dest: "/usr/local/etc/namedb/named.conf"
     mode: "0644"
-  notify: "reload bind"
+    validate: "/usr/local/sbin/named-checkconf %s"
+  notify: "restart bind"
 
