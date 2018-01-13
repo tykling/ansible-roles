@@ -1,0 +1,20 @@
+{% for macro in openbpgd_macros %}
+{{ macro.name }}="{{ macro.value }}"
+{% endfor %}
+
+{% for listen in openbpgd_listen_ips %}
+listen on {{ listen }}
+{% endfor %}
+
+AS {{ openbgpd_local_as }}
+router-id {{ openbpgd_router_id }}
+fib-update no
+
+{% for network in openbpgd_networks %}
+network {{ network.cidr }}
+neighbor {{ network.neighbour_name }} {
+        descr "{{ network.neighbour_description }}"
+        remote-as {{ network.neighbour_remote_as }}
+}
+{% endfor %}
+

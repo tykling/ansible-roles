@@ -1,0 +1,16 @@
+---
+- name: "Install openbgpd"
+  pkgng:
+    name: "openbgpd"
+    state: "present"
+
+- name: "Enable openbgpd"
+  service:
+    name: "openbgpd"
+    enabled: yes
+
+- name: "Copy openbgpd config"
+  template:
+    src: "openbgpd.conf.j2"
+    dest: "/usr/local/etc/bgpd.conf"
+
