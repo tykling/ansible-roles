@@ -13,4 +13,5 @@
   template:
     src: "openbgpd.conf.j2"
     dest: "/usr/local/etc/bgpd.conf"
+    mode: "0600"
 
