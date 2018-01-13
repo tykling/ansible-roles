@@ -1,6 +1,10 @@
 server {
+    {% if item.value.listen_on_all_ips | default(False) %}
+    listen                  [::]:80 ipv6only=off{% if item.value.default_vhost | default(False) %} default{% endif %};
+    {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:80{% if item.value.default_vhost | default(False) %} default{% endif %};
     listen                  [{{ item.value.vhost_v6ip }}]:80 default;
+    {% endif %}
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
 {% if item.value.letsencrypt | default(True) %}
