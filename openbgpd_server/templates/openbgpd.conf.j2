@@ -12,7 +12,7 @@ fib-update no
 
 {% for network in openbgpd_networks %}
 network {{ network.cidr }}
-neighbor {{ network.neighbour_name }} {
+neighbor ${{ network.neighbour_name }} {
         descr "{{ network.neighbour_description }}"
         remote-as {{ network.neighbour_remote_as }}
 }
