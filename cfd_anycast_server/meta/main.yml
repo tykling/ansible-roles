@@ -2,6 +2,7 @@
 dependencies:
   - { role: handlers }
   - { role: openbgpd_server }
+  - { role: nginx_server, nginx_proxy: yes }
   - { role: bind_server, bind_dampening: yes }
   - { role: supervisord_server }
 
