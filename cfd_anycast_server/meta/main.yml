@@ -2,5 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: openbgpd_server }
-  - { role: named_server, named_dampening: yes }
+  - { role: bind_server, bind_dampening: yes }
 
