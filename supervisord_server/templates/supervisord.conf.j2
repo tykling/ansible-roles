@@ -29,7 +29,7 @@ minprocs=200
 command={{ program.command }}
 {% if program.directory is defined %}directory={{ program.directory }}
 {% endif %}
-process_name=%(program_name)s_%(process_num)02d
+{% if program.numprocs is defined and program.numprocs | int > 1 %}process_name=%(program_name)s_%(process_num)02d{% endif %}
 user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
