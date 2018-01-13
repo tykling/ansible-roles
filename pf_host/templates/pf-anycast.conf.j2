@@ -1,0 +1,49 @@
+####################################################################################################
+### THIS pf.conf IS MANAGED BY ANSIBLE, CHANGES WILL BE OVERWRITTEN!
+####################################################################################################
+
+####################################################################################################
+################ options ###############################
+set limit states 500000 # increased from default 10000
+set limit frags 10000 # increased from default 5000
+set block-policy drop
+
+
+####################################################################################################
+################ macros ################################
+ext_if="{{ ansible_default_ipv4.device }}"
+svc_if="lo1"
+
+
+################ common address macros ###############
+{{ pf.common_address_macros | default("# No common macros found") }}
+
+
+################ macros specific to {{ ansible_nodename }} #######################
+{{ pf_local_address_macros | default("# No local macros found") }}
+
+
+####################################################################################################
+############### scrubbing ##############################
+scrub in on $ext_if all fragment reassemble
+
+
+####################################################################################################
+############### filtering ##############################
+### block everything
+block log all
+
+### skip loopback interface(s)
+set skip on lo0
+
+### pass outgoing
+pass out quick on $ext_if all
+pass out quick on $svc_if all
+
+### pass incoming icmp (to all ip addresses)
+pass in quick on { $ext_if $svc_if } inet proto icmp from any to { ($ext_if), ($svc_if) } icmp-type { unreach, echoreq, timex }
+pass in quick on { $ext_if $svc_if } inet6 proto icmp6 from any to { ($ext_if), ($svc_if) } icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+
+### pass incoming ssh
+pass in quick on $ext_if proto tcp from { <allowssh> } to ($ext_if) port 22
+
