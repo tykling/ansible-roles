@@ -1,16 +1,16 @@
-{% for macro in openbpgd_macros %}
+{% for macro in openbgpd_macros %}
 {{ macro.name }}="{{ macro.value }}"
 {% endfor %}
 
-{% for listen in openbpgd_listen_ips %}
+{% for listen in openbgpd_listen_ips %}
 listen on {{ listen }}
 {% endfor %}
 
 AS {{ openbgpd_local_as }}
-router-id {{ openbpgd_router_id }}
+router-id {{ openbgpd_router_id }}
 fib-update no
 
-{% for network in openbpgd_networks %}
+{% for network in openbgpd_networks %}
 network {{ network.cidr }}
 neighbor {{ network.neighbour_name }} {
         descr "{{ network.neighbour_description }}"
