@@ -1,5 +1,5 @@
 compatibility_level=2
-{% if jail_host | default(False) %}
+{% if not jail_host %}
 inet_interfaces=localhost
 {% endif %}
 

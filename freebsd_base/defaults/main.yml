@@ -34,3 +34,5 @@ poudriere_cert: |
   Qg/HuxvrfiddDpv1Cm9L4x0CAwEAAQ==
   -----END PUBLIC KEY-----
 
+jail_host: True
+

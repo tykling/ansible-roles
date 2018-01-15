@@ -16,6 +16,12 @@
     group: "wheel"
   notify: "reload postfix"
 
+- name: "Create a mostly empty Postfix main.cf, the null mailer needs no config"
+  template:
+    src: "postfix_nullmailer_main.cf.j2"
+    dest: "/usr/local/etc/postfix/main.cf"
+  notify: "reload postfix"
+
 - name: "Find age of /etc/aliases file"
   stat:
     path: "/etc/aliases"
@@ -30,12 +36,6 @@
 - name: "Run postalias on /etc/aliases if it is newer than /etc/aliases.db"
   shell: "/usr/local/sbin/postalias /etc/aliases"
   when: not aliasesdb.stat.exists or aliases.stat.mtime > aliasesdb.stat.mtime
-
-- name: "Create a mostly empty Postfix main.cf, the null mailer needs no config"
-  template:
-    src: "postfix_nullmailer_main.cf.j2"
-    dest: "/usr/local/etc/postfix/main.cf"
-  notify: "reload postfix"
 
 - name: "Disable sendmail"
   sysrc:
