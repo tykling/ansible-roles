@@ -127,10 +127,13 @@ pass out quick on {{ jail.epair }}a to {{ jail.iptable }} no state
 ### bhyve rules
 {% if chyves_bridges is defined %}
 {% for bridge in chyves_bridges %}
-{% if 'networkv4' in chyves_bridges[bridge] and 'networkv6' in chyves_bridges[bridge] %}
-# first permit everything on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
+{% if 'networkv4' in chyves_bridges[bridge] %}
+# permit all ipv4 on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
 pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet from any to {{ chyves_bridges[bridge]['networkv4'] }}
 pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet from {{ chyves_bridges[bridge]['networkv4'] }} to any
+{% endif %}
+{% if 'networkv6' in chyves_bridges[bridge] %}
+# permit all ipv6 on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
 pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from any to {{ chyves_bridges[bridge]['networkv6'] }}
 pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from {{ chyves_bridges[bridge]['networkv6'] }} to any
 {% endif %}
