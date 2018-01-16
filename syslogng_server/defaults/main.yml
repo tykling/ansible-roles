@@ -16,5 +16,6 @@ certgrinder_hostname_sets:
 certgrinder_post_renew_hooks:
   - "/usr/sbin/service syslog-ng restart"
 
-elk_syslogng: False
+syslogng_upstream_server: False
+syslogng_upstream_elk: False
 

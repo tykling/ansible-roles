@@ -50,8 +50,9 @@ source src {
 
 ##################### DESTINATIONS ##############################
 
+{% if syslogng_upstream_server or syslogng_upstream_elk %}
 destination remote{
-    {% if syslogng_upstream_server | default(False) %}
+    {% if syslogng_upstream_server %}
     syslog(
         "{{ syslogng_upstream_server }}"
         transport("tls")
@@ -68,6 +69,7 @@ destination remote{
     );
     {% endif %}
 };
+{% endif %}
 
 destination file{
     file("/var/log/syslogng/${HOST}/${YEAR}-${MONTH}-${DAY}/${FACILITY}.log"
