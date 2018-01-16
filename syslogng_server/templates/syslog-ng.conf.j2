@@ -51,7 +51,7 @@ source src {
 ##################### DESTINATIONS ##############################
 
 destination remote{
-    {% if syslogng_upstream_syslog %}
+    {% if syslogng_upstream_server | default(False) %}
     syslog(
         "{{ syslogng_upstream_server }}"
         transport("tls")
