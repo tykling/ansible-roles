@@ -6,4 +6,5 @@ pf_jail_nat_ip: "{{ pf_main_v4_ip }}"
 pf_jail_vm_host: no
 pf_gateway: no
 pf_anycast_host: no
+anycast_serviceinterface: no
 
