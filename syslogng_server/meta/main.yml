@@ -1,6 +1,6 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: nginx_server, when: elk_syslogng }
-  - { role: certgrinder_client, when: elk_syslogng }
+  - { role: nginx_server, when: syslogng_tls_listener }
+  - { role: certgrinder_client, when: syslogng_tls_listener }
 

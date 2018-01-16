@@ -19,7 +19,7 @@ options {
 ##################### SOURCES ##############################
 
 source src {
-    {% if syslogng_tls_listener | default(True) %}
+    {% if syslogng_tls_listener %}
     syslog(
         ip("127.0.0.1")
         port("1999")
