@@ -18,4 +18,5 @@ certgrinder_post_renew_hooks:
 
 syslogng_upstream_server: False
 syslogng_upstream_elk: False
+elk_syslogng: False
 
