@@ -42,11 +42,17 @@ source src {
         )
     );
 {% endif %}
-    udp(
-        ip("127.0.0.1")
+    network(
+        "127.0.0.1"
+        port(514)
+        transport(udp)
+        ip-protocol(4)
     );
-    udp6(
-        ip("::1")
+    network(
+        "::1"
+        port(514)
+        transport(udp)
+        ip-protocol(6)
     );
 };
 
@@ -70,9 +76,10 @@ destination remote{
     );
 {% endif %}
 {% if syslogng_upstream_elk %}
-    tcp(
+    network(
         "127.0.0.1"
         port(5000)
+        transport(udp)
         log-fifo-size(100000)
     );
 {% endif %}
