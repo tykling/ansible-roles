@@ -18,6 +18,8 @@ options {
 
 ##################### SOURCES ##############################
 
+source syslogng { internal(); };
+
 source src {
 {% if syslogng_tls_listener %}
     syslog(
@@ -50,7 +52,13 @@ source src {
 
 ##################### DESTINATIONS ##############################
 
+# the local system syslog servers socket
+destination localsyslog {
+    unix-stream("/var/run/log");
+};
+
 {% if syslogng_upstream_server or syslogng_upstream_elk %}
+# network destination(s)
 destination remote{
 {% if syslogng_upstream_server %}
     syslog(
@@ -72,6 +80,7 @@ destination remote{
 {% endif %}
 
 {% if syslogng_plaintext_archive %}
+# local file destination
 destination file{
     file("/var/log/syslogng/${HOST}/${YEAR}-${MONTH}-${DAY}/${FACILITY}.log"
     template("${YEAR}-${MONTH}-${DAY} ${HOUR}:${MIN}:${SEC} ${TZ} ${HOST} [${FACILITY}.${LEVEL}] ${MESSAGE}\n")
@@ -81,8 +90,15 @@ destination file{
 
 ##################### LOGGING ##############################
 
-log { source(src); source(internal); destination(remote); flags(flow-control); };
+# send just the internal syslog-ng messages to the local system syslog
+log { source(syslogng); destination(localsyslog); };
+
+{% if syslogng_upstream_server or syslogng_upstream_elk %}
+# send to the network destination(s)
+log { source(src); source(syslogng); destination(remote); flags(flow-control); };
+{% endif %}
 {% if syslogng_plaintext_archive %}
-log { source(src); source(internal); destination(file); flags(flow-control); };
+# log to file destination
+log { source(src); source(syslogng); destination(file); flags(flow-control); };
 {% endif %}
 
