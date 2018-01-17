@@ -89,9 +89,12 @@ destination remote{
 {% if syslogng_plaintext_archive %}
 # local file destination
 destination file{
-    file("/var/log/syslogng/${HOST}/${YEAR}-${MONTH}-${DAY}/${FACILITY}.log"
-    template("${YEAR}-${MONTH}-${DAY} ${HOUR}:${MIN}:${SEC} ${TZ} ${HOST} [${FACILITY}.${LEVEL}] ${MESSAGE}\n")
-    template-escape(no));
+    file(
+        "/var/log/syslogng/${HOST}/${YEAR}-${MONTH}-${DAY}/${FACILITY}.log"
+        template("${YEAR}-${MONTH}-${DAY} ${HOUR}:${MIN}:${SEC} ${TZ} ${HOST} [${FACILITY}.${LEVEL}] ${MESSAGE}\n")
+        template-escape(no)
+        create-dirs(yes)
+    );
 };
 {% endif %}
 
