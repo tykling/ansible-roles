@@ -43,13 +43,13 @@ source src {
     );
 {% endif %}
     network(
-        "127.0.0.1"
+        ip("127.0.0.1")
         port(514)
         transport(udp)
         ip-protocol(4)
     );
     network(
-        "::1"
+        ip("::1")
         port(514)
         transport(udp)
         ip-protocol(6)
