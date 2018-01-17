@@ -20,4 +20,5 @@ syslogng_upstream_server: False
 syslogng_upstream_elk: False
 elk_syslogng: False
 syslogng_tls_listener: True
+syslogng_plaintext_archive: True
 
