@@ -1,0 +1,14 @@
+---
+- name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
+  file:
+    path: "/usr/local/etc/newsyslog.conf.d"
+    state: "directory"
+
+- name: "Make sure syslog-ng newsyslog config file exists"
+  template:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "syslog-ng-newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/syslog-ng"
+
