@@ -60,7 +60,7 @@ source src {
 
 # the local system syslog servers socket
 destination localsyslog {
-    unix-stream("/var/run/log");
+    unix-dgram("/var/run/log");
 };
 
 {% if syslogng_upstream_server or syslogng_upstream_elk %}
