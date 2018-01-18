@@ -1,4 +1,6 @@
 ---
-- include_tasks: syslogd.yml
-- include_tasks: syslogng.yml
+- include_tasks: "syslogd.yml"
+- include_tasks: "syslogng.yml"
+- include_tasks: "syslog.yml"
+- include_tasks: "newsyslog.yml"
 
