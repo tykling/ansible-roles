@@ -1,7 +1,7 @@
 ---
 - name: "add syslog.d config for syslog-ng"
   copy:
-    src: "syslog-ng_syslogd.conf"
+    src: "syslog-ng-syslogd.conf"
     dest: "/usr/local/etc/syslog.d/syslog-ng.conf"
   notify:
     - "restart syslogd"

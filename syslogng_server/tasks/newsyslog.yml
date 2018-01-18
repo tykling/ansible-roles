@@ -5,10 +5,10 @@
     state: "directory"
 
 - name: "Make sure syslog-ng newsyslog config file exists"
-  template:
+  copy:
     owner: "root"
     group: "wheel"
     mode: "755"
-    src: "syslog-ng-newsyslog.conf.j2"
+    src: "syslog-ng-newsyslog.conf"
     dest: "/usr/local/etc/newsyslog.conf.d/syslog-ng"
 
