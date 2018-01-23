@@ -28,4 +28,5 @@ zfs_periodic_retention:
 zfs_scrub_interval_days: 30
 
 tykbackup_client: yes
+pf_host: yes
 
