@@ -1,4 +1,10 @@
 ---
+- name: "Include host secrets where applicable"
+  hosts: "all"
+  tasks:
+    - include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      ignore_errors: yes
+
 - name: "configure basic freebsd stuff"
   hosts: "freebsd"
   become: yes
