@@ -4,6 +4,8 @@
   tasks:
     - include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
       ignore_errors: yes
+      tags:
+        - "always"
 
 - name: "configure basic freebsd stuff"
   hosts: "freebsd"

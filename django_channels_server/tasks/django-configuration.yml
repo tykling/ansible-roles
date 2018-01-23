@@ -1,8 +1,4 @@
 ---
-- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-  tags:
-    - always
-
 - name: "Get environment_settings.py.dist file from remote repo"
   fetch:
     src: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py.dist"

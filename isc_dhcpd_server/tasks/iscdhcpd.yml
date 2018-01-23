@@ -1,8 +1,4 @@
 ---
-- name: "Include secrets file if present"
-  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-  ignore_errors: yes
-
 - name: "Install isc dhcpd"
   pkgng:
     name: "isc-dhcp43-server"

@@ -1,8 +1,4 @@
 ---
-- include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-  tags:
-    - always
-
 - name: "Install kea dhcpd"
   pkgng:
     name: "kea"
