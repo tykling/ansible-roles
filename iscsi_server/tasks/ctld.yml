@@ -1,0 +1,16 @@
+---
+- name: "Enable ctld"
+  service:
+    name: "ctld"
+    enabled: yes
+
+- name: "Copy ctld config"
+  template:
+    src: "ctld.conf.j2"
+    dest: "/etc/ctld.conf"
+
+- name: Start murmur (if not running)
+  service:
+    name: murmur
+    state: started
+
