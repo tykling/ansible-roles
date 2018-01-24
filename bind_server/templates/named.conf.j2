@@ -12,6 +12,8 @@ options {
         listen-on       port 5353 { any; };
         listen-on-v6    port 5353 { any; };
 
+        server-id hostname;
+
         query-source address {{ bind_v4_source_ip }};
         query-source-v6 address {{ bind_v6_source_ip }};
 
