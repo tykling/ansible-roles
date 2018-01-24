@@ -1,7 +1,7 @@
 ---
-- name: "Install bind 9.10"
+- name: "Install bind 9.11"
   pkgng:
-    name: "bind910"
+    name: "bind911"
     state: "present"
 
 - name: "Install bind config file"
