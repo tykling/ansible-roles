@@ -30,3 +30,7 @@ server {
 
 {{ item.value.locationslash | indent( width=4, indentfirst=True) }}
 }
+{% if item.value.extraconfig | default(False) %}
+{{ item.value.extraconfig | indent( width=4, indentfirst=True) }}
+{% endif %}
+
