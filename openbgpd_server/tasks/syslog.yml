@@ -13,5 +13,5 @@
     owner: "root"
     group: "wheel"
     mode: "644"
-  notify: "restart syslog"
+  notify: "restart syslogd"
 
