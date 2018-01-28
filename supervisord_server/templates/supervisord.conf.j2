@@ -17,48 +17,7 @@ nodaemon=false
 minfds=1024
 minprocs=200
 
-
-{% if supervisord_programs is defined or supervisord_extra_programs is defined %}
-;-----------------------------------------------------------------------------
-; program: definitions below here
-
-{% macro create_program_definitions(program_list) %}
-{% for program in program_list | default([]) %}
-; {{ program.comment }}
-[program:{{ program.name }}]
-command={{ program.command }}
-{% if program.directory is defined %}directory={{ program.directory }}
-{% endif %}
-{% if program.numprocs is defined and program.numprocs | int > 1 %}process_name=%(program_name)s_%(process_num)02d{% endif %}
-user={{ program.user }}
-stdout_logfile=syslog
-stderr_logfile=syslog
-startsecs={{ program.startsecs | default(5) }}
-{% if program.numprocs is defined and program.numprocs | int > 1 %}numprocs={{ program.numprocs | default(1) }}{% endif %}
-
-{% endfor %}
-{% endmacro %}
-{{ create_program_definitions(supervisord_programs | default([]) ) }}
-{{ create_program_definitions(supervisord_extra_programs | default([])) }}
-
-{% endif %}
-{% if supervisord_fcgi_programs is defined %}
-;-----------------------------------------------------------------------------
-; fcgi-program: definitions below here
-
-{% for program in supervisord_fcgi_programs | default([]) %}
-; {{ program.comment }}
-[fcgi-program:{{ program.name }}]
-command={{ program.command }}
-socket={{ program.socket }}
-process_name=%(program_name)s_%(process_num)02d
-user={{ program.user }}
-stdout_logfile=syslog
-stderr_logfile=syslog
-numprocs={{ program.numprocs }}
-
-{% endfor %}
-{% endif %}
+{% include "supervisord.d.conf.j2" %}
 
 [include]
 /usr/local/etc/supervisord.d/*.conf

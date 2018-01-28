@@ -1,0 +1,8 @@
+---
+- name: "Create supervisord.d config file"
+  template:
+    src: "supervisord.d.conf.j2"
+    dest: "/usr/local/etc/supervisord.d/{{ supervisord_filename }}.conf"
+  notify:
+    - "reread and update supervisord"
+

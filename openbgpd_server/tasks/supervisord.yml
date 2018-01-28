@@ -1,0 +1,14 @@
+---
+- name: "Create supervisord.d config file to run openbgpd"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "openbpgd"
+    supervisord_programs:
+      - name: "openbpgd"
+        comment: "run openbpgd"
+        command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd"
+        user: "0"
+        autostart: yes
+
