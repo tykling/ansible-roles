@@ -19,13 +19,4 @@
     - "start supervisord"
     - "reread and update supervisord"
 
-- name: "Create supervisord.d directory"
-  file:
-    path: "/usr/local/etc/supervisord.d"
-    state: "directory"
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-  notify:
-    - "reread and update supervisord"
 
