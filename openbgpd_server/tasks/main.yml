@@ -2,4 +2,5 @@
 - include_tasks: "openbgpd.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
+- include_tasks: "supervisord.yml"
 

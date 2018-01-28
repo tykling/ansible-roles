@@ -10,5 +10,5 @@
         comment: "run openbpgd"
         command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd"
         user: "0"
-        autostart: yes
+        autostart: no
 
