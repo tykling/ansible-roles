@@ -20,5 +20,5 @@ minprocs=200
 {% include "supervisord.d.conf.j2" %}
 
 [include]
-/usr/local/etc/supervisord.d/*.conf
+files=/usr/local/etc/supervisord.d/*.conf
 
