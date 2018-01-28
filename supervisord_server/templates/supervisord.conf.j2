@@ -16,9 +16,7 @@ pidfile=/var/run/supervisor/supervisord.pid
 nodaemon=false
 minfds=1024
 minprocs=200
-
 {% include "supervisord.d.conf.j2" %}
-
 [include]
 files=/usr/local/etc/supervisord.d/*.conf
 
