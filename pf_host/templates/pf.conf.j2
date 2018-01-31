@@ -137,6 +137,13 @@ pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet from {{ chyves_
 pass in quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from any to {{ chyves_bridges[bridge]['networkv6'] }}
 pass out quick on {{ chyves_bridges[bridge]['interface'] }} inet6 from {{ chyves_bridges[bridge]['networkv6'] }} to any
 {% endif %}
+{% if 'extra_networks' in chyves_bridges[bridge] %}
+# permit all traffic from the extra networks on the interface {{ chyves_bridges[bridge]['interface'] }} ({{ chyves_bridges[bridge]['description'] }}), since we do the filtering on the tap interfaces
+{% for network in chyves_bridges[bridge]['extra_networks'] %}
+pass in quick on {{ chyves_bridges[bridge]['interface'] }} from any to {{ network }}
+pass out quick on {{ chyves_bridges[bridge]['interface'] }} from {{ network }} to any
+{% endfor %}
+{% endif %}
 {% endfor %}
 
 # permit incoming icmp v4 and v6 from the world to vms
