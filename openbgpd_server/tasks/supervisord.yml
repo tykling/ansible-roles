@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "openbpgd"
         comment: "run openbpgd"
-        command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd"
+        command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd -d"
         user: "0"
         autostart: no
 
