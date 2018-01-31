@@ -4,10 +4,10 @@
     name: "supervisord_server"
     tasks_from: "supervisord.d"
   vars:
-    supervisord_filename: "openbpgd"
+    supervisord_filename: "openbgpd"
     supervisord_programs:
-      - name: "openbpgd"
-        comment: "run openbpgd"
+      - name: "openbgpd"
+        comment: "run openbgpd"
         command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd -d"
         user: "0"
         autostart: no
