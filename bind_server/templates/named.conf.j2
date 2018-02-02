@@ -46,6 +46,51 @@ options {
         {% endif %}
 };
 
+logging {
+    channel channel_local0 {
+        syslog local0;
+    };
+    channel channel_local1 {
+        syslog local1;
+    };
+
+    channel channel_local2 {
+        syslog local2;
+    };
+
+    channel channel_local3 {
+        syslog local3;
+    };
+
+    category default { channel_local0; };
+    category client { null; };
+    category cname { null; };
+    category config { null; };
+    category database { null; };
+    category dampening { channel_local3; };
+    category delegation-only { null; };
+    category dispatch { null; };
+    category dnssec { null; };
+    category dnstap { null; };
+    category edns-disabled { null; };
+    category general { channel_local1; };
+    category lame-servers { null; };
+    category network { null; };
+    category notify { null; };
+    category query-errors { null; };
+    category queries { null; };
+    category rate-limit { null; };
+    category resolver { null; };
+    category rpz { null; };
+    category security { channel_local2; };
+    category spill { null; };
+    category unmatched { null; };
+    category update { null; };
+    category update-security { null; };
+    category xfer-in { null; };
+    category xfer-out { null; };
+};
+
 // slave root zones from icanns axfr servers
 zone "." {
         type slave;

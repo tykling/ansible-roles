@@ -3,15 +3,19 @@
 
 - local0:
   - kea_server
+  - bind
 
 - local1:
   - rt_server
+  - bind
 
 - local2:
+  - bind
 
 - local3:
   - dovecot_server
   - php_fpm_server
+  - bind
 
 - local4:
   - nfsen_server
