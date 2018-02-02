@@ -1,3 +1,5 @@
 ---
 - include_tasks: "bind.yml"
+- include_tasks: "syslog.yml"
+- include_tasks: "newsyslog.yml"
 
