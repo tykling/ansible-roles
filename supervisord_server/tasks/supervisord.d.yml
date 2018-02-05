@@ -7,12 +7,14 @@
     group: "wheel"
     mode: "0755"
   notify:
-    - "reread and update supervisord"
+    - "reread supervisord config"
+    - "update supervisord config"
 
 - name: "Create supervisord.d config file"
   template:
     src: "supervisord.d.conf.j2"
     dest: "/usr/local/etc/supervisord.d/{{ supervisord_filename }}.conf"
   notify:
-    - "reread and update supervisord"
+    - "reread supervisord config"
+    - "update supervisord config"
 

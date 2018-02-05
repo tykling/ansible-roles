@@ -4,6 +4,9 @@
     name: "supervisord"
     state: "started"
 
-- name: "reread and update supervisord"
-  command: "/usr/local/bin/supervisorctl reread; /usr/local/bin/supervisorctl update"
+- name: "reread supervisord config"
+  command: "/usr/local/bin/supervisorctl reread"
+
+- name: "update supervisord config"
+  command: "/usr/local/bin/supervisorctl update"
 

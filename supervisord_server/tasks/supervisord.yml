@@ -17,6 +17,6 @@
     dest: "/usr/local/etc/supervisord.conf"
   notify:
     - "start supervisord"
-    - "reread and update supervisord"
-
+    - "reread supervisord config"
+    - "update supervisord config"
 
