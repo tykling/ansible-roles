@@ -1,0 +1,25 @@
+---
+- name: "Create supervisord.d config file to run bind"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "bind"
+    supervisord_programs:
+      - name: "bind"
+        comment: "run bind"
+        command: "/usr/local/sbin/named -f -u bind -c /usr/local/etc/namedb/named.conf"
+        user: "0"
+
+- name: "Create supervisord.d config file to run bind_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "bind_exporter"
+    supervisord_programs:
+      - name: "bind_exporter"
+        comment: "run prometheus bind_exporter"
+        command: "/usr/local/bin/bind_exporter"
+        user: "0"
+
