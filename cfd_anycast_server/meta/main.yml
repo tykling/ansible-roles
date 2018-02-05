@@ -5,4 +5,5 @@ dependencies:
   - { role: nginx_server, nginx_proxy: yes }
   - { role: bind_server, bind_dampening: yes }
   - { role: supervisord_server }
+  - { role: node_exporter_server }
 

@@ -1,0 +1,16 @@
+---
+- name: "Install node_exporter"
+  pkgng:
+    name: "node_exporter"
+    state: "present"
+
+- name: "Enable node_exporter"
+  service:
+    name: "node_exporter"
+    state: "enabled"
+
+- name: "Start node_exporter"
+  service:
+    name: "node_exporter"
+    state: "started"
+
