@@ -56,6 +56,52 @@ statistics-channels {
 view "unicast" {
     match-destinations { {{ bind_v4_source_ip }}; {{ bind_v6_source_ip }};  };
     attach-cache "public";
+    // slave root zones from icanns axfr servers
+    zone "." {
+        type slave;
+        file "/usr/local/etc/namedb/slave/unicast-root.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/unicast-arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "in-addr.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/unicast-in-addr.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "ip6.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/unicast-ip6.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    // include empty zones
     include "../named-zones.conf";
 };
 
@@ -63,6 +109,52 @@ view "unicast" {
 view "anycast" {
     match-destinations { {{ bind_v4_anycast_ip }}; {{ bind_v6_anycast_ip }};  };
     attach-cache "public";
+    // slave root zones from icanns axfr servers
+    zone "." {
+        type slave;
+        file "/usr/local/etc/namedb/slave/anycast-root.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/anycast-arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "in-addr.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/anycast-in-addr.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "ip6.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/anycast-ip6.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    // include empty zones
     include "../named-zones.conf";
 };
 {% endif %}
@@ -70,6 +162,52 @@ view "anycast" {
 view "localhost" {
     match-destinations { 127.0.0.1; ::1; };
     attach-cache "public";
+    // slave root zones from icanns axfr servers
+    zone "." {
+        type slave;
+        file "/usr/local/etc/namedb/slave/localhost-root.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/localhost-arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "in-addr.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/localhost-in-addr.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    zone "ip6.arpa" {
+        type slave;
+        file "/usr/local/etc/namedb/slave/localhost-ip6.arpa.slave";
+        masters {
+            192.0.32.132;           // lax.xfr.dns.icann.org
+            2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
+            192.0.47.132;           // iad.xfr.dns.icann.org
+            2620:0:2830:202::132;   // iad.xfr.dns.icann.org
+        };
+        notify no;
+    };
+    // include empty zones
     include "../named-zones.conf";
 };
 
