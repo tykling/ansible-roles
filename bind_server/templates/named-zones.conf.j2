@@ -1,7 +1,6 @@
 // slave root zones from icanns axfr servers
 zone "." {
         type slave;
-        file "/usr/local/etc/namedb/slave/root.slave";
         masters {
                 192.0.32.132;           // lax.xfr.dns.icann.org
                 2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -12,7 +11,6 @@ zone "." {
 };
 zone "arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/arpa.slave";
         masters {
                 192.0.32.132;           // lax.xfr.dns.icann.org
                 2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -23,7 +21,6 @@ zone "arpa" {
 };
 zone "in-addr.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/in-addr.arpa.slave";
         masters {
                 192.0.32.132;           // lax.xfr.dns.icann.org
                 2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -34,7 +31,6 @@ zone "in-addr.arpa" {
 };
 zone "ip6.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/ip6.arpa.slave";
         masters {
                 192.0.32.132;           // lax.xfr.dns.icann.org
                 2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
