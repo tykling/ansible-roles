@@ -12,3 +12,11 @@
     #validate: "/usr/local/sbin/named-checkconf %s"
   notify: "restart bind"
 
+- name: "Install bind zones file"
+  template:
+    src: "named-zones.conf.j2"
+    dest: "/usr/local/etc/namedb/named-zones.conf"
+    mode: "0644"
+    #validate: "/usr/local/sbin/named-checkconf %s"
+  notify: "restart bind"
+
