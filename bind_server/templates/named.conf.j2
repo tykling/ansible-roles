@@ -54,14 +54,14 @@ statistics-channels {
 };
 
 view "unicast" {
-    match-destinations { {{ bind_v4_source_ip }}, {{ bind_v6_source_ip }};  };
+    match-destinations { {{ bind_v4_source_ip }}; {{ bind_v6_source_ip }};  };
     attach-cache "public";
     include "named-zones.conf";
 };
 
 {% if bind_anycast %}
 view "anycast" {
-    match-destinations { {{ bind_v4_anycast_ip }}, {{ bind_v6_anycast_ip }};  };
+    match-destinations { {{ bind_v4_anycast_ip }}; {{ bind_v6_anycast_ip }};  };
     attach-cache "public";
     include "named-zones.conf";
 };
