@@ -27,9 +27,12 @@ options {
         allow-query-cache { any; };
 
         recursive-clients 10000;
-        tcp-clients 100;
+        tcp-clients 1000;
+{% if bind_max_cache_size %}
+        max-cache-size {{ bind_max_cache_size }};
+{% endif %}
 
-        {% if bind_dampening %}
+{% if bind_dampening %}
         dampening {
                 IPv4-prefix-length 32;
                 report-interval 60;
@@ -43,11 +46,28 @@ options {
                 score-qtype-any 2000;
                 score-duplicates 1000;
         };
-        {% endif %}
+{% endif %}
 };
 
 statistics-channels {
     inet 127.0.0.1 port 8080 allow { 127.0.0.1; };
+};
+
+view "unicast" {
+    match-destinations { {{ bind_v4_source_ip }}, {{ bind_v6_source_ip }};  };
+    attach-cache "public";
+};
+
+{% if bind_anycast %}
+view "anycast" {
+    match-destinations { {{ bind_v4_anycast_ip }}, {{ bind_v6_anycast_ip }};  };
+    attach-cache "public";
+};
+{% endif %}
+
+view "localhost" {
+    match-destinations { 127.0.0.1; ::1; };
+    attach-cache "public";
 };
 
 logging {

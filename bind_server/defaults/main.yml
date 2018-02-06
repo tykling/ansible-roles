@@ -1,4 +1,5 @@
 ---
-bind_dampening: no
-
+bind_dampening: False
+bind_anycast: False
+bind_max_cache_size: False
 
