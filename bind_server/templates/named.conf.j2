@@ -56,21 +56,21 @@ statistics-channels {
 view "unicast" {
     match-destinations { {{ bind_v4_source_ip }}; {{ bind_v6_source_ip }};  };
     attach-cache "public";
-    include "named-zones.conf";
+    include "../named-zones.conf";
 };
 
 {% if bind_anycast %}
 view "anycast" {
     match-destinations { {{ bind_v4_anycast_ip }}; {{ bind_v6_anycast_ip }};  };
     attach-cache "public";
-    include "named-zones.conf";
+    include "../named-zones.conf";
 };
 {% endif %}
 
 view "localhost" {
     match-destinations { 127.0.0.1; ::1; };
     attach-cache "public";
-    include "named-zones.conf";
+    include "../named-zones.conf";
 };
 
 logging {
