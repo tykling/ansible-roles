@@ -244,3 +244,9 @@
   roles:
     - "bind_server"
 
+- name: "configure prometheus servers"
+  hosts: "prometheus_servers"
+  become: yes
+  roles:
+    - "prometheus_server"
+

@@ -1,0 +1,34 @@
+---
+- name: "Install prometheus"
+  pkgng:
+    name: "prometheus"
+    state: "present"
+
+- name: "Make sure prometheus data directory exists"
+    file:
+      path: "/var/db/prometheus"
+      state: "directory"
+      owner: "prometheus"
+      group: "prometheus"
+      mode: "0755"
+
+- name: "Install Prometheus config"
+    template:
+      source: "prometheus.yml.j2"
+      dest: "/usr/local/etc/prometheus.yml"
+      owner: "root"
+      group: "wheel"
+      mode: "0755"
+
+- name: "Create supervisord.d config file to run prometheus"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "prometheus"
+    supervisord_programs:
+      - name: "prometheus"
+        comment: "run prometheus"
+        command: "/usr/local/bin/prometheus -config.file=/usr/local/etc/prometheus.yml -storage.local.path=/var/db/prometheus -log.format=logger:syslog?appname=prometheus&local=5"
+        user: "prometheus"
+

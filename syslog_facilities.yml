@@ -22,11 +22,12 @@
   - roundcube_server
 
 - local5:
+  - prometheus
 
 - local6:
   - isc_dhcpd_server
   - mediawiki_server
 
 - local7:
-  - nginx:server
+  - nginx_server
 

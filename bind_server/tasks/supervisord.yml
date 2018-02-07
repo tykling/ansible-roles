@@ -20,6 +20,6 @@
     supervisord_programs:
       - name: "bind_exporter"
         comment: "run prometheus bind_exporter"
-        command: "/usr/local/bin/bind_exporter -bind.stats-url http://127.0.0.1:8080 -bind.stats-groups 'server,view,tasks'"
+        command: "/usr/local/bin/bind_exporter -bind.stats-url http://127.0.0.1:8080 -bind.stats-groups 'server,view,tasks' -log.format logger:syslog?appname=prometheusbind&local=5"
         user: "0"
 
