@@ -14,7 +14,7 @@
 
 - name: "Install Prometheus config"
   template:
-    source: "prometheus.yml.j2"
+    src: "prometheus.yml.j2"
     dest: "/usr/local/etc/prometheus.yml"
     owner: "root"
     group: "wheel"
