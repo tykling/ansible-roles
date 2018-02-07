@@ -4,7 +4,7 @@
     src: "prometheus-syslogd.conf"
     dest: "/usr/local/etc/syslog.d/prometheus.conf"
   notify:
-    - "restart prometheus"
+    - "restart syslogd"
 
 - name: "Make sure /var/log/prometheus.log exists"
   copy:

@@ -19,6 +19,8 @@
     owner: "root"
     group: "wheel"
     mode: "0755"
+  notify:
+    - "restart prometheus"
 
 - name: "Create supervisord.d config file to run prometheus"
   include_role:

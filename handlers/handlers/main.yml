@@ -23,4 +23,5 @@
 - import_tasks: "rt.yml"
 - import_tasks: "elk.yml"
 - import_tasks: "bind.yml"
+- import_tasks: "prometheus.yml"
 
