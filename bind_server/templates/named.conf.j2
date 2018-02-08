@@ -59,7 +59,7 @@ view "unicastv4" {
     // slave root zones from icanns axfr servers
     zone "." {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-root.slave";
+        file "/usr/local/etc/namedb/slave/unicastv4-root.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -70,7 +70,7 @@ view "unicastv4" {
     };
     zone "arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv4-arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -81,7 +81,7 @@ view "unicastv4" {
     };
     zone "in-addr.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-in-addr.arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv4-in-addr.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -92,7 +92,7 @@ view "unicastv4" {
     };
     zone "ip6.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-ip6.arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv4-ip6.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -110,7 +110,7 @@ view "unicastv6" {
     // slave root zones from icanns axfr servers
     zone "." {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-root.slave";
+        file "/usr/local/etc/namedb/slave/unicastv6-root.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -121,7 +121,7 @@ view "unicastv6" {
     };
     zone "arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv6-arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -132,7 +132,7 @@ view "unicastv6" {
     };
     zone "in-addr.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-in-addr.arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv6-in-addr.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -143,7 +143,7 @@ view "unicastv6" {
     };
     zone "ip6.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/unicast-ip6.arpa.slave";
+        file "/usr/local/etc/namedb/slave/unicastv6-ip6.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -163,7 +163,7 @@ view "anycastv4" {
     // slave root zones from icanns axfr servers
     zone "." {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-root.slave";
+        file "/usr/local/etc/namedb/slave/anycastv4-root.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -174,7 +174,7 @@ view "anycastv4" {
     };
     zone "arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv4-arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -185,7 +185,7 @@ view "anycastv4" {
     };
     zone "in-addr.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-in-addr.arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv4-in-addr.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -196,7 +196,7 @@ view "anycastv4" {
     };
     zone "ip6.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-ip6.arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv4-ip6.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -214,7 +214,7 @@ view "anycastv6" {
     // slave root zones from icanns axfr servers
     zone "." {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-root.slave";
+        file "/usr/local/etc/namedb/slave/anycastv6-root.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -225,7 +225,7 @@ view "anycastv6" {
     };
     zone "arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv6-arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -236,7 +236,7 @@ view "anycastv6" {
     };
     zone "in-addr.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-in-addr.arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv6-in-addr.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
@@ -247,7 +247,7 @@ view "anycastv6" {
     };
     zone "ip6.arpa" {
         type slave;
-        file "/usr/local/etc/namedb/slave/anycast-ip6.arpa.slave";
+        file "/usr/local/etc/namedb/slave/anycastv6-ip6.arpa.slave";
         masters {
             192.0.32.132;           // lax.xfr.dns.icann.org
             2620:0:2d0:202::132;    // lax.xfr.dns.icann.org
