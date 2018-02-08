@@ -1,5 +1,5 @@
 ---
-- name: "Make sure syslog-ng newsyslog config file exists"
+- name: "Make sure prometheus newsyslog config file exists"
   copy:
     owner: "root"
     group: "wheel"
