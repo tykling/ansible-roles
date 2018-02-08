@@ -10,7 +10,7 @@ packages:
   - "stow"
   - "git"
   - "bash"
-  - "vim-lite"
+  - "vim-console"
   - "postfix"
 
 disable_ssh_password_login: True
