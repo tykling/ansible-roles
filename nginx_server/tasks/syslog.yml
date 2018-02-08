@@ -1,16 +1,11 @@
 ---
-- name: Add local7.none to the /var/log/messages line in /etc/syslog.conf to keep nginx logs out of that file
+- name: "Add local7.none to the /var/log/messages line in /etc/syslog.conf to keep nginx logs out of that file"
   replace:
-    dest: /etc/syslog.conf
+    dest: "/etc/syslog.conf"
     regexp: '^((?!.*?local7\.none).*)\s+/var/log/messages$'
     replace: '\1;local7.none	/var/log/messages'
   notify:
     - "restart syslogd"
-
-- name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
-  file:
-    path: "/usr/local/etc/newsyslog.conf.d"
-    state: "directory"
 
 - name: "Make sure nginx newsyslog config file exists"
   template:

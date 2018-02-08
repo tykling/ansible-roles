@@ -1,9 +1,4 @@
 ---
-- name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
-  file:
-    path: "/usr/local/etc/newsyslog.conf.d"
-    state: "directory"
-
 - name: "Make sure syslog-ng newsyslog config file exists"
   copy:
     owner: "root"
