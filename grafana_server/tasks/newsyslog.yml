@@ -1,0 +1,9 @@
+---
+- name: "Make sure syslog-ng newsyslog config file exists"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "prometheus-newsyslog.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/prometheus"
+

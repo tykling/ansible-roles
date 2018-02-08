@@ -250,3 +250,9 @@
   roles:
     - "prometheus_server"
 
+- name: "configure grafana servers"
+  hosts: "grafana_servers"
+  become: yes
+  roles:
+    - "grafana_server"
+

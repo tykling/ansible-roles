@@ -1,0 +1,28 @@
+---
+- name: "Install grafana4"
+  pkgng:
+    name: "grafana4"
+    state: "present"
+
+#- name: "Install Grafana config"
+#  template:
+#    src: "grafana.conf.j2"
+#    dest: "/usr/local/etc/grafana.conf"
+#    owner: "root"
+#    group: "wheel"
+#    mode: "0755"
+#  notify:
+#    - "restart grafana"
+
+- name: "Create supervisord.d config file to run grafana"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "grafana"
+    supervisord_programs:
+      - name: "grafana"
+        comment: "run grafana"
+        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
+        user: "grafana"
+

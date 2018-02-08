@@ -11,6 +11,7 @@
 
 - local2:
   - bind
+  - grafana
 
 - local3:
   - dovecot_server
