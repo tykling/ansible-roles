@@ -2,4 +2,5 @@
 bind_dampening: False
 bind_anycast: False
 bind_max_cache_size: False
+bind_statsurl: "http://127.0.0.1:8080"
 
