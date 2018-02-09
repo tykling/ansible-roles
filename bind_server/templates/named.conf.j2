@@ -50,7 +50,7 @@ options {
 };
 
 statistics-channels {
-    inet 127.0.0.1 port 8080 allow { 127.0.0.1; };
+    inet {{ bind_stats_ip }} port 8080 allow { {{ bind_stats_ip }}; };
 };
 
 view "unicastv4" {
