@@ -14,7 +14,8 @@ user={{ program.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
 startsecs={{ program.startsecs | default(5) }}
-{% if program.numprocs is defined and program.numprocs | int > 1 %}numprocs={{ program.numprocs | default(1) }}{% endif %}
+{% if program.numprocs is defined and program.numprocs | int > 1 %}numprocs={{ program.numprocs | default(1) }}
+{% endif %}
 autostart={{ program.autostart | default(True) }}
 
 {% endfor %}
