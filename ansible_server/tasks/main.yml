@@ -1,0 +1,6 @@
+---
+- include_tasks: "ansible.yml"
+- include_tasks: "user.yml"
+- include_tasks: "syslog.yml"
+- include_tasks: "newsyslog.yml"
+

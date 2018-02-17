@@ -1,0 +1,14 @@
+---
+- name: "Install ansible"
+  pkgng:
+    name: "ansible"
+    state: "present"
+
+- name: "Install ansible config deploy.sh script"
+  template:
+    src: "deploy.sh.j2"
+    dest: "/root/deploy.sh"
+    owner: "root"
+    group: "wheel"
+   mode: "0755"
+

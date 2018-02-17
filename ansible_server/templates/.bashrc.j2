@@ -1,0 +1,2 @@
+function ansible-playbook() { (echo "ansible-playbook run by $SUDO_USER at $(date) with these arguments: ansible-playbook $@"; /usr/local/bin/ansible-playbook "$@") | tee >(mail -s "ansible-playbook run by $SUDO_USER at $(date)" {{ ansible_admin_email }}) >(/usr/bin/logger -p local5.info -t ansible); }
+

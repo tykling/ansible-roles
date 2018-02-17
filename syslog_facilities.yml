@@ -24,6 +24,7 @@
 
 - local5:
   - prometheus
+  - ansible
 
 - local6:
   - isc_dhcpd_server

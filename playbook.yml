@@ -256,3 +256,9 @@
   roles:
     - "grafana_server"
 
+- name: "configure ansible servers"
+  hosts: "ansible_servers"
+  become: yes
+  roles:
+    - "ansible_server"
+

@@ -1,0 +1,33 @@
+#!/bin/sh
+TARGETDIR=/usr/local/etc/ansible
+TMPDIR=/tmp/ansible
+BRANCH=master
+DEPLOYPATH=/root/deploy.sh
+
+# are we root?
+UID=$(id -u)
+if [ $UID -ne 0 ]; then
+        echo "Please run with sudo"
+        exit 1
+fi
+
+# delete old checkout and clone the repo
+echo "cloning branch $BRANCH into $TMPDIR ..."
+rm -rf $TMPDIR
+git clone --recursive {{ ansible_repository }} -b $BRANCH $TMPDIR
+if [ $? -ne 0 ]; then
+        echo "error cloning from git"
+        exit 1
+fi
+
+# get the revision we just cloned
+cd $TMPDIR
+REV=$(git rev-parse HEAD)
+
+# delete old config and move new config into place
+rm -rf $TARGETDIR
+mv $TMPDIR $TARGETDIR
+
+# send a mail to the admin
+echo "New ansible config has been put in production, revision {{ ansible_repository_commitbaseurl }}/${REV}" | mail -s "new ansible config put in production by $SUDO_USER" {{ ansible_admin_email }}
+

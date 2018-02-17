@@ -1,0 +1,3 @@
+---
+ansible_admin_email: "{{ etcaliases_root_forward_email }}"
+ 
