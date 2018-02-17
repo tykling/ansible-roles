@@ -28,7 +28,6 @@
     content: |
       Host            github.com
       Hostname        github.com
-      IdentityFile    ~/.ssh/id_ed25519.pub
       IdentitiesOnly  yes
       User            git
     mode: "0600"
