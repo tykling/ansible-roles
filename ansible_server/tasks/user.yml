@@ -12,5 +12,5 @@
     dest: "/usr/home/{{ ansible_user }}/.bashrc"
     owner: "ansible"
     group: "ansible"
-   mode: "0644"
+    mode: "0644"
 
