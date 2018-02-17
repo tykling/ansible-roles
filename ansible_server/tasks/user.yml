@@ -14,3 +14,22 @@
     group: "ansible"
     mode: "0644"
 
+- name: "Make sure we have an ssh key for root to deploy config"
+  user:
+    name: "root"
+    ssh_key_type: "ed25519"
+    generate_ssh_key: True
+
+- name: "Add ssh config for github.com"
+  blockinfile:
+    create: yes
+    dest: "/root/.ssh/config"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK github.com ssh config"
+    content: |
+      Host            github.com
+      Hostname        github.com
+      IdentityFile    ~/.ssh/id_ed25519.pub
+      IdentitiesOnly  yes
+      User            git
+    mode: "0600"
+
