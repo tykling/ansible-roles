@@ -2,7 +2,6 @@
 dns_resolver_ips:
   - '91.239.100.100'
   - '89.233.43.71'
-poudriere_package_set: 'freebsd_10_3_amd64-default'
 packages:
   - "tmux"
   - "screen"
