@@ -10,5 +10,5 @@
     dest: "/root/deploy.sh"
     owner: "root"
     group: "wheel"
-   mode: "0755"
+    mode: "0755"
 
