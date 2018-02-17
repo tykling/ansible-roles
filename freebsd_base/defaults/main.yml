@@ -12,6 +12,7 @@ packages:
   - "bash"
   - "vim-console"
   - "postfix"
+poudriere_client: True
 
 disable_ssh_password_login: True
 

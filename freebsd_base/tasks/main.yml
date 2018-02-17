@@ -1,6 +1,7 @@
 ---
 - include_tasks: "etchosts.yml"
 - include_tasks: "pkg.yml"
+  when: "poudriere_client"
 - include_tasks: "packages.yml"
 - include_tasks: "users.yml"
 - include_tasks: "motd.yml"
