@@ -6,9 +6,3 @@
     force: yes
     version: "master"
 
-- name: "Create symlink to csrgrinder binary"
-  file:
-    src: "/usr/home/{{ certgrinder_user }}/certgrinder/csrgrinder"
-    dest: "/usr/local/bin/csrgrinder"
-    state: "link"
-
