@@ -7,20 +7,24 @@ options {
         dump-file       "/var/dump/named_dump.db";
         statistics-file "/var/stats/named.stats";
 
-        listen-on       port 53 { any; };
-        listen-on-v6    port 53 { any; };
-        listen-on       port 5353 { any; };
-        listen-on-v6    port 5353 { any; };
+{% for port in bind_listen_ports %}
+        listen-on       port {{ port }} { any; };
+        listen-on-v6    port {{ port }} { any; };
+{% endfor %}
 
         server-id hostname;
 
+{% if bind_v4_source_ip is defined %}
         query-source address {{ bind_v4_source_ip }};
+{% endif %}
+{% if bind_v6_source_ip %}
         query-source-v6 address {{ bind_v6_source_ip }};
+{% endif %}
 
+{% if bind_recursive %}
         disable-empty-zone "255.255.255.255.IN-ADDR.ARPA";
         disable-empty-zone "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.IP6.ARPA";
         disable-empty-zone "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.IP6.ARPA";
-
         dnssec-validation auto;
 
         allow-query { any; };
@@ -47,12 +51,14 @@ options {
                 score-duplicates 1000;
         };
 {% endif %}
+{% endif %}
 };
 
 statistics-channels {
     inet {{ bind_stats_ip }} port 8080 allow { {{ bind_stats_ip }}; };
 };
 
+{% if bind_recursive %}
 view "unicastv4" {
     match-destinations { {{ bind_v4_source_ip }}; };
     attach-cache "public";
@@ -312,6 +318,7 @@ view "localhost" {
     // include empty zones
     include "../named-zones.conf";
 };
+{% endif %}
 
 logging {
     channel channel_local0 {
@@ -334,7 +341,9 @@ logging {
     category cname { null; };
     category config { null; };
     category database { null; };
+{% if bind_dampening %}
     category dampening { channel_local3; };
+{% endif %}
     category delegation-only { null; };
     category dispatch { null; };
     category dnssec { null; };
