@@ -2,4 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: nginx_server, nginx_proxy: True }
+  - { role: bind_server, bind_recursive: False, bind_authoritative: True, bind_dynamic_zonelist: ['acme.{{ ansible_nodename }}'] }
 

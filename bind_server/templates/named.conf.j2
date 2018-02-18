@@ -367,3 +367,14 @@ logging {
     category xfer-out { null; };
 };
 
+{% if bind_authoritative and bind_dynamic_zones is defined %}
+{% for zone in bind_dynamic_zones %}
+zone "{{ zone }}" {
+    type master;
+    notify no;
+    file "{{ zone }}.zone";
+    allow-update { key "rndc-key"; };
+};
+{% endfor %}
+{% endif %}
+
