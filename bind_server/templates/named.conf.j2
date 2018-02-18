@@ -17,7 +17,7 @@ options {
 {% if bind_v4_source_ip is defined %}
         query-source address {{ bind_v4_source_ip }};
 {% endif %}
-{% if bind_v6_source_ip %}
+{% if bind_v6_source_ip is defined %}
         query-source-v6 address {{ bind_v6_source_ip }};
 {% endif %}
 
