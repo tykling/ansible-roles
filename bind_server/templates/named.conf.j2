@@ -367,8 +367,8 @@ logging {
     category xfer-out { null; };
 };
 
-{% if bind_authoritative and bind_dynamic_zones is defined %}
-{% for zone in bind_dynamic_zones %}
+{% if bind_authoritative and bind_dynamic_zonelist is defined %}
+{% for zone in bind_dynamic_zonelist %}
 zone "{{ zone }}" {
     type master;
     notify no;
