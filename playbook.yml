@@ -7,8 +7,8 @@
       tags:
         - "always"
 
-- name: "configure basic freebsd stuff"
-  hosts: "freebsd"
+- name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
+  hosts: "all"
   become: yes
   roles:
     - "freebsd_base"
