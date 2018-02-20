@@ -1,17 +1,17 @@
-; {{ program.comment }}
-[{{ program.type }}:{{ program.name }}]
-command={{ program.command }}
-{% if program.directory is defined %}directory={{ program.directory }}
+; {{ item.comment }}
+[{{ type }}:{{ item.name }}]
+command={{ item.command }}
+{% if item.directory is defined %}directory={{ item.directory }}
 {% endif %}
-{% if program.numprocs is defined and program.numprocs | int > 1 %}process_name=%(program_name)s_%(process_num)02d
+{% if item.numprocs is defined and item.numprocs | int > 1 %}process_name=%(program_name)s_%(process_num)02d
 {% endif %}
-user={{ program.user }}
+user={{ item.user }}
 stdout_logfile=syslog
 stderr_logfile=syslog
-startsecs={{ program.startsecs | default(5) }}
-{% if program.numprocs is defined and program.numprocs | int > 1 %}numprocs={{ program.numprocs | default(1) }}
+startsecs={{ item.startsecs | default(5) }}
+{% if item.numprocs is defined and item.numprocs | int > 1 %}numprocs={{ item.numprocs | default(1) }}
 {% endif %}
-autostart={{ program.autostart | default(True) }}
-{% if program.priority is defined %}priority={{ program.priority }}
+autostart={{ item.autostart | default(True) }}
+{% if item.priority is defined %}priority={{ item.priority }}
 {% endif %}
 
