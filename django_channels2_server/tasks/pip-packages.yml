@@ -26,7 +26,13 @@
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
 
-- name: "Install channels_redis package for django channel_layer"
+- name: "Install redis for django channel_layer where needed"
+  pkgng:
+    name: "databases/redis"
+    state: "present"
+  when: django_channels_layer_redis
+
+- name: "Install channels_redis pip package for django channel_layer where needed"
   pip:
     name: "channels_redis"
     virtualenv: "{{ django_virtualenv_path }}"

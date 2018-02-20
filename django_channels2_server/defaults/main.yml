@@ -25,7 +25,6 @@ django_channels_layer_redis: False
 
 django_os_dependencies:
   - "databases/postgresql96-client"
-  - "databases/redis"
 
 nginx_locationslash: |
   location /static/ {
