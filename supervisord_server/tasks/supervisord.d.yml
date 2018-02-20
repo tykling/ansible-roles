@@ -8,7 +8,9 @@
   notify:
     - "reread supervisord config"
     - "update supervisord config"
-  with_items: supervisord_programs + supervisord_extra_programs
+  with_flattened:
+    - "{{ supervisord_programs }}"
+    - "{{ supervisord_extra_programs }}"
 
 - name: "Create supervisord.d fcgi-program config files"
   template:
@@ -19,5 +21,7 @@
   notify:
     - "reread supervisord config"
     - "update supervisord config"
-  with_items: supervisord_fcgi_programs + supervisord_extra_fcgi_programs
+  with_flattened:
+    - "{{ supervisord_fcgi_programs }}"
+    - "{{ supervisord_extra_fcgi_programs }}"
 
