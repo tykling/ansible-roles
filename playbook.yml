@@ -262,3 +262,9 @@
   roles:
     - "ansible_server"
 
+- name: "configure django channels2 servers"
+  hosts: "django_channels2_servers"
+  become: yes
+  roles:
+    - "django_channels2_server"
+
