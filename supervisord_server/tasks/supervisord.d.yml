@@ -3,8 +3,8 @@
   template:
     src: "supervisord.d.conf.j2"
     dest: "/usr/local/etc/supervisord.d/{{ item.name }}.conf"
-    vars:
-      type: "program"
+  vars:
+    type: "program"
   notify:
     - "reread supervisord config"
     - "update supervisord config"

@@ -1,4 +1,8 @@
 ---
 supervisord_activity_logfile: "/var/log/supervisor-activity.log"
 supervisord_logfile: "/var/log/supervisord.log"
+supervisord_programs: []
+supervisord_extra_programs: []
+supervisord_fcgi_programs: []
+supervisord_fcgi_extra_programs: []
 
