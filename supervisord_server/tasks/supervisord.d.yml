@@ -1,15 +1,4 @@
 ---
-- name: "Create supervisord.d directory"
-  file:
-    path: "/usr/local/etc/supervisord.d"
-    state: "directory"
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-  notify:
-    - "reread supervisord config"
-    - "update supervisord config"
-
 - name: "Create supervisord.d config file"
   template:
     src: "supervisord.d.conf.j2"

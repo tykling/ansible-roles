@@ -20,3 +20,11 @@
     - "reread supervisord config"
     - "update supervisord config"
 
+- name: "Create supervisord.d directory"
+  file:
+    path: "/usr/local/etc/supervisord.d"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+
