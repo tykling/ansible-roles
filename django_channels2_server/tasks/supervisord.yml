@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "daphne"
         comment: "run daphne"
-        command: "{{ django_virtualenv_path }}/bin/python -u {{ django_virtualenv_path }}/bin/daphne --access-log - --proxy-headers {{ django_mainapp }}.asgi:channel_layer"$
+        command: "{{ django_virtualenv_path }}/bin/python -u {{ django_virtualenv_path }}/bin/daphne --access-log - --proxy-headers {{ django_mainapp }}.asgi:application"
         user: "{{ django_daphne_user }}"
         directory: "{{ django_root }}"
         priority: "1"
