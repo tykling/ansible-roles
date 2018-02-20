@@ -1,11 +1,5 @@
-{% if supervisord_programs is defined or supervisord_extra_programs is defined %}
-;-----------------------------------------------------------------------------
-; program: definitions below here
-
-{% macro create_program_definitions(program_list) %}
-{% for program in program_list | default([]) %}
 ; {{ program.comment }}
-[program:{{ program.name }}]
+[{{ program.type }}:{{ program.name }}]
 command={{ program.command }}
 {% if program.directory is defined %}directory={{ program.directory }}
 {% endif %}
@@ -21,30 +15,3 @@ autostart={{ program.autostart | default(True) }}
 {% if program.priority is defined %}priority={{ program.priority }}
 {% endif %}
 
-{% endfor %}
-{% endmacro %}
-{{ create_program_definitions(supervisord_programs | default([]) ) }}
-{{ create_program_definitions(supervisord_extra_programs | default([])) }}
-
-{% endif %}
-{% if supervisord_fcgi_programs is defined %}
-;-----------------------------------------------------------------------------
-; fcgi-program: definitions below here
-
-{% for program in supervisord_fcgi_programs | default([]) %}
-; {{ program.comment }}
-[fcgi-program:{{ program.name }}]
-command={{ program.command }}
-socket={{ program.socket }}
-process_name=%(program_name)s_%(process_num)02d
-user={{ program.user }}
-stdout_logfile=syslog
-stderr_logfile=syslog
-{% if program.numprocs is defined and program.numprocs | int > 1 %}numprocs={{ program.numprocs | default(1) }}
-{% endif %}
-autostart={{ program.autostart | default(True) }}
-{% if program.priority is defined %}priority={{ program.priority }}
-{% endif %}
-
-{% endfor %}
-{% endif %}

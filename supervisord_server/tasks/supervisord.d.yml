@@ -1,9 +1,23 @@
 ---
-- name: "Create supervisord.d config file"
+- name: "Create supervisord.d program config files"
   template:
     src: "supervisord.d.conf.j2"
-    dest: "/usr/local/etc/supervisord.d/{{ supervisord_filename }}.conf"
+    dest: "/usr/local/etc/supervisord.d/{{ item.name }}.conf"
+    vars:
+      type: "program"
   notify:
     - "reread supervisord config"
     - "update supervisord config"
+  with_items: supervisord_programs + supervisord_extra_programs
+
+- name: "Create supervisord.d fcgi-program config files"
+  template:
+    src: "supervisord.d.conf.j2"
+    dest: "/usr/local/etc/supervisord.d/{{ item.name }}.conf"
+    vars:
+      type: "fcgi-program"
+  notify:
+    - "reread supervisord config"
+    - "update supervisord config"
+  with_items: supervisord_fcgi_programs + supervisord_extra_fcgi_programs
 
