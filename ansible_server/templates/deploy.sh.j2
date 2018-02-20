@@ -29,5 +29,5 @@ rm -rf $TARGETDIR
 mv $TMPDIR $TARGETDIR
 
 # send a mail to the admin
-echo "New ansible config has been put in production, revision {{ ansible_repository_commitbaseurl }}/${REV}" | mail -s "new ansible config put in production by $SUDO_USER" {{ ansible_admin_email }}
+echo "New ansible config has been deployed to $(hostname), revision {{ ansible_repository_commitbaseurl }}${REV}" | mail -s "new ansible config deployed on $(hostname) by $SUDO_USER" {{ ansible_admin_email }}
 
