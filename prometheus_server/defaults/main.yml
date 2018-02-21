@@ -10,6 +10,6 @@ nginx_locationslash: |
 supervisord_programs:
   - name: "prometheus"
     comment: "run prometheus"
-    command: "/usr/local/bin/prometheus --config.file=/usr/local/etc/prometheus.yml --storage.tsdb.path=/var/db/prometheus --log.format=logger:syslog?appname=prometheus&local=5"
+    command: "/usr/local/bin/prometheus --config.file=/usr/local/etc/prometheus.yml --storage.tsdb.path=/var/db/prometheus"
     user: "prometheus"
 
