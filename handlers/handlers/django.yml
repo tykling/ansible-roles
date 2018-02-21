@@ -8,3 +8,6 @@
   command: "/usr/local/bin/supervisorctl restart {{ item.key }}"
   with_dict: "{{ django_manage_workers | default({}) }}"
 
+- name: "restart daphne using supervisorctl"
+  command: "/usr/local/bin/supervisorctl restart daphne"
+

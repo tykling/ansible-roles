@@ -18,6 +18,5 @@
   tags:
     - codedeploy
   notify:
-    - "restart django runworker instances using supervisorctl"
-    - "restart django manage.py worker instances"
+    - "restart daphne using supervisorctl"
 
