@@ -7,3 +7,9 @@ nginx_locationslash: |
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
+supervisord_programs:
+  - name: "prometheus"
+    comment: "run prometheus"
+    command: "/usr/local/bin/prometheus --config.file=/usr/local/etc/prometheus.yml --storage.tsdb.path=/var/db/prometheus --log.format=logger:syslog?appname=prometheus&local=5"
+    user: "prometheus"
+

@@ -22,15 +22,3 @@
   notify:
     - "restart prometheus"
 
-- name: "Create supervisord.d config file to run prometheus"
-  include_role:
-    name: "supervisord_server"
-    tasks_from: "supervisord.d"
-  vars:
-    supervisord_filename: "prometheus"
-    supervisord_programs:
-      - name: "prometheus"
-        comment: "run prometheus"
-        command: "/usr/local/bin/prometheus -config.file=/usr/local/etc/prometheus.yml -storage.local.path=/var/db/prometheus -log.format=logger:syslog?appname=prometheus&local=5"
-        user: "prometheus"
-
