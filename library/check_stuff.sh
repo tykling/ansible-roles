@@ -10,6 +10,13 @@ check_inventory() {
                         # vulns found, or ansible could not connect, send email regardless
                         echo "$output" | mail -s "$(basename "$1") - $host: Vulnerable packages found!" "$2"
                 fi
+
+                # get the sshfp output
+                output=$(python /usr/home/ansible/check_sshfp/check_sshfp $host)
+                if [ $? -ne 0 ]; then
+                        # sshfp issues found, send mail
+                        echo "$output" | mail -s "$(basename "$1") - $host: SSHFP issues found!" "$2"
+                fi
         done
 }
 
