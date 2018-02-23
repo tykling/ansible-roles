@@ -1,8 +1,4 @@
 ---
-- name: "Include hiddenservices.yml if it exists"
-  include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-hiddenservices.yml"
-  ignore_errors: yes
-
 - name: "Install tor"
   pkgng:
     name: "tor"
