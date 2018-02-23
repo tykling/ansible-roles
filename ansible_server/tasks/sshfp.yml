@@ -1,0 +1,14 @@
+---
+- name: "Get sshfp code from git"
+  git:
+    repo: "https://github.com/stump/check_sshfp"
+    dest: "/usr/home/{{ ansible_user }}/check_sshfp"
+    force: yes
+    version: "master"
+    accept_hostkey: yes
+
+- name: "Install py27-dnspython"
+  pkgng:
+    name: "py27-dnspython"
+    state: "present"
+
