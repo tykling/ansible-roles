@@ -1,107 +1,125 @@
 ---
-- name: Install mailman
+- name: "Install mailman"
   pkgng:
-    name: mailman
-    state: present
+    name: "mailman"
+    state: "present"
 
-- name: Enable mailman
+- name: "Enable mailman"
   service:
-    name: mailman
+    name: "mailman"
     enabled: yes
 
-- name: Install postfix-to-mailman.py
+- name: "Install postfix-to-mailman.py"
   copy:
-    owner: mailman
-    group: mailman
+    owner: "mailman"
+    group: "mailman"
     mode: "740"
-    src: postfix-to-mailman.py
-    dest: /usr/local/mailman/postfix-to-mailman.py
+    src: "postfix-to-mailman.py"
+    dest: "/usr/local/mailman/postfix-to-mailman.py"
 
-- name: Add postfix-to-mailman.py to master.cf
+- name: "Add postfix-to-mailman.py to master.cf"
   blockinfile:
     create: yes
-    dest: /usr/local/etc/postfix/master.cf
+    dest: "/usr/local/etc/postfix/master.cf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK mailman integration"
     content: |
       mailman unix - n n - - pipe
         flags=FR user=mailman:mailman
         argv=/usr/local/mailman/postfix-to-mailman.py ${nexthop} ${user}
 
-- name: Configure mailman DEFAULT_EMAIL_HOST
+- name: "Configure mailman DEFAULT_EMAIL_HOST"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_EMAIL_HOST = "
     line: "DEFAULT_EMAIL_HOST = '{{ postfix_virtual_alias_domains[0] }}'"
 
-- name: Configure mailman DEFAULT_URL_HOST
+- name: "Configure mailman DEFAULT_URL_HOST"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_URL_HOST = "
     line: "DEFAULT_URL_HOST = '{{ ansible_nodename }}'"
 
-- name: Configure mailman DEFAULT_URL_PATTERN
+- name: "Configure mailman DEFAULT_URL_PATTERN"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_URL_PATTERN = "
     line: "DEFAULT_URL_PATTERN = 'https://%s/mailman/'"
 
-- name: Configure mailman DEFAULT_FROM_IS_LIST
+- name: "Configure mailman DEFAULT_FROM_IS_LIST"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_FROM_IS_LIST = "
     line: "DEFAULT_FROM_IS_LIST = 1"
 
-- name: Configure mailman DEFAULT_LIST_ADVERTISED
+- name: "Configure mailman DEFAULT_LIST_ADVERTISED"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_LIST_ADVERTISED = "
     line: "DEFAULT_LIST_ADVERTISED = Yes"
 
-- name: Configure mailman DEFAULT_SUBSCRIBE_POLICY
+- name: "Configure mailman DEFAULT_SUBSCRIBE_POLICY"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_SUBSCRIBE_POLICY = "
     line: "DEFAULT_SUBSCRIBE_POLICY = 3"
 
-- name: Configure mailman DEFAULT_ARCHIVE_PRIVATE
+- name: "Configure mailman DEFAULT_ARCHIVE_PRIVATE"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_ARCHIVE_PRIVATE = "
     line: "DEFAULT_ARCHIVE_PRIVATE = 1"
 
-- name: Configure mailman DEFAULT_FIRST_STRIP_REPLY_TO
+- name: "Configure mailman DEFAULT_FIRST_STRIP_REPLY_TO"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_FIRST_STRIP_REPLY_TO = "
     line: "DEFAULT_FIRST_STRIP_REPLY_TO = 1"
 
-- name: Configure mailman DEFAULT_REPLY_GOES_TO_LIST
+- name: "Configure mailman DEFAULT_REPLY_GOES_TO_LIST"
   lineinfile:
-    dest: /usr/local/mailman/Mailman/mm_cfg.py
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_REPLY_GOES_TO_LIST = "
     line: "DEFAULT_REPLY_GOES_TO_LIST = 1"
 
-- name: Fix permissions on mailman private archive dir
+- name: "Configure mailman DEFAULT_URL_HOST"
+  lineinfile:
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
+    regexp: "^DEFAULT_URL_HOST = "
+    line: "DEFAULT_URL_HOST = {{ ansible_nodename }}"
+
+- name: "Configure mailman DEFAULT_EMAIL_HOST"
+  lineinfile:
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
+    regexp: "^DEFAULT_EMAIL_HOST = "
+    line: "DEFAULT_EMAIL_HOST = {{ ansible_nodename }}"
+
+- name: "Add mailman virtualhost"
+  lineinfile:
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
+    regexp: "^add_virtualhost"
+    line: "add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)"
+
+- name: "Fix permissions on mailman private archive dir"
   file:
-    path: /usr/local/mailman/archives/private
-    state: directory
+    path: "/usr/local/mailman/archives/private"
+    state: "directory"
     mode: "2770"
 
-- name: generate mailman list password
+- name: "generate mailman list password"
   shell: "openssl rand -base64 33 | tr -d '='"
   args:
     creates: "/usr/local/mailman/lists/mailman"
   register: password
 
-- name: Create mailman mailing lists
+- name: "Create mailman mailing lists"
   shell: "/usr/local/mailman/bin/newlist -a mailman {{ mailman_list_owner }} {{ password.stdout }}"
   args:
     creates: "/usr/local/mailman/lists/mailman"
 
-- name: Create virtual for mailman mailinglist
+- name: "Create virtual for mailman mailinglist"
   blockinfile:
     create: yes
-    dest: /usr/local/etc/postfix/mailman_virtual_alias_maps
+    dest: "/usr/local/etc/postfix/mailman_virtual_alias_maps"
     marker: "# {mark} ANSIBLE MANAGED BLOCK mailman mailinglist"
     content: |
       ## mailman mailing list
@@ -116,19 +134,19 @@
       mailman-subscribe@{{ postfix_virtual_alias_domains[0] }}    mailman-subscribe@{{ fake_mailman_domain }}
       mailman-unsubscribe@{{ postfix_virtual_alias_domains[0] }}  mailman-unsubscribe@{{ fake_mailman_domain }}
 
-- name: Start mailman
+- name: "Start mailman"
   service:
-    name: mailman
-    state: started
+    name: "mailman"
+    state: "started"
 
-- name: generate mailinglist passwords
+- name: "generate mailinglist passwords"
   shell: "openssl rand -base64 33 | tr -d '='"
   args:
     creates: "/usr/local/mailman/lists/{{ item.key }}"
   register: passwords
   with_dict: "{{ lists | default({}) }}"
 
-- name: Create mailinglists
+- name: "Create mailinglists"
   shell: "/usr/local/mailman/bin/newlist -a {{ item.0 }} {{ lists[item.0] }} {{ item.1.stdout }}"
   args:
     creates: "/usr/local/mailman/lists/{{ item.0 }}"
@@ -136,9 +154,9 @@
     - "{{ lists }}"
     - "{{ passwords.results }}"
 
-- name: Create virtual alias maps for {{ item.key }} mailinglist
+- name: "Create virtual alias maps for {{ item.key }} mailinglist"
   blockinfile:
-    dest: /usr/local/etc/postfix/mailman_virtual_alias_maps
+    dest: "/usr/local/etc/postfix/mailman_virtual_alias_maps"
     marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.key }} mailinglist"
     content: |
       ## mailman mailing list
@@ -154,8 +172,8 @@
       {{ item.key }}-unsubscribe@{{ postfix_virtual_alias_domains[0] }}  {{ item.key }}-unsubscribe@{{ fake_mailman_domain }}
   with_dict: "{{ lists | default({}) }}"
 
-- name: Reload Postfix
+- name: "Reload Postfix"
   service:
-    name: postfix
-    state: reloaded
+    name: "postfix"
+    state: "reloaded"
 
