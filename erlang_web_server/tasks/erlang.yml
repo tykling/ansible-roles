@@ -1,11 +1,11 @@
 ---
-- name: Install erlang
+- name: "Install erlang"
   pkgng:
-    name: erlang-runtime19
-    state: present
+    name: "erlang-runtime19"
+    state: "present"
 
-- name: Install rebar3
+- name: "Install rebar3"
   pkgng:
-    name: rebar3
-    state: present
+    name: "rebar3"
+    state: "present"
 
