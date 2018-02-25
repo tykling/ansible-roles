@@ -1,7 +1,7 @@
 ---
 - name: "Get sshfp code from git"
   git:
-    repo: "https://github.com/stump/check_sshfp"
+    repo: "https://github.com/tykling/check_sshfp"
     dest: "/usr/home/{{ ansible_user }}/check_sshfp"
     force: yes
     version: "master"
