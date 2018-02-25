@@ -8,14 +8,14 @@ check_inventory() {
                 output=$(/usr/local/bin/ansible "$host" -m shell -b -a "/usr/sbin/pkg audit -F" -i "$1")
                 if [ $? -ne 0 ]; then
                         # vulns found, or ansible could not connect, send email regardless
-                        echo "$output" | mail -s "$(basename "$1") - $host: Vulnerable packages found!" "$2"
+                        echo "$output" | /usr/bin/mail -s "$(basename "$1") - $host: Vulnerable packages found!" "$2"
                 fi
 
                 # get the sshfp output
-                output=$(python /usr/home/ansible/check_sshfp/check_sshfp $host)
+                output=$(/usr/local/bin/python /usr/home/ansible/check_sshfp/check_sshfp $host)
                 if [ $? -ne 0 ]; then
                         # sshfp issues found, send mail
-                        echo "$output" | mail -s "$(basename "$1") - $host: SSHFP issues found!" "$2"
+                        echo "$output" | /usr/bin/mail -s "$(basename "$1") - $host: SSHFP issues found!" "$2"
                 fi
         done
 }
