@@ -12,3 +12,12 @@
     name: "py27-dnspython"
     state: "present"
 
+- name: "Enable nightly cronjob to check various things"
+  cron:
+    name: "ansible check_stuff.sh"
+    hour: "4"
+    minute: "30"
+    job: "/usr/local/etc/ansible/roles/library/check_stuff.sh {{ ansible_admin_email }}"
+    cron_file: "/etc/crontab"
+    user: "ansible"
+
