@@ -1,0 +1,17 @@
+---
+- name: "add syslog.d config for postgresql"
+  copy:
+    src: "postgresql-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/postgresql.conf"
+  notify: "restart syslogd"
+
+- name: "Make sure /var/log/postgresql.log exists"
+  copy:
+    dest: "/var/log/postgresql.log"
+    content: ""
+    force: False
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+

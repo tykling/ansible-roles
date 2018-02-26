@@ -4,6 +4,7 @@
 - local0:
   - kea_server
   - bind
+  - postgres
 
 - local1:
   - rt_server
