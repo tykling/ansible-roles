@@ -13,7 +13,7 @@
   pkgng:
     name: "git"
     state: "present"
-  
+
 - name: "add etherpad user"
   user:
     name: "etherpad"
@@ -25,6 +25,7 @@
     repo: "git://github.com/ether/etherpad-lite.git"
     dest: "{{ etherpadlite_root }}"
     version: "1.6.3"
+  ignore_errors: yes
 
 - name: "Copy etherpad-lite config"
   template:
