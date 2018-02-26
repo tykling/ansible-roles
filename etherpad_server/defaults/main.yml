@@ -1,3 +1,10 @@
 ---
-etherpadlite_root: /usr/home/etherpad/etherpad-lite
-etherpad_home: /usr/home/etherpad
+etherpadlite_root: "/usr/home/etherpad/etherpad-lite"
+etherpad_home: "/usr/home/etherpad"
+supervisord_programs:
+  - name: "etherpad"
+    comment: "run etherpad"
+    command: "{{ etherpadlite_root }}/bin/run.sh"
+    user: "etherpad"
+    directory: "{{ etherpadlite_root }}"
+
