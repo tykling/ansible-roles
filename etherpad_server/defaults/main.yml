@@ -4,7 +4,7 @@ etherpad_home: "/usr/home/etherpad"
 supervisord_programs:
   - name: "etherpad"
     comment: "run etherpad"
-    command: "{{ etherpadlite_root }}/bin/run.sh"
+    command: "/usr/local/bin/node {{ etherpadlite_root }}/node_modules/ep_etherpad-lite/node/server.js"
     user: "etherpad"
     directory: "{{ etherpadlite_root }}"
 
