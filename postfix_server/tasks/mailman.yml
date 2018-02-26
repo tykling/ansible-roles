@@ -85,13 +85,13 @@
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_URL_HOST = "
-    line: "DEFAULT_URL_HOST = {{ ansible_nodename }}"
+    line: "DEFAULT_URL_HOST = '{{ ansible_nodename }}'"
 
 - name: "Configure mailman DEFAULT_EMAIL_HOST"
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_EMAIL_HOST = "
-    line: "DEFAULT_EMAIL_HOST = {{ ansible_nodename }}"
+    line: "DEFAULT_EMAIL_HOST = '{{ ansible_nodename }}'"
 
 - name: "Add mailman virtualhost"
   lineinfile:
