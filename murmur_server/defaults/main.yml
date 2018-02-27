@@ -2,3 +2,7 @@
 murmur_welcometext: "<b>Welcome to mumble!</b>"
 nginx_proxy: False
 
+certgrinder_post_renew_hooks:
+  - "/usr/sbin/service murmur reload"
+  - "/usr/sbin/service nginx reload"
+
