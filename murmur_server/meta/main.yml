@@ -2,5 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: nginx_server }
-  - { role: certgrinder_client }
+  - { role: certgrinder_client, certgrinder_post_renew_hooks: ["/usr/sbin/service murmur reload","/usr/sbin/service nginx reload"] }
 
