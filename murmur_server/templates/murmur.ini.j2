@@ -9,8 +9,8 @@ host=0.0.0.0
 serverpassword=
 bandwidth=72000
 users=100
-sslCert=/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/fullchain.pem;
-sslKey=/usr/local/etc/letsencrypt/live/{{ item.value.hostnames[0] }}/privkey.pem;
+sslCert=/usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/fullchain.pem;
+sslKey=/usr/local/etc/letsencrypt/live/{{ ansible_nodename }}/privkey.pem;
 [Ice]
 Ice.Warn.UnknownProperties=1
 Ice.MessageSizeMax=65536

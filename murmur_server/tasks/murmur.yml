@@ -1,18 +1,18 @@
 ---
-- name: Install murmur
+- name: "Install murmur"
   pkgng:
-    name: murmur
-    state: present
+    name: "murmur"
+    state: "present"
 
-- name: Enable murmur
+- name: "Enable murmur"
   service:
-    name: murmur
+    name: "murmur"
     enabled: yes
 
-- name: Copy murmur config
+- name: "Copy murmur config"
   template:
-    src: murmur.ini.j2
-    dest: /usr/local/etc/murmur.ini
+    src: "murmur.ini.j2"
+    dest: "/usr/local/etc/murmur.ini"
   with_dict: "{{ vhosts | default({}) }}"
 
 - name: Start murmur (if not running)
