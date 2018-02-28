@@ -375,10 +375,10 @@ logging {
 
 {% if bind_authoritative and bind_dynamic_zonelist is defined %}
 {% for zone in bind_dynamic_zonelist %}
-zone "{{ zone }}" {
+zone "{{ zone.zone }}." {
     type master;
     notify no;
-    file "../dynamic/{{ zone }}.zone";
+    file "../dynamic/{{ zone.zone }}.zone";
     allow-update { key "rndc-key"; };
 };
 {% endfor %}
