@@ -47,7 +47,7 @@ server {
     # this is the default vhost for this v4 ip
     listen                  {{ nginx_v4_proxy_ip }}:80 default;
 {% endif %}
-    listen                  {{ item.value.vhost_v6ip }}:80 default;
+    listen                  [{{ item.value.vhost_v6ip }}]:80 default;
 {% endif %}
     server_name             _;
     location / {
