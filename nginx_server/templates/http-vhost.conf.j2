@@ -51,7 +51,7 @@ server {
 {% endif %}
     server_name             _;
     location / {
-        return              301 https://item.value.hostnames[0]$request_uri;
+        return              301 https://{{ item.value.hostnames[0] }}$request_uri;
     }
 }
 
