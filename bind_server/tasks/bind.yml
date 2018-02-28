@@ -12,11 +12,20 @@
     #validate: "/usr/local/sbin/named-checkconf %s"
   notify: "restart bind"
 
-- name: "Install bind zones file"
+- name: "Install bind automatic zones file"
   template:
     src: "named-zones.conf.j2"
     dest: "/usr/local/etc/namedb/named-zones.conf"
     mode: "0644"
     #validate: "/usr/local/sbin/named-checkconf %s"
   notify: "restart bind"
+
+- name: "Create dynamic zonefiles"
+  template:
+    src: "named-dynamic-zone.j2"
+    dest: "/usr/local/etc/namedb/dynamic/{{ item.zone }}.zone"
+    mode: "0644"
+    owner: "bind"
+    group: "bind"
+  with_items: bind_dynamic_zonelist | default([])
 

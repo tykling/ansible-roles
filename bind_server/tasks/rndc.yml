@@ -8,3 +8,10 @@
   command: "/usr/local/sbin/rndc-confgen -A hmac-sha512 -a"
   when: not rndckey.stat.exists
 
+- name: "Make sure /usr/local/etc/namedb/rndc.key is owned by bind:bind"
+  file:
+    path: "/usr/local/etc/namedb/rndc.key"
+    owner: "bind"
+    group: "bind"
+    mode: "0600"
+

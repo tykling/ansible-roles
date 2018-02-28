@@ -378,7 +378,7 @@ logging {
 zone "{{ zone }}" {
     type master;
     notify no;
-    file "{{ zone }}.zone";
+    file "../dynamic/{{ zone }}.zone";
     allow-update { key "rndc-key"; };
 };
 {% endfor %}
