@@ -33,16 +33,15 @@ server {
 {% endif %}
 }
 
-# catch-all server block for the requests going to the v4/v6 IPs,
-# this handles requests without hostnames, or with unknwon hostnames.
+# catch-all server block for the requests going to the v6 IPs with blank or unknown Host: header,
+# and to the v4 ip if this is the default vhost
 server {
 {% if item.value.listen_on_all_ips | default(False) %}
 {% if item.value.default_vhost | default(False) %}
     # this is the default vhost for this v4 ip
     listen                  80 default;
-{% else %}
-    listen                  [::]:80 default;
 {% endif %}
+    listen                  [::]:80 default;
 {% else %}
 {% if item.value.default_vhost | default(False) %}
     # this is the default vhost for this v4 ip
