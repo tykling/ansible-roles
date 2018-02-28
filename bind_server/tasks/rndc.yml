@@ -1,0 +1,10 @@
+---
+- name: "Find out if /usr/local/etc/namedb/rndc.key exists"
+  stat:
+    path: "/usr/local/etc/namedb/rndc.key"
+  register: rndckey
+
+- name: "Create /usr/local/etc/namedb/rndc.key where needed"
+  command: "/usr/local/sbin/rndc-confgen -A hmac-sha512 -a"
+  when: not rndckey.stat.exists
+

@@ -1,6 +1,12 @@
 // $FreeBSD: head/dns/bind910/files/named.conf.in 443607 2017-06-14 22:54:43Z mat $
 // {{ ansible_managed }}
 
+include "/usr/local/etc/namedb/rndc.key";
+
+controls {
+        inet 127.0.0.1 allow { localhost; } keys { "rndc-key"; };
+};
+
 options {
         directory       "/usr/local/etc/namedb/working";
         pid-file        "/var/run/named/pid";
