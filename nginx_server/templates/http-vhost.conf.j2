@@ -1,26 +1,55 @@
 server {
-    {% if item.value.listen_on_all_ips | default(False) %}
-    listen                  [::]:80 ipv6only=off{% if item.value.default_vhost | default(False) %} default{% endif %};
-    {% else %}
-    listen                  {{ nginx_v4_proxy_ip }}:80{% if item.value.default_vhost | default(False) %} default{% endif %};
-    listen                  [{{ item.value.vhost_v6ip }}]:80 default;
-    {% endif %}
+    # listen here you little..
+{% if item.value.listen_on_all_ips | default(False) %}
+    listen                  [::]:80 ipv6only=off;
+{% else %}
+    listen                  {{ nginx_v4_proxy_ip }}:80;
+    listen                  [{{ item.value.vhost_v6ip }}]:80;
+{% endif %}
+
+    # hostnames handled in this vhost
     server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
 
 {% if item.value.letsencrypt | default(True) %}
+    # letsencrypt ACME redirect to Certgrinder server
     location '/.well-known/acme-challenge' {
           return 301 {{ certgrinder_redirect_url }}$request_uri;
     }
 {% endif %}
 
 {% if item.value.https_redirect | default(True) %}
+    # https redirect
     location / {
         return              301 https://$host$request_uri;
     }
 {% else %}
 {% if item.value.reverse_proxy | default(True) %}
+    # we are acting as a reverse proxy, include the proxy headers
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 {% endif %}
+    # vhost specific config below here
 {{ item.value.locationslash | indent( width=4, indentfirst=True) }}
 {% endif %}
 }
+
+# catch-all server block for the requests going to the v4/v6 IPs,
+# this handles requests without hostnames, or with unknwon hostnames.
+server {
+{% if item.value.listen_on_all_ips | default(False) %}
+{% if item.value.default_vhost %}
+    listen                  [::]:80 ipv6only=off default;
+{% else %}
+    listen                  [::]:80 ipv6only=on default;
+{% endif %}
+{% else %}
+{% if item.value.default_vhost %}
+    listen                  {{ nginx_v4_proxy_ip }}:80 default;
+{% endif %}
+    listen                  {{ item.value.vhost_v6ip }}:80 default;
+{% endif %}
+    server_name             _;
+    location / {
+        return              301 https://item.value.hostnames[0]$request_uri;
+    }
+}
+
