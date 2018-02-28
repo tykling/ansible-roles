@@ -11,11 +11,19 @@
     key_options: 'from="{{ item.value.fromip }}",command="~/certgrinder/csrgrinder",no-port-forwarding,no-x11-forwarding,no-agent-forwarding'
   with_dict: "{{ certgrinder_authorized_keys | default({}) }}"
 
-- name: "Add certgrinder user to sudoers"
+- name: "Add certgrinder user to sudoers (allow certbot)"
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
     regexp: "^{{ certgrinder_user }} ALL=\\(ALL\\) NOPASSWD: /usr/local/bin/certbot$"
     line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: /usr/local/bin/certbot"
+    validate: "visudo -cf %s"
+
+- name: "Add certgrinder user to sudoers (allow ACMEZONE env. var.)"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    regexp: "^Defaults env_keep += ACMEZONE$"
+    line: "Defaults env_keep += ACMEZONE"
     validate: "visudo -cf %s"
 
