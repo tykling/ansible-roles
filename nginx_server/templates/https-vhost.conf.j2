@@ -31,6 +31,8 @@ server {
         return 200 'OK';
     }
 
+    # vhost specific config below here
+
 {{ item.value.locationslash | indent( width=4, indentfirst=True) }}
 }
 {% if item.value.extraconfig | default(False) %}
