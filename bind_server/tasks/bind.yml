@@ -23,7 +23,7 @@
 - name: "Create dynamic zonefiles"
   template:
     src: "named-dynamic-zone.j2"
-    dest: "/usr/local/etc/namedb/dynamic/{{ item.zone }}.zone"
+    dest: "/usr/local/etc/namedb/dynamic/{{ item['zone'] }}.zone"
     mode: "0644"
     owner: "bind"
     group: "bind"
