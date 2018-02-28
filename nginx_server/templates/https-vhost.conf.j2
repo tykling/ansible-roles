@@ -2,7 +2,7 @@ server {
     # listen here you little..
 {% if item.value.listen_on_all_ips | default(False) %}
     listen                  443 ssl http2;
-    listen                  [::]:80 ssl http2;
+    listen                  [::]:443 ssl http2;
 {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:443 ssl http2;
     listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2;
