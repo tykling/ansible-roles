@@ -39,6 +39,9 @@ http {
     }
 
 {% if nginx_proxy | default(False) %}
+    # http://nginx.org/en/docs/http/ngx_http_core_module.html#server_names_hash_bucket_size
+    server_names_hash_bucket_size 64;
+
     include /usr/local/etc/nginx/vhosts/*.conf;
 {% else %}
     server {
