@@ -10,3 +10,11 @@ syslogng_upstream_elk: False
 syslogng_tls_listener: True
 syslogng_plaintext_archive: True
 
+nginx_locationslash: |
+  location /.well-known/acme-challenge/ {
+        return 301 {{ certgrinder_redirect_url }}$request_uri;
+  }
+  location / {
+      deny all;
+  }
+
