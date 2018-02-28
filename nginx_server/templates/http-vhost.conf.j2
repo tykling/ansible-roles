@@ -1,7 +1,8 @@
 server {
     # listen here you little..
 {% if item.value.listen_on_all_ips | default(False) %}
-    listen                  [::]:80 ipv6only=off;
+    listen                  80;
+    listen                  [::]:80;
 {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:80;
     listen                  [{{ item.value.vhost_v6ip }}]:80;
@@ -38,9 +39,9 @@ server {
 {% if item.value.listen_on_all_ips | default(False) %}
 {% if item.value.default_vhost | default(False) %}
     # this is the default vhost for this v4 ip
-    listen                  [::]:80 ipv6only=off default;
+    listen                  80 default;
 {% else %}
-    listen                  [::]:80 ipv6only=on default;
+    listen                  [::]:80 default;
 {% endif %}
 {% else %}
 {% if item.value.default_vhost | default(False) %}
