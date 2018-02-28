@@ -27,5 +27,5 @@
     mode: "0644"
     owner: "bind"
     group: "bind"
-  with_items: bind_dynamic_zonelist | default([])
+  with_items: "{{ bind_dynamic_zonelist | default([]) }}"
 
