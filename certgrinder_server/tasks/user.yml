@@ -8,7 +8,7 @@
   authorized_key:
     user: "{{ certgrinder_user }}"
     key: "{{ item.value.authkey }}"
-    key_options: 'from="{{ item.value.fromip }}",command="~/certgrinder/csrgrinder",no-port-forwarding,no-x11-forwarding,no-agent-forwarding'
+    key_options: 'from="{{ item.value.fromip }}",command="~/certgrinder/csrgrinder",restrict'
   with_dict: "{{ certgrinder_authorized_keys | default({}) }}"
 
 - name: "Add certgrinder user to sudoers (allow certbot)"
