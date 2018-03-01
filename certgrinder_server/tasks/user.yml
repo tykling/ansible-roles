@@ -19,11 +19,10 @@
     line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: /usr/local/bin/certbot"
     validate: "visudo -cf %s"
 
-- name: "Add certgrinder user to sudoers (allow ACMEZONE env. var.)"
+- name: "Add certgrinder user to sudoers (allow ACMEZONE and WEBROOT env. vars.)"
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
-    regexp: "^Defaults env_keep += ACMEZONE$"
-    line: "Defaults env_keep += ACMEZONE"
+    line: "Defaults env_keep += ACMEZONE WEBROOT"
     validate: "visudo -cf %s"
 
