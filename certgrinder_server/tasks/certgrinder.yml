@@ -6,3 +6,10 @@
     force: yes
     version: "master"
 
+- name: "Install csrgrinder.conf"
+  file:
+    content: "ACMEZONE={{ bind_dynamic_zonelist[0][zone] }}"
+    dest: "/usr/home/{{ certgrinder_user }}/certgrinder/csrgrinder.conf"
+    owner: "{{ certgrinder_user }}"
+    group: "{{ certgrinder_user }}"
+
