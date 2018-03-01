@@ -23,6 +23,6 @@
   lineinfile:
     dest: "/usr/local/etc/sudoers"
     state: "present"
-    line: "Defaults env_keep += ACMEZONE WEBROOT"
+    line: 'Defaults env_keep += "ACMEZONE WEBROOT"'
     validate: "visudo -cf %s"
 
