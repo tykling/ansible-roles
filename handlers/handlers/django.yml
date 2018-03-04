@@ -4,9 +4,9 @@
   args:
     executable: /bin/sh
 
-- name: "restart django manage.py worker instances"
-  command: "/usr/local/bin/supervisorctl restart {{ item.key }}"
-  with_dict: "{{ django_manage_workers | default({}) }}"
+- name: "restart supervisord_extra_programs"
+  command: "/usr/local/bin/supervisorctl restart {{ item.name }}"
+  with_dict: "{{ supervisord_extra_programs | default({}) }}"
 
 - name: "restart daphne using supervisorctl"
   command: "/usr/local/bin/supervisorctl restart daphne"
