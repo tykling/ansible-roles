@@ -1,4 +1,7 @@
 ---
+- name: "restart daphne using supervisorctl"
+  command: "/usr/local/bin/supervisorctl restart daphne"
+
 - name: "restart django runworker instances using supervisorctl"
   shell: "for worker in $(/usr/local/bin/supervisorctl status runworker: | cut -d ' ' -f 1); do /usr/local/bin/supervisorctl restart $worker; done"
   args:
@@ -6,8 +9,5 @@
 
 - name: "restart supervisord_extra_programs"
   command: "/usr/local/bin/supervisorctl restart {{ item.name }}"
-  with_dict: "{{ supervisord_extra_programs | default({}) }}"
-
-- name: "restart daphne using supervisorctl"
-  command: "/usr/local/bin/supervisorctl restart daphne"
+  with_items: "{{ supervisord_extra_programs | default({}) }}"
 
