@@ -1,7 +1,9 @@
 ---
-- include_tasks: user.yml
-- include_tasks: code.yml
-- include_tasks: configuration.yml
-- include_tasks: python.yml
-- include_tasks: cron.yml
+- include_tasks: "syslog.yml"
+- include_tasks: "newsyslog.yml"
+- include_tasks: "user.yml"
+- include_tasks: "code.yml"
+- include_tasks: "configuration.yml"
+- include_tasks: "python.yml"
+- include_tasks: "cron.yml"
 
