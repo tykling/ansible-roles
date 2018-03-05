@@ -20,6 +20,7 @@
   - bind
 
 - local4:
+  - certgrinder
 
 - local5:
   - prometheus
