@@ -2,5 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: supervisord_server }
-  - { role: nginx_server, nginx_proxy: True }
+  - { role: nginx_server }
 
