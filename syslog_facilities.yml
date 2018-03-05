@@ -20,7 +20,6 @@
   - bind
 
 - local4:
-  - nfsen_server
   - roundcube_server
 
 - local5:
@@ -30,6 +29,7 @@
 - local6:
   - isc_dhcpd_server
   - mediawiki_server
+  - nfsen_server
 
 - local7:
   - nginx_server
