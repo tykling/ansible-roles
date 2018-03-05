@@ -20,11 +20,11 @@
   - bind
 
 - local4:
-  - roundcube_server
 
 - local5:
   - prometheus
   - ansible
+  - roundcube_server
 
 - local6:
   - isc_dhcpd_server
