@@ -6,3 +6,9 @@ dovecot_vmail_uid: 10000
 dovecot_vmail_groupname: "vmail"
 dovecot_vmail_gid: 10000
 
+certgrinder_hostname_sets:
+  - "{{ ansible_nodename }}"
+
+certgrinder_post_renew_hooks:
+  - "/usr/sbin/service dovecot restart"
+
