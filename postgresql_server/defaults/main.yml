@@ -1,18 +1,10 @@
 ---
 postgresql_homedir: "/var/db/postgres"
 postgresql_datadir: "{{ postgresql_homedir }}/data96"
-postgresql_server_tls_enable: no
+postgresql_server_tls_enable: yes
 postgresql_max_connections: "100"
 postgresql_backup_savedays: "7"
 postgresql_backup_path: "/var/postgresbackups"
-
-nginx_locationslash:
-  location /.well-known/acme-challenge/ {
-        return 301 {{ certgrinder_redirect_url }}$request_uri;
-  }
-  location / {
-        deny all;
-  }
 
 certgrinder_hostname_sets:
   - "{{ ansible_nodename }}"
