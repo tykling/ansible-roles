@@ -14,4 +14,6 @@ startsecs={{ item.startsecs | default(5) }}
 autostart={{ item.autostart | default(True) }}
 {% if item.priority is defined %}priority={{ item.priority }}
 {% endif %}
+{% if item.exitcodes is defined %}exitcodes={{ item.exitcodes }}
+{% endif %}
 

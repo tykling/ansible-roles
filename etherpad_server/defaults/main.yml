@@ -10,4 +10,5 @@ supervisord_programs:
     command: "/usr/local/bin/node {{ etherpadlite_root }}/node_modules/ep_etherpad-lite/node/server.js"
     user: "etherpad"
     directory: "{{ etherpadlite_root }}"
+    exitcodes: "999" # so, etherpad exits with exitcode 0 if the database it uses is restarted, so set this to an unlikely exit code, to make supervisord always consider it unexpected whenever etherpad exits without being asked to
 
