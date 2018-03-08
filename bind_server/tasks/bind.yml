@@ -10,7 +10,7 @@
     dest: "/usr/local/etc/namedb/named.conf"
     mode: "0644"
     #validate: "/usr/local/sbin/named-checkconf %s"
-  notify: "restart bind"
+  notify: "reload bind"
 
 - name: "Install bind automatic zones file"
   template:
@@ -18,7 +18,7 @@
     dest: "/usr/local/etc/namedb/named-zones.conf"
     mode: "0644"
     #validate: "/usr/local/sbin/named-checkconf %s"
-  notify: "restart bind"
+  notify: "reload bind"
 
 - name: "Create dynamic zonefiles"
   template:
@@ -29,4 +29,5 @@
     group: "bind"
     force: no
   with_items: "{{ bind_dynamic_zonelist | default([]) }}"
+  notify: "reload bind"
 

@@ -2,3 +2,6 @@
 - name: "restart bind"
   command: "/usr/local/bin/supervisorctl restart bind"
 
+- name: "reload bind"
+  command: "/usr/local/sbin/rndc reload"
+
