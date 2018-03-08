@@ -6,6 +6,12 @@ global:
 rule_files:
   - "/usr/local/etc/prometheus-rules.yml"
 
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - 127.0.0.1:9093
+
 scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: '5s'
