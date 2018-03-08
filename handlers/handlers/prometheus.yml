@@ -2,3 +2,6 @@
 - name: "restart prometheus"
   command: "/usr/local/bin/supervisorctl restart prometheus"
 
+- name: "restart alertmanager"
+  command: "/usr/local/bin/supervisorctl restart alertmanager"
+
