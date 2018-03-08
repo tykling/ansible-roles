@@ -1,3 +1,4 @@
 ---
 ansible_admin_email: "{{ etcaliases_root_forward_email }}"
- 
+ansible_server_checkstuff_cronjob: True
+
