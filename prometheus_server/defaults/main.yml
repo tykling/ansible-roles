@@ -14,6 +14,6 @@ supervisord_programs:
     user: "prometheus"
   - name: "alertmanager"
     comment: "run alertmanager"
-    command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager.yml --storage.path=/var/db/alertmanager"
+    command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager/alertmanager.yml --storage.path=/var/db/alertmanager"
     user: "alertmanager"
 
