@@ -11,6 +11,7 @@
     mode: "0644"
     #validate: "/usr/local/sbin/named-checkconf %s"
   notify: "reload bind"
+  tags: "bindconfig"
 
 - name: "Install bind automatic zones file"
   template:
@@ -19,6 +20,7 @@
     mode: "0644"
     #validate: "/usr/local/sbin/named-checkconf %s"
   notify: "reload bind"
+  tags: "bindconfig"
 
 - name: "Create dynamic zonefiles"
   template:
@@ -30,4 +32,5 @@
     force: no
   with_items: "{{ bind_dynamic_zonelist | default([]) }}"
   notify: "reload bind"
+  tags: "bindconfig"
 

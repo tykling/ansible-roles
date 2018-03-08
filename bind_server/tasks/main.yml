@@ -1,5 +1,6 @@
 ---
 - include_tasks: "bind.yml"
+  tags: "bindconfig"
 - include_tasks: "rndc.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
