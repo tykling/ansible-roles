@@ -22,3 +22,13 @@
   notify:
     - "restart prometheus"
 
+- name: "Install Prometheus rules config"
+  template:
+    src: "prometheus-rules.yml.j2"
+    dest: "/usr/local/etc/prometheus-rules.yml"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  notify:
+    - "restart prometheus"
+
