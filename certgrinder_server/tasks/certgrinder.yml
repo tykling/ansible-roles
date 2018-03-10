@@ -13,4 +13,5 @@
     owner: "{{ certgrinder_user }}"
     group: "{{ certgrinder_user }}"
     mode: "0644"
+  when: bind_dynamic_zonelist is defined
 
