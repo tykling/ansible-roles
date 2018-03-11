@@ -16,7 +16,6 @@
     - codedeploy
   notify:
     - "restart django runworker instances using supervisorctl"
-    - "restart django manage.py worker instances"
 
 - name: "Delete temporary environment_settings.py.dist"
   file:
