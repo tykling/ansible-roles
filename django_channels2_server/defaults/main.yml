@@ -17,6 +17,8 @@ wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 django_timezone: 'Europe/Copenhagen'
 django_admin_prefix: "admin"
 
+django_email_port: 587
+
 django_daphne_user: "nobody"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
