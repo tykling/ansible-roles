@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - { role: django_channel2_server }
+  - { role: django_channels2_server }
 
