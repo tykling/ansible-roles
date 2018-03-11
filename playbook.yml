@@ -268,3 +268,9 @@
   roles:
     - "django_channels2_server"
 
+- name: "configure tlsscout servers"
+  hosts: "tlsscout_servers"
+  become: yes
+  roles:
+    - "tlsscout_server"
+
