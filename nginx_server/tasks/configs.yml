@@ -52,7 +52,20 @@
   when:
     - nginx_proxy
     - (('http' in item.value and item.value.http) or 'http' not in item.value)
+  notify: "start nginx"
   notify: "reload nginx"
+
+- name: "Run handlers now so http vhosts are available for Certgrinder"
+  meta: flush_handlers
+  when:
+    - nginx_proxy
+    - certgrinder_hostname_sets is defined
+
+- name: "Run certgrinder"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
+  when:
+    - nginx_proxy
+    - certgrinder_hostname_sets is defined
 
 - name: "Copy vhost https configs for https enabled vhosts"
   template:
