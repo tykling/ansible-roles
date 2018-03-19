@@ -41,6 +41,14 @@
   tags:
     - codedeploy
 
+- name: "Run compilemessages"
+  django_manage:
+    command: "compilemessages"
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+  tags:
+    - codedeploy
+
 - name: "Create django media root directory"
   file:
     path: "{{ django_media_root }}"
