@@ -55,12 +55,15 @@ nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 block log all
 
 ### skip loopback interface(s)
-set skip on lo0
+#set skip on lo0
+pass quick on lo0 inet from 127.0.0.1 to 127.0.0.1
+pass quick on lo0 inet6 from ::1 to ::1
 
 ### pass outgoing
 pass out quick on $if all
 pass out quick on $nat_if all
 pass out quick on $jail_if all
+pass out quick on lo0 all
 
 ### pass incoming icmp to all ip addresses
 pass in quick on { $if $jail_if } inet proto icmp all icmp-type { unreach, echoreq, timex }
@@ -117,7 +120,7 @@ pass out on {{ rfc1918_vnet_bridge }} to {{ rfc1918_vnet_bridge }}:network no st
 pass in quick on {{ jail.epair }}a from {{ jail.iptable }} no state
 pass out quick on {{ jail.epair }}a to {{ jail.iptable }} no state
 {% for rule in jail.rules %}
-{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %} # {{ rule.comment }}
+{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} lo0 }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %} # {{ rule.comment }}
 {% endfor %}
 
 {% endfor %}
