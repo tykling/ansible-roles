@@ -52,8 +52,9 @@
   when:
     - nginx_proxy
     - (('http' in item.value and item.value.http) or 'http' not in item.value)
-  notify: "start nginx"
-  notify: "reload nginx"
+  notify:
+    - "start nginx"
+    - "reload nginx"
 
 - name: "Run handlers now so http vhosts are available for Certgrinder"
   meta: flush_handlers
