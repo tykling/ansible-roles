@@ -11,10 +11,6 @@ nginx_locationslash: |
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 
-    location /.well-known/acme-challenge/ {
-            return 301 {{ certgrinder_redirect_url }}$request_uri;
-    }
-
 nfsen_vardir: "/var/nfsen"
 nfsen_logfile_path: "/var/log/nfsen.log"
 
