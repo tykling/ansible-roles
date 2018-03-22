@@ -1,8 +1,8 @@
 ---
+- include_tasks: "nginx.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "directories.yml"
 - include_tasks: "configs.yml"
-- include_tasks: "nginx.yml"
 - include_tasks: "ocsp.yml"
   when:
     - nginx_proxy
