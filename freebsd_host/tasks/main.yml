@@ -7,6 +7,5 @@
 - include_tasks: "zfs-scrub.yml"
 - include_tasks: "netdata.yml"
 - include_tasks: "aesni.yml"
-- include_tasks: "tykroutefix.yml"
 - include_tasks: "fixsyslogd.yml"
 
