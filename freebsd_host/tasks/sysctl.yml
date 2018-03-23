@@ -1,0 +1,23 @@
+---
+- name: "Lock shared memory into RAM and prevent it from being paged out to swap"
+  lineinfile:
+    dest: "/etc/sysctl.conf"
+    regexp: "^kern.ipc.shm_use_phys="
+    line: "kern.ipc.shm_use_phys=1"
+    state: "present"
+  notify: "reload sysctl.conf"
+
+- name: "Increase the number of SYSV IPC semaphores in /boot/loader.conf"
+  lineinfile:
+    dest: "/boot/loader.conf"
+    regexp: "^kern.ipc.semmns="
+    line: "kern.ipc.semmns=2000"
+    state: "present"
+
+- name: "Increase the number of SYSV IPC semaphore sets in /boot/loader.conf"
+  lineinfile:
+    dest: "/boot/loader.conf"
+    regexp: "^kern.ipc.semmni="
+    line: "kern.ipc.semmni=200"
+    state: "present"
+
