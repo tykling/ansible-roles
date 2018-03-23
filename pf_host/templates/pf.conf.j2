@@ -87,7 +87,7 @@ pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port
 # pass v4 traffic from jails to themselves on $if
 {% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
-{% for v6ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv6.device)]['ipv6'] %}pass quick on lo0 inet6 from {{ v6ip['address'] }} to {{ v6ip['address'] }}
+{% for v6ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv6.device)]['ipv6'] %}{% if not v6ip['address'].startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip['address'] }} to {{ v6ip['address'] }}{% endif %}
 {% endfor %}
 
 
