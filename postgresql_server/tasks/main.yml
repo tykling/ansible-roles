@@ -1,6 +1,6 @@
 ---
 - include_tasks: "postgresql.yml"
+- include_tasks: "ip4r.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
-
 

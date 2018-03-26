@@ -1,0 +1,6 @@
+---
+- name: "Install ip4r"
+  pkgng:
+    name: "ip4r"
+    state: "present"
+
