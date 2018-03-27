@@ -73,6 +73,13 @@
     dest: "/usr/local/etc/postfix/transport"
   notify: "reload postfix"
 
+- name: "Copy postfix extra_virtual_mailbox_domains file"
+  template:
+    mode: "644"
+    src: "extra_virtual_mailbox_domains.j2"
+    dest: "/usr/local/etc/postfix/extra_virtual_mailbox_domains"
+  notify: "reload postfix"
+
 - name: "Enable submission in master.cf"
   blockinfile:
     create: yes

@@ -31,7 +31,7 @@
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_EMAIL_HOST = "
-    line: "DEFAULT_EMAIL_HOST = '{{ postfix_virtual_alias_domains[0] }}'"
+    line: "DEFAULT_EMAIL_HOST = '{{ mailman_primary_domain }}'"
 
 - name: "Configure mailman DEFAULT_URL_HOST"
   lineinfile:
@@ -123,16 +123,16 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK mailman mailinglist"
     content: |
       ## mailman mailing list
-      mailman@{{ postfix_virtual_alias_domains[0] }}              mailman@{{ fake_mailman_domain }}
-      mailman-admin@{{ postfix_virtual_alias_domains[0] }}        mailman-admin@{{ fake_mailman_domain }}
-      mailman-bounces@{{ postfix_virtual_alias_domains[0] }}      mailman-bounces@{{ fake_mailman_domain }}
-      mailman-confirm@{{ postfix_virtual_alias_domains[0] }}      mailman-confirm@{{ fake_mailman_domain }}
-      mailman-join@{{ postfix_virtual_alias_domains[0] }}         mailman-join@{{ fake_mailman_domain }}
-      mailman-leave@{{ postfix_virtual_alias_domains[0] }}        mailman-leave@{{ fake_mailman_domain }}
-      mailman-owner@{{ postfix_virtual_alias_domains[0] }}        mailman-owner@{{ fake_mailman_domain }}
-      mailman-request@{{ postfix_virtual_alias_domains[0] }}      mailman-request@{{ fake_mailman_domain }}
-      mailman-subscribe@{{ postfix_virtual_alias_domains[0] }}    mailman-subscribe@{{ fake_mailman_domain }}
-      mailman-unsubscribe@{{ postfix_virtual_alias_domains[0] }}  mailman-unsubscribe@{{ fake_mailman_domain }}
+      mailman@{{ mailman_primary_domain }}              mailman@{{ mailman_fake_domain }}
+      mailman-admin@{{ mailman_primary_domain }}        mailman-admin@{{ mailman_fake_domain }}
+      mailman-bounces@{{ mailman_primary_domain }}      mailman-bounces@{{ mailman_fake_domain }}
+      mailman-confirm@{{ mailman_primary_domain }}      mailman-confirm@{{ mailman_fake_domain }}
+      mailman-join@{{ mailman_primary_domain }}         mailman-join@{{ mailman_fake_domain }}
+      mailman-leave@{{ mailman_primary_domain }}        mailman-leave@{{ mailman_fake_domain }}
+      mailman-owner@{{ mailman_primary_domain }}        mailman-owner@{{ mailman_fake_domain }}
+      mailman-request@{{ mailman_primary_domain }}      mailman-request@{{ mailman_fake_domain }}
+      mailman-subscribe@{{ mailman_primary_domain }}    mailman-subscribe@{{ mailman_fake_domain }}
+      mailman-unsubscribe@{{ mailman_primary_domain }}  mailman-unsubscribe@{{ mailman_fake_domain }}
 
 - name: "Start mailman"
   service:
@@ -160,16 +160,16 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.key }} mailinglist"
     content: |
       ## mailman mailing list
-      {{ item.key }}@{{ postfix_virtual_alias_domains[0] }}              {{ item.key }}@{{ fake_mailman_domain }}
-      {{ item.key }}-admin@{{ postfix_virtual_alias_domains[0] }}        {{ item.key }}-admin@{{ fake_mailman_domain }}
-      {{ item.key }}-bounces@{{ postfix_virtual_alias_domains[0] }}      {{ item.key }}-bounces@{{ fake_mailman_domain }}
-      {{ item.key }}-confirm@{{ postfix_virtual_alias_domains[0] }}      {{ item.key }}-confirm@{{ fake_mailman_domain }}
-      {{ item.key }}-join@{{ postfix_virtual_alias_domains[0] }}         {{ item.key }}-join@{{ fake_mailman_domain }}
-      {{ item.key }}-leave@{{ postfix_virtual_alias_domains[0] }}        {{ item.key }}-leave@{{ fake_mailman_domain }}
-      {{ item.key }}-owner@{{ postfix_virtual_alias_domains[0] }}        {{ item.key }}-owner@{{ fake_mailman_domain }}
-      {{ item.key }}-request@{{ postfix_virtual_alias_domains[0] }}      {{ item.key }}-request@{{ fake_mailman_domain }}
-      {{ item.key }}-subscribe@{{ postfix_virtual_alias_domains[0] }}    {{ item.key }}-subscribe@{{ fake_mailman_domain }}
-      {{ item.key }}-unsubscribe@{{ postfix_virtual_alias_domains[0] }}  {{ item.key }}-unsubscribe@{{ fake_mailman_domain }}
+      {{ item.key }}@{{ mailman_primary_domain }}              {{ item.key }}@{{ mailman_fake_domain }}
+      {{ item.key }}-admin@{{ mailman_primary_domain }}        {{ item.key }}-admin@{{ mailman_fake_domain }}
+      {{ item.key }}-bounces@{{ mailman_primary_domain }}      {{ item.key }}-bounces@{{ mailman_fake_domain }}
+      {{ item.key }}-confirm@{{ mailman_primary_domain }}      {{ item.key }}-confirm@{{ mailman_fake_domain }}
+      {{ item.key }}-join@{{ mailman_primary_domain }}         {{ item.key }}-join@{{ mailman_fake_domain }}
+      {{ item.key }}-leave@{{ mailman_primary_domain }}        {{ item.key }}-leave@{{ mailman_fake_domain }}
+      {{ item.key }}-owner@{{ mailman_primary_domain }}        {{ item.key }}-owner@{{ mailman_fake_domain }}
+      {{ item.key }}-request@{{ mailman_primary_domain }}      {{ item.key }}-request@{{ mailman_fake_domain }}
+      {{ item.key }}-subscribe@{{ mailman_primary_domain }}    {{ item.key }}-subscribe@{{ mailman_fake_domain }}
+      {{ item.key }}-unsubscribe@{{ mailman_primary_domain }}  {{ item.key }}-unsubscribe@{{ mailman_fake_domain }}
   with_dict: "{{ lists | default({}) }}"
 
 - name: "Reload Postfix"
