@@ -48,6 +48,7 @@
     virtualenv: "{{ django_virtualenv_path }}"
   tags:
     - codedeploy
+  when: django_i18n | default(False)
 
 - name: "Create django media root directory"
   file:
