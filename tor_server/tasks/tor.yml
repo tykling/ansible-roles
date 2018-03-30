@@ -21,7 +21,7 @@
     state: "directory"
     owner: "_tor"
     group: "_tor"
-    mode: "700"
+    mode: "0700"
   with_dict: "{{ hiddenservices | default({}) }}"
   notify: "reload tor"
 
@@ -31,7 +31,7 @@
     dest: "/var/db/tor/{{ item.key }}/hostname"
     owner: "_tor"
     group: "_tor"
-    mode: "600"
+    mode: "0600"
   with_dict: "{{ hiddenservices | default({}) }}"
   notify: "reload tor"
 
@@ -41,7 +41,7 @@
     dest: "/var/db/tor/{{ item.key }}/private_key"
     owner: "_tor"
     group: "_tor"
-    mode: "600"
+    mode: "0600"
   with_dict: "{{ hiddenservices | default({}) }}"
   notify: "reload tor"
 
