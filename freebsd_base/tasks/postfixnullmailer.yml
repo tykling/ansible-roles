@@ -46,7 +46,7 @@
 - name: "onestop sendmail when needed"
   command: "/usr/sbin/service sendmail onestop"
   ignore_errors: True
-  when: disableresult | changed
+  when: disableresult is changed
 
 - name: "Enable postfix"
   service:
