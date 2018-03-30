@@ -13,7 +13,7 @@
   copy:
     owner: "mailman"
     group: "mailman"
-    mode: "740"
+    mode: "0644"
     src: "postfix-to-mailman.py"
     dest: "/usr/local/mailman/postfix-to-mailman.py"
 
