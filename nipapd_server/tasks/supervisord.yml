@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run nipapd"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "nipapd"
+    supervisord_programs:
+      - name: "nipapd"
+        comment: "run nipapd"
+        command: "/usr/local/sbin/nipap -c /usr/local/etc/nipap/nipapd.conf"
+        user: "nipap"
+

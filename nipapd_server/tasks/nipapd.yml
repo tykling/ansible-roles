@@ -1,0 +1,24 @@
+---
+- name: "Get nipapd code from git"
+  git:
+    repo: "git://github.com/tykling/NIPAP.git"
+    dest: "/home/ansible/NIPAP/"
+
+- name: "Install nipapd"
+  command: 'make install'
+  args:
+    chdir: "/home/ansible/NIPAP/nipap"
+
+- name: "Install nipapd config file"
+  template:
+    src: "nipapd.conf.j2"
+    dest: "/usr/local/etc/nipap/nipapd.conf"
+
+- name: "create /var/run/nipap/"
+  file:
+    dest: "/var/run/nipap/"
+    state: "directory"
+    mode: "0700"
+    owner: "nipap"
+    group: "nipap"
+

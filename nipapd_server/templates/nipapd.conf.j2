@@ -1,0 +1,27 @@
+[nipapd]
+user = nipap
+group = nipap
+listen = 0.0.0.0
+port = 1337
+foreground = true
+debug = false
+fork = 0
+syslog = false
+pid_file = /var/run/nipap/nipapd.pid
+
+# database settings
+db_host = {{ nipapd_postgres_host }}
+db_port = 5432
+db_name = {{ nipapd_postgres_dbname }}
+db_user = {{ nipapd_postgres_user }}
+db_pass = {{ nipapd_postgres_password }}
+db_sslmode = 1
+
+[auth]
+default_backend = local
+auth_cache_timeout = 3600
+
+[auth.backends.local]
+type = SqliteAuth
+db_path = /var/db/nipap/local_auth.db
+

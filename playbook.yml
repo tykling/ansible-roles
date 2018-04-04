@@ -274,3 +274,9 @@
   roles:
     - "tlsscout_server"
 
+- name: "configure nipapd servers"
+  hosts: "nipapd_servers"
+  become: yes
+  roles:
+    - "nipapd_server"
+
