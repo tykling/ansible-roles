@@ -4,6 +4,8 @@
 - include_tasks: "directories.yml"
 - include_tasks: "dhparam.yml"
 - include_tasks: "configs.yml"
+  tags:
+    - "vhosts"
 - include_tasks: "ocsp.yml"
   when:
     - nginx_proxy

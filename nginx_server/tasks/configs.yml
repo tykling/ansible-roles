@@ -55,6 +55,8 @@
   notify:
     - "start nginx"
     - "reload nginx"
+  tags:
+    - "vhosts"
 
 - name: "Run handlers now so http vhosts are available for Certgrinder"
   meta: flush_handlers
@@ -67,6 +69,8 @@
   when:
     - nginx_proxy
     - certgrinder_hostname_sets is defined
+  tags:
+    - "vhosts"
 
 - name: "Copy vhost https configs for https enabled vhosts"
   template:
@@ -77,4 +81,6 @@
     - nginx_proxy
     - (('https' in item.value and item.value.https) or 'https' not in item.value)
   notify: "reload nginx"
+  tags:
+    - "vhosts"
 
