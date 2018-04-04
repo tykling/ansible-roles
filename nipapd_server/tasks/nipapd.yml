@@ -3,6 +3,7 @@
   git:
     repo: "git://github.com/tykling/NIPAP.git"
     dest: "/home/ansible/NIPAP/"
+    version: "freebsd-support"
 
 - name: "Install nipapd"
   command: 'make install'
