@@ -1,14 +1,21 @@
 ---
+- name: "Install build dependencies for nipapd"
+  pkgng:
+    name: "bind911"
+    state: "present"
+
 - name: "Get nipapd code from git"
   git:
     repo: "git://github.com/tykling/NIPAP.git"
     dest: "/home/ansible/NIPAP/"
     version: "freebsd-support"
+  register: gitresult
 
-- name: "Install nipapd"
+- name: "make and install nipapd as needed"
   command: 'make install'
   args:
     chdir: "/home/ansible/NIPAP/nipap"
+  when: gitresult is changed
 
 - name: "Install nipapd config file"
   template:
