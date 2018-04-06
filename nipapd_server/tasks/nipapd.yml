@@ -1,8 +1,10 @@
 ---
 - name: "Install build dependencies for nipapd"
   pkgng:
-    name: "bind911"
+    name: "{{ item }}"
     state: "present"
+  with_items:
+    - "py27-doctools"
 
 - name: "Get nipapd code from git"
   git:
