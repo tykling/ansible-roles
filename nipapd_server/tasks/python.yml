@@ -9,6 +9,11 @@
     name: "py27-virtualenv"
     state: "present"
 
+- name: "Copy sqlite3.h to /usr/local/include/python2.7 because I have no idea how this works"
+  command: "cp /usr/local/include/sqlite3.h /usr/local/include/python2.7"
+  args:
+    creates: "/usr/local/include/python2.7/sqlite3.h"
+
 - name: "Create virtualenv and install requirements.txt modules with pip"
   pip:
     virtualenv_python: "python2.7"
