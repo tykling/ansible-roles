@@ -280,3 +280,9 @@
   roles:
     - "nipapd_server"
 
+- name: "configure nipapcli servers"
+  hosts: "nipap_cli_servers"
+  become: yes
+  roles:
+    - "nipap_cli_server"
+

@@ -1,0 +1,8 @@
+---
+- name: "Get nipapd code from git"
+  git:
+    repo: "git://github.com/tykling/NIPAP.git"
+    dest: "{{ nipap_checkout_path }}"
+    version: "freebsd-support"
+  register: gitresult
+
