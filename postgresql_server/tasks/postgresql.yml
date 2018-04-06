@@ -4,6 +4,11 @@
     name: "postgresql96-server"
     state: "present"
 
+- name: "Install PostgreSQL controb"
+  pkgng:
+    name: "postgresql96-contrib"
+    state: "present"
+
 - name: "Enable PostgreSQL"
   service:
     name: "postgresql"
