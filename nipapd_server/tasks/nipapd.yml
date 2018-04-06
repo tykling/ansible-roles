@@ -5,6 +5,7 @@
     state: "present"
   with_items:
     - "py27-docutils"
+    - "py27-sqlite3"
 
 - name: "Get nipapd code from git"
   git:
