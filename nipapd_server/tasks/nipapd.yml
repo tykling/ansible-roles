@@ -34,3 +34,11 @@
     owner: "nipap"
     group: "nipap"
 
+- name: "create /var/db/nipap/"
+  file:
+    dest: "/var/db/nipap/"
+    state: "directory"
+    mode: "0700"
+    owner: "nipap"
+    group: "nipap"
+
