@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "nipapd"
         comment: "run nipapd"
-        command: "/usr/local/virtualenv/bin/python /usr/local/sbin/nipapd -c /usr/local/etc/nipap/nipapd.conf"
+        command: "/usr/local/sbin/nipapd -c /usr/local/etc/nipap/nipapd.conf"
         user: "nipap"
 
