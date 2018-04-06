@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: "present"
   with_items:
-    - "py27-doctools"
+    - "py27-docutils"
 
 - name: "Get nipapd code from git"
   git:
