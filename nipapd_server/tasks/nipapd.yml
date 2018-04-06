@@ -15,6 +15,7 @@
   shell: 'make install'
   args:
     chdir: "{{ nipap_checkout_path }}/nipap"
+    executable: "/usr/local/bin/bash"
   when: gitresult is changed
 
 - name: "Install nipapd config file"
