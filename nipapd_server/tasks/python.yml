@@ -1,0 +1,17 @@
+---
+- name: "Install pip"
+  pkgng:
+    name: "py27-pip"
+    state: "present"
+
+- name: "Install virtualenv"
+  pkgng:
+    name: "py27-virtualenv"
+    state: "present"
+
+- name: "Create virtualenv and install requirements.txt modules with pip"
+  pip:
+    virtualenv_python: "python2.7"
+    requirements: "{{ nipap_checkout_path }}/nipap/requirements.txt"
+    virtualenv: "/usr/local/virtualenv"
+

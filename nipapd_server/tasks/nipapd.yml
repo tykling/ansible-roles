@@ -7,14 +7,14 @@
 - name: "Get nipapd code from git"
   git:
     repo: "git://github.com/tykling/NIPAP.git"
-    dest: "/home/ansible/NIPAP/"
+    dest: "{{ nipap_checkout_path }}"
     version: "freebsd-support"
   register: gitresult
 
 - name: "make and install nipapd as needed"
   command: 'make install'
   args:
-    chdir: "/home/ansible/NIPAP/nipap"
+    chdir: "{{ nipap_checkout_path }}/nipap"
   when: gitresult is changed
 
 - name: "Install nipapd config file"
