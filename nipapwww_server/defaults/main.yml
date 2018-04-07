@@ -1,3 +1,4 @@
 ---
+nipapd_postgres_host: "{{ postgres_host }}"
 nipap_checkout_path: "/home/ansible/NIPAP"
 

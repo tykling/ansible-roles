@@ -1,5 +1,5 @@
 ---
-- name: "Get nipapd code from git"
+- name: "Get nipap-www code from git"
   git:
     repo: "git://github.com/tykling/NIPAP.git"
     dest: "{{ nipap_checkout_path }}"

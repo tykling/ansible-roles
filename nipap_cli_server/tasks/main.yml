@@ -1,4 +1,0 @@
----
-- include_tasks: "user.yml"
-- include_tasks: "nipapcli.yml"
-
