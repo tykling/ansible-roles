@@ -4,11 +4,6 @@
     name: "py27-pip"
     state: "present"
 
-- name: "Install virtualenv"
-  pkgng:
-    name: "py27-virtualenv"
-    state: "present"
-
 - name: "Copy sqlite3.h to /usr/local/include/python2.7 because I have no idea how this works"
   command: "cp /usr/local/include/sqlite3.h /usr/local/include/python2.7"
   args:

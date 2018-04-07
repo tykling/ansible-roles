@@ -1,0 +1,47 @@
+# --------------------------------------
+# NIPAP shell command configuration file
+# --------------------------------------
+#
+# This file contains configuration for the NIPAP shell command. The 'nipap'
+# executable will look for its config in ~/.nipaprc, so to successfully
+# configure NIPAP, this file should be palced there and modified for your
+# setup.
+#
+
+[global]
+
+# NIPAP connection settings
+hostname = {{ nipapd_server }}
+port = {{ nipapd_port }}
+username = {{ nipapd_user }}
+password = {{ nipapd_password }}
+
+# Specify a command which can be used to complete node hostnames. This will be
+# called when trying to complete a node hostname.
+#
+# The string "%search_string%" will be replaced by the current search string.
+#complete_node_cmd = node list %search_string%
+
+# Used as default VRF RT by 'nipap address add/modify/remove/view' commands
+# when no other VRF RT is specified on the command line. Also used as default
+# VRF when expanding a pool with a new prefix for the first time.
+# '-' means VRF 'Default' (RT: -)
+default_vrf_rt = -
+
+# 'nipap address list' will per default search in the following VRF RT when no
+# VRF RT is specified on the command line.
+# 'all' means that searches will include results from all VRFs
+default_list_vrf_rt = all
+
+# Specify custom columns for 'nipap address list' using a comma separated list
+# of columns. If the list is prefixed with '+' it will add these columns in
+# addition to the standard set of columns.
+#
+# Example to list prefix usage statistics in addition to standard columns:
+#
+#   prefix_list_columns = +total_addresses,used_addresses,free_addresses
+#
+# Example to only listen VRF RT and prefix:
+#
+#   prefix_list_columns = vrf_rt,prefix
+#

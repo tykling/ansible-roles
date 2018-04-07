@@ -281,8 +281,14 @@
     - "nipapd_server"
 
 - name: "configure nipapcli servers"
-  hosts: "nipap_cli_servers"
+  hosts: "nipapcli_servers"
   become: yes
   roles:
-    - "nipap_cli_server"
+    - "nipapcli_server"
+
+- name: "configure nipapwww servers"
+  hosts: "nipapwww_servers"
+  become: yes
+  roles:
+    - "nipapwww_server"
 

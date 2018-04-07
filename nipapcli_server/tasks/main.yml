@@ -1,0 +1,6 @@
+---
+- include_tasks: "user.yml"
+- include_tasks: "code.yml"
+- include_tasks: "python.yml"
+- include_tasks: "nipapcli.yml"
+

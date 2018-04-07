@@ -1,0 +1,4 @@
+---
+nipap_checkout_path: "/home/ansible/NIPAP"
+nipapd_port: 1337
+

@@ -1,0 +1,16 @@
+---
+- name: "Install python3"
+  pkgng:
+    name: "python3"
+    state: "present"
+
+- name: "Make sure we have pip3 available in the global env"
+  command: "python3 -m ensurepip"
+  args:
+    creates: "/usr/local/bin/pip3"
+
+- name: "Install requirements.txt modules with pip. Install in the global py3 env."
+  pip:
+    requirements: "{{ nipap_checkout_path }}/nipap-cli/requirements.txt"
+    executable: "/usr/local/bin/pip3"
+

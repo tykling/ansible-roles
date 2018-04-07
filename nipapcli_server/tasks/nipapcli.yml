@@ -1,0 +1,23 @@
+---
+- name: "Install build dependencies for nipap-cli"
+  pkgng:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - "py27-docutils"
+
+- name: "make and install nipap-cli as needed"
+  shell: 'make install'
+  args:
+    chdir: "{{ nipap_checkout_path }}/nipap-cli"
+    executable: "/usr/local/bin/bash"
+  when: gitresult is changed
+
+- name: "Install nipap-cli config file"
+  template:
+    src: "nipaprc.j2"
+    dest: "/usr/home/nipap/.nipaprc"
+    owner: "nipap"
+    group: "nipap"
+    mode: "0600"
+
