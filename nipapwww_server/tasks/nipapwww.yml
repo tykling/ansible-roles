@@ -1,8 +1,30 @@
 ---
+- name: "Install build dependencies for nipapd"
+  pkgng:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - "py27-docutils"
+    - "py27-sqlite3"
+
 - name: "Get nipap-www code from git"
   git:
     repo: "git://github.com/tykling/NIPAP.git"
     dest: "{{ nipap_checkout_path }}"
     version: "freebsd-support"
   register: gitresult
+
+- name: "make and install nipap python module if needed"
+  shell: 'make install'
+  args:
+    chdir: "{{ nipap_checkout_path }}/nipap"
+    executable: "/usr/local/bin/bash"
+  when: gitresult is changed
+
+- name: "make and install nipap-www if needed"
+  shell: 'make install'
+  args:
+    chdir: "{{ nipap_checkout_path }}/nipap-www"
+    executable: "/usr/local/bin/bash"
+  when: gitresult is changed
 
