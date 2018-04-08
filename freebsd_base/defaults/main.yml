@@ -35,4 +35,5 @@ poudriere_cert: |
   -----END PUBLIC KEY-----
 
 jail_host: False
+etcaliases_root_forward_email: "{{ ansible_admin_email }}"
 
