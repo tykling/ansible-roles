@@ -28,6 +28,13 @@
     executable: "/usr/local/bin/bash"
     creates: "/usr/local/lib/python2.7/site-packages/nipap_www-0.29.6-py2.7.egg/nipapwww"
 
+- name: "Fix permissions of /var/cache/nipap-www/"
+  file:
+    dest: "/var/cache/nipap-www"
+    owner: "nipap"
+    group: "nipap"
+    mode: "0700"
+
 - name: "Install nipap-www config file"
   template:
     src: "nipap-www.ini.j2"
