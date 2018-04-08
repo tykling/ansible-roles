@@ -12,21 +12,21 @@
     repo: "git://github.com/tykling/NIPAP.git"
     dest: "{{ nipap_checkout_path }}"
     version: "freebsd-support"
-  register: gitresult
+  ignore_errors: True
 
-- name: "make and install nipap python module if needed"
+- name: "make and install nipap python module"
   shell: 'make install'
   args:
     chdir: "{{ nipap_checkout_path }}/nipap"
     executable: "/usr/local/bin/bash"
-  when: gitresult is changed
+    creates: "/usr/local/lib/python2.7/site-packages/nipap"
 
 - name: "make and install nipap-www if needed"
   shell: 'make install'
   args:
     chdir: "{{ nipap_checkout_path }}/nipap-www"
     executable: "/usr/local/bin/bash"
-  when: gitresult is changed
+    creates: "/usr/local/lib/python2.7/site-packages/nipap_www-0.29.6-py2.7.egg/nipapwww"
 
 - name: "Install nipap-www config file"
   template:
@@ -36,7 +36,7 @@
     group: "nipap"
     mode: "0600"
 
-- name: "Install nipap-www config file"
+- name: "Install nipapd config file for nipap-www"
   template:
     src: "nipad.conf.j2"
     dest: "/usr/local/etc/nipap/nipapd.conf"
