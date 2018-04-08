@@ -28,3 +28,19 @@
     executable: "/usr/local/bin/bash"
   when: gitresult is changed
 
+- name: "Install nipap-www config file"
+  template:
+    src: "nipap-www.ini.j2"
+    dest: "/usr/local/etc/nipap/nipap-www.ini"
+    owner: "nipap"
+    group: "nipap"
+    mode: "0600"
+
+- name: "Install nipap-www config file"
+  template:
+    src: "nipad.conf.j2"
+    dest: "/usr/local/etc/nipap/nipapd.conf"
+    owner: "nipap"
+    group: "nipap"
+    mode: "0600"
+
