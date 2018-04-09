@@ -1,3 +1,10 @@
+[auth]
+default_backend = local
+
+[auth.backends.local]
+type = SqliteAuth
+db_path = /var/db/nipap/local_auth.db
+
 [www]
 xmlrpc_uri = http://{{ nipapd_username }}:{{ nipapd_password }}@{{ nipapd_server }}:{{ nipapd_port }}
 

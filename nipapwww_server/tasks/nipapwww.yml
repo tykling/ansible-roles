@@ -51,3 +51,16 @@
     group: "nipap"
     mode: "0600"
 
+- name: "create /var/db/nipap/"
+  file:
+    dest: "/var/db/nipap/"
+    state: "directory"
+    mode: "0700"
+    owner: "nipap"
+    group: "nipap"
+
+- name: "Create local auth db if needed"
+  command: "/usr/local/sbin/nipap-passwd -c /usr/local/etc/nipap/nipapd.conf create-database"
+  args:
+    creates: "/var/db/nipap/local_auth.db"
+
