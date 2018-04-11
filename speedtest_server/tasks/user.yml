@@ -1,0 +1,6 @@
+---
+- name: "Add speedtest user"
+  user:
+    name: "speedtest"
+    comment: "speedtest user"
+

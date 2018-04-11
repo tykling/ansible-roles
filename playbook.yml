@@ -292,3 +292,9 @@
   roles:
     - "nipapwww_server"
 
+- name: "configure speedtest servers"
+  hosts: "speedtest_servers"
+  become: yes
+  roles:
+    - "speedtest_server"
+

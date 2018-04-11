@@ -1,0 +1,27 @@
+---
+- name: "Download OoklaServer.tgz"
+  get_url:
+    url: "http://install.speedtest.net/ooklaserver/stable/OoklaServer.tgz"
+    dest: "/home/ansible/OoklaServer.tgz"
+    checksum: "sha256:6f60a44a2aeae7463ec135442ac67386c8c6ae2bf5f3ca964cea67da6b4c280b"
+  register: downloadresult
+
+- name: "Extract OoklaServer.tgz into /home/ansible/OoklaServer"
+    unarchive:
+      src: "/home/ansible/OoklaServer.tgz"
+      dest: "/home/ansible/OoklaServer"
+  when: downloadresult is changed
+
+- name: "Download OoklaServer.tgz"
+  get_url:
+    url: "http://install.speedtest.net/httplegacy/http_legacy_fallback.zip"
+    dest: "/home/ansible/http_legacy_fallback.zip"
+    checksum: "sha256:e77a8fc73dbf725c6d529b389e2fa0af61fbad9be2240d79dc6db078f245463d"
+  register: downloadresult
+
+- name: "Extract OoklaServer.tgz into /usr/local/www/speedtest-legacy"
+    unarchive:
+      src: "/home/ansible/http_legacy_fallback.zip"
+      dest: "/usr/local/www/speedtest-legacy"
+  when: downloadresult is changed
+
