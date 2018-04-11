@@ -23,9 +23,7 @@
     state: "directory"
 
 - name: "Extract http_legacy_fallback.zip into /usr/local/www/speedtest-legacy"
-  unarchive:
-    src: "/home/ansible/http_legacy_fallback.zip"
-    dest: "/usr/local/www/speedtest-legacy"
-    remote_src: True
-  when: downloadresult is changed
+  command: "/usr/bin/unzip /home/ansible/http_legacy_fallback.zip -d /usr/local/www/speedtest-legacy"
+  args:
+    creates: "/usr/local/www/speedtest-legacy/crossdomain.xml"
 
