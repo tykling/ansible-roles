@@ -1,24 +1,16 @@
 ---
-- name: "Download OoklaServer.tgz"
-  get_url:
-    url: "http://install.speedtest.net/ooklaserver/stable/OoklaServer.tgz"
-    dest: "/home/ansible/OoklaServer.tgz"
-    checksum: "sha256:6f60a44a2aeae7463ec135442ac67386c8c6ae2bf5f3ca964cea67da6b4c280b"
-  register: downloadresult
-
-- name: "Create /home/ansible/OoklaServer"
+- name: "Install OoklaServer binary"
   file:
-    dest: "/home/ansible/OoklaServer"
-    state: "directory"
+    src: "OoklaServer"
+    dest: "/usr/local/bin/OoklaServer"
+    mode: "755"
 
-- name: "Extract OoklaServer.tgz into /home/ansible/OoklaServer"
-  unarchive:
-    src: "/home/ansible/OoklaServer.tgz"
-    dest: "/home/ansible/OoklaServer"
-    remote_src: True
-  when: downloadresult is changed
+- name: "Install OoklaServer config"
+  template:
+    src: "OoklaServer.properties.j2"
+    dest: "/usr/local/etc/OoklaServer.properties"
 
-- name: "Download OoklaServer.tgz"
+- name: "Download http_legacy_fallback.zip"
   get_url:
     url: "http://install.speedtest.net/httplegacy/http_legacy_fallback.zip"
     dest: "/home/ansible/http_legacy_fallback.zip"
