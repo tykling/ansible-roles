@@ -6,6 +6,11 @@
     checksum: "sha256:6f60a44a2aeae7463ec135442ac67386c8c6ae2bf5f3ca964cea67da6b4c280b"
   register: downloadresult
 
+- name: "Create /home/ansible/OoklaServer"
+  file:
+    dest: "/home/ansible/OoklaServer"
+    state: "directory"
+
 - name: "Extract OoklaServer.tgz into /home/ansible/OoklaServer"
   unarchive:
     src: "/home/ansible/OoklaServer.tgz"
@@ -19,6 +24,11 @@
     dest: "/home/ansible/http_legacy_fallback.zip"
     checksum: "sha256:e77a8fc73dbf725c6d529b389e2fa0af61fbad9be2240d79dc6db078f245463d"
   register: downloadresult
+
+- name: "Create /usr/local/www/speedtest-legacy"
+  file:
+    dest: "/usr/local/www/speedtest-legacy"
+    state: "directory"
 
 - name: "Extract http_legacy_fallback.zip into /usr/local/www/speedtest-legacy"
   unarchive:
