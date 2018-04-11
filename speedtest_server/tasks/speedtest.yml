@@ -1,6 +1,6 @@
 ---
 - name: "Install OoklaServer binary"
-  file:
+  copy:
     src: "OoklaServer"
     dest: "/usr/local/bin/OoklaServer"
     mode: "755"
