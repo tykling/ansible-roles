@@ -5,6 +5,7 @@
     state: "present"
   with_items:
     - "py27-docutils"
+  register: gitresult
 
 - name: "make and install nipap-cli as needed"
   shell: 'make install'
