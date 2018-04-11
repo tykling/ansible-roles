@@ -7,9 +7,9 @@
   register: downloadresult
 
 - name: "Extract OoklaServer.tgz into /home/ansible/OoklaServer"
-    unarchive:
-      src: "/home/ansible/OoklaServer.tgz"
-      dest: "/home/ansible/OoklaServer"
+  unarchive:
+    src: "/home/ansible/OoklaServer.tgz"
+    dest: "/home/ansible/OoklaServer"
   when: downloadresult is changed
 
 - name: "Download OoklaServer.tgz"
@@ -20,8 +20,8 @@
   register: downloadresult
 
 - name: "Extract OoklaServer.tgz into /usr/local/www/speedtest-legacy"
-    unarchive:
-      src: "/home/ansible/http_legacy_fallback.zip"
-      dest: "/usr/local/www/speedtest-legacy"
+  unarchive:
+    src: "/home/ansible/http_legacy_fallback.zip"
+    dest: "/usr/local/www/speedtest-legacy"
   when: downloadresult is changed
 
