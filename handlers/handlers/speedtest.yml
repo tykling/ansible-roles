@@ -1,4 +1,4 @@
 ---
-- name: "restart ooklaserver/speedtest using supervisorctl"
+- name: "restart speedtest"
   command: "/usr/local/bin/supervisorctl restart ooklaserver"
 
