@@ -1,78 +1,19 @@
-#
-# This is a sample configuration file for OoklaServer
-#
-
-#
 # OoklaServer Options
-#
-
-# The server listens to TCP port 5060 and 8080 by default. These ports are required for
-# speedtest.net servers, although more can be added.
-#
-# For Speedtest Custom, this can be changed to other ports if desired; you will need to
-# contact support to update your server record.
-#
-# At least one port is required for this setting.
-#
 OoklaServer.tcpPorts = 5060,8080
-
-# The server listens to UDP port 5060 and 8080 by default. These ports are required for
-# speedtest.net servers, although more can be added.
-#
-# For Speedtest Custom, this can be changed to other ports if desired; you will need to
-# contact support to update your server record.
-#
-# At least one port is required for this setting.
-#
 OoklaServer.udpPorts = 5060,8080
-
-# Uncomment to bind OoklaServer to IPv6
-#
-# OoklaServer.useIPv6 = true
-
-# OoklaServer.allowedDomains allows you to limit access to your OoklaServer.
-#
-# The default ("*") allows all domains access.
-# Uncomment to allow access from ookla.com, speedtest.net, and simply add your
-# own domain(s):
-#
-# OoklaServer.allowedDomains = *.ookla.com, *.speedtest.net
-
+OoklaServer.useIPv6 = true
+OoklaServer.allowedDomains = {{ speedtest_allowed_domains | join(', ') }}
 OoklaServer.maxThreads = 512
+OoklaServer.enableAutoUpdate = false
 
-# Enable auto updates (default)
-#
-# OoklaServer.enableAutoUpdate = true
-
-
-#
-# SSL Options
-#
-
-# To enable SSL, create a certificate and private key and set the path to them here:
-# openSSL.server.certificateFile = cert.pem
-# openSSL.server.privateKeyFile = key.pem
-
-# SSL Verification mode should be set to none, in order to prevent the server from
-# asking for client certs
+# TLS options
+openSSL.server.certificateFile = /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt
+openSSL.server.privateKeyFile = /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key
 openSSL.server.verificationMode = none
 
-
-#
-# Logging Options
-#
-
-# Log to the Console
-#
+# logging
 logging.loggers.app.name = Application
 logging.loggers.app.channel.class = ConsoleChannel
 logging.loggers.app.channel.pattern = %Y-%m-%d %H:%M:%S [%P - %I] [%p] %t
 logging.loggers.app.level = information
 
-# Log to files
-#
-#logging.loggers.app.name = Application
-#logging.loggers.app.channel.class = FileChannel
-#logging.loggers.app.channel.pattern = %Y-%m-%d %H:%M:%S [%P - %I] [%p] %t
-#logging.loggers.app.channel.path = ${application.dir}/ooklaserver.log
-#logging.loggers.app.level = information

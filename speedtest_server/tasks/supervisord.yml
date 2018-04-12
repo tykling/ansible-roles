@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "ooklaserver"
         comment: "run ooklaserver"
-        command: "/usr/local/bin/OoklaServer"
+        command: "/usr/local/ookla/OoklaServer"
         user: "speedtest"
 

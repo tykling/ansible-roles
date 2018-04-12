@@ -1,14 +1,20 @@
 ---
+- name: "Create /usr/local/ookla"
+  file:
+    dest: "/usr/local/ookla"
+    state: "directory"
+
 - name: "Install OoklaServer binary"
   copy:
     src: "OoklaServer"
-    dest: "/usr/local/bin/OoklaServer"
+    dest: "/usr/local/ookla/OoklaServer"
     mode: "755"
 
 - name: "Install OoklaServer config"
   template:
     src: "OoklaServer.properties.j2"
-    dest: "/usr/local/etc/OoklaServer.properties"
+    dest: "/usr/local/ookla/OoklaServer.properties"
+  notify: "restart speedtest"
 
 - name: "Download http_legacy_fallback.zip"
   get_url:
