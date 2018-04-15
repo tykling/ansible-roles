@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "tykdnscheck4"
         comment: "run tykdnscheck4"
-        command: "sudo /usr/home/tykdnscheck/tykdnscheck/tykdnscheck.sh -p 4 -d check.censurfridns.dk. -l /var/log/dnscheck4.log -i {% tykdnscheck_okservers_v4 | join(' ') %} -g '{{ tykdnscheck_goodmessage }} -b '{{ tykdnscheck_badmessage }}'"
+        command: "/usr/home/tykdnscheck/tykdnscheck/tykdnscheck.sh -p 4 -d check.censurfridns.dk. -l /var/log/dnscheck4.log -i {{ tykdnscheck_okservers_v4 | join(' ') }} -g '{{ tykdnscheck_goodmessage }} -b '{{ tykdnscheck_badmessage }}'"
         user: "0"
 
 - name: "Create supervisord.d config file to run tykdnscheck6"
@@ -20,6 +20,6 @@
     supervisord_programs:
       - name: "tykdnscheck6"
         comment: "run tykdnscheck6"
-        command: "sudo /usr/home/tykdnscheck/tykdnscheck/tykdnscheck.sh -p 6 -d check.censurfridns.dk. -l /var/log/dnscheck6.log -i {% tykdnscheck_okservers_v6 | join(' ') %} -g '{{ tykdnscheck_goodmessage }} -b '{{ tykdnscheck_badmessage }}'"
+        command: "/usr/home/tykdnscheck/tykdnscheck/tykdnscheck.sh -p 6 -d check.censurfridns.dk. -l /var/log/dnscheck6.log -i {{ tykdnscheck_okservers_v6 | join(' ') }} -g '{{ tykdnscheck_goodmessage }} -b '{{ tykdnscheck_badmessage }}'"
         user: "0"
 
