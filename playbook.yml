@@ -298,3 +298,9 @@
   roles:
     - "speedtest_server"
 
+- name: "configure mastodon servers"
+  hosts: "mastodon_servers"
+  become: yes
+  roles:
+    - "mastodon_server"
+

@@ -1,0 +1,6 @@
+---
+- name: "Install mastodon"
+  pkgng:
+    name: "mastodon"
+    state: "present"
+
