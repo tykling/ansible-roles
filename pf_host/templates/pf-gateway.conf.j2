@@ -31,12 +31,16 @@ scrub in on { {% for interface in pf.gateway_interfaces %}{% if interface.scrub 
 ####################################################################################################
 ############### translation BINAT ########################
 {% for binat in pf.gateway_binat_rules | default([]) %}
-binat on ${{ binat.interface }} from {{ binat.inside }} -> {{ binat.outside }}
+binat on ${{ binat.outside_interface }} from {{ binat.inside }} -> {{ binat.outside }}
 {% endfor %}
 
 ############### translation RDR ########################
 
 ############### translation NAT ########################
+# nat traffic from binat to binat outside
+#{% for binat in pf.gateway_binat_rules | default([]) %}
+#nat on ${{ binat.inside_interface }} from binat.inside to ${{ binat.outside_interface }}:network -> {{ binat.outside }}
+#{% endfor %}
 
 ####################################################################################################
 ############### filtering ##############################
