@@ -4,3 +4,8 @@
     name: "redis_enable"
     value: "YES"
 
+- name: "Make sure redis is started"
+  service:
+    name: "redis"
+    state: "started"
+
