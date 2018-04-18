@@ -4,3 +4,11 @@
     name: "mastodon"
     state: "present"
 
+- name: "Install mastodon config file"
+  template:
+    src: ".env.production.j2"
+    dest: "/usr/local/www/mastodon/.env.production"
+    mode: "0600"
+    owner: "root"
+    group: "wheel"
+

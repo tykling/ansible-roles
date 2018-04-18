@@ -1,0 +1,6 @@
+---
+- name: "Enable redis"
+  sysrc:
+    name: "redis_enable"
+    value: "YES"
+
