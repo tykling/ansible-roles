@@ -16,4 +16,6 @@ autostart={{ item.autostart | default(True) }}
 {% endif %}
 {% if item.exitcodes is defined %}exitcodes={{ item.exitcodes }}
 {% endif %}
+{% if item.socket is defined %}socket={{ item.socket }}
+{% endif %}
 
