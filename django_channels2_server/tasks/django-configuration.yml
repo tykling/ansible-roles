@@ -70,6 +70,15 @@
   tags:
     - codedeploy
 
+- name: "Run compilemessages"
+  django_manage:
+    command: "compilemessages"
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+  tags:
+    - codedeploy
+  when: django_i18n | default(False)
+
 - name: "Enable daily cronjob to cleanup django sessions"
   cron:
     name: "Cleanup django sessions daily"
