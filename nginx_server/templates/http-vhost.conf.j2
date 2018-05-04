@@ -1,11 +1,11 @@
 server {
     # listen here you little..
 {% if item.value.listen_on_all_ips | default(False) %}
-    listen                  80;
-    listen                  [::]:80;
+    listen                  80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
+    listen                  [::]:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
 {% else %}
-    listen                  {{ nginx_v4_proxy_ip }}:80;
-    listen                  [{{ item.value.vhost_v6ip }}]:80;
+    listen                  {{ nginx_v4_proxy_ip }}:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
+    listen                  [{{ item.value.vhost_v6ip }}]:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
 {% endif %}
 
     # hostnames handled in this vhost
@@ -33,6 +33,7 @@ server {
 {% endif %}
 }
 
+{% if item.value.redirect_ip_to_hostname | default(True) %}
 # catch-all server block for the requests going to the v6 IPs with blank or unknown Host: header,
 # and to the v4 ip if this is the default vhost
 server {
@@ -54,4 +55,5 @@ server {
         return              301 https://{{ item.value.hostnames[0] }}$request_uri;
     }
 }
+{% endif %}
 
