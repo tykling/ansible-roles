@@ -71,7 +71,7 @@ pass in quick on ${{ if.macro }} inet proto icmp from any to (${{ if.macro }}) i
 
 ### permit selected ICMP types to binat machines
 {% for rule in pf.gateway_binat_rules | default([]) %}
-pass in quick on ${{ rule.interface }} inet proto icmp from any to {{ rule.inside }} icmp-type { unreach, echoreq, timex }
+pass in quick on ${{ rule.outside_if }} inet proto icmp from any to {{ rule.inside }} icmp-type { unreach, echoreq, timex }
 {% endfor %}
 
 #######################################################
