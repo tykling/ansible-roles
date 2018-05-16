@@ -31,7 +31,7 @@ scrub in on { {% for interface in pf.gateway_interfaces %}{% if interface.scrub 
 ####################################################################################################
 ############### translation BINAT ########################
 {% for binat in pf.gateway_binat_rules | default([]) %}
-binat on ${{ binat.outside_interface }} from {{ binat.inside }} -> {{ binat.outside }}
+binat on ${{ binat.outside_if }} from {{ binat.inside }} -> {{ binat.outside }}
 {% endfor %}
 
 ############### translation RDR ########################
