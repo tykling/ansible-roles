@@ -37,9 +37,9 @@ binat on ${{ binat.outside_if }} from {{ binat.inside }} -> {{ binat.outside }}
 ############### translation RDR ########################
 
 ############### translation NAT ########################
-# nat traffic from binat to binat outside
+# flip traffic from binat to binat outside
 #{% for binat in pf.gateway_binat_rules | default([]) %}
-#nat on ${{ binat.inside_interface }} from binat.inside to ${{ binat.outside_interface }}:network -> {{ binat.outside }}
+#nat on ${{ binat.inside_if }} from binat.inside to ${{ binat.outside_if }}:network -> {{ binat.outside }}
 #{% endfor %}
 
 ####################################################################################################
