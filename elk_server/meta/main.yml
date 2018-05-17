@@ -2,4 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: syslogng_server, elk_syslogng: yes, syslogng_upstream_server: no }
+  - { role: nginx_server }
 
