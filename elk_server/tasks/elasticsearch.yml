@@ -19,3 +19,8 @@
     mode: "0440"
   notify: "restart elasticsearch"
 
+- name: "create elasticsearch scripts folder"
+  file:
+    path: "/usr/local/etc/elasticsearch/scripts"
+    state: "directory"
+
