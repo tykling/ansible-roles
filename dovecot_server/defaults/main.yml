@@ -5,6 +5,7 @@ dovecot_vmail_username: "vmail"
 dovecot_vmail_uid: 10000
 dovecot_vmail_groupname: "vmail"
 dovecot_vmail_gid: 10000
+dovecot_dhparam_path: "{{ dhparam_path }}"
 
 certgrinder_hostname_sets:
   - "{{ ansible_nodename }}"

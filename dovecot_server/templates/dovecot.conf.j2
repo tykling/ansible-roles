@@ -4,14 +4,14 @@ disable_plaintext_auth=yes
 ssl=required
 ssl_cert = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt
 ssl_key = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.key
-ssl_dh = </usr/local/etc/dovecot/dh.pem
+ssl_dh = <{{ dovecot_dhparam_path }}
 
 ####################################################################################
 #   OS Settings
 
 # UID/GIDs
-mail_uid = {{ dovecot_vmail_username}}
-mail_gid = {{ dovecot_vmail_groupname}}
+mail_uid = {{ dovecot_vmail_username }}
+mail_gid = {{ dovecot_vmail_groupname }}
 mail_privileged_group = mail
 
 # Syslog facility
@@ -66,6 +66,7 @@ service lmtp {
     port = 24
   }
 }
+
 
 service imap {
   vsz_limit = 1024 M
