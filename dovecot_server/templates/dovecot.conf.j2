@@ -4,8 +4,7 @@ disable_plaintext_auth=yes
 ssl=required
 ssl_cert = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt
 ssl_key = </usr/home/certgrinder/certificates/{{ ansible_nodename }}.key
-ssl_protocols = !SSLv2 !SSLv3
-#ssl_cipher_list = ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:DH+AES:!3DES:!RSA:!AES128:!ADH:!AECDH:!MD5:!DSS
+ssl_dh = </usr/local/etc/dovecot/dh.pem
 
 ####################################################################################
 #   OS Settings
@@ -31,17 +30,17 @@ mail_location = maildir:%h/mail
 lda_mailbox_autocreate=yes
 lda_mailbox_autosubscribe=yes
 
-# User DB
-userdb {
-  driver=sql
-  args=/usr/local/etc/dovecot/dovecot-sql.conf
-}
-
-# Password DB
+# Password DB (also returns userdb_ fields)
 passdb {
   driver=sql
   args=/usr/local/etc/dovecot/dovecot-sql.conf
 }
+
+# We get all the userdb_ fields from the passdb query
+userdb {
+  driver = prefetch
+}
+
 
 ####################################################################################
 #   Protocols and listeners

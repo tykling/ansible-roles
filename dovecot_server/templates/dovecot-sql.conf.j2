@@ -7,7 +7,3 @@ password_query = SELECT localpart AS user, domain as domain, password, '/usr/mai
   {{ dovecot_vmail_gid }} AS userdb_gid \
   FROM users WHERE lower(localpart||'@'||domain) = '%Lu'
 
-user_query = SELECT '/usr/mailboxes/'||domain||'/'||localpart as home, \
-  {{ dovecot_vmail_uid }} AS uid, \
-  {{ dovecot_vmail_gid }} AS gid \
-  FROM users WHERE lower(localpart||'@'||domain) = '%Lu'
