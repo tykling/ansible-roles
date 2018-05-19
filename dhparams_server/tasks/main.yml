@@ -1,7 +1,7 @@
 ---
 - name: "Create dhparam directory"
   file:
-    path: "{{ dhparam_path }}"
+    path: "{{ dhparam_path | dirname }}"
     state: "directory"
 
 - name: "Create dhparams"
