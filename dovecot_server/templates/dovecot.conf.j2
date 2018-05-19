@@ -42,7 +42,7 @@ userdb {
 }
 
 # fallback userdb for lmtp and doveadm commands
-passdb {
+userdb {
   driver=sql
   args=/usr/local/etc/dovecot/dovecot-sql.conf
 }
