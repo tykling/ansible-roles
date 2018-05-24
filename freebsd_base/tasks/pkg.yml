@@ -1,7 +1,7 @@
 ---
 - name: "Find out if poudriere.tyknet.dk repo is already enabled"
   stat:
-    path: "/usr/local/etc/pkg/repos/poudriere_tyknet_dk.conf"
+    path: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
   register: poudriere_config_status
 
 - name: "Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)"
