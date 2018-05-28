@@ -2,16 +2,16 @@
 @include "scl.conf"
 
 #
-# these options are suitable for.. what?
+# these options are suitable for both relays and the final destination
+# hostname will be client-hostname-from-the-message / client-hostname-resolved-on-the-relay / relay-hostname-resolved-on-the-server 
 #
 options {
-    chain_hostnames(no);
+    chain_hostnames(yes);
+    keep_hostname(no);
     flush_lines(0);
     threaded(yes);
     use_fqdn(yes);
-    keep_hostname(no);
     use-dns(yes);
-    dns-cache-hosts(/etc/hosts);
     stats-freq(60);
     stats-level(0);
 }; 
