@@ -6,9 +6,6 @@ postgresql_max_connections: "100"
 postgresql_backup_savedays: "7"
 postgresql_backup_path: "/var/postgresbackups"
 
-certgrinder_hostname_sets:
-  - "{{ ansible_nodename }}"
-
 certgrinder_post_renew_hooks:
   - "/bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key {{ postgresql_homedir }}"
   - "/bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}.*"

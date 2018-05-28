@@ -1,7 +1,4 @@
 ---
-certgrinder_hostname_sets:
-  - "{{ ansible_nodename }}"
-
 certgrinder_post_renew_hooks:
   - "/usr/sbin/service syslog-ng restart"
 
