@@ -3,4 +3,5 @@ dependencies:
   - { role: handlers }
   - { role: pf_host, when: pf_host }
   - { role: tykbackup_client, when: tykbackup_client }
+  - { role: certgrinder_client, when: certgrinder_client }
 

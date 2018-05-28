@@ -40,12 +40,6 @@
 ##############################################################################
 ### application roles below here
 
-- name: "configure certgrinder clients"
-  hosts: "all"
-  become: yes
-  roles:
-    - "certgrinder_client"
-
 - name: "configure etherpad servers"
   hosts: "etherpad_servers"
   become: yes
