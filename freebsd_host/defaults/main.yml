@@ -30,5 +30,4 @@ zfs_scrub_interval_days: 30
 tykbackup_client: yes
 pf_host: yes
 
-certgrinder_client: yes
 
