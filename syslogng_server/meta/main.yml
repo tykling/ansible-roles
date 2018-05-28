@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client, when: syslogng_tls_listener }
+  - { role: certgrinder_client }
 
