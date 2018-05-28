@@ -7,6 +7,19 @@
       tags:
         - "always"
 
+- name: "Include include_vars/global.yml"
+  hosts: "all"
+  tasks:
+    - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
+      tags:
+        - "always"
+
+- name: "configure certgrinder clients"
+  hosts: "all"
+  become: yes
+  roles:
+    - "certgrinder_client"
+
 - name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
   hosts: "all"
   become: yes

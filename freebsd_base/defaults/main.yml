@@ -36,5 +36,4 @@ poudriere_cert: |
 
 jail_host: False
 etcaliases_root_forward_email: "{{ ansible_admin_email }}"
-certgrinder_client: yes
 
