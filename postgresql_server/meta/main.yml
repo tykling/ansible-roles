@@ -1,5 +1,4 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client, when: postgresql_server_tls_enable }
 

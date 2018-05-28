@@ -2,6 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: nginx_server, nginx_proxy: True, when: mailman }
-  - { role: certgrinder_client }
   - { role: dhparams_server }
 

@@ -40,6 +40,12 @@
 ##############################################################################
 ### application roles below here
 
+- name: "configure certgrinder clients"
+  hosts: "all"
+  become: yes
+  roles:
+    - "certgrinder_client"
+
 - name: "configure etherpad servers"
   hosts: "etherpad_servers"
   become: yes
@@ -135,12 +141,6 @@
   become: yes
   roles:
     - "certgrinder_server"
-
-- name: "configure certgrinder clients"
-  hosts: "certgrinder_clients"
-  become: yes
-  roles:
-    - "certgrinder_client"
 
 - name: "configure charybdis ircd servers"
   hosts: "ircd_servers"
