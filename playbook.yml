@@ -14,7 +14,7 @@
       tags:
         - "always"
 
-- name: "configure certgrinder clients"
+- name: "configure certgrinder client on all"
   hosts: "all"
   become: yes
   roles:
