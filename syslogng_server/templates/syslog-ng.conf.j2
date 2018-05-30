@@ -72,7 +72,9 @@ destination remote{
         transport("tls")
         port(1999)
         tls(
-            peer-verify(required-trusted)
+            # workaround for https://github.com/balabit/syslog-ng/issues/2070
+            #peer-verify(required-trusted)
+            peer-verify(required-untrusted)
             ca-dir("/etc/ssl")
             # these are only here as a workaround for https://github.com/balabit/syslog-ng/pull/1917
             key_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.key")
