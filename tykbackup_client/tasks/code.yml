@@ -16,7 +16,7 @@
     remote_src: yes
 
 - name: "Copy syncoid script"
-  file:
+  copy:
     src: "syncoid"
     dest: "/usr/local/bin/syncoid"
     mode: "0755"
