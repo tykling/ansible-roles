@@ -22,4 +22,6 @@
 
 - name: "Run c_rehash in syslog-ng cadir"
   command: "/usr/local/bin/c_rehash {{ syslogng_cadir }}"
+  args:
+    creates: "{{ syslogng_cadir }}/2e5ac55d.0"
 
