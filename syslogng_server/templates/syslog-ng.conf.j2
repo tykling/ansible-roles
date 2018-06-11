@@ -27,6 +27,9 @@ source src {
         port("1999")
         transport("tls")
         tls(
+            # require a valid and trusted client cert
+            peer-verify(required-trusted)
+            ca-dir("{{ syslogng_cadir }}")
             key_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.key")
             cert_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.crt")
         )
@@ -37,6 +40,9 @@ source src {
         transport("tls")
         ip-protocol(6)
         tls(
+            # require a valid and trusted client cert
+            peer-verify(required-trusted)
+            ca-dir("{{ syslogng_cadir }}")
             key_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.key")
             cert_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.crt")
         )
@@ -72,11 +78,10 @@ destination remote{
         transport("tls")
         port(1999)
         tls(
-            # workaround for https://github.com/balabit/syslog-ng/issues/2070
-            #peer-verify(required-trusted)
-            peer-verify(required-untrusted)
-            ca-dir("/etc/ssl")
-            # these are only here as a workaround for https://github.com/balabit/syslog-ng/pull/1917
+            # require a valid and trusted server cert
+            peer-verify(required-trusted)
+            ca-dir("{{ syslogng_cadir }}")
+            # these are here so the server can authenticate the client too
             key_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.key")
             cert_file("/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_nodename }}.crt")
         )

@@ -1,0 +1,25 @@
+---
+- name: "Create syslog-ng cadir directory"
+  file:
+    path: "{{ syslogng_cadir }}"
+    state: "directory"
+
+- name: "Add identrust root cert to syslog-ng cadir"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "identrustroot.pem"
+    dest: "{{ syslogng_cadir }}/identrustroot.pem"
+
+- name: "Add intermediate Let’s Encrypt Authority X3 to syslog-ng cadir"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "letsencryptx3auth.pem"
+    dest: "{{ syslogng_cadir }}/letsencryptx3auth.pem"
+
+- name: "Run c_rehash in syslog-ng cadir"
+  command: "/usr/local/bin/c_rehash {{ syslogng_cadir }}"
+
