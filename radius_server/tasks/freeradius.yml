@@ -1,0 +1,11 @@
+---
+- name: "Install freeradius3"
+  pkgng:
+    name: "freeradius3"
+    state: "present"
+
+- name: "Enable freeradius"
+  service:
+    name: "radiusd"
+    enabled: yes
+
