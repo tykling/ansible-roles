@@ -19,7 +19,7 @@ django_admin_prefix: "admin"
 
 django_email_port: 587
 
-django_daphne_user: "nobody"
+django_daphne_user: "www"
 django_channels_backend: "asgi_redis.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
 django_asgi_worker_count: "20"
