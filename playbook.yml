@@ -312,8 +312,8 @@
     - "mastodon_server"
 
 - name: "configure freeradius3 servers"
-  hosts: "radius_servers"
+  hosts: "freeradius_servers"
   become: yes
   roles:
-    - "radius_server"
+    - "freeradius_server"
 
