@@ -7,10 +7,11 @@
       tags:
         - "always"
 
-- name: "Include include_vars/global.yml"
+- name: "Include include_vars/global.yml if available"
   hosts: "all"
   tasks:
     - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
+      ignore_errors: yes
       tags:
         - "always"
 
