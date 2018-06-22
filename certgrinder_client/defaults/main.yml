@@ -1,5 +1,2 @@
 ---
 
-certgrinder_hostname_sets:
-  - "{{ ansible_nodename }}"
-

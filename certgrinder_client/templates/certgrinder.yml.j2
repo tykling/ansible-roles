@@ -5,7 +5,7 @@ path: "/usr/home/{{ certgrinder_user }}/certificates"
 # a list of sets of domains to get certificates for
 domainlist:
 - {{ ansible_nodename }}
-{{ certgrinder_hostname_sets | to_nice_yaml }}
+{{ certgrinder_hostname_sets | default([]) | to_nice_yaml }}
 
 # hostname of the certgrinder server
 server: "{{ certgrinder_ssh_server }}"
