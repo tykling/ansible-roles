@@ -14,3 +14,8 @@
     name: "node_exporter"
     state: "started"
 
+- name: "Set node_exporter_args in /etc/rc.conf - hardcode for jailhosts only for now"
+  sysrc:
+    name: "node_exporter_args"
+    value: "--web.telemetry-path='/prometheusproxy/jailhost/metrics'"
+
