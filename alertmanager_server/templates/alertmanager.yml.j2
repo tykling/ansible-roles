@@ -2,7 +2,7 @@ global:
   smtp_smarthost: '{{ alertmanager_smtp_server }}'
   smtp_from: '{{ alertmanager_smtp_from }}'
   smtp_auth_username: '{{ alertmanager_smtp_username }}'
-  smtp_auth_password: '{{ alertmanager_smtp_password }}''
+  smtp_auth_password: '{{ alertmanager_smtp_password }}'
 
 templates:
 - '/usr/local/etc/alertmanager/template/*.tmpl'
