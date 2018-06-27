@@ -312,3 +312,9 @@
   roles:
     - "freeradius_server"
 
+- name: "configure alertmanager servers"
+  hosts: "alertmanager_servers"
+  become: yes
+  roles:
+    - "alertmanager_server"
+

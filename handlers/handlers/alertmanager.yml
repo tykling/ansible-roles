@@ -1,0 +1,4 @@
+---
+- name: "restart alertmanager"
+  command: "/usr/local/bin/supervisorctl restart alertmanager"
+
