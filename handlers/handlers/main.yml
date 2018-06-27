@@ -25,4 +25,5 @@
 - import_tasks: "bind.yml"
 - import_tasks: "prometheus.yml"
 - import_tasks: "speedtest.yml"
+- import_tasks: "alertmanager.yml"
 
