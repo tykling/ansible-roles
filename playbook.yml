@@ -21,12 +21,6 @@
   roles:
     - "freebsd_base"
 
-- name: "configure certgrinder client on all"
-  hosts: "all"
-  become: yes
-  roles:
-    - "certgrinder_client"
-
 - name: "configure freebsd hosts (physical servers)"
   hosts: "freebsd_hosts"
   become: yes
