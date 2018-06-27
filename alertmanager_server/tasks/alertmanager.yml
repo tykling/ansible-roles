@@ -12,3 +12,13 @@
     group: "alertmanager"
     mode: "0755"
 
+- name: "Install alertmanager config"
+  template:
+    src: "alertmanager.yml.j2"
+    dest: "/usr/local/etc/alertmanager/alertmanager.yml"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  notify:
+    - "restart alertmanager"
+

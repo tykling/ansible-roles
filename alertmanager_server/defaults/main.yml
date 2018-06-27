@@ -13,3 +13,5 @@ supervisord_programs:
     command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager/alertmanager.yml --storage.path=/var/db/alertmanager"
     user: "alertmanager"
 
+alertmanager_smtp_from: "{{ alertmanager_smtp_username }}"
+
