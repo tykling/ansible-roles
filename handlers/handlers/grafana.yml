@@ -1,0 +1,4 @@
+---
+- name: "restart grafana"
+  command: "/usr/local/bin/supervisorctl restart grafana"
+

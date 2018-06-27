@@ -3,13 +3,14 @@
   copy:
     src: "grafana-syslogd.conf"
     dest: "/usr/local/etc/syslog.d/grafana.conf"
-  notify: "restart syslogd"
+  notify:
+    - "restart syslogd"
 
 - name: "Make sure /var/log/grafana.log exists"
   copy:
     dest: "/var/log/grafana.log"
     content: ""
-    force: False
+    force: no
     owner: "root"
     group: "wheel"
     mode: "644"

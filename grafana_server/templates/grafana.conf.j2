@@ -1,0 +1,33 @@
+[paths]
+data = /var/db/grafana/
+logs = /var/log/grafana/
+plugins = /var/db/grafana/plugins
+
+[server]
+static_root_path = public
+root_url = {{ grafana_root_url }}
+
+[database]
+type = postgres
+host = {{ grafana_postgres_host }}:5432
+name = {{ grafana_postgres_dbname }}
+user = {{ grafana_postgres_user }}
+password = {{ grafana_postgres_password }}
+
+[session]
+provider = file
+
+[analytics]
+reporting_enabled = true
+check_for_updates = true
+
+[security]
+secret_key = {{ grafana_secret_key }}
+
+[log]
+mode = syslog
+
+[log.syslog]
+facility = local2
+tag = grafana
+

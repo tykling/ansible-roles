@@ -4,15 +4,15 @@
     name: "grafana4"
     state: "present"
 
-#- name: "Install Grafana config"
-#  template:
-#    src: "grafana.conf.j2"
-#    dest: "/usr/local/etc/grafana.conf"
-#    owner: "root"
-#    group: "wheel"
-#    mode: "0755"
-#  notify:
-#    - "restart grafana"
+- name: "Install Grafana config"
+  template:
+    src: "grafana.conf.j2"
+    dest: "/usr/local/etc/grafana.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  notify:
+    - "restart grafana"
 
 - name: "Create supervisord.d config file to run grafana"
   include_role:
