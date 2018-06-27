@@ -9,7 +9,10 @@ rule_files:
 alerting:
   alertmanagers:
     - static_configs:
-        - targets: "{{ prometheus_alertmanager_targets }}"
+        - targets:
+{% for target in prometheus_alertmanager_targets %}
+          - "{{ target }}"
+{% endfor %}
 
 scrape_configs:
   - job_name: 'prometheus'
