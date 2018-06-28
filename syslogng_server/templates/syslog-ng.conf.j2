@@ -6,7 +6,12 @@
 # hostname will be client-hostname-from-the-message / client-hostname-resolved-on-the-relay / relay-hostname-resolved-on-the-server 
 #
 options {
+{% if syslogng_upstream_elk %}
+    # keep relay hostname so ELK can see it
+    chain_hostnames(yes);
+{% else %}
     chain_hostnames(no);
+{% endif %}
     keep_hostname(no);
     flush_lines(0);
     threaded(yes);
