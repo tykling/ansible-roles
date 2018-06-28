@@ -10,6 +10,7 @@
 . /etc/rc.subr
 
 name="mountwaiter"
+rcvar="${name}_enable"
 desc="Loop over mountwaiter_paths and wait forever for each to become a mountpoint"
 start_cmd="mountwaiter_start"
 stop_cmd=":"
