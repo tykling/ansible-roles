@@ -14,3 +14,6 @@ nginx_locationslash: |
 nfsen_vardir: "/var/nfsen"
 nfsen_logfile_path: "/var/log/nfsen.log"
 
+mountwaiter_paths:
+  - "{{ nfsen_vardir }}"
+

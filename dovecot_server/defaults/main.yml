@@ -10,3 +10,6 @@ dovecot_dhparam_path: "{{ dhparam_path }}"
 certgrinder_post_renew_hooks:
   - "/usr/sbin/service dovecot restart"
 
+mountwaiter_paths:
+  - "/usr/mailboxes"
+

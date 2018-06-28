@@ -1,0 +1,22 @@
+---
+- name: "Add /etc/rc.d/mountwaiter script in jails with zfs datasets"
+  copy:
+    owner:  "root"
+    group:  "wheel"
+    mode: "0755"
+    src: "mountwaiter"
+    dest: "/etc/rc.d/mountwaiter"
+  when: mountwaiter_paths is defined
+
+- name: "Enable mountwaiter in jails with zfs datasets"
+  service:
+    name: "mountwaiter"
+    enabled: yes
+  when: mountwaiter_paths is defined
+
+- name: "Set mountwaiter_paths in /etc/rc.conf"
+  sysrc:
+    name: "mountwaiter_paths"
+    value: "{{ mountwaiter_paths | join(' ') }}"
+  when: mountwaiter_paths is defined
+

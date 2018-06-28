@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# FreeBSD rc.d script which reads a list of paths from /etc/rc.conf and waits forever for each to become a mountpoint
+#
+
+# PROVIDE: mountwaiter
+# REQUIRE: zfs
+# KEYWORD: jail
+
+. /etc/rc.subr
+
+name="mountwaiter"
+desc="Loop over mountwaiter_paths and wait forever for each to become a mountpoint"
+start_cmd="mountwaiter_start"
+stop_cmd=":"
+
+load_rc_config $name
+
+: ${mountwaiter_enable="NO"}
+: ${mountwaiter_paths=""}
+
+mountwaiter_start()
+{
+	if [ -z "$mountwaiter_paths" ]; then
+		echo "mountwaiter exiting because mountwaiter_paths is empty"
+		exit 0
+	fi
+
+	for path in mountwaiter_paths; do
+		echo "Waiting for $path to become a mountpoint..."
+		while true; do
+			mount | grep -q " on $path "
+			if [ $? -eq 0 ]; then
+				echo "$path is now mounted!"
+				break
+			fi
+			sleep 1
+            echo "."
+		done
+	done
+}
+
+load_rc_config $name
+run_rc_command "$1"
+
