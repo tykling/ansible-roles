@@ -14,5 +14,4 @@
 - include_tasks: "postfixnullmailer.yml"
   when: "'postfix_servers' not in group_names"
 - include_tasks: "newsyslog.yml"
-- include_tasks: "mountwaiter.yml"
 
