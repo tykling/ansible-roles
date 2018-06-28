@@ -1,11 +1,7 @@
 ---
 - name: "restart postgresql"
-  service:
-    name: "postgresql"
-    state: "restarted"
+  command: "/usr/local/bin/supervisorctl restart postgresql"
 
 - name: "reload postgresql"
-  service:
-    name: "postgresql"
-    state: "reloaded"
+  command: "su -l postgres -c exec /usr/local/bin/pg_ctl -D {{ postgresql_datadir }} -w -s -m fast reload"
 

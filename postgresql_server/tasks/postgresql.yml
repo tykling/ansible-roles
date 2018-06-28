@@ -9,11 +9,6 @@
     name: "postgresql96-contrib"
     state: "present"
 
-- name: "Enable PostgreSQL"
-  service:
-    name: "postgresql"
-    enabled: yes
-
 - name: "Make sure postgres homedir is owned by postgres:postgres"
   file:
     dest: "{{ postgresql_homedir }}"
