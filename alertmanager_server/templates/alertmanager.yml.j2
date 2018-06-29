@@ -28,7 +28,7 @@ receivers:
 {% if alertmanager_slack_url is defined %}
 - name: 'slack'
   slack_configs:
-    send_resolved: true
+  - send_resolved: true
     api_url: {{ alertmanager_slack_url }}
     channel: {{ alertmanager_slack_channel }}
 {% endif %}
