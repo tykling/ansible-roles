@@ -1,2 +1,8 @@
 ---
+groups:
+- name: instance-down
+  rules:
+    - alert: InstanceDown
+      expr: up{job="instance"} == 0
+      for: 1m
 
