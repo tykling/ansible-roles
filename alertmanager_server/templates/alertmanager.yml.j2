@@ -25,4 +25,11 @@ receivers:
 - name: 'admin-mail'
   email_configs:
   - to: '{{ alertmanager_admin_email }}'
+{% if alertmanager_slack_url is defined %}
+- name: 'slack'
+  slack_configs:
+    send_resolved: true
+    api_url: {{ alertmanager_slack_url }}
+    channel: {{ alertmanager_slack_channel }}
+{% endif %}
 
