@@ -10,4 +10,5 @@
         comment: "run postgresql"
         command: "/usr/local/bin/postgres -D /var/db/postgres/data96"
         user: "postgres"
+        startretries: 200
 
