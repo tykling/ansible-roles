@@ -1,5 +1,5 @@
 global:
-  smtp_smarthost: '{{ alertmanager_smtp_server }}'
+  smtp_smarthost: '{{ alertmanager_smtp_server }}:587'
   smtp_from: '{{ alertmanager_smtp_from }}'
   smtp_auth_username: '{{ alertmanager_smtp_username }}'
   smtp_auth_password: '{{ alertmanager_smtp_password }}'
