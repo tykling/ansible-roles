@@ -12,7 +12,7 @@ route:
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 3h
-  receiver: admin-mail
+  receiver: sysadmins
 
 inhibit_rules:
 - source_match:
@@ -22,11 +22,10 @@ inhibit_rules:
   equal: ['alertname', 'instance']
 
 receivers:
-- name: 'admin-mail'
+- name: 'sysadmins'
   email_configs:
   - to: '{{ alertmanager_admin_email }}'
 {% if alertmanager_slack_url is defined %}
-- name: 'slack'
   slack_configs:
   - send_resolved: true
     api_url: {{ alertmanager_slack_url }}
