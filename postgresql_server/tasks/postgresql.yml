@@ -12,8 +12,8 @@
 - name: "Make sure postgres homedir is owned by postgres:postgres"
   file:
     dest: "{{ postgresql_homedir }}"
-    owner: "postgres"
-    group: "postgres"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
     state: "directory"
   notify: "reload postgresql"
 
@@ -27,8 +27,8 @@
   template:
     src: "postgresql.conf.j2"
     dest: "{{ postgresql_datadir }}/postgresql.conf"
-    owner: "postgres"
-    group: "postgres"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
     mode: "0600"
   notify: "restart postgresql"
 
