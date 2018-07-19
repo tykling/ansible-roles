@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "postgresql"
         comment: "run postgresql"
-        command: "/usr/local/bin/postgres -D /var/db/postgres/data96"
-        user: "postgres"
+        command: "/usr/local/bin/postgres -D {{ postgresql_datadir }}"
+        user: "{{ postgresql_user }}"
         startretries: 200
 
