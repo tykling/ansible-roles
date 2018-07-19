@@ -12,6 +12,7 @@ lc_monetary = 'C'
 lc_numeric = 'C'
 lc_time = 'C'
 default_text_search_config = 'pg_catalog.english'
+full_page_writes = off
 {% if postgresql_server_tls_enable %}
 ssl = on
 ssl_cert_file = '{{postgresql_homedir }}/{{ ansible_nodename }}.crt'
