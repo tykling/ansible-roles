@@ -1,12 +1,12 @@
 ---
 - name: "Install PostgreSQL"
   pkgng:
-    name: "postgresql96-server"
+    name: "postgresql{{ postgresql_version }}-server"
     state: "present"
 
 - name: "Install PostgreSQL controb"
   pkgng:
-    name: "postgresql96-contrib"
+    name: "postgresql{{ postgresql_version }}-contrib"
     state: "present"
 
 - name: "Make sure postgres homedir is owned by postgres:postgres"
