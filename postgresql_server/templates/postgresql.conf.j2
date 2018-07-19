@@ -18,4 +18,5 @@ ssl = on
 ssl_cert_file = '{{postgresql_homedir }}/{{ ansible_nodename }}.crt'
 ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}.key'
 {% endif %}
-
+{% if postgresql_hot_standby %}hot_standby = on
+{% endif %}
