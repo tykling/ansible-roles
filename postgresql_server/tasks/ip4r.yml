@@ -3,4 +3,5 @@
   pkgng:
     name: "ip4r"
     state: "present"
+  when: postgresql_ip4r
 
