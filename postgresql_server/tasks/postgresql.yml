@@ -18,7 +18,7 @@
   notify: "reload postgresql"
 
 - name: "Initialise PostgreSQL database"
-  command: "/usr/sbin/service postgresql initdb"
+  command: "/usr/sbin/service postgresql oneinitdb"
   args:
     creates: "{{ postgresql_datadir }}"
   notify: "reload postgresql"
