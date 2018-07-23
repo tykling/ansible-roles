@@ -31,7 +31,7 @@
   ignore_errors: True
 
 - name: "Create main jailstorage zfs if neded"
-  command: "/sbin/zfs create -o mountpoint=none jailed=on {{ ezjail_jailstorage_dataset }}"
+  command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ ezjail_jailstorage_dataset }}"
   when: ezjail_jailstorage_result.rc == 1
 
 - name: "Patch ezjail to automount zfs datasets after zfs jailing them"
