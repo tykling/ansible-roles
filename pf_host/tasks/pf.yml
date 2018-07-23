@@ -4,6 +4,8 @@
     file: "../include_vars/pf_vars.yml"
     name: "pf"
   ignore_errors: yes
+  tags:
+    - "pf"
 
 - name: "Setup pf.conf for jail/vm hosts"
   template:
@@ -12,6 +14,8 @@
     validate: 'pfctl -n -f %s'
   when: pf_jail_vm_host
   notify: "reload pf"
+  tags:
+    - "pf"
 
 - name: "Setup pf.conf for gateways"
   template:
@@ -20,6 +24,8 @@
     validate: 'pfctl -n -f %s'
   when: pf_gateway
   notify: "reload pf"
+  tags:
+    - "pf"
 
 - name: "Setup pf.conf for anycast hosts"
   template:
@@ -28,6 +34,8 @@
     validate: 'pfctl -n -f %s'
   when: pf_anycast_host
   notify: "reload pf"
+  tags:
+    - "pf"
 
 - name: "Enable pf"
   service:
@@ -35,6 +43,8 @@
     enabled: yes
   notify:
     - "kldload pf module"
+  tags:
+    - "pf"
 
 - name: "Enable pflog"
   service:
@@ -42,4 +52,6 @@
     enabled: yes
   notify:
     - "kldload pflog module"
+  tags:
+    - "pf"
 
