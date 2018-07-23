@@ -21,7 +21,8 @@ svc_if="lo3"
 jail_nat_ip="{{ pf_jail_nat_ip }}"
 jail_nat_range="{{ pf_jail_nat_range }}"
 main_v4_ip="{{ pf_main_v4_ip }}"
-main_v6_ip="{{ pf_main_v6_ip }}"
+{% if ansible_default_ipv6 %}main_v6_ip="{{ pf_main_v6_ip }}"
+{% endif %}
 
 
 ################ common address macros ###############
@@ -87,9 +88,12 @@ pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($jail_if) } port
 # pass v4 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
 {% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
-{% for v6ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv6.device)]['ipv6'] %}{% if not v6ip['address'].startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip['address'] }} to {{ v6ip['address'] }}
+# pass v6 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
+# skip fe80: addresses because https://github.com/ansible/ansible/issues/16977
+{% if ansible_default_ipv6 %}{% for v6ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv6.device)]['ipv6'] %}{% if not v6ip['address'].startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip['address'] }} to {{ v6ip['address'] }}
 {% endif %}
 {% endfor %}
+{% endif %}
 
 
 ####################################################################################################
