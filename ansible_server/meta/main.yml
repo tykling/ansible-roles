@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: tor_servers }
+  - { role: tor_server }
 
