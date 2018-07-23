@@ -20,8 +20,8 @@ svc_if="lo3"
 
 jail_nat_ip="{{ pf_jail_nat_ip }}"
 jail_nat_range="{{ pf_jail_nat_range }}"
-main_v4_ip="{{ pf_main_v4_ip }}"
-{% if ansible_default_ipv6 %}main_v6_ip="{{ pf_main_v6_ip }}"
+main_v4_ip="{{ ansible_default_ipv4.address }}"
+{% if ansible_default_ipv6 %}main_v6_ip="{{ ansible_default_ipv6.address }}"
 {% endif %}
 
 
