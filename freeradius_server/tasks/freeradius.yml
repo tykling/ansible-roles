@@ -25,3 +25,9 @@
     group: "freeradius"
     mode: "640"
 
+- name: "Enable freeradius sql module"
+  file:
+    src: "/usr/local/etc/raddb/mods-available/sql"
+    dest: "/usr/local/etc/raddb/mods-enabled/sql"
+    state: "link"
+
