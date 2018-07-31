@@ -7,3 +7,7 @@ server:
         prefetch: yes
         qname-minimisation: yes
 
+{% if unbound_extra_config is defined %}
+{{ unbound_extra_config }}
+{% endif %}
+
