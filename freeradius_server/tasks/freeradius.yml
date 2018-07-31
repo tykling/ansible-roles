@@ -9,3 +9,19 @@
     name: "radiusd"
     enabled: yes
 
+- name: "copy freeradius clients.conf into place"
+  copy:
+    owner: "freeradius"
+    group: "freeradius"
+    mode: "640"
+    content: "{{ freeradius_clients_conf }}"
+    dest: "/usr/local/etc/raddb/clients.conf"
+
+- name: "Copy freeradius sql module config"
+  template:
+    src: "sql.j2"
+    dest: "/usr/local/etc/raddb/mods-available/sql"
+    owner: "freeradius"
+    group: "freeradius"
+    mode: "640"
+
