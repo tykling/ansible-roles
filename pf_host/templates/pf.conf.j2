@@ -39,6 +39,9 @@ scrub in on $if all fragment reassemble
 
 
 ####################################################################################################
+############### early custom translation NAT #################
+{{ pf_early_nat_rules | default("# No early custom NAT rules found") }}
+
 ############### translation NAT ########################
 # regular jail NAT
 nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
