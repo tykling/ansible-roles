@@ -45,6 +45,8 @@ nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
 # vnet jail NAT
 nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 
+############### custom translation NAT #################
+{{ pf_nat_rules | default("# No custom NAT rules found") }}
 
 ############### translation RDR ########################
 {{ pf_rdr_rules | default("# No RDR rules found") }}
