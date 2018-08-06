@@ -31,3 +31,11 @@
     dest: "/usr/local/etc/raddb/mods-enabled/sql"
     state: "link"
 
+- name: "copy freeradius users file into place"
+  copy:
+    owner: "freeradius"
+    group: "freeradius"
+    mode: "640"
+    content: "DEFAULT  Auth-Type := Accept"
+    dest: "/usr/local/etc/raddb/users"
+
