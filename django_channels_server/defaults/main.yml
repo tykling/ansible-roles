@@ -51,7 +51,7 @@ nginx_locationslash: |
   location /static/ {
         alias {{ django_nginx_static_root }};
   }
-  location /public/ {
+  location /media/ {
         internal;
         root {{ django_media_root }};
   }
