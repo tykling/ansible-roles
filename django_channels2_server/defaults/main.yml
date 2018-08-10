@@ -20,10 +20,10 @@ django_admin_prefix: "admin"
 django_email_port: 587
 
 django_daphne_user: "www"
-django_channels_backend: "asgi_redis.RedisChannelLayer"
+django_channels_backend: "channels_redis.core.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'
 django_asgi_worker_count: "20"
-django_channels_layer_redis: False
+django_channels_layer_redis: True
 
 django_os_dependencies:
   - "databases/postgresql96-client"
@@ -56,4 +56,11 @@ supervisord_programs:
     user: "{{ django_daphne_user }}"
     directory: "{{ django_root }}"
     priority: "1"
+
+  - name: "redis"
+    comment: "run redis"
+    command: "/usr/local/bin/redis-server /usr/local/etc/redis.conf"
+    user: "535" # 535 is the redis uid on freebsd
+    priority: "1"
+
 
