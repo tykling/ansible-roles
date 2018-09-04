@@ -57,3 +57,9 @@
     value: "{{ postgresql_backup_savedays }}"
     dest: "/etc/periodic.conf"
 
+- name: "Set daily_pgsql_user /etc/periodic.conf"
+  sysrc:
+    name: "daily_pgsql_user"
+    value: "{{ postgresql_user }}"
+    dest: "/etc/periodic.conf"
+
