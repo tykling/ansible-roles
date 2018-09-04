@@ -13,5 +13,7 @@
   template:
     src: "dhcpd.conf.j2"
     dest: "/usr/local/etc/dhcpd.conf"
+  tags:
+    - "dhcpd"
   notify: "restart isc dhcpd"
 

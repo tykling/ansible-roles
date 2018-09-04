@@ -1,4 +1,6 @@
 ---
 - include_tasks: iscdhcpd.yml
+  tags:
+    - "dhcpd"
 - include_tasks: syslog.yml
 
