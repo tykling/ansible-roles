@@ -18,19 +18,16 @@
     name: "daily_pgsql_backupdir"
     value: "{{ postgresql_backup_path }}"
     dest: "/etc/periodic.conf"
-  when: postgresql_daily_backup_enable
 
 - name: "Set savedays for postgres backups in /etc/periodic.conf"
   sysrc:
     name: "daily_pgsql_savedays"
     value: "{{ postgresql_backup_savedays }}"
     dest: "/etc/periodic.conf"
-  when: postgresql_daily_backup_enable
 
 - name: "Set daily_pgsql_user /etc/periodic.conf"
   sysrc:
     name: "daily_pgsql_user"
     value: "{{ postgresql_user }}"
     dest: "/etc/periodic.conf"
-  when: postgresql_daily_backup_enable or postgresql_daily_vacuum_enable
 
