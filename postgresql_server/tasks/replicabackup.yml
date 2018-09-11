@@ -1,0 +1,18 @@
+---
+- name: "Copy postgresql replica backup script"
+  copy:
+    src: "postgresql-replica-backup.sh"
+    dest: "{{ postgresql_homedir }}/postgresql-replica-backup.sh"
+    mode: "0755"
+  when: postgresql_hot_standby
+
+- name: "Make sure daily cronjob to run postgres replica backup is in place"
+  cron:
+    name: "Backup postgresql replica"
+    minute: 0
+    hour: 1
+    job: "{{ postgresql_homedir }}/postgresql-replica-backup.sh"
+    cron_file: "/etc/crontab"
+    user: "nobody"
+  when: postgresql_hot_standby
+
