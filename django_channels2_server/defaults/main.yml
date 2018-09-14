@@ -17,6 +17,7 @@ wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 django_timezone: 'Europe/Copenhagen'
 django_admin_prefix: "admin"
 
+django_email_backend: "django.core.mail.backends.console.EmailBackend"
 django_email_port: 587
 
 django_daphne_user: "www"
