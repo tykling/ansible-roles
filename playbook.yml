@@ -2,9 +2,9 @@
 - name: "Check if host secrets file exists..."
   hosts: "all"
   tasks:
-    stat:
-      path: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-    register: stat_result
+    - stat:
+        path: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      register: stat_result
 
 - name: "Include host secrets where applicable"
   hosts: "all"
