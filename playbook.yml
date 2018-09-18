@@ -2,10 +2,11 @@
 - name: "Include host secrets"
   hosts: "all"
   tasks:
-    - stat:
-        path: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+    - name: "Check if host secrets exists for in host_vars"
+      local_action: stat path="/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
       register: stat_result
-    - include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+    - name: "Include host secrets when the file exists"
+      include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
       tags:
         - "always"
       when: stat_result.stat.exists
