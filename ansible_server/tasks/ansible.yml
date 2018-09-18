@@ -1,7 +1,7 @@
 ---
 - name: "Install ansible"
   pkgng:
-    name: "ansible"
+    name: "py27-ansible"
     state: "present"
 
 - name: "Install ansible config deploy.sh script"
