@@ -10,7 +10,7 @@
     - include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
       tags:
         - "always"
-    when: stat_result.stat.exists
+  when: stat_result.stat.exists
 
 - name: "Include include_vars/global.yml if available"
   hosts: "all"
