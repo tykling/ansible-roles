@@ -6,14 +6,16 @@
     flat: yes
     fail_on_missing: yes
   tags:
-    - codedeploy
+    - "codedeploy"
+    - "djangosettings"
 
 - name: "Put environment_settings.py into place"
   template:
     src: "/tmp/environment_settings.py.dist"
     dest: "{{ django_root }}/{{ django_mainapp }}/environment_settings.py"
   tags:
-    - codedeploy
+    - "djangosettings"
+    - "codedeploy"
   notify:
     - "restart django runworker instances using supervisorctl"
 
@@ -22,7 +24,7 @@
     path: "/tmp/environment_settings.py.dist"
     state: absent
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Make sure manage.py is executable"
   file:
@@ -31,7 +33,7 @@
     group: "wheel"
     mode: "0755"
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Run collectstatic"
   django_manage:
@@ -39,7 +41,7 @@
     app_path: "{{ django_root }}"
     virtualenv: "{{ django_virtualenv_path }}"
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Create django media root directory"
   file:
@@ -48,7 +50,7 @@
     owner: "www"
     group: "www"
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Create django media root subdirectories as needed"
   file:
@@ -58,7 +60,7 @@
     group: "www"
   with_items: "{{ django_media_root_subdirs | default([]) }}"
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Create PDF archive directory where needed"
   file:
@@ -68,7 +70,7 @@
     group: "www"
   when: pdf_archive_path is defined
   tags:
-    - codedeploy
+    - "codedeploy"
 
 - name: "Run compilemessages"
   django_manage:
@@ -76,7 +78,7 @@
     app_path: "{{ django_root }}"
     virtualenv: "{{ django_virtualenv_path }}"
   tags:
-    - codedeploy
+    - "codedeploy"
   when: django_i18n | default(False)
 
 - name: "Enable daily cronjob to cleanup django sessions"
