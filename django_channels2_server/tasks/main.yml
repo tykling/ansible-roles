@@ -5,6 +5,7 @@
   when: "django_channels_layer_redis"
 - include_tasks: "pip-packages.yml"
 - include_tasks: "django-configuration.yml"
-  tags: "codedeploy"
-  tags: "djangosettings"
+  tags:
+    - "codedeploy"
+    - "djangosettings"
 
