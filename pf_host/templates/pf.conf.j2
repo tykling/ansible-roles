@@ -76,7 +76,7 @@ pass in quick on { $if $jail_if $nat_if } inet proto icmp all icmp-type { unreac
 pass in quick on { $if $jail_if } inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
 ### pass incoming ssh to host and jails
-pass in quick on $if proto tcp from { <allowssh> } to { ($if), ($nat_if), ($jail_if) } port 22
+pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if), ($jail_if) } port 22
 
 {% if hostvars[ansible_host]['ansible_lo1'] is defined %}
 ### pass v4 traffic from jail to itself on $nat_if
