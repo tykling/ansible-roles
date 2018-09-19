@@ -6,4 +6,6 @@
     mode: "0644"
     content: "{{ ansible_authorized_keys_file }}"
     dest: "/usr/home/ansible/.ssh/authorized_keys"
+  tags:
+    - "ansiblekeys"
 

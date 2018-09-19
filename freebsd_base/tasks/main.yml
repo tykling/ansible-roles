@@ -5,6 +5,8 @@
 - include_tasks: "packages.yml"
 - include_tasks: "users.yml"
 - include_tasks: "ansible.yml"
+  tags:
+    - "ansiblekeys"
 - include_tasks: "motd.yml"
 - include_tasks: "resolvconf.yml"
 - include_tasks: "sshd.yml"
