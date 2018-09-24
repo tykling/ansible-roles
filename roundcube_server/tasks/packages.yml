@@ -1,6 +1,6 @@
 ---
 - name: "install roundcube"
   pkgng:
-    name: "roundcube"
+    name: "roundcube-php71"
     state: "present"
 
