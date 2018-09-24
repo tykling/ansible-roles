@@ -8,8 +8,8 @@ server {
     listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2;
 {% endif %}
 
-    # hostnames handled in this vhost
-    server_name             {% for hostname in item.value.hostnames %}{{ hostname.encode('idna') }} {% endfor %};
+    # hostnames handled in this vhost, IDN names are included both as idna and unicode
+    server_name             {% for hostname in item.value.hostnames %}{{ hostname.encode('idna') }} {% if hostname != hostname.encode('idna') %}{{ hostname }} {% endif %}{% endfor %};
 
 {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}.crt;
