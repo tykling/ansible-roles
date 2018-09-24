@@ -1,2 +1,3 @@
-function ansible-playbook() { (echo "ansible-playbook run by $SUDO_USER at $(date) with these arguments: ansible-playbook $@"; /usr/local/bin/ansible-playbook "$@") | tee >(mail -s "ansible-playbook run by $SUDO_USER at $(date)" {{ ansible_admin_email }}) >(/usr/bin/logger -p local5.info -t ansible); }
+function ansible-playbook() { (echo "ansible-playbook run by $SUDO_USER at $(date) with these arguments: ansible-playbook $@"; /usr/local/bin/ansible-playbook "$@") | tee >(mail -s "ansible-playbook run by $SUDO_USER at $(date)" {{ ansible_admin_email }}) >(/usr/bin/logger -p local5.info -t ansible-playbook); }
+function ansible() { (echo "ansible run by $SUDO_USER at $(date) with these arguments: ansible $@"; /usr/local/bin/ansible "$@") | tee >(mail -s "ansible run by $SUDO_USER at $(date)" {{ ansible_admin_email }}) >(/usr/bin/logger -p local5.info -t ansible); }
 
