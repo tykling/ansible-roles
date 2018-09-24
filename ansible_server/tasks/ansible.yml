@@ -12,3 +12,9 @@
     group: "wheel"
     mode: "0755"
 
+- name: "Create symlink from /usr/local/etc/py27-ansible/ to /usr/local/etc/ansible/"
+  file:
+    src: "/usr/local/etc/ansible"
+    dest: "/usr/local/etc/py27-ansible"
+    state: "link"
+
