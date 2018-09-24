@@ -9,7 +9,7 @@ server {
 {% endif %}
 
     # hostnames handled in this vhost
-    server_name             {% for hostname in item.value.hostnames %}{{ hostname }} {% endfor %};
+    server_name             {% for hostname in item.value.hostnames %}{{ hostname.encode('idna') }} {% endfor %};
 
 {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}.crt;
