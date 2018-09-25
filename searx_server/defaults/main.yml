@@ -1,5 +1,5 @@
 ---
-nginx_locationslash:
+nginx_locationslash: |
   location / {
       # make sure searx knows its own hostname, and creates https links
       proxy_set_header        Host $host;
