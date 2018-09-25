@@ -1,6 +1,9 @@
 ---
 nginx_locationslash:
   location / {
+      # make sure searx knows its own hostname, and creates https links
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Forwarded-Proto    https;
       proxy_pass http://127.0.0.1:8888;
   }
 
