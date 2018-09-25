@@ -324,3 +324,9 @@
   roles:
     - "alertmanager_server"
 
+- name: "configure searx servers"
+  hosts: "searx_servers"
+  become: yes
+  roles:
+    - "searx_server"
+

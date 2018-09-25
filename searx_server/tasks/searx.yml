@@ -1,0 +1,16 @@
+---
+- name: "Install py27-searx"
+  pkgng:
+    name: "py27-searx"
+    state: "present"
+
+- name: "Enable searx"
+  sysrc:
+    name: "searx_enable"
+    value: "YES"
+
+- name: "Start searx"
+  service:
+    name: "searx"
+    state: "started"
+
