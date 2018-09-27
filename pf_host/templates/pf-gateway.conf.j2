@@ -67,6 +67,7 @@ pass quick on ${{ if.macro }} proto carp keep state (no-sync)
 ### permit selected ICMP types on all interfaces
 {% for if in pf.gateway_interfaces %}
 pass in quick on ${{ if.macro }} inet proto icmp from any to (${{ if.macro }}) icmp-type { unreach, echoreq, timex }
+pass in quick on ${{ if.macro }} inet6 proto icmp6 from any to (${{ if.macro }}) icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 {% endfor %}
 
 ### permit selected ICMP types to binat machines
