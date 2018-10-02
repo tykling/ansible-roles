@@ -1,0 +1,46 @@
+---
+- name: "Install Go"
+  pkgng:
+    name: "go"
+    state: "present"
+
+- name: "Get source code for exporter_exporter"
+  git:
+    repo: "https://github.com/QubitProducts/exporter_exporter"
+    dest: "/tmp/exporter_exporter"
+    force: yes
+    version: "{{ exporter_exporter_version }}"
+  register: gitresult
+
+- name: "Get Go dependencies for exporter_exporter"
+  command: "go get ."
+  args:
+    chdir: "/tmp/exporter_exporter"
+  when: gitresult.changed
+
+- name: "Build exporter_exporter"
+  command: "go build"
+  args:
+    chdir: "/tmp/exporter_exporter"
+  when: gitresult.changed
+
+- name: "Install exporter_exporter"
+  copy:
+    src: "/tmp/exporter_exporter/exporter_exporter"
+    dest: "/usr/local/etc/expexp.yaml"
+    owner: "root"
+    group: "wheel"
+    mode: 0644
+    remote_src: yes
+  when: gitresult.changed
+
+- name: "Install exporter_exporter config"
+  template:
+    src: "expexp.yml.j2"
+    dest: "/usr/local/etc/expexp.yaml"
+    owner: "root"
+    group: "wheel"
+    mode: 0644
+    remote_src: yes
+  when: gitresult.changed
+

@@ -1,0 +1,21 @@
+---
+- name: "Install node_exporter"
+  pkgng:
+    name: "node_exporter"
+    state: "present"
+
+- name: "Enable node_exporter"
+  service:
+    name: "node_exporter"
+    enabled: yes
+
+- name: "Set node_exporter_args in /etc/rc.conf"
+  sysrc:
+    name: "node_exporter_listen_address"
+    value: "127.0.0.1:9100"
+
+- name: "Start node_exporter"
+  service:
+    name: "node_exporter"
+    state: "started"
+
