@@ -40,8 +40,13 @@ set skip on lo0
 pass out quick on $ext_if all
 pass out quick on $svc_if all
 
-### pass incoming icmp (to all ip addresses)
+### pass incoming icmp4 (to all locally configured ip addresses)
 pass in quick on { $ext_if $svc_if } inet proto icmp from any to { ($ext_if), ($svc_if) } icmp-type { unreach, echoreq, timex }
+
+### pass incoming icmp6
+pass in quick on $if inet6 proto icmp6 from any to ($if) icmp6-type { echoreq, neighbradv, neighbrsol, routeradv, routersol }
+pass in quick on $if inet6 proto icmp6 from { fe80::/10 $if:network } to FF02:0:0:0:0:1:FF00::/104 icmp6-type neighbrsol
+
 pass in quick on { $ext_if $svc_if } inet6 proto icmp6 from any to { ($ext_if), ($svc_if) } icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 
 ### pass incoming ssh
