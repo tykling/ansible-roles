@@ -16,12 +16,16 @@
   command: "go get ."
   args:
     chdir: "/tmp/exporter_exporter"
+  environment:
+    GOPATH: "/root/go"
   when: gitresult.changed
 
 - name: "Build exporter_exporter"
   command: "go build"
   args:
     chdir: "/tmp/exporter_exporter"
+  environment:
+    GOPATH: "/root/go"
   when: gitresult.changed
 
 - name: "Install exporter_exporter"
