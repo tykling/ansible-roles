@@ -1,6 +1,0 @@
----
-- name: "Add nipap user"
-  user:
-    name: "nipap"
-    comment: "nipapd user"
-
