@@ -3,5 +3,5 @@ dependencies:
   - { role: handlers }
   - { role: pf_host, when: pf_host }
   - { role: tykbackup_client, when: tykbackup_client }
-  - { role: prometheus_monitored_server }
+  - { role: prometheus_monitored_server, when: prometheus_monitored_server|default(False) }
 
