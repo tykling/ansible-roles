@@ -1,18 +1,22 @@
 ---
 default_host_packages:
-  - "smartmontools"
   - "pftop"
   - "openntpd"
-  - "beadm"
-  - "zfs-periodic"
-  - "netdata"
-  - "zfs-stats"
   - "dmidecode"
+  - "netdata"
+  - "zfs-periodic"
+  - "zfs-stats"
+
+default_hardware_host_packages:
+  - "smartmontools"
+  - "beadm"
+
+default_vmware_host_packages:
+  - "open-vm-tools-nox11"
 
 ntp_servers:
   - "dk.pool.ntp.org"
 
-smartd: yes
 smartd_email: "admin@example.com"
 
 zfs_periodic_pools:
@@ -30,4 +34,5 @@ zfs_scrub_interval_days: 30
 tykbackup_client: yes
 pf_host: yes
 
-
+# types: [hardware, vmware]
+host_type: hardware

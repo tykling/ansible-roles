@@ -2,7 +2,7 @@
 - include_tasks: "packages.yml"
 - include_tasks: "openntpd.yml"
 - include_tasks: "smartd.yml"
-  when: smartd
+  when: host_type is hardware
 - include_tasks: "zfs-periodic.yml"
 - include_tasks: "zfs-scrub.yml"
 - include_tasks: "netdata.yml"
