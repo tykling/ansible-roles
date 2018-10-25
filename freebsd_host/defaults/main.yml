@@ -4,12 +4,12 @@ default_host_packages:
   - "openntpd"
   - "dmidecode"
   - "netdata"
+  - "zfs-periodic"
+  - "zfs-stats"
 
 default_hardware_host_packages:
   - "smartmontools"
   - "beadm"
-  - "zfs-periodic"
-  - "zfs-stats"
 
 default_vmware_host_packages:
   - "open-vm-tools-nox11"

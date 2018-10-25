@@ -4,12 +4,9 @@
 - include_tasks: "smartd.yml"
   when: host_type is hardware
 - include_tasks: "zfs-periodic.yml"
-  when: host_type is hardware
 - include_tasks: "zfs-scrub.yml"
-  when: host_type is hardware
 - include_tasks: "netdata.yml"
 - include_tasks: "aesni.yml"
-  when: host_type is hardware
 - include_tasks: "sysctl.yml"
 - include_tasks: "arc_max.yml"
 
