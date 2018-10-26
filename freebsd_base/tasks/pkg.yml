@@ -3,27 +3,37 @@
   stat:
     path: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
   register: poudriere_config_status
+  tags:
+    - "pkgrepo"
 
 - name: "Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)"
   template:
     src: "pkg_repo.conf.j2"
     dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
   when: poudriere_config_status.stat.exists == True
+  tags:
+    - "pkgrepo"
 
 - name: "Install ca_root_nss"
   pkgng:
     name: "ca_root_nss"
     state: "present"
+  tags:
+    - "pkgrepo"
 
 - name: "Create repo config directory"
   file:
     path: "/usr/local/etc/pkg/repos"
     state: "directory"
+  tags:
+    - "pkgrepo"
 
 - name: "Copy repo config file"
   template:
     src: "pkg_repo.conf.j2"
     dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
+  tags:
+    - "pkgrepo"
 
 - name: "Disable default FreeBSD repo"
   copy:
@@ -32,11 +42,15 @@
     mode: "644"
     src: "FreeBSD.conf"
     dest: "/usr/local/etc/pkg/repos/FreeBSD.conf"
+  tags:
+    - "pkgrepo"
 
 - name: "Create repo cert directory"
   file:
     path: "/usr/local/etc/ssl/certs"
     state: "directory"
+  tags:
+    - "pkgrepo"
 
 - name: "Copy poudriere public key"
   copy:
@@ -45,4 +59,6 @@
     mode: "600"
     content: "{{ poudriere_cert }}"
     dest: "/usr/local/etc/ssl/certs/poudriere.cert"
+  tags:
+    - "pkgrepo"
 
