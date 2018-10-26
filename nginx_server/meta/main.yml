@@ -2,5 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: dhparams_server, when: (nginx_proxy and certgrinder_hostname_sets is defined) }
-  - { role: certgrinder_client }
+  - { role: certgrinder_client, when: certgrinder_client|d(True) }
 

@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client }
+  - { role: certgrinder_client, when: certgrinder_client|d(True) }
 
