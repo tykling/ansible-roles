@@ -29,6 +29,10 @@ zfs_periodic_retention:
   weekly: 8
   monthly: 15
 
+zfs_arc_max_defaults:
+  hardware: 10G
+  vmware: 512M
+
 zfs_scrub_interval_days: 30
 
 tykbackup_client: yes

@@ -3,5 +3,5 @@
   pkgng:
     name: "{{ item }}"
     state: present
-  with_items: "{{ default_host_packages }} + {{ default_{{ host_type }}_host_packages }} + {{ extra_host_packages | default([]) }}"
+  with_items: "{{ default_host_packages }} + {{ 'default_' + host_type + '_host_packages' }} + {{ extra_host_packages | default([]) }}"
 

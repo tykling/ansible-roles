@@ -2,6 +2,6 @@
 - name: "Set vfs.zfs.arc_max in /boot/loader.conf"
   sysrc:
     name: "vfs.zfs.arc_max"
-    value: "{{ zfs_arc_max }}"
+    value: "{{ zfs_arc_max | d(zfs_arc_max_defaults[host_type]) }}"
     dest: "/boot/loader.conf"
 
