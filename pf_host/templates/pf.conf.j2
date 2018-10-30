@@ -75,7 +75,7 @@ pass out quick on lo0 all
 pass in quick on { $if $jail_if $nat_if } inet proto icmp from any to { ($if), ($jail_if), ($nat_if) } icmp-type { unreach, echoreq, timex }
 
 ### pass incoming icmp6
-pass in quick on $if inet6 proto icmp6 from any to ($if) icmp6-type { echoreq, neighbradv, neighbrsol, routeradv, routersol }
+pass in quick on $if inet6 proto icmp6 from any to { ($if) ($jail_if) } icmp6-type { echoreq, neighbradv, neighbrsol, routeradv, routersol }
 pass in quick on $if inet6 proto icmp6 from { fe80::/10 $if:network } to FF02:0:0:0:0:1:FF00::/104 icmp6-type neighbrsol
 
 ### pass incoming ssh to host and jails
