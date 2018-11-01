@@ -1,8 +1,12 @@
 global:
-  smtp_smarthost: '{{ alertmanager_smtp_server }}:587'
+  smtp_smarthost: '{{ alertmanager_smtp_server }}:{{ alertmanager_smtp_port }}'
   smtp_from: '{{ alertmanager_smtp_from }}'
+{% if alertmanager_smtp_username is defined %}
   smtp_auth_username: '{{ alertmanager_smtp_username }}'
+{% endif %}
+{% if alertmanager_smtp_password is defined %}
   smtp_auth_password: '{{ alertmanager_smtp_password }}'
+{% endif %}
 
 templates:
 - '/usr/local/etc/alertmanager/template/*.tmpl'

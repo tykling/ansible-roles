@@ -14,4 +14,4 @@ supervisord_programs:
     user: "alertmanager"
 
 alertmanager_smtp_from: "{{ alertmanager_smtp_username }}"
-
+alertmanager_smtp_port: 587
