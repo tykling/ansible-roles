@@ -8,11 +8,15 @@ static_root_path = public
 root_url = {{ grafana_root_url }}
 
 [database]
+{% if grafana_database_url is defined %}
+url = {{ grafana_database_url }}
+{% else %}
 type = postgres
 host = {{ grafana_postgres_host }}:5432
 name = {{ grafana_postgres_dbname }}
 user = {{ grafana_postgres_user }}
 password = {{ grafana_postgres_password }}
+{% endif %}
 
 [session]
 provider = file
