@@ -29,7 +29,7 @@ scrape_configs:
         - "{{ target }}"
 {% endfor %}
     metrics_path: "{{ job.metrics_path }}"
-    scheme: "https"
+    scheme: "{{ job.scheme|d("https") }}"
 
 {% endfor %}
 
