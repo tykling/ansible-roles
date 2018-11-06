@@ -28,4 +28,5 @@
 - import_tasks: "alertmanager.yml"
 - import_tasks: "grafana.yml"
 - import_tasks: "smartd.yml"
+- import_tasks: "pgbouncer.yml"
 
