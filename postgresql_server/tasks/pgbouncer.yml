@@ -7,9 +7,9 @@
 - name: "Copy pgbouncer.ini config file"
   template:
     src: "pgbouncer.ini.j2"
-    dest: "{{ postgresql_datadir }}/postgresql.conf"
-    owner: "{{ postgresql_user }}"
-    group: "{{ postgresql_user }}"
+    dest: "/usr/local/etc/pgbouncer.ini"
+    owner: "pgbouncer"
+    group: "pgbouncer"
     mode: "0600"
   notify: "restart pgbouncer"
 
