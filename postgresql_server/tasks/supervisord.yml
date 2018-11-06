@@ -13,3 +13,15 @@
         startretries: 200
         stopwaitsecs: 30
 
+- name: "Create supervisord.d config file to run pgbouncer"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "pgbouncer"
+    supervisord_programs:
+      - name: "pgbouncer"
+        comment: "run pgbouncer"
+        command: "/usr/local/bin/pgbouncer -d /usr/local/etc/pgbouncer.ini"
+        user: "pgbouncer"
+

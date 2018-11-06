@@ -1,0 +1,33 @@
+---
+- name: "Install pgbouncer"
+  pkgng:
+    name: "pgbouncer"
+    state: "present"
+
+- name: "Copy pgbouncer.ini config file"
+  template:
+    src: "pgbouncer.ini.j2"
+    dest: "{{ postgresql_datadir }}/postgresql.conf"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: "0600"
+  notify: "restart pgbouncer"
+
+- name: "Copy pgbouncer.users file"
+  template:
+    src: "pgbouncer.users.j2"
+    dest: "/usr/local/etc/pgbouncer/pgbouncer.users"
+    owner: "pgbouncer"
+    group: "pgbouncer"
+    mode: "0600"
+  notify: "reload pgbouncer"
+
+- name: "Copy pgbouncer_hba.conf file"
+  template:
+    src: "pgbouncer_hba.conf.j2"
+    dest: "/usr/local/etc/pgbouncer/pgbouncer_hba.conf"
+    owner: "pgbouncer"
+    group: "pgbouncer"
+    mode: "0600"
+  notify: "reload pgbouncer"
+

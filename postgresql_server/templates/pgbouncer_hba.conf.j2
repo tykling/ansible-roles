@@ -1,0 +1,6 @@
+{% for user in pgbouncer_users|default([]) %}
+{% for ip in user.iplist|default([]) %}
+{{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} {{ user.authmethod }} 
+{% endfor %}
+{% endfor %}
+

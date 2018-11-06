@@ -1,0 +1,17 @@
+[databases]
+postgres = host=localhost
+
+[pgbouncer]
+logfile = /var/log/pgbouncer/pgbouncer.log
+pidfile = /var/run/pgbouncer/pgbouncer.pid
+listen_addr = 127.0.0.1
+listen_port = 6432
+auth_type = hba
+auth_file = /usr/local/etc/pgbouncer/userlist.txt
+auth_hba_file = /usr/local/etc/pgbouncer/bnc_hba.conf
+pool_mode = session
+server_reset_query = DISCARD ALL
+max_db_connections = 100
+max_client_conn = 500
+default_pool_size = 20
+
