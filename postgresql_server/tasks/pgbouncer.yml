@@ -16,7 +16,7 @@
 - name: "Copy pgbouncer.users file"
   template:
     src: "pgbouncer.users.j2"
-    dest: "/usr/local/etc/pgbouncer/pgbouncer.users"
+    dest: "/usr/local/etc/pgbouncer.users"
     owner: "pgbouncer"
     group: "pgbouncer"
     mode: "0600"
@@ -25,7 +25,7 @@
 - name: "Copy pgbouncer_hba.conf file"
   template:
     src: "pgbouncer_hba.conf.j2"
-    dest: "/usr/local/etc/pgbouncer/pgbouncer_hba.conf"
+    dest: "/usr/local/etc/pgbouncer_hba.conf"
     owner: "pgbouncer"
     group: "pgbouncer"
     mode: "0600"
