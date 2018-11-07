@@ -7,3 +7,11 @@
     src: "postgresql-newsyslog.conf"
     dest: "/usr/local/etc/newsyslog.conf.d/postgresql"
 
+- name: "Make sure pgbouncer newsyslog config file exists"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "pgbouncer-newsyslog.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/pgbouncer"
+

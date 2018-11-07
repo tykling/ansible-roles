@@ -15,3 +15,19 @@
     mode: "644"
   notify: "restart syslogd"
 
+- name: "add syslog.d config for pgbouncer"
+  copy:
+    src: "pgbouncer-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/pgbouncer.conf"
+  notify: "restart syslogd"
+
+- name: "Make sure /var/log/pgbouncer.log exists"
+  copy:
+    dest: "/var/log/pgbouncer.log"
+    content: ""
+    force: False
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+

@@ -2,13 +2,23 @@
 postgres = host=localhost
 
 [pgbouncer]
-logfile = /var/log/pgbouncer/pgbouncer.log
 pidfile = /var/run/pgbouncer/pgbouncer.pid
+
+# logging
+syslog = 1
+syslog_facility = local1
+syslog_ident = pgbouncer
+
+# listen
 listen_addr = 127.0.0.1
 listen_port = 6432
+
+# authentication
 auth_type = hba
 auth_file = /usr/local/etc/pgbouncer.users
 auth_hba_file = /usr/local/etc/pgbouncer_hba.conf
+
+# postgres
 pool_mode = session
 server_reset_query = DISCARD ALL
 max_db_connections = 100
