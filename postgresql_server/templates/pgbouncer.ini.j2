@@ -1,5 +1,5 @@
 [databases]
-postgres = host=localhost
+* = host=localhost
 
 [pgbouncer]
 pidfile = /var/run/pgbouncer/pgbouncer.pid
@@ -17,11 +17,15 @@ listen_port = 6432
 auth_type = hba
 auth_file = /usr/local/etc/pgbouncer.users
 auth_hba_file = /usr/local/etc/pgbouncer_hba.conf
+admin_users = pgbouncer
 
-# postgres
-pool_mode = session
-server_reset_query = DISCARD ALL
-max_db_connections = 200 # allow this many simultaneous connections to the backend postgres
-max_client_conn = 1000 # allow this many simultaneous client connections to pgbouncer
-default_pool_size = 100 # allow this many simultaneous connections from the same user/db pair to pgbouncer
+# SCALING
+# allow this many simultaneous connections to the backend postgres
+max_db_connections = 200
+
+# allow this many simultaneous client connections to pgbouncer
+max_client_conn = 1000
+
+# allow this many simultaneous connections from the same user/db pair to pgbouncer
+default_pool_size = 100
 
