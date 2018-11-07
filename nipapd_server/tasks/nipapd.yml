@@ -26,6 +26,8 @@
     src: "nipapd.conf.j2"
     dest: "/usr/local/etc/nipap/nipapd.conf"
     mode: "0600"
+    owner: "nipap"
+    group: "nipap"
 
 - name: "create /var/run/nipap/"
   file:
