@@ -9,6 +9,7 @@
 - local1:
   - rt_server
   - bind
+  - pgbouncer
 
 - local2:
   - bind

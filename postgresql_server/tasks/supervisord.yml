@@ -12,6 +12,7 @@
         user: "{{ postgresql_user }}"
         startretries: 200
         stopwaitsecs: 30
+        stopsignal: "INT"
 
 - name: "Create supervisord.d config file to run pgbouncer"
   include_role:
