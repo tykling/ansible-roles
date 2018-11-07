@@ -14,11 +14,3 @@
     executable: "/usr/local/bin/bash"
   when: gitresult is changed
 
-- name: "Install nipap-cli config file"
-  template:
-    src: "nipaprc.j2"
-    dest: "/usr/home/nipap/.nipaprc"
-    owner: "nipap"
-    group: "nipap"
-    mode: "0600"
-
