@@ -22,6 +22,6 @@
     supervisord_programs:
       - name: "pgbouncer"
         comment: "run pgbouncer"
-        command: "/usr/local/bin/pgbouncer -d /usr/local/etc/pgbouncer.ini"
+        command: "/usr/local/bin/pgbouncer /usr/local/etc/pgbouncer.ini"
         user: "pgbouncer"
 
