@@ -21,7 +21,7 @@ auth_hba_file = /usr/local/etc/pgbouncer_hba.conf
 # postgres
 pool_mode = session
 server_reset_query = DISCARD ALL
-max_db_connections = 100
-max_client_conn = 500
-default_pool_size = 20
+max_db_connections = 200 # allow this many simultaneous connections to the backend postgres
+max_client_conn = 1000 # allow this many simultaneous client connections to pgbouncer
+default_pool_size = 100 # allow this many simultaneous connections from the same user/db pair to pgbouncer
 
