@@ -1,0 +1,15 @@
+---
+- name: "Install fail2ban"
+  pkgng:
+    name: "py27-fail2ban"
+    state: "present"
+
+- name: "Copy config file"
+  template:
+    src: "fail2ban.conf.j2"
+    dest: "/usr/local/etc/fail2ban/fail2ban.d/local.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+  notify: "restart fail2ban"
+
