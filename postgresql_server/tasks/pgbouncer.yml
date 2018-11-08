@@ -44,6 +44,12 @@
     line: '"{{ item.username }}" "{{ item.md5password }}"'
   with_items: "{{ pgbouncer_extra_users | default([]) }}"
 
+- name: "Remove empty password users from generated pgbouncer.users file"
+  lineinfile:
+    path: "/usr/local/etc/pgbouncer.users"
+    state: "absent"
+    regexp: '""$'
+
 - name: "Copy pgbouncer_hba.conf file"
   template:
     src: "pgbouncer_hba.conf.j2"
