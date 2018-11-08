@@ -13,14 +13,30 @@
     mode: "0600"
   notify: "restart pgbouncer"
 
-- name: "Copy pgbouncer.users file"
-  template:
-    src: "pgbouncer.users.j2"
+- name: "Copy pgbouncer.users.sql file into place"
+  copy:
+    src: "pgbouncer.users.sql"
+    dest: "{{ postgresql_homedir }}/pgbouncer.users.sql"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: "0600"
+
+- name: "Export pgbouncer users using pgbouncer.users.sql"
+  command: "su {{ postgresql_user }} -c '/usr/local/bin/psql -f {{ postgresql_homedir }}/pgbouncer.users.sql'"
+
+- name: "Copy pgbouncer.users into place"
+  copy:
+    remote_src: True
+    src: "/tmp/pgbouncer.users"
     dest: "/usr/local/etc/pgbouncer.users"
     owner: "pgbouncer"
     group: "pgbouncer"
     mode: "0600"
-  notify: "reload pgbouncer"
+
+- name: "Remove pgbouncer.users from /tmp/"
+  file:
+    path: "/tmp/pgbouncer.users"
+    state: "absent"
 
 - name: "Copy pgbouncer_hba.conf file"
   template:

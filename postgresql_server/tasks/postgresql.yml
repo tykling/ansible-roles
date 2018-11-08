@@ -32,3 +32,8 @@
     mode: "0600"
   notify: "restart postgresql"
 
+- name: "Copy pg_hba.conf"
+  template:
+    src: "pg_hba.conf.j2"
+    dest: "{{ postgresql_datadir }}/pg_hba.conf"
+

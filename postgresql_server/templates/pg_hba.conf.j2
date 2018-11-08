@@ -1,0 +1,23 @@
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust
+# IPv6 local connections:
+host    all             all             ::1/128                 trust
+
+# direct user access
+{% for user in postgresql_users %}
+{% for ip in user.iplist %}
+{{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} password
+{% endfor %}
+{% endfor %}
+
+# user access via pgbouncer
+{% for user in postgresql_users %}
+{% for ip in user.iplist %}
+{{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} password
+{% endfor %}
+{% endfor %}
+
