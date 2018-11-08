@@ -38,6 +38,12 @@
     path: "/tmp/pgbouncer.users"
     state: "absent"
 
+- name: "Add pgbouncer_extra_users to pgbouncer.users file"
+  lineinfile:
+    path: "/usr/local/etc/pgbouncer.users"
+    line: '"{{ user.username }}" "{{ user.md5password }}"'
+  with_items: pgbouncer_extra_users
+
 - name: "Copy pgbouncer_hba.conf file"
   template:
     src: "pgbouncer_hba.conf.j2"

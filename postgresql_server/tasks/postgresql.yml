@@ -36,4 +36,8 @@
   template:
     src: "pg_hba.conf.j2"
     dest: "{{ postgresql_datadir }}/pg_hba.conf"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: "0600"
+  notify: "reload postgresql"
 
