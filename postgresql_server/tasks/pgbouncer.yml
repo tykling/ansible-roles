@@ -42,7 +42,7 @@
   lineinfile:
     path: "/usr/local/etc/pgbouncer.users"
     line: '"{{ item.username }}" "{{ item.md5password }}"'
-  with_items: pgbouncer_extra_users
+  with_items: "{{ pgbouncer_extra_users | default([]) }}"
 
 - name: "Copy pgbouncer_hba.conf file"
   template:
