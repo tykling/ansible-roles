@@ -1,7 +1,7 @@
 ---
 - name: "Install isc dhcpd"
   pkgng:
-    name: "isc-dhcp43-server"
+    name: "isc-dhcp44-server"
     state: "present"
 
 - name: "Enable isc dhcpd in rc.conf"
