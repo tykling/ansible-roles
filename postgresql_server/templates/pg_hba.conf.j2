@@ -16,7 +16,7 @@ host    all             all             ::1/128                 trust
 
 # user access via pgbouncer
 {% for user in postgresql_users %}
-{% for ip in user.iplist %}
+{% for ip in pgbouncer_ips %}
 {{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} password
 {% endfor %}
 {% endfor %}
