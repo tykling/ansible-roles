@@ -41,7 +41,7 @@
 - name: "Add pgbouncer_extra_users to pgbouncer.users file"
   lineinfile:
     path: "/usr/local/etc/pgbouncer.users"
-    line: '"{{ user.username }}" "{{ user.md5password }}"'
+    line: '"{{ item.username }}" "{{ item.md5password }}"'
   with_items: pgbouncer_extra_users
 
 - name: "Copy pgbouncer_hba.conf file"
