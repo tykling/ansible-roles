@@ -2,9 +2,9 @@
 local pgbouncer pgbouncer md5
 
 # regular pgbouncer users
-{% for user in pgbouncer_users|default([]) %}
+{% for user in postgresql_users|default([]) %}
 {% for ip in user.iplist|default([]) %}
-{{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} {{ user.authmethod }} 
+{{ user.type }} {{ user.database }} {{ user.username }} {{ ip }} md5
 {% endfor %}
 
 {% endfor %}
