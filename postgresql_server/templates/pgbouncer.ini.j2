@@ -19,6 +19,9 @@ auth_file = /usr/local/etc/pgbouncer.users
 auth_hba_file = /usr/local/etc/pgbouncer_hba.conf
 admin_users = pgbouncer
 
+# use transaction pooling
+pool_mode = transaction
+
 # SCALING
 # allow this many simultaneous connections to the backend postgres
 max_db_connections = 200
