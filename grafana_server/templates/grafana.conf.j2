@@ -25,7 +25,7 @@ path = grafana.db
 {% if grafana_ldap_config is defined  %}
 [auth.ldap]
 enabled = true
-config_file = {{ grafana_ldap_config_dir }}
+config_file = {{ grafana_ldap_config_path }}
 {% endif %}
 
 [session]
