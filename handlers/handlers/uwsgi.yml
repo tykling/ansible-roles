@@ -1,0 +1,9 @@
+---
+- name: "restart uwsgi"
+  command: "/usr/local/bin/supervisorctl restart uwsgi"
+
+- name: "touch-chain-reload uwsgi"
+  file:
+    path: "/var/run/uwsgi/touch-to-chain-reload-uwsgi"
+    state: "touch"
+

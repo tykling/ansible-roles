@@ -1,0 +1,13 @@
+---
+- name: "Install uwsgi"
+  pkgng:
+    name: "uwsgi"
+    state: "present"
+
+- name: "Copy uwsgi config file"
+  template:
+    src: "uwsgi.ini.j2"
+    dest: "/usr/local/etc/uwsgi/uwsgi.ini"
+    mode: "0644"
+  notify: "restart uwsgi"
+

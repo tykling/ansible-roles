@@ -1,0 +1,17 @@
+---
+- name: "add syslog.d config for uwsgi"
+  copy:
+    src: "uwsgi-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/uwsgi.conf"
+  notify: "restart syslogd"
+
+- name: "Make sure /var/log/uwsgi.log exists"
+  copy:
+    dest: "/var/log/uwsgi.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+
