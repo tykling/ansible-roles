@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "uwsgi"
         comment: "run uwsgi"
-        command: "/usr/local/bin/uwsgi --ini /usr/local/etc/uwsgi.ini --logger syslog --stats /var/run/uwsgi/stats.sock --lazy-apps --touch-chain-reload /var/run/uwsgi/touch-to-reload-uwsgi --pidfile /var/run/uwsgi/uwsgi.pid -s /var/run/uwsgi/uwsgi.sock --uid 80 --gid 80"
+        command: "/usr/local/bin/uwsgi --ini {{ uwsgi_configpath }}"
         user: "www"
         stopsignal: "INT"
 

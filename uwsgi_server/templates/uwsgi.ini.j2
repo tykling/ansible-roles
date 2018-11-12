@@ -1,12 +1,17 @@
 [uwsgi]
 chdir={{ django_root }}
 module={{ django_mainapp }}.wsgi:application
+pidfile={{ uwsgi_pidfile }}
+socket={{ uwsgi_socketpath }}
+stats={{ uwsgi_statssocketpath }}
+touch-chain-reload={{ uwsgi_touchchainreloadpath }}
 master=True
-pidfile=/tmp/uwsgi.pid
 vacuum=True
 max-requests=5000
-daemonize=/var/log/uwsgi.log
-socket=/tmp/uwsgi.sock
-processes=20
-threads=2
+processes={{ uwsgi_processes }}
+threads=1
+logger=syslog
+lazy-apps=True
+uid=80
+gid=80
 
