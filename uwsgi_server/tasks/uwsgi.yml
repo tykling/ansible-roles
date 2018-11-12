@@ -11,3 +11,11 @@
     mode: "0644"
   notify: "restart uwsgi"
 
+- name: "Create uwsgi socket directory"
+  file:
+    path: "/var/run/uwsgi"
+    state: "directory"
+    mode: "0755"
+    owner: "www"
+    group: "www"
+
