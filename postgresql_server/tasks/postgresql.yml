@@ -4,7 +4,7 @@
     name: "postgresql{{ postgresql_version }}-server"
     state: "present"
 
-- name: "Install PostgreSQL controb"
+- name: "Install PostgreSQL contrib"
   pkgng:
     name: "postgresql{{ postgresql_version }}-contrib"
     state: "present"
