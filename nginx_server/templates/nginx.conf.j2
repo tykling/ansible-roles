@@ -34,11 +34,9 @@ http {
     server_tokens               off;
     more_set_headers            'Server: Yes';
 
-    # for websocket support, map the Upgrade: HTTP header into the $connection_upgrade nginx variable
-    map $http_upgrade $connection_upgrade {
-        default   upgrade;
-        ''        close;
-    }
+{% if nginx_extra_http_config|default("") %}
+{{ nginx_extra_http_config }}
+{% endif %}
 
 {% if nginx_proxy | default(False) %}
     # http://nginx.org/en/docs/http/ngx_http_core_module.html#server_names_hash_bucket_size

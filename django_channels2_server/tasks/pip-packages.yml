@@ -16,9 +16,8 @@
 
 - name: "Install OS dependencies for django"
   pkgng:
-    name: "{{ item }}"
+    name: "{{ django_os_dependencies + django_extra_os_dependencies | default([]) }}"
     state: "present"
-  with_items: "{{ django_os_dependencies + django_extra_os_dependencies | default([]) }}"
 
 - name: "Install gettext-tools if neded"
   pkgng:
@@ -29,6 +28,12 @@
 - name: "Install needed pip modules"
   pip:
     requirements: "{{ django_pip_requirements_path }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+
+- name: "Install uwsgi in virtualenv"
+  pip:
+    name: "uwsgi"
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
 

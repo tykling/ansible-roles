@@ -1,0 +1,19 @@
+[uwsgi]
+chdir={{ django_root }}
+module={{ django_mainapp }}.wsgi:application
+pidfile={{ uwsgi_pidfile }}
+socket={{ uwsgi_socketpath }}
+http=127.0.0.1:8080
+stats={{ uwsgi_statssocketpath }}
+touch-chain-reload={{ uwsgi_touchchainreloadpath }}
+master=True
+vacuum=True
+max-requests=5000
+processes={{ uwsgi_processes }}
+threads=1
+logger=syslog
+lazy-apps=True
+uid=80
+gid=80
+log-x-forwarded-for=True
+
