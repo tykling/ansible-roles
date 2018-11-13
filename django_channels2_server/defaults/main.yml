@@ -38,7 +38,11 @@ nginx_locationslash: |
         internal;
         root {{ django_media_root }};
   }
-  location @django {
+  location @uwsgi {
+        include         uwsgi_params;
+        uwsgi_pass      unix:{{ uwsgi_socketpath }};
+  }
+  location @daphne {
       proxy_pass http://127.0.0.1:8000;
       proxy_http_version 1.1;
       proxy_set_header Host $http_host;
