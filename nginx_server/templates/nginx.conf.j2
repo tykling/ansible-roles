@@ -39,6 +39,10 @@ http {
         default   upgrade;
         ''        close;
     }
+    map $http_upgrade $mapped_ws_upstream {
+        default '127.0.0.1:8080';
+        upgrade '127.0.0.1:8000';
+    }
 
 {% if nginx_proxy | default(False) %}
     # http://nginx.org/en/docs/http/ngx_http_core_module.html#server_names_hash_bucket_size

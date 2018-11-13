@@ -31,28 +31,23 @@ django_os_dependencies:
   - "databases/postgresql96-client"
 
 nginx_locationslash: |
+  # static file served directly by nginx
   location /static/ {
         alias {{ django_nginx_static_root }};
   }
+  # /public/ uses x-accel-redirect
   location /public/ {
         internal;
         root {{ django_media_root }};
   }
-  location @uwsgi {
-        include         uwsgi_params;
-        uwsgi_pass      unix:{{ uwsgi_socketpath }};
-  }
-  location @daphne {
-      proxy_pass http://127.0.0.1:8000;
+  # django backend, proxy_pass to daphne or uwsgi
+  location / {
+      proxy_pass http://$mapped_ws_upstream;
       proxy_http_version 1.1;
       proxy_set_header Host $http_host;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
-  }
-  location / {
-        root {{ django_nginx_static_root }}img/favicon;
-        try_files $uri @django;
   }
 
 supervisord_programs:
