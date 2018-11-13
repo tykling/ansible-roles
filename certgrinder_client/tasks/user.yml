@@ -25,10 +25,8 @@
     group: "{{ certgrinder_user }}"
     line: "{{ certgrinder_ssh_server }} ecdsa-sha2-nistp256 {{ certgrinder_ssh_server_pubkey }}"
 
-- name: "add users to certgrinder group so they can read certificates"
-  user:
-    name: "{{ item }}"
-    groups: "{{ certgrinder_user }}"
-    append: yes
+- name: "add users to certgrinder group so they can read certificates - might fail if the user doesn't exist yet"
+  command: "/usr/sbin/pw group mod {{ certgrinder_user }} -m {{ item }}"
   with_items: "{{ certgrinder_cert_users | default([]) }}"
+  ignore_errors: yes
 
