@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "uwsgi"
         comment: "run uwsgi"
-        command: "/usr/local/bin/uwsgi --ini {{ uwsgi_configpath }}"
+        command: "/usr/local/virtualenv/bin/uwsgi --ini {{ uwsgi_configpath }}"
         user: "www"
         stopsignal: "INT"
 

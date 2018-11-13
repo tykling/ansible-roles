@@ -1,9 +1,4 @@
 ---
-- name: "Install uwsgi"
-  pkgng:
-    name: "uwsgi"
-    state: "present"
-
 - name: "Copy uwsgi config file"
   template:
     src: "uwsgi.ini.j2"

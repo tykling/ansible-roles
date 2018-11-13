@@ -31,6 +31,12 @@
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
 
+- name: "Install uwsgi in virtualenv"
+  pip:
+    name: "uwsgi"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+
 - name: "Install redis for django channel_layer where needed"
   pkgng:
     name: "databases/redis"
