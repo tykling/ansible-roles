@@ -1,7 +1,6 @@
 ---
 - name: Install basic packages
   pkgng:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items: "{{ packages }}"
 
