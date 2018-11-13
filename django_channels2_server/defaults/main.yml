@@ -50,6 +50,18 @@ nginx_locationslash: |
       proxy_set_header Connection $connection_upgrade;
   }
 
+nginx_extra_http_config: |
+    # support upstream websockets, by mapping the Upgrade: HTTP header into the $connection_upgrade nginx variable
+    map $http_upgrade $connection_upgrade {
+        default   upgrade;
+        ''        close;
+    }
+    # also use the Upgrade: HTTP header to choose daphne for websocket requests and uwsgi for the rest
+    map $http_upgrade $mapped_ws_upstream {
+        default '127.0.0.1:8080'; # uwsgi
+        upgrade '127.0.0.1:8000'; # daphne
+    }
+
 supervisord_programs:
   - name: "daphne"
     comment: "run daphne"
