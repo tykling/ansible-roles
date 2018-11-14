@@ -14,11 +14,6 @@ proxy_set_header        X-Request-ID $request_id;
 ### httpoxy mitigation
 proxy_set_header        Proxy "";
 
-### websockets
-proxy_http_version      1.1;
-proxy_set_header        Upgrade $http_upgrade;
-proxy_set_header        Connection $connection_upgrade;
-
 {% if nginx_proxy_source_ip is defined %}### proxy source ip
 proxy_bind              {{ nginx_proxy_source_ip }};
 {% endif %}
