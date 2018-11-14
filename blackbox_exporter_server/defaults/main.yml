@@ -1,0 +1,8 @@
+---
+blackbox_exporter_args:
+  - name: "blackbox_exporter_listen_address"
+    value: "127.0.0.1:9115"
+  # if you need the icmp module blackbox_exporter must run as root on BSDs
+  #- name: "blackbox_exporter_user"
+    #value: "root"
+

@@ -1,0 +1,5 @@
+---
+- name: "reload blackbox_exporter"
+  service:
+    name: "blackbox_exporter"
+    state: "reloaded"
