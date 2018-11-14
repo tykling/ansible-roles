@@ -6,3 +6,10 @@ blackbox_exporter_args:
   #- name: "blackbox_exporter_user"
     #value: "root"
 
+#blackbox_exporter_modules:
+  #http_2xx:
+    #prober: http
+    #timeout: 5s
+    #http:
+      #method: GET
+      #preferred_ip_protocol: ip4
