@@ -7,7 +7,7 @@ postgresql_server_tls_enable: yes
 postgresql_max_connections: "200"
 postgresql_backup_savedays: "7"
 postgresql_backup_path: "/var/postgresbackups"
-postgresql_ip4r: True
+postgresql_ip4r: False
 postgresql_hot_standby: False
 
 certgrinder_post_renew_hooks:
