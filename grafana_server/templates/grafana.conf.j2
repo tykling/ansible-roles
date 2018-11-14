@@ -8,25 +8,7 @@ static_root_path = public
 root_url = {{ grafana_root_url }}
 
 [database]
-{% if grafana_database_url is defined %}
 url = {{ grafana_database_url }}
-{% elif grafana_postgres_host is defined %}
-type = postgres
-host = {{ grafana_postgres_host }}:5432
-name = {{ grafana_postgres_dbname }}
-user = {{ grafana_postgres_user }}
-password = {{ grafana_postgres_password }}
-{% else %}
-type = sqlite3
-# This path is relative to paths.data
-path = grafana.db
-{% endif %}
-
-{% if grafana_ldap_config is defined  %}
-[auth.ldap]
-enabled = true
-config_file = {{ grafana_ldap_config_path }}
-{% endif %}
 
 [session]
 provider = file
