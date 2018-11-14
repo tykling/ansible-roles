@@ -330,3 +330,8 @@
   roles:
     - "searx_server"
 
+- name: "configure blackbox exporter servers"
+  hosts: "blackbox_exporter_servers"
+  become: yes
+  roles:
+    - "blackbox_exporter_servers"
