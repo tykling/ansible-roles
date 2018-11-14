@@ -40,3 +40,7 @@ pf_host: yes
 
 # types: [hardware, vmware]
 host_type: hardware
+
+# modules: [vmemctl, vmxnet, vmhgfs, vmblock]
+vmware_kernel_modules:
+  - vmxnet

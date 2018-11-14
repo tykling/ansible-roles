@@ -9,4 +9,6 @@
 - include_tasks: "aesni.yml"
 - include_tasks: "sysctl.yml"
 - include_tasks: "arc_max.yml"
+- include_tasks: "vmware.yml"
+  when: host_type == "vmware"
 
