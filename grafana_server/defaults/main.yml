@@ -1,6 +1,4 @@
 ---
-grafana_postgres_host: "{{ postgres_host }}"
-
 nginx_locationslash: |
  location / {
       proxy_pass http://127.0.0.1:3000;
@@ -11,4 +9,7 @@ nginx_locationslash: |
 
 # http://docs.grafana.org/installation/configuration/#url
 #grafana_database_url: 
+
+# LDAP can be enabled by defining grafana_ldap_config: http://docs.grafana.org/auth/ldap/
+grafana_ldap_config_path: /usr/local/etc/grafana-ldap.toml
 

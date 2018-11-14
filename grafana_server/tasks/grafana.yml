@@ -14,6 +14,17 @@
   notify:
     - "restart grafana"
 
+- name: "Install Grafana ldap config"
+  copy:
+    content: "{{ grafana_ldap_config }}"
+    dest: "{{ grafana_ldap_config_path }}"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  when: grafana_ldap_config is defined
+  notify:
+    - "restart grafana"
+
 - name: "Create supervisord.d config file to run grafana"
   include_role:
     name: "supervisord_server"
@@ -26,3 +37,10 @@
         command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
         user: "grafana"
 
+- name: "Make sure grafana data directory exists"
+  file:
+    path: "/var/db/grafana"
+    state: "directory"
+    owner: "grafana"
+    group: "grafana"
+    mode: "0755"
