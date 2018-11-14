@@ -28,7 +28,7 @@ django_asgi_worker_count: "20"
 django_channels_layer_redis: True
 
 django_os_dependencies:
-  - "databases/postgresql96-client"
+  - "databases/postgresql{{ postgresql_version }}-client"
 
 nginx_locationslash: |
   # static file served directly by nginx
