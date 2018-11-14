@@ -14,3 +14,9 @@
     name: "vmware_guest_{{ item }}_enable"
     value: "YES"
   with_items: "{{ vmware_kernel_modules }}"
+  register: kernel_modules
+
+- name: "Load VMware kernel module(s)"
+  shell: "kldload /usr/local/lib/vmware-tools/modules/drivers/{{ item }}.ko"
+  with_items: "{{ vmware_kernel_modules }}"
+  when: kernel_modules.changed
