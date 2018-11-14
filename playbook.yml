@@ -334,4 +334,4 @@
   hosts: "blackbox_exporter_servers"
   become: yes
   roles:
-    - "blackbox_exporter_servers"
+    - "blackbox_exporter_server"
