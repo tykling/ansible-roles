@@ -13,7 +13,7 @@
   sysrc:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
-  loop: "{{ blackbox_exporter_args }}"
+  with_items: "{{ blackbox_exporter_args }}"
 
 - name: "Install blackbox_exporter configuration"
   template:
