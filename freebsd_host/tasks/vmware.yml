@@ -20,3 +20,4 @@
   shell: "kldload /usr/local/lib/vmware-tools/modules/drivers/{{ item }}.ko"
   with_items: "{{ vmware_kernel_modules }}"
   when: kernel_modules.changed
+  ignore_errors: yes
