@@ -17,7 +17,7 @@
 
 - name: "Install blackbox_exporter configuration"
   template:
-    src: "blackbox.yml.j2"
+    src: "blackbox_exporter.yml.j2"
     dest: "/usr/local/etc/blackbox_exporter.yml"
     owner: "prometheus"
     group: "prometheus"
