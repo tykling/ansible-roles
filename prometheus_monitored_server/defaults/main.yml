@@ -1,4 +1,5 @@
 ---
+exporter_exporter: yes
 exporter_exporter_version: "master"
 exporter_exporter_user: nobody
 exporter_exporter_group: "{{ exporter_exporter_user }}"
