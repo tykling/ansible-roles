@@ -22,13 +22,6 @@
     GOBIN: "/usr/local/bin"
   when: gitresult.changed
 
-# CREATE USER ETC
-- name: "Add user for exporter_exporter"
-  user:
-    name: "{{ exporter_exporter_user }}"
-    group: "{{ exporter_exporter_group }}"
-    comment: "user for exporter_exporter"
-
 - name: "Install exporter_exporter config"
   template:
     src: "expexp.yml.j2"
