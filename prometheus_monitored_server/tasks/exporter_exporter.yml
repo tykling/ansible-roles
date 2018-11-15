@@ -29,7 +29,6 @@
     owner: "{{ exporter_exporter_user }}"
     group: "{{ exporter_exporter_group }}"
     mode: 0644
-  when: gitresult.changed
   notify:
     - "restart exporter_exporter"
 
