@@ -4,17 +4,6 @@
     name: "blackbox_exporter"
     state: "present"
 
-- name: "Enable blackbox_exporter"
-  service:
-    name: "blackbox_exporter"
-    enabled: yes
-
-- name: "Set blackbox_exporter args in /etc/rc.conf"
-  sysrc:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-  with_items: "{{ blackbox_exporter_args }}"
-
 - name: "Install blackbox_exporter configuration"
   template:
     src: "blackbox_exporter.yml.j2"
@@ -25,7 +14,15 @@
   notify:
     - "reload blackbox_exporter"
 
-- name: "Start blackbox_exporter"
-  service:
-    name: "blackbox_exporter"
-    state: "started"
+- name: "Create supervisord.d config file to run blackbox_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "blackbox_exporter"
+    supervisord_programs:
+      - name: "blackbox_exporter"
+        comment: "run blackbox_exporter"
+        command: "/usr/local/bin/blackbox_exporter --config.file=/usr/local/etc/blackbox_exporter.yml --web.listen-address={{ blackbox_exporter_listen_address }} --log.level={{ blackbox_exporter_log_level }}"
+        user: "{{ blackbox_exporter_user }}"
+
