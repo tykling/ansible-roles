@@ -18,24 +18,7 @@
     chdir: "/tmp/exporter_exporter"
   environment:
     GOPATH: "/root/go"
-  when: gitresult.changed
-
-- name: "Build exporter_exporter"
-  command: "go build"
-  args:
-    chdir: "/tmp/exporter_exporter"
-  environment:
-    GOPATH: "/root/go"
-  when: gitresult.changed
-
-- name: "Install exporter_exporter"
-  copy:
-    src: "/tmp/exporter_exporter/exporter_exporter"
-    dest: "/usr/local/etc/expexp.yaml"
-    owner: "root"
-    group: "wheel"
-    mode: 0644
-    remote_src: yes
+    GOBIN: "/usr/local/bin"
   when: gitresult.changed
 
 - name: "Install exporter_exporter config"
