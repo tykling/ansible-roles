@@ -17,6 +17,11 @@
     state: "directory"
   notify: "reload postgresql"
 
+- name: "Make sure postgres homedir is a mountpoint"
+  fail:
+    msg: "The postgresql homedir {{ postgresql_homedir }} is not a mountpoint"
+  when: postgresql_check_mounts and postgresql_homedir is not mount
+
 - name: "Initialise PostgreSQL database"
   command: "/usr/sbin/service postgresql oneinitdb"
   args:
