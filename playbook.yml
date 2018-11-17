@@ -330,3 +330,9 @@
   roles:
     - "searx_server"
 
+- name: "configure nfs servers"
+  hosts: "nfs_servers"
+  become: yes
+  roles:
+    - "nfs_server"
+
