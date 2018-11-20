@@ -31,5 +31,6 @@
 - import_tasks: "pgbouncer.yml"
 - import_tasks: "fail2ban.yml"
 - import_tasks: "uwsgi.yml"
+- import_tasks: "node_exporter.yml"
+- import_tasks: "exporter_exporter.yml"
 - import_tasks: "mountd.yml"
-

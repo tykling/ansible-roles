@@ -1,0 +1,5 @@
+---
+- name: "restart exporter_exporter"
+  supervisorctl:
+    name: "exporter_exporter"
+    state: restarted
