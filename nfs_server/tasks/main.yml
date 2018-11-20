@@ -1,0 +1,28 @@
+---
+- name: "Enable nfsd and rpcbind"
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  with_items:
+    - "nfsd"
+    - "rpcbind"
+
+- name: "Configure mountd in /etc/rc.conf"
+  sysrc:
+    name: "mountd_flags"
+    value: "-r"
+
+- name: "Configure nfs shares in /etc/exports"
+  template:
+    src: "exports.j2"
+    dest: "/etc/exports"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+  notify:
+    - "reload mountd"
+
+- name: "Make sure nfsd is running"
+  service:
+    name: "nfsd"
+    state: "started"

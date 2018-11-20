@@ -4,4 +4,5 @@ nginx_worker_connections: 1024
 nginx_dhparam_path: "{{ dhparam_path }}"
 nginx_proxy: False
 nginx_set_real_ip_from: yes
+nginx_fail2ban: False
 

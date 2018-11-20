@@ -9,11 +9,12 @@ postgresql_backup_savedays: "7"
 postgresql_backup_path: "/var/postgresbackups"
 postgresql_ip4r: False
 postgresql_hot_standby: False
+postgresql_check_mounts: True
 
 certgrinder_post_renew_hooks:
   - "/bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key {{ postgresql_homedir }}"
   - "/bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
-  - "/usr/sbin/service postgresql reload"
+  - "/usr/sbin/service postgresql onereload"
 
 postgresql_daily_vacuum_enable: True
 postgresql_daily_backup_enable: True

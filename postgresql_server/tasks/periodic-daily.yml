@@ -31,3 +31,9 @@
     value: "{{ postgresql_user }}"
     dest: "/etc/periodic.conf"
 
+# this does not work
+#- name: "Make sure postgres backupdir is a mountpoint"
+#  fail:
+#    msg: "The postgresql backupdir {{ postgresql_backup_path }} is not a mountpoint"
+#  when: postgresql_check_mounts and postgresql_backup_path is not mount
+

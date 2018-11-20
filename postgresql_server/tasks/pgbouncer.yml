@@ -22,7 +22,7 @@
     mode: "0600"
 
 - name: "Export pgbouncer users using pgbouncer.users.sql"
-  command: "su {{ postgresql_user }} -c '/usr/local/bin/psql -f {{ postgresql_homedir }}/pgbouncer.users.sql'"
+  command: "su {{ postgresql_user }} -c '/usr/local/bin/psql -f {{ postgresql_homedir }}/pgbouncer.users.sql postgres'"
 
 - name: "Copy pgbouncer.users into place"
   copy:
