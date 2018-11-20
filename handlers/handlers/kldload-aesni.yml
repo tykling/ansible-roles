@@ -1,4 +1,5 @@
 ---
 - name: "load AESNI module"
   command: "/sbin/kldload aesni"
+  ignore_errors: yes
 
