@@ -1,0 +1,14 @@
+---
+blackbox_exporter_listen_address: 127.0.0.1:9115
+blackbox_exporter_log_level: info
+# if you need the icmp module blackbox_exporter must run as root on BSDs
+blackbox_exporter_user: prometheus
+
+# Example blackbox_exporter_modules
+#blackbox_exporter_modules:
+  #http_2xx:
+    #prober: http
+    #timeout: 5s
+    #http:
+      #method: GET
+      #preferred_ip_protocol: ip4

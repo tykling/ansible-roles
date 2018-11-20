@@ -1,0 +1,3 @@
+---
+- name: "reload blackbox_exporter"
+  shell: pkill -SIGHUP blackbox_exporter
