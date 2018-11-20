@@ -12,39 +12,37 @@
     version: "{{ exporter_exporter_version }}"
   register: gitresult
 
-- name: "Get Go dependencies for exporter_exporter"
+# Go get downloads dependencies, builds and installs the software in GOBIN
+- name: "Go get exporter_exporter"
   command: "go get ."
   args:
     chdir: "/tmp/exporter_exporter"
   environment:
     GOPATH: "/root/go"
-  when: gitresult.changed
-
-- name: "Build exporter_exporter"
-  command: "go build"
-  args:
-    chdir: "/tmp/exporter_exporter"
-  environment:
-    GOPATH: "/root/go"
-  when: gitresult.changed
-
-- name: "Install exporter_exporter"
-  copy:
-    src: "/tmp/exporter_exporter/exporter_exporter"
-    dest: "/usr/local/etc/expexp.yaml"
-    owner: "root"
-    group: "wheel"
-    mode: 0644
-    remote_src: yes
+    GOBIN: "/usr/local/bin"
   when: gitresult.changed
 
 - name: "Install exporter_exporter config"
   template:
     src: "expexp.yml.j2"
-    dest: "/usr/local/etc/expexp.yaml"
-    owner: "root"
-    group: "wheel"
+    dest: "/usr/local/etc/expexp.yml"
+    owner: "{{ exporter_exporter_user }}"
+    group: "{{ exporter_exporter_group }}"
     mode: 0644
-    remote_src: yes
-  when: gitresult.changed
+  notify:
+    - "restart exporter_exporter"
+
+- name: "Create supervisord.d config file to run exporter_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "exporter_exporter"
+    supervisord_programs:
+      - name: "exporter_exporter"
+        comment: "run exporter_exporter"
+        command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -web.listen-address={{ exporter_exporter_listen_address }} -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
+        user: "{{ exporter_exporter_user }}"
+  notify:
+    - "restart exporter_exporter"
 

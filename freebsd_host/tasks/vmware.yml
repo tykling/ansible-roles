@@ -1,0 +1,23 @@
+---
+- name: "Enable VMware guestd"
+  sysrc:
+    name: "vmware_guestd_enable"
+    value: "YES"
+
+- name: "Make sure VMware guestd is running"
+  service:
+    name: "vmware-guestd"
+    enabled: yes
+
+- name: "Enable VMware kernel module(s)"
+  sysrc:
+    name: "vmware_guest_{{ item }}_enable"
+    value: "YES"
+  with_items: "{{ vmware_kernel_modules }}"
+  register: kernel_modules
+
+- name: "Load VMware kernel module(s)"
+  shell: "kldload /usr/local/lib/vmware-tools/modules/drivers/{{ item }}.ko"
+  with_items: "{{ vmware_kernel_modules }}"
+  when: kernel_modules.changed
+  ignore_errors: yes

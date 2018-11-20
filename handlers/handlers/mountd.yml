@@ -1,0 +1,6 @@
+---
+- name: "reload mountd"
+  service:
+    name: "mountd"
+    state: "reloaded"
+

@@ -18,5 +18,6 @@
   tags:
     - codedeploy
   notify:
+    - "touch-chain-reload uwsgi"
     - "restart daphne using supervisorctl"
 
