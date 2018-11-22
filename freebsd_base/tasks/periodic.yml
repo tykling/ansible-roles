@@ -1,0 +1,8 @@
+---
+- name: "disable daily security status emails in /etc/periodic.conf"
+  sysrc:
+    dest: "/etc/periodic.conf"
+    name: "daily_status_security_enable"
+    value: "NO"
+    when: not freebsd_daily_status_security_enable
+
