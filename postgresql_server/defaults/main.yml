@@ -10,7 +10,7 @@ postgresql_backup_path: "/var/postgresbackups"
 postgresql_ip4r: False
 postgresql_hot_standby: False
 postgresql_check_mounts: True
-postgresql_shared_buffers: "10GB"
+postgresql_shared_buffers: "20GB"
 
 certgrinder_post_renew_hooks:
   - "/bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key {{ postgresql_homedir }}"
