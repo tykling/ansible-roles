@@ -1,0 +1,10 @@
+---
+- name: "Put any custom extra files into place"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "0640"
+    content: "{{ item.content }}"
+    dest: "{{ django_root }}/{{ django_mainapp }}/{{ item.filename }}"
+  with_items: "{{ django_extra_files | default([]) }}"
+
