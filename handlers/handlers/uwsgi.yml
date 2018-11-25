@@ -4,6 +4,6 @@
 
 - name: "touch-chain-reload uwsgi"
   file:
-    path: "/var/run/uwsgi/touch-to-chain-reload-uwsgi"
+    path: "{{ uwsgi_touchchainreloadpath }}"
     state: "touch"
 
