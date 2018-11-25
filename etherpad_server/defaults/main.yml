@@ -11,6 +11,9 @@ supervisord_programs:
     user: "etherpad"
     directory: "{{ etherpadlite_root }}"
     exitcodes: "255" # so, etherpad exits with exitcode 0 if the database it uses is restarted, so set this to an unlikely exit code, to make supervisord always consider it unexpected whenever etherpad exits without being asked to
+    environment:
+      NODE_ENV: "production"
+
 nginx_locationslash: |
   location / {
       proxy_pass http://127.0.0.1:9001;
