@@ -7,4 +7,6 @@
     content: "{{ item.content }}"
     dest: "{{ django_root }}/{{ django_mainapp }}/{{ item.filename }}"
   with_items: "{{ django_extra_files | default([]) }}"
+  tags:
+    - codedeploy
 
