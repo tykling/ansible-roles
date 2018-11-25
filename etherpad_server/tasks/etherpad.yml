@@ -24,7 +24,7 @@
   git:
     repo: "git://github.com/ether/etherpad-lite.git"
     dest: "{{ etherpadlite_root }}"
-    version: "1.6.3"
+    version: "1.7.0"
   ignore_errors: yes
 
 - name: "Copy etherpad-lite config"
