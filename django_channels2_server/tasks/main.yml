@@ -9,4 +9,6 @@
     - "codedeploy"
     - "djangosettings"
 - include_tasks: "extra-files.yml"
+  tags:
+    - "codedeploy"
 
