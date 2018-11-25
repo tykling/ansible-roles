@@ -6,3 +6,10 @@
     value: "NO"
     when: not freebsd_daily_status_security_enable
 
+- name: "disable weekly locate.updatedb"
+  sysrc:
+    dest: "/etc/periodic.conf"
+    name: "weekly_locate_enable"
+    value: "NO"
+    when: not freebsd_weekly_locate_enable
+

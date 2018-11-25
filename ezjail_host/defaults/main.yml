@@ -10,3 +10,5 @@ jailmergemaster_github_repo_url: "https://github.com/tykling/jailmergemaster"
 jailmergemaster_checkout_path: "/tmp/jailmergemaster"
 jailmergemaster_github_branch: "master"
 
+freebsd_weekly_locate_enable: False
+
