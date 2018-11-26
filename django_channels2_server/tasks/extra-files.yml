@@ -1,8 +1,8 @@
 ---
 - name: "Put any custom extra files into place"
   copy:
-    owner: "root"
-    group: "wheel"
+    owner: "www"
+    group: "www"
     mode: "0640"
     content: "{{ item.content }}"
     dest: "{{ django_root }}/{{ django_mainapp }}/{{ item.filename }}"
