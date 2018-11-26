@@ -19,4 +19,6 @@ certgrinder_post_renew_hooks:
 
 postgresql_daily_vacuum_enable: True
 postgresql_daily_backup_enable: True
+postgresql_wal_level: "hot_standby"
+postgresql_max_wal_senders: 3
 
