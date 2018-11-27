@@ -10,6 +10,12 @@ root_url = {{ grafana_root_url }}
 [database]
 url = {{ grafana_database_url }}
 
+{% if grafana_ldap_config is defined  %}
+[auth.ldap]
+enabled = true
+config_file = {{ grafana_ldap_config_path }}
+{% endif %}
+
 [session]
 provider = file
 
