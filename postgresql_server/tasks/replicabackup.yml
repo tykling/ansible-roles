@@ -4,13 +4,15 @@
     src: "postgresql-replica-backup.sh"
     dest: "{{ postgresql_homedir }}/postgresql-replica-backup.sh"
     mode: "0755"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
   when: postgresql_hot_standby
 
 - name: "Make sure daily cronjob to run postgres replica backup is in place"
   cron:
     name: "Backup postgresql replica"
-    minute: 0
-    hour: 1
+    minute: 10
+    hour: 0
     job: "{{ postgresql_homedir }}/postgresql-replica-backup.sh"
     cron_file: "/etc/crontab"
     user: "nobody"

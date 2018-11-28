@@ -6,4 +6,5 @@
 - include_tasks: "supervisord.yml"
 - include_tasks: "periodic-daily.yml"
 - include_tasks: "pgbouncer.yml"
+- include_tasks: "replicabackup.yml"
 
