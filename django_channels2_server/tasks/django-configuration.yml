@@ -17,7 +17,8 @@
     - "djangosettings"
     - "codedeploy"
   notify:
-    - "restart django runworker instances using supervisorctl"
+    - "touch-chain-reload uwsgi"
+    - "restart daphne using supervisorctl"
 
 - name: "Delete temporary environment_settings.py.dist"
   file:
