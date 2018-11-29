@@ -6,4 +6,5 @@ uwsgi_socketpath: "{{ uwsgi_socketdir }}/uwsgi.sock"
 uwsgi_statssocketpath: "{{ uwsgi_socketdir }}/stats.sock"
 uwsgi_touchchainreloadpath: "{{ uwsgi_socketdir }}/touch-to-reload-uwsgi"
 uwsgi_processes: 2
+uwsgi_http_timeout: 60
 
