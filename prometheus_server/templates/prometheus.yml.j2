@@ -28,8 +28,12 @@ scrape_configs:
 {% for target in job.targets %}
         - "{{ target }}"
 {% endfor %}
+{% if job.labels is defined %}
+        labels:
+{% for key, value in job.labels.iteritems() %}
+          "{{ key }}": "{{ value }}"
+{% endfor %}
+{% endif %}
     metrics_path: "{{ job.metrics_path }}"
     scheme: "{{ job.scheme|d("https") }}"
-
 {% endfor %}
-
