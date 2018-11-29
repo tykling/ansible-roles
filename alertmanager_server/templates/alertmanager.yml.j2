@@ -7,6 +7,7 @@ global:
 {% if alertmanager_smtp_password is defined %}
   smtp_auth_password: '{{ alertmanager_smtp_password }}'
 {% endif %}
+  smtp_require_tls: {{ alertmanager_smtp_tls }}
 
 templates:
 - '/usr/local/etc/alertmanager/template/*.tmpl'
