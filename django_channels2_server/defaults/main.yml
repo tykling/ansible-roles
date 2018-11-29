@@ -48,6 +48,7 @@ nginx_locationslash: |
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
+      proxy_read_timeout {{ django_nginx_proxy_read_timeout }};
   }
 
 nginx_extra_http_config: |
@@ -61,6 +62,8 @@ nginx_extra_http_config: |
         default '127.0.0.1:8080'; # uwsgi
         upgrade '127.0.0.1:8000'; # daphne
     }
+
+django_nginx_proxy_read_timeout: "60s"
 
 supervisord_programs:
   - name: "daphne"
