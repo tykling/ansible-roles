@@ -15,6 +15,6 @@
     hour: 0
     job: "{{ postgresql_homedir }}/postgresql-replica-backup.sh"
     cron_file: "/etc/crontab"
-    user: "nobody"
+    user: "{{ postgresql_user }}"
   when: postgresql_hot_standby
 
