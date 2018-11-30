@@ -1,6 +1,11 @@
 ---
 - name: "Install FreeBSD host packages"
   pkgng:
-    name: "{{ default_host_packages }} + {{ 'default_' + host_type + '_host_packages' }} + {{ extra_host_packages | default([]) }}"
+    name: "{{ default_host_packages }} + {{ extra_host_packages | default([]) }}"
+    state: "present"
+
+- name: "Install FreeBSD host_type specific packages"
+  pkgng:
+    name: "{{ hostvars[inventory_hostname]['default_' + host_type + '_host_packages'] | default([]) }}"
     state: "present"
 
