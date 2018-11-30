@@ -38,7 +38,7 @@ zfs_scrub_interval_days: 30
 tykbackup_client: yes
 pf_host: yes
 
-# types: [hardware, vmware, xen, kvm]
+# types: [hardware, vmware, xen, kvm, bhyve]
 host_type: hardware
 
 # modules: [vmemctl, vmxnet, vmhgfs, vmblock]
