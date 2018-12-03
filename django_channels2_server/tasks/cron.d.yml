@@ -13,5 +13,5 @@
         wday: "{{ item.wday }}"
         user: "{{ item.user }}"
         command: "{{ item.command }}"
-  with_items: "{{ cron_d_jobs }}"
+  with_items: "{{ django_cron_d_jobs }}"
 
