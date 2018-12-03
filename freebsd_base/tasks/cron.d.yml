@@ -1,0 +1,14 @@
+---
+- name: "Create cron.d jobs"
+  template:
+    src: "cron.d.j2"
+    dest: "/etc/cron.d/{{ item.filename }}"
+  vars:
+    hour: "*"
+    minute: "*"
+    mday: "*"
+    month: "*"
+    wday: "*"
+  with_items:
+    - "{{ cron_d_jobs | default([]) }}"
+
