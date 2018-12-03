@@ -11,4 +11,5 @@
 - include_tasks: "extra-files.yml"
   tags:
     - "codedeploy"
+- include_tasks: "cron.d.yml"
 
