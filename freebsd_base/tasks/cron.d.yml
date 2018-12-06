@@ -1,8 +1,6 @@
 ---
-- name: "Create cron.d jobs"
+- name: "Create cron.d job"
   template:
     src: "cron.d.j2"
     dest: "/etc/cron.d/{{ item.filename }}"
-  with_items:
-    - "{{ cron_d_jobs | default([]) }}"
 
