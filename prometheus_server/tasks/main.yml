@@ -1,5 +1,6 @@
 ---
 - include_tasks: "prometheus.yml"
+  tags: "promconf"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
 

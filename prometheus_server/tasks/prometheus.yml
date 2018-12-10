@@ -19,6 +19,8 @@
     owner: "root"
     group: "wheel"
     mode: "0755"
+  tags:
+    - "promconf"
   notify:
     - "restart prometheus"
 
@@ -29,6 +31,8 @@
     owner: "root"
     group: "wheel"
     mode: "0755"
+  tags:
+    - "promconf"
   notify:
     - "restart prometheus"
 
