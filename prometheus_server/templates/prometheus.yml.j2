@@ -30,10 +30,10 @@ scrape_configs:
         - "{{ target }}"
 {% endfor %}
 {% endif %}
-{% if job.file_sd_targets is defined %}
+{% if job.file_sd_configs is defined %}
     file_sd_configs:
       - files:
-{% for file in job.file_sd_targets %}
+{% for file in job.file_sd_configs %}
         - "{{ file }}"
 {% endfor %}
 {% endif %}
