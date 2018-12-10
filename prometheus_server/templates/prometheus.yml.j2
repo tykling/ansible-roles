@@ -23,6 +23,9 @@ scrape_configs:
 
 {% for job in prometheus_scrape_configs %}
   - job_name: "{{ job.name }}"
+{% if job.scrape_interval is defined %}
+    scrape_interval: {{ job.scrape_interval }}
+{% endif %}
 {% if job.targets is defined %}
     static_configs:
       - targets:
