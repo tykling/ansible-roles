@@ -26,6 +26,13 @@ scrape_configs:
 {% if job.scrape_interval is defined %}
     scrape_interval: {{ job.scrape_interval }}
 {% endif %}
+{% if job.metrics_path is defined %}
+    metrics_path: {{ job.metrics_path }}
+{% endif %}
+{% if job.params is defined %}
+    params:
+      {{ job.params | to_nice_yaml(indent=2) | indent(6,False) }}
+{% endif %}
 {% if job.targets is defined %}
     static_configs:
       - targets:
