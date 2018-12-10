@@ -21,4 +21,5 @@ postgresql_daily_vacuum_enable: True
 postgresql_daily_backup_enable: True
 postgresql_wal_level: "hot_standby"
 postgresql_max_wal_senders: 3
+postgresql_wal_keep_segments: 100
 

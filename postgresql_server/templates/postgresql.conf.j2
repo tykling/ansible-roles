@@ -22,4 +22,5 @@ ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}.key'
 {% endif %}
 wal_level = {{ postgresql_wal_level }}
 max_wal_senders = {{ postgresql_max_wal_senders }}
+wal_keep_segments = {{ postgresql_wal_keep_segments }}
 

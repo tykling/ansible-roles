@@ -11,7 +11,7 @@
         command: "/usr/local/bin/postgres -D {{ postgresql_datadir }}"
         user: "{{ postgresql_user }}"
         startretries: 200
-        stopwaitsecs: 30
+        stopwaitsecs: 60
         stopsignal: "INT"
 
 - name: "Create supervisord.d config file to run pgbouncer"
