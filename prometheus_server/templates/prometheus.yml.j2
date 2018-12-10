@@ -49,7 +49,7 @@ scrape_configs:
     scheme: "{{ job.scheme|d("https") }}"
 {% if job.relabel_configs is defined %}
     relabel_configs:
-{{ job.relabel_configs | to_nice_yaml(indent=2) | indent(6,False) }}
+      {{ job.relabel_configs | to_nice_yaml(indent=2) | indent(6,False) }}
 {% endif %}
 {% endfor %}
 
