@@ -53,9 +53,6 @@ scrape_configs:
           "{{ key }}": "{{ value }}"
 {% endfor %}
 {% endif %}
-{% if job.metrics_path is defined %}
-    metrics_path: "{{ job.metrics_path }}"
-{% endif %}
     scheme: "{{ job.scheme|d("https") }}"
 {% if job.relabel_configs is defined %}
     relabel_configs:
