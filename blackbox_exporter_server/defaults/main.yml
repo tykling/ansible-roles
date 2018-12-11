@@ -7,10 +7,10 @@ nginx_locationslash: |
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
-blackbox_exporter_listen_address: 127.0.0.1:9115
-blackbox_exporter_log_level: info
+blackbox_exporter_listen_address: ":9115"
+blackbox_exporter_log_level: "info"
 # if you need the icmp module blackbox_exporter must run as root on BSDs
-blackbox_exporter_user: root
+blackbox_exporter_user: "root"
 
 # Example blackbox_exporter_modules
 #blackbox_exporter_modules:
