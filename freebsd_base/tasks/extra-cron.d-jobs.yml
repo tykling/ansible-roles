@@ -1,0 +1,17 @@
+---
+- name: "Create cron.d files"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "cron.d"
+  vars:
+    cron_d_jobs:
+      - filename: "{{ item.filename }}"
+        minute: "{{ item.minute }}"
+        hour: "{{ item.hour }}"
+        mday: "{{ item.mday }}"
+        month: "{{ item.month }}"
+        wday: "{{ item.wday }}"
+        user: "{{ item.user }}"
+        command: "{{ item.command }}"
+  with_items: "{{ extra_cron_d_jobs }}"
+
