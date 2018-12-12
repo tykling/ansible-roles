@@ -20,4 +20,5 @@
   notify:
     - "touch-chain-reload uwsgi"
     - "restart daphne using supervisorctl"
+    - "restart supervisord_extra_programs"
 
