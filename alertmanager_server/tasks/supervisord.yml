@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run alertmanager"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "alertmanager"
+    supervisord_programs:
+      - name: "alertmanager"
+        comment: "run alertmanager"
+        command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager/alertmanager.yml --storage.path=/var/db/alertmanager"
+        user: "alertmanager"
+

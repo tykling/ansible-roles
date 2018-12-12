@@ -2,13 +2,6 @@
 virtualenv_path: "/usr/local/virtualenv"
 radicale_configdir: "/usr/local/etc/radicale"
 
-supervisord_programs:
-  - name: "radicale"
-    comment: "run radicale"
-    command: "{{ virtualenv_path }}/bin/python {{ virtualenv_path }}/bin/radicale -C /usr/local/etc/radicale/config"
-    user: "radicale"
-    priority: "1"
-
 nginx_locationslash: |
  location / {
       proxy_pass http://127.0.0.1:5232;

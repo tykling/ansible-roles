@@ -12,4 +12,5 @@
   tags:
     - "codedeploy"
 - include_tasks: "cron.d.yml"
+- include_tasks: "supervisord.yml"
 
