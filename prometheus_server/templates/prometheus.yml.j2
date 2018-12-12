@@ -8,6 +8,7 @@ rule_files:
 
 alerting:
   alertmanagers:
+    - scheme: {{ prometheus_alertmanager_scheme }}
     - static_configs:
         - targets:
 {% for target in prometheus_alertmanager_targets %}

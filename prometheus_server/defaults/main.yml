@@ -1,5 +1,6 @@
 ---
 prometheus_retention_days: 750
+prometheus_alertmanager_scheme: "http"
 
 nginx_locationslash: |
  location / {
