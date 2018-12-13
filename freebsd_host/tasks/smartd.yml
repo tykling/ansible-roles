@@ -1,4 +1,9 @@
 ---
+- name: "Install smartd"
+  pkgng:
+    name: "smartd"
+    state: "present"
+
 - name: "Configure smartd"
   template:
     src: "smartd.conf.j2"
