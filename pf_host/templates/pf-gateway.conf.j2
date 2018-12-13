@@ -16,11 +16,11 @@ set block-policy drop
 {% endfor %}
 
 ################ common address macros ###############
-{{ pf.common_address_macros | default("# No common macros found") }}
+{{ pf_common_address_macros | default("# No common macros found") }}
 
 
 ################ macros specific to {{ ansible_nodename }} #######################
-{{ pf.local_address_macros | default("# No local macros found") }}
+{{ pf_local_address_macros | default("# No local macros found") }}
 
 
 ###################################################################################################
@@ -30,17 +30,13 @@ scrub in on { {% for interface in pf_gateway_interfaces %}{% if interface.scrub 
 
 ####################################################################################################
 ############### translation BINAT ########################
-{% for binat in pf.gateway_binat_rules | default([]) %}
+{% for binat in pf_gateway_binat_rules | default([]) %}
 binat on ${{ binat.outside_if }} from {{ binat.inside }} -> {{ binat.outside }}
 {% endfor %}
 
 ############### translation RDR ########################
 
 ############### translation NAT ########################
-# flip traffic from binat to binat outside
-#{% for binat in pf.gateway_binat_rules | default([]) %}
-#nat on ${{ binat.inside_if }} from binat.inside to ${{ binat.outside_if }}:network -> {{ binat.outside }}
-#{% endfor %}
 
 ####################################################################################################
 ############### filtering ##############################
@@ -71,14 +67,14 @@ pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, ech
 {% endfor %}
 
 ### permit selected ICMP types to binat machines
-{% for rule in pf.gateway_binat_rules | default([]) %}
+{% for rule in pf_gateway_binat_rules | default([]) %}
 pass in quick on ${{ rule.outside_if }} inet proto icmp from any to {{ rule.inside }} icmp-type { unreach, echoreq, timex }
 {% endfor %}
 
 #######################################################
 # CUSTOM FILTER RULES BELOW HERE
 
-{% for rule in pf.filter_rules %}
+{% for rule in pf_filter_rules %}
 # {{ rule.comment }}
 {% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %} on { {{ rule.interfaces | join(" ") }} }{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
 
