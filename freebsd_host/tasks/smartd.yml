@@ -1,7 +1,7 @@
 ---
 - name: "Install smartd"
   pkgng:
-    name: "smartd"
+    name: "smartmontools"
     state: "present"
 
 - name: "Configure smartd"
