@@ -27,6 +27,12 @@ server {
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 {% endif %}
 
+{% if 'more_headers' in item.value %}
+    # extra custom HTTP headers for this vhost
+{% for header, value in item.value.more_headers %}
+    more_set_headers        "{{ header }}: {{ value }}";
+{% endfor %}{% endif %}
+
     location = /__nginx_ocsp_priming/ {
         return 200 'OK';
     }
