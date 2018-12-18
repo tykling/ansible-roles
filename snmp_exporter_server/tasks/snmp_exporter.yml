@@ -1,0 +1,18 @@
+---
+- name: "Install snmp_exporter"
+  pkgng:
+    name: "snmp_exporter"
+    state: "present"
+
+- name: "Create supervisord.d config file to run snmp_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "snmp_exporter"
+    supervisord_programs:
+      - name: "snmp_exporter"
+        comment: "run snmp_exporter"
+        command: "/usr/local/bin/snmp_exporter --config.file=/usr/local/etc/snmp_exporter.yml --web.listen-address={{ snmp_exporter_listen_address }} --log.level={{ snmp_exporter_log_level }}"
+        user: "{{ snmp_exporter_user }}"
+

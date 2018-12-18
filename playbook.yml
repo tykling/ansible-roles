@@ -341,3 +341,10 @@
   become: yes
   roles:
     - "nfs_server"
+
+- name: "configure snmp_exporter servers"
+  hosts: "snmp_exporter_servers"
+  become: yes
+  roles:
+    - "snmp_exporter_server"
+
