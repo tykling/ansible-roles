@@ -4,6 +4,21 @@
     name: "snmp_exporter"
     state: "present"
 
+- name: "Install snmp_exporter_generator configuration"
+  template:
+    src: "generator.yml.j2"
+    dest: "/usr/local/etc/snmp_exporter/generator.yml"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  register: "generatorresult"
+
+- name: "Run snmp_exporter_generator because generator.yml was changed"
+  command: "/usr/local/bin/snmp_exporter_generator generate"
+  when: generatorresult is changed
+  notify:
+    - "restart snmp_exporter"
+
 - name: "Create supervisord.d config file to run snmp_exporter"
   include_role:
     name: "supervisord_server"
@@ -14,5 +29,5 @@
       - name: "snmp_exporter"
         comment: "run snmp_exporter"
         command: "/usr/local/bin/snmp_exporter --config.file=/usr/local/etc/snmp_exporter.yml --web.listen-address={{ snmp_exporter_listen_address }} --log.level={{ snmp_exporter_log_level }}"
-        user: "{{ snmp_exporter_user }}"
+        user: "nobody"
 

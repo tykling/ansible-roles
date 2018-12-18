@@ -1,0 +1,4 @@
+---
+- name: "restart snmp_exporter using supervisorctl"
+  command: "/usr/local/bin/supervisorctl restart snmp_exporter"
+

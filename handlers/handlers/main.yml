@@ -35,3 +35,5 @@
 - import_tasks: "node_exporter.yml"
 - import_tasks: "exporter_exporter.yml"
 - import_tasks: "mountd.yml"
+- import_tasks: "snmp_exporter.yml"
+
