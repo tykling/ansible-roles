@@ -21,5 +21,6 @@ modules:
       - old_index: ifIndex
         # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
         new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+{% if snmp_exporter_extra_modules %}
   {{ snmp_exporter_extra_modules | to_nice_yaml(indent=2) | indent(2,False) }}
-
+{% endif %}
