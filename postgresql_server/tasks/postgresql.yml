@@ -45,5 +45,7 @@
     owner: "{{ postgresql_user }}"
     group: "{{ postgresql_user }}"
     mode: "0600"
+  tags:
+    - "pghba"
   notify: "reload postgresql"
 
