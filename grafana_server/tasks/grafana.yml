@@ -1,7 +1,7 @@
 ---
-- name: "Install grafana4"
+- name: "Install grafana5"
   pkgng:
-    name: "grafana4"
+    name: "grafana5"
     state: "present"
 
 - name: "Install Grafana config"
@@ -44,3 +44,4 @@
     owner: "grafana"
     group: "grafana"
     mode: "0755"
+
