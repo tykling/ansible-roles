@@ -59,5 +59,9 @@ scrape_configs:
     relabel_configs:
       {{ job.relabel_configs | to_nice_yaml(indent=2) | indent(6,False) }}
 {% endif %}
+{% if job.metric_relabel_configs is defined %}
+    metric_relabel_configs:
+      {{ job.metric_relabel_configs | to_nice_yaml(indent=2) | indent(6,False) }}
+{% endif %}
 {% endfor %}
 
