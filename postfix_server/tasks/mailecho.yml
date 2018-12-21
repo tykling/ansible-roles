@@ -1,0 +1,18 @@
+---
+- name: "Copy mailecho script"
+  template:
+    src: "mailecho.pl.j2"
+    dest: "/usr/local/bin/mailecho.pl"
+    mode: "755"
+
+- name: "Enable mailecho service in master.cf"
+  blockinfile:
+    create: yes
+    dest: "/usr/local/etc/postfix/master.cf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK mailecho"
+    content: |
+      # mailecho service, just add transport entry to enable
+      mailecho  unix  -       n       n       -       -       pipe
+         flags=F user=vmail:vmail argv=/usr/local/bin/perl /usr/local/bin/mailecho.pl ${sender} ${size} ${recipient}
+  notify: "reload postfix"
+

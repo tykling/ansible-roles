@@ -1,0 +1,76 @@
+#!/usr/bin/env perl
+use warnings;
+#use strict;
+use MIME::Lite;
+use Net::SMTP;
+
+my ($from, $to, $subject, $date, $sent_from);
+my $found = 0;
+$fullmail = '';
+
+my $to_string = "{{ mailecho_email }}";
+
+my $result;
+while(defined(my $line = <STDIN>)) {
+        #add the line to a var to save the complete email
+        $fullmail = $fullmail . $line;
+
+        if (($result) = ($line =~ m/^From:\s+(.*?)\n/i)) {
+                $from = $result;
+                $found++;
+        } elsif (($result) = ($line =~ m/^To:\s+(.*?)\n/i)) {
+                $to =   $result;
+                $found++;
+        } elsif (($result) = ($line =~ m/^Subject:\s+(.*?)\n/i)) {
+                $subject = $result;
+                $found++;
+        } elsif (($result) = ($line =~ m/^Date:\s+(.*?)\n/i)) {
+                $date = $result;
+        } elsif (($result) = ($line =~ m/^Received:\s+from\s+(.*)/i)) {
+                $sent_from = $result;
+        } elsif (($result) = ($line =~ m/^Message-Id:\s+(.*?)\n/i)) {
+                $message_id = $result;
+        }
+}
+
+# From, To, Subject and Message-Id are required by this script
+if ($found < 3) {
+        print "****    CRITICAL MESSAGE HEADERS ARE MISSING    ****";
+        exit 1;
+} elsif ($ARGV[2] ne $to_string) {
+        print "****    EMAIL MUST BE ADDRESSED TO '$to_string' - THIS WAS ADDRESSED TO $ARGV[2] !    ****";
+        exit 1;
+};
+
+
+
+my $bodytop=<<EOT;
+{{ mailecho_body_header }}
+EOT
+my $bodybottom=<<EOT;
+{{ mailecho_body_footer }}
+EOT
+
+
+my $body = $bodytop . $fullmail . $bodybottom;
+
+my $msg = new MIME::Lite(
+        From            => "{{ mailecho_reply_from }}",
+        To              => $from,
+        Subject         => "{{ mailecho_reply_subject }},
+        Type            => 'multipart/mixed',
+        In-Reply-To     => $message_id
+);
+
+#Body
+$msg->attach(
+                        Type    => 'TEXT',
+                        Data    => $body
+);
+
+MIME::Lite->send('smtp', 'localhost', Timeout => 60);
+$msg->send();
+
+#close OUT;
+exit 0;
+
