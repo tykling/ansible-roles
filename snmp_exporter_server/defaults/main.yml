@@ -9,5 +9,4 @@ nginx_locationslash: |
 
 snmp_exporter_listen_address: ":9116"
 snmp_exporter_log_level: "info"
-snmp_exporter_extra_modules: {}
 
