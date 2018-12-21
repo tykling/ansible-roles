@@ -12,7 +12,9 @@
     $config['temp_dir'] = '{{ roundcube_temp_path }}';
     $config['des_key'] = "{{ lookup('password', '/dev/null chars=ascii_letters,digits') }}";
     $config['cipher_method'] = 'AES-256-CBC';
+{% if roundcube_username_domain is defined %}
     $config['username_domain'] = '{{ roundcube_username_domain }}';
+{% endif %}
     $config['product_name'] = '{{ roundcube_product_name }}';
     $config['identities_level'] = 3;
     $config['plugins'] = array('markasjunk', 'password');
