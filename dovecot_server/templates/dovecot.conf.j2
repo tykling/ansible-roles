@@ -71,11 +71,12 @@ service lmtp {
     address = 127.0.0.1,::1
     port = 24
   }
+  vsz_limit = 2048 M
 }
 
 
 service imap {
-  vsz_limit = 1024 M
+  vsz_limit = 2048 M
 }
 
 # Listen on v4 and v6
