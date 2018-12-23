@@ -1,6 +1,6 @@
-{% if smartd_devicescan %}
-DEVICESCAN -a -m {{ smartd_email }}
-{% else %}
+{% if smartd_devices is defined  %}
 {{ smartd_devices }}
+{% else %}
+DEVICESCAN -a -m {{ smartd_email }}
 {% endif %}
 

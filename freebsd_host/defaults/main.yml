@@ -18,7 +18,6 @@ ntp_servers:
   - "dk.pool.ntp.org"
 
 smartd_email: "admin@example.com"
-smartd_devicescan: True
 
 zfs_periodic_pools:
   - "tank"
