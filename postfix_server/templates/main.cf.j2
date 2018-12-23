@@ -64,7 +64,7 @@ smtpd_sasl_path = inet:[{{ sasl_server_ip }}]:{{ sasl_server_port }}
 smtpd_sasl_auth_enable = yes
 {% if postfix_sender_login_restriction %}
 smtpd_sender_login_maps = pgsql:/usr/local/etc/postfix/smtpd_sender_login_maps.sql
-smtpd_sender_restrictions = reject_sender_login_mismatch
+smtpd_sender_restrictions = permit_mynetworks, reject_sender_login_mismatch
 {% endif %}
 
 {% if opendkim %}
