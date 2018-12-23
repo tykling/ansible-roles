@@ -1,0 +1,16 @@
+---
+- name: "Create accounting directory"
+  file:
+    path: "{{ process_accounting_directory }}"
+    state: "directory"
+    mode: "0600"
+    owner: "root"
+    group: "wheel"
+
+- name: "Enable process accounting"
+  service:
+    name: "accounting"
+    enabled: yes
+  notify:
+    - "start process accounting"
+

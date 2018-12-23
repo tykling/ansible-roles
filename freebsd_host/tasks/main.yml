@@ -11,4 +11,5 @@
 - include_tasks: "arc_max.yml"
 - include_tasks: "vmware.yml"
   when: host_type == "vmware"
+- include_tasks: "accounting.yml"
 
