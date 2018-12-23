@@ -45,5 +45,5 @@ host_type: hardware
 vmware_kernel_modules:
   - vmxnet
 
-process_accounting_directory: "/var/account/acct"
+process_accounting_file: "/var/account/acct"
 

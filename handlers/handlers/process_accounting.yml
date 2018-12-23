@@ -1,4 +1,4 @@
 ---
 - name: "start process accounting"
-  command: "/usr/sbin/accton {{ process_accounting_directory }}"
+  command: "/usr/sbin/accton {{ process_accounting_file }}"
 

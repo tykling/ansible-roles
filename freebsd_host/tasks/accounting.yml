@@ -1,11 +1,12 @@
 ---
-- name: "Create accounting directory"
-  file:
-    path: "{{ process_accounting_directory }}"
-    state: "directory"
-    mode: "0600"
+- name: "Make sure the process accounting file exists"
+  copy:
+    dest: "{{ process_accounting_file }}"
+    content: ""
+    force: no
     owner: "root"
     group: "wheel"
+    mode: "0600"
 
 - name: "Enable process accounting"
   service:
