@@ -1,9 +1,14 @@
 ---
-- name: "Copy mailecho script"
-  template:
-    src: "mailecho.pl.j2"
-    dest: "/usr/local/bin/mailecho.pl"
-    mode: "755"
+- name: "Get mailecho script"
+  get_url:
+    url: "https://raw.githubusercontent.com/tykling/mailecho/master/mailecho"
+    dest: "/usr/local/bin/mailecho"
+    mode: "0755"
+
+- name: "Install py27-yaml"
+  pkgng:
+    name: "py27-yaml"
+    state: "present"
 
 - name: "Enable mailecho service in master.cf"
   blockinfile:
@@ -11,8 +16,7 @@
     dest: "/usr/local/etc/postfix/master.cf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK mailecho"
     content: |
-      # mailecho service, just add transport entry to enable
-      mailecho  unix  -       n       n       -       -       pipe
-         flags=F user=vmail:vmail argv=/usr/local/bin/perl /usr/local/bin/mailecho.pl ${sender} ${size} ${recipient}
+      # mailecho service, see https://github.com/tykling/mailecho for more
+      mailecho  unix  -       n       n       -       -       pipe flags=F user=nobody:nobody argv=/usr/local/bin/mailecho
   notify: "reload postfix"
 
