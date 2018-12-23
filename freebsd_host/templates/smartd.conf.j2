@@ -1,2 +1,6 @@
+{% if smartd_devicescan %}
 DEVICESCAN -a -m {{ smartd_email }}
+{% else %}
+{{ smartd_devices }}
+{% endif %}
 
