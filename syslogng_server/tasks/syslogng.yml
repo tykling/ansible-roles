@@ -1,7 +1,7 @@
 ---
-- name: "Install syslog-ng 3.15 (for now, change this back)"
+- name: "Install syslog-ng"
   pkgng:
-    name: "syslog-ng315"
+    name: "syslog-ng"
     state: "present"
 
 - name: "Copy syslog-ng.conf"
