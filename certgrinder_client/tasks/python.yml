@@ -17,7 +17,7 @@
 - name: "Create new virtualenv and install cryptography. Force pip to use /usr/local/ OpenSSL libs+include because https://github.com/pyca/cryptography/issues/3693#issuecomment-449982895"
   pip:
     virtualenv_python: "python"
-    name: "cryptograpy"
+    name: "cryptography"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
     extra_args: '--global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"'
 
