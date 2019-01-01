@@ -14,7 +14,14 @@
     name: "py27-virtualenv"
     state: "present"
 
-- name: "Create virtualenv and install requirements.txt modules with pip"
+- name: "Create new virtualenv and install cryptography. Force pip to use /usr/local/ OpenSSL libs+include because https://github.com/pyca/cryptography/issues/3693#issuecomment-449982895"
+  pip:
+    virtualenv_python: "python"
+    name: "cryptograpy"
+    virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
+    extra_args: '--global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"'
+
+- name: "Install the rest of requirements.txt modules with pip"
   pip:
     virtualenv_python: "python"
     requirements: "/usr/home/{{ certgrinder_user }}/certgrinder/requirements.txt"
