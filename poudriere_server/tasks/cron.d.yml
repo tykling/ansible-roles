@@ -9,5 +9,6 @@
       filename: "poudriere"
       minute: "0"
       hour: "0"
+      user: "root"
       command: "/usr/local/bin/poudriere.sh"
 
