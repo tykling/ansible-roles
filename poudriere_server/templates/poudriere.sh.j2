@@ -9,15 +9,14 @@ for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudri
 
     # loop over portlists
     for PORTLIST in {% for portlist in poudriere_portlists %}{{ portlist.filename }} {% endfor %}; do
-        # build default package SET
+        # build default package set
         /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/${PORTLIST}
+{% if poudriere_package_sets is defined %}
+        # build additional package sets
+        for SET in {% for set in poudriere_package_sets %}{{ set }} {% endfor %}; do
+            /usr/local/bin/poudriere bulk -j $JAIL -z $SET -f /usr/local/etc/poudriere.d/${PORTLIST}
+        done
     done
-    {% if poudriere_package_sets is defined %}
-
-    # build additional package SETs
-    for SET in {% for set in poudriere_package_sets %}{{ set }} {% endfor %}; do
-        /usr/local/bin/poudriere bulk -j $JAIL -z $SET -f /usr/local/etc/poudriere.d/${PORTLIST}
-    done
-    {% endif %}
+{% endif %}
 done
 
