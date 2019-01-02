@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# update ports tree
+/usr/local/bin/poudriere ports -u
+
+# update jails
+{% for arch in poudriere_jail_architechtures %}
+{% for jail in poudriere_jail_versions %}
+poudriere jail -u -j FreeBSD_{{ jail.versiontag }}_{{ jail.architechture }}
+{% endfor %}
+{% endfor %}
+
+# build default package SET
+{% for arch in poudriere_jail_architechtures %}
+{% for jail in poudriere_jail_versions %}
+poudriere bulk -j FreeBSD_{{ jail.versiontag }}_{{ arch }} -f /usr/local/etc/poudriere.d/portlist
+{% endfor %}
+{% endfor %}
+
+{% for set in poudriere_package_sets | default([]) %}
+# build additional package SETs
+{% for arch in poudriere_jail_architechtures %}
+{% for jail in poudriere_jail_versions %}
+poudriere bulk -j FreeBSD_{{ jail.versiontag }}_{{ arch }} -z {{ set }} -f /usr/local/etc/poudriere.d/portlist
+{% endfor %}
+{% endfor %}
+{% endfor %}
+

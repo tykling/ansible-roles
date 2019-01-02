@@ -1,0 +1,12 @@
+---
+- name: "Create cron.d file to run poudriere"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "cron.d"
+  vars:
+    cron_d_jobs:
+      - filename: "poudriere"
+        minute: "0"
+        hour: "0"
+        command: "/usr/local/bin/poudriere.sh"
+

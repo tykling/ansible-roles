@@ -9,3 +9,9 @@
     src: "poudriere.conf.j2"
     dest: "/usr/local/etc/poudriere.conf"
 
+- name: "Copy poudriere.sh"
+  template:
+    src: "poudriere.sh.j2"
+    dest: "/usr/local/bin/poudriere.sh"
+    mode: "0755"
+
