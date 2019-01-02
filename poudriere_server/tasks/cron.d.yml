@@ -5,6 +5,7 @@
     tasks_from: "cron.d"
   vars:
     item:
+      comment: "Run poudriere.sh daily"
       filename: "poudriere"
       minute: "0"
       hour: "0"
