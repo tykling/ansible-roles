@@ -1,0 +1,10 @@
+---
+- name: "Create fail2ban filters.d config files"
+  template:
+    content: "{{ item.regex }}"
+    dest: "/usr/local/etc/fail2ban/filters.d/{{ item.filename }}.conf"
+  notify:
+    - "reload fail2ban"
+  with_items:
+    - "{{ fail2ban_filters | default([]) }}"
+
