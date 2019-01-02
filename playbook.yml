@@ -348,3 +348,9 @@
   roles:
     - "snmp_exporter_server"
 
+- name: "configure poudriere servers"
+  hosts: "poudriere_servers"
+  become: yes
+  roles:
+    - "poudriere_server"
+

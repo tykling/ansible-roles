@@ -1,0 +1,6 @@
+---
+- name: "Install poudriere"
+  pkgng:
+    name: "poudriere"
+    state: present
+

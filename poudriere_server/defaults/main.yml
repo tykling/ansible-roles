@@ -1,0 +1,21 @@
+---
+nginx_locationslash: |
+  # Point to the web-fronted
+  location / {
+      root /usr/local/share/poudriere/html/;
+      index  index.html index.htm;
+  }
+
+  # This location is used by the web-interface for logfiles
+  location /data {
+      alias /usr/local/poudriere/data/logs/bulk;
+      autoindex on;
+      default_type text/plain;
+  }
+
+  # Use this as the base URL to serve packages
+  location /packages {
+      alias /usr/local/poudriere/data/packages/;
+      autoindex on;
+  }
+
