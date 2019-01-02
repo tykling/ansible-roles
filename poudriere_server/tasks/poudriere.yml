@@ -29,6 +29,6 @@
   args:
     creates: "{{ poudriere_zfs_mountpoint }}/jails/freebsd_{{ item[0]['versiontag'] }}_{{ item[1] }}"
   with_nested:
-    - poudriere_jail_versions
-    - poudriere_jail_architechtures
+    - "{{ poudriere_jail_versions }}"
+    - "{{ poudriere_jail_architechtures }}"
 
