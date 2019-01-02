@@ -61,7 +61,6 @@ nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 block log all
 
 ### skip loopback interface(s)
-#set skip on lo0
 pass quick on lo0 inet from 127.0.0.1 to 127.0.0.1
 pass quick on lo0 inet6 from ::1 to ::1
 
