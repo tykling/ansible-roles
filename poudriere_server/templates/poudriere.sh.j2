@@ -4,25 +4,20 @@
 /usr/local/bin/poudriere ports -u
 
 # update jails
-{% for arch in poudriere_jail_architechtures %}
-{% for jail in poudriere_jail_versions %}
-/usr/local/bin/poudriere jail -u -j FreeBSD_{{ jail.versiontag }}_{{ arch }}
-{% endfor %}
-{% endfor %}
+for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudriere_jail_versions %}FreeBSD_{{ jail.versiontag }}_{{ arch }} {% endfor %}{% endfor %}; do
+    /usr/local/bin/poudriere jail -u -j $JAIL
 
-# build default package SET
-{% for arch in poudriere_jail_architechtures %}
-{% for jail in poudriere_jail_versions %}
-/usr/local/bin/poudriere bulk -j FreeBSD_{{ jail.versiontag }}_{{ arch }} -f /usr/local/etc/poudriere.d/portlist
-{% endfor %}
-{% endfor %}
+    # loop over portlists
+    for PORTLIST in {% for portlist in poudriere_portlists %}{{ portlist.filename }} {% endfor %}; do
+        # build default package SET
+        /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/${PORTLIST}
+    done
+    {% if poudriere_package_sets is defined %}
 
-{% for set in poudriere_package_sets | default([]) %}
-# build additional package SETs
-{% for arch in poudriere_jail_architechtures %}
-{% for jail in poudriere_jail_versions %}
-/usr/local/bin/poudriere bulk -j FreeBSD_{{ jail.versiontag }}_{{ arch }} -z {{ set }} -f /usr/local/etc/poudriere.d/portlist
-{% endfor %}
-{% endfor %}
-{% endfor %}
+    # build additional package SETs
+    for SET in {% for set in poudriere_package_sets %}{{ set }} {% endfor %}; do
+        /usr/local/bin/poudriere bulk -j $JAIL -z $SET -f /usr/local/etc/poudriere.d/${PORTLIST}
+    done
+    {% endif %}
+done
 

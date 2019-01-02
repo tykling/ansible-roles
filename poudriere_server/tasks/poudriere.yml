@@ -4,10 +4,19 @@
     name: "poudriere"
     state: present
 
-- name: "Copy poudriere.conf"
+- name: "Copy main poudriere.conf"
   template:
     src: "poudriere.conf.j2"
     dest: "/usr/local/etc/poudriere.conf"
+
+- name: "Copy extra poudriere makefiles"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+    content: "{{ item.content }}"
+    dest: "/usr/local/etc/poudriere.d/{{ item.filename }}"
+  with_items: "{{ poudriere_extra_makefiles | default([]) }}"
 
 - name: "Copy poudriere.sh"
   template:
