@@ -4,10 +4,9 @@
     name: "freebsd_base"
     tasks_from: "cron.d"
   vars:
-    cron_d_jobs:
-      item:
-        filename: "poudriere"
-        minute: "0"
-        hour: "0"
-        command: "/usr/local/bin/poudriere.sh"
+    item:
+      filename: "poudriere"
+      minute: "0"
+      hour: "0"
+      command: "/usr/local/bin/poudriere.sh"
 
