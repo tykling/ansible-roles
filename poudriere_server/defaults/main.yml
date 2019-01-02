@@ -1,6 +1,7 @@
 ---
 poudriere_zfs_pool: "zroot"
 poudriere_zfs_dataset: "/poudriere"
+poudriere_zfs_mountpoint: "/usr/local/poudriere"
 poudriere_freebsd_host: "https://download.FreeBSD.org"
 
 nginx_locationslash: |
