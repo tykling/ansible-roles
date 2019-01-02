@@ -1,0 +1,15 @@
+ZPOOL={{ poudriere_zfs_pool }}
+ZROOTFS={{ poudriere_zfs_dataset }}
+FREEBSD_HOST={{ poudriere_freebsd_host }}
+RESOLV_CONF=/etc/resolv.conf
+BASEFS=/usr/local/poudriere
+USE_PORTLINT=no
+USE_TMPFS=yes
+DISTFILES_CACHE=/usr/ports/distfiles
+PKG_REPO_SIGNING_KEY=/usr/local/etc/poudriere.d/poudriere.key
+NOLINUX=yes
+URL_BASE={{ poudriere_url }}
+KEEP_OLD_PACKAGES=yes
+KEEP_OLD_PACKAGES_COUNT=5
+BUILDER_HOSTNAME={{ poudriere_builder_hostname }}
+
