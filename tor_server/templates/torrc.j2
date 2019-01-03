@@ -12,6 +12,8 @@ ExitPolicy reject *:*
 
 ORPort 443 NoListen
 ORPort 9090 NoAdvertise
+ORPort [{{ hostvars[inventory_hostname]['ansible_default_ipv6']['address'] }}]:443 NoListen
+ORPort [{{ hostvars[inventory_hostname]['ansible_default_ipv6']['address'] }}]:9090 NoAdvertise
 
 DirPort 80 NoListen
 DirPort 9091 NoAdvertise
