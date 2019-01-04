@@ -1,8 +1,11 @@
 ---
 groups:
-- name: instance-down
-  rules:
-    - alert: InstanceDown
-      expr: up{job="instance"} == 0
-      for: 1m
+  - name: instance-down
+    rules:
+      - alert: InstanceDown
+        expr: up{job="instance"} == 0
+        for: 1m
+{% if prometheus_alertmanager_rules is defined %}
+  {{ prometheus_alertmanager_rules | to_nice_yaml(indent=2) | indent(2,False) }}
+{% endif %}
 
