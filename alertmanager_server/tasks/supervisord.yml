@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "alertmanager"
         comment: "run alertmanager"
-        command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager/alertmanager.yml --storage.path=/var/db/alertmanager"
+        command: "/usr/local/bin/alertmanager --config.file=/usr/local/etc/alertmanager/alertmanager.yml --storage.path=/var/db/alertmanager --web.external-url={{ alertmanager_external_url }}"
         user: "alertmanager"
 
