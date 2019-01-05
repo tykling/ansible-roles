@@ -8,12 +8,7 @@ rule_files:
 
 alerting:
   alertmanagers:
-    - scheme: {{ prometheus_alertmanager_scheme }}
-    - static_configs:
-        - targets:
-{% for target in prometheus_alertmanager_targets %}
-          - "{{ target }}"
-{% endfor %}
+    {{ prometheus_alertmanager_configs | to_nice_yaml(indent=2) | indent(4,False) }}
 
 scrape_configs:
   - job_name: 'prometheus self-scrape'
