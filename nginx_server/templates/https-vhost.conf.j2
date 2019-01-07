@@ -19,10 +19,10 @@ server {
     ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.key;
 {% endif %}
     include                 /usr/local/etc/nginx/tls.conf;
-    include                 /usr/local/etc/nginx/securityheaders.conf;
 {% if 'csp' in item.value %}
     more_set_headers        "Content-Security-Policy: {{ item.value.csp }}";
 {% endif %}
+    include                 /usr/local/etc/nginx/securityheaders.conf;
 {% if item.value.reverse_proxy | default(True) %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 {% endif %}
