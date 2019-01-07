@@ -19,21 +19,13 @@ route:
   repeat_interval: 3h
   receiver: sysadmins
 
+{% if alertmanager_inhibit_rules is defined %}
 inhibit_rules:
-- source_match:
-    severity: 'critical'
-  target_match:
-    severity: 'warning'
-  equal: ['alertname', 'instance']
+  {{ alertmanager_inhibit_rules | to_nice_yaml(indent=2) | indent(2,False)
+{% endif %}
 
+{% if alertmanager_receivers is defined %}
 receivers:
-- name: 'sysadmins'
-  email_configs:
-  - to: '{{ alertmanager_admin_email }}'
-{% if alertmanager_slack_url is defined %}
-  slack_configs:
-  - send_resolved: true
-    api_url: {{ alertmanager_slack_url }}
-    channel: {{ alertmanager_slack_channel }}
+  {{ alertmanager_receivers | to_nice_yaml(indent=2) | indent(2,False)
 {% endif %}
 
