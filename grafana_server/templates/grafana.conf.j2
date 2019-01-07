@@ -16,6 +16,12 @@ enabled = true
 config_file = {{ grafana_ldap_config_path }}
 {% endif %}
 
+{% if grafana_anonymous_org is defined %}
+[auth.anonymous]
+enabled = true
+org_name = {{ grafana_anonymous_org }}
+{% endif %}
+
 [session]
 provider = file
 
