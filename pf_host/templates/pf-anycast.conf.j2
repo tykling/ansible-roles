@@ -16,7 +16,7 @@ svc_if="lo1"
 
 
 ################ common address macros ###############
-{{ pf.common_address_macros | default("# No common macros found") }}
+{{ pf_common_address_macros | default("# No common macros found") }}
 
 
 ################ macros specific to {{ ansible_nodename }} #######################
