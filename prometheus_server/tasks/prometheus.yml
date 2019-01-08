@@ -36,3 +36,11 @@
   notify:
     - "restart prometheus"
 
+- name: "Make sure prometheus targets directory exists"
+  file:
+    path: "/usr/local/etc/prometheus"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+
