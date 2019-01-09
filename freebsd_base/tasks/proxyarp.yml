@@ -4,10 +4,14 @@
     src: "proxyarp-netif"
     dest: "/etc/rc.conf.d/netif/{{ item.name }}"
   with_items: "{{ proxyarp_configs | default([]) }}"
+  tags:
+    - "proxyarp"
 
 - name: "Add /etc/rc.conf.d/routing/* files for proxyarp hosts"
   template:
     src: "proxyarp-routing"
     dest: "/etc/rc.conf.d/routing/{{ item.name }}"
   with_items: "{{ proxyarp_configs | default([]) }}"
+  tags:
+    - "proxyarp"
 

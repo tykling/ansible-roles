@@ -23,4 +23,6 @@
 - include_tasks: "extra-cron.d-jobs.yml"
 - include_tasks: "proxyarp.yml"
   when: proxyarp_configs is defined
+  tags:
+    - "proxyarp"
 
