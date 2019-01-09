@@ -1,0 +1,5 @@
+# {{ item.name }}
+
+static_routes="${static_routes} {{ item.name }}"
+route_{{ item.name }}="-iface {{ proxyarp_interface }}.{{ item.vlan }} {{ item.ip }}"
+
