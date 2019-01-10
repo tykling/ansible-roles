@@ -40,3 +40,15 @@
     dest: "/usr/local/share/snmp/mibs/{{ item.filename }}"
   with_items: "{{ snmp_exporter_extra_mibs | default([]) }}"
 
+- name: "Make sure /usr/local/etc/snmp/ folder exists"
+  file:
+    path: "/usr/local/etc/snmp"
+    state: "directory"
+
+- name: "Add extra snmp MIB files to /usr/local/etc/snmp/snmp.conf"
+  lineinfile:
+    dest: "/usr/local/etc/snmp/snmp.conf"
+    regexp: "^mibs +{{ item.mibname }}$"
+    line: "mibs +{{ item.mibname }}"
+  with_items: "{{ snmp_exporter_extra_mibs | default([]) }}"
+
