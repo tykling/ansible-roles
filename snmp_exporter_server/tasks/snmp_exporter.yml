@@ -31,3 +31,12 @@
         command: "/usr/local/bin/snmp_exporter --config.file=/usr/local/etc/snmp_exporter/snmp.yml --web.listen-address={{ snmp_exporter_listen_address }} --log.level={{ snmp_exporter_log_level }}"
         user: "nobody"
 
+- name: "Create extra snmp MIB files..."
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+    content: "{{ item.content }}"
+    dest: "/usr/local/share/snmp/mibs/{{ item.filename }}"
+  with_items: "{{ snmp_exporter_extra_mibs | default([]) }}"
+
