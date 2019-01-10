@@ -45,6 +45,15 @@
     path: "/usr/local/etc/snmp"
     state: "directory"
 
+- name: "Make sure /usr/local/etc/snmp/snmp.conf exists"
+  copy:
+    dest: "/usr/local/etc/snmp/snmp.conf"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+
 - name: "Add extra snmp MIB files to /usr/local/etc/snmp/snmp.conf"
   lineinfile:
     dest: "/usr/local/etc/snmp/snmp.conf"
