@@ -36,6 +36,7 @@
         comment: "run grafana"
         command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
         user: "grafana"
+        startretries: 200
 
 - name: "Make sure grafana data directory exists"
   file:
