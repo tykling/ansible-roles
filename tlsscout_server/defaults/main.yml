@@ -1,6 +1,0 @@
----
-django_mainapp: "tlsscout"
-django_debug: 'False'
-django_github_repo_url: "https://github.com/tykling/tlsscout"
-tlsscout_enable_signout: True
-

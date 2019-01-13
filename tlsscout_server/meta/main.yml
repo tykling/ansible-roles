@@ -1,4 +1,0 @@
----
-dependencies:
-  - { role: django_channels2_server }
-
