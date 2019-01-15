@@ -21,9 +21,14 @@
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
     extra_args: '--global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"'
 
+- name: "Upgrade pip to latest version to avoid problems when installing cffi"
+  pip:
+    name: "pip"
+    state: "latest"
+    virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
+
 - name: "Install the rest of requirements.txt modules with pip"
   pip:
-    virtualenv_python: "python"
     requirements: "/usr/home/{{ certgrinder_user }}/certgrinder/requirements.txt"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
 
