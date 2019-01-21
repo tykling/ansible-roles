@@ -35,7 +35,7 @@ http {
     more_set_headers            'Server: Yes';
 
 {% if nginx_extra_http_config|default("") %}
-{{ nginx_extra_http_config }}
+{{ nginx_extra_http_config | indent( width=4, indentfirst=True) }}
 {% endif %}
 
 {% if nginx_proxy | default(False) %}
