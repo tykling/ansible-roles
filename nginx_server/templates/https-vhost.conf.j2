@@ -26,6 +26,12 @@ server {
 {% if item.value.reverse_proxy | default(True) %}
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 {% endif %}
+{% if item.value.websockets | default(True) %}
+    # websocket support
+    proxy_http_version      1.1;
+    proxy_set_header        Upgrade $http_upgrade;
+    proxy_set_header        Connection $connection_upgrade;
+{% endif %}
 
 {% if 'more_headers' in item.value %}
     # extra custom HTTP headers for this vhost

@@ -39,6 +39,7 @@ http {
 {% endif %}
 
 {% if nginx_proxy | default(False) %}
+    # map $http_upgrade into $connection_upgrade for use in vhosts for websocket support
     include                 /usr/local/etc/nginx/websockets.conf;
 {% endif %}
 
