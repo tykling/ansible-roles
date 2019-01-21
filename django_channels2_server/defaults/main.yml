@@ -60,7 +60,7 @@ nginx_extra_http_config: |
     # also use the Upgrade: HTTP header to choose daphne for websocket requests and uwsgi for the rest
     map $http_upgrade $mapped_ws_upstream {
         default '127.0.0.1:8080'; # uwsgi
-        upgrade '127.0.0.1:8000'; # daphne
+        websocket '127.0.0.1:8000'; # daphne
     }
 
 django_nginx_proxy_read_timeout: "60s"
