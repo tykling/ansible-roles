@@ -1,0 +1,18 @@
+---
+- name: "add syslog.d config for prosody"
+  copy:
+    src: "prosody-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/prosody.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure /var/log/prosody.log exists"
+  copy:
+    dest: "/var/log/prosody.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+
