@@ -12,12 +12,10 @@ global:
 templates:
 - '/usr/local/etc/alertmanager/template/*.tmpl'
 
+{% if alertmanager_routes is defined %}
 route:
-  group_by: ['alertname', 'instance']
-  group_wait: 30s
-  group_interval: 5m
-  repeat_interval: 3h
-  receiver: sysadmins
+  {{ alertmanager_routes | to_nice_yaml(indent=2) | indent(2,False) }}
+{% endif %}
 
 {% if alertmanager_inhibit_rules is defined %}
 inhibit_rules:
