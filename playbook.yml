@@ -348,3 +348,9 @@
   roles:
     - "poudriere_server"
 
+- name: "configure prosody servers"
+  hosts: "prosody_servers"
+  become: yes
+  roles:
+    - "prosody_server"
+

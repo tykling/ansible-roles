@@ -4,10 +4,23 @@
     name: "prosody"
     state: "present"
 
-- name: "Enable prosody in rc.conf"
-  sysrc:
-    name: "prosody_enable"
-    value: "YES"
-
 - name: "Copy prosody config file"
+  template:
+    src: "prosody.cfg.lua.j2"
+    dest: "/usr/local/etc/prosody/prosody.cfg.lua"
+    mode: "0600"
+
+- name: "Create supervisord.d config file to run prosody"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "prosody"
+    supervisord_programs:
+      - name: "prosody"
+        comment: "run prosody"
+        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
+        user: "grafana"
+        startretries: 200
+
 
