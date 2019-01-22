@@ -24,3 +24,10 @@
         command: "/usr/local/bin/lua51 /usr/local/bin/prosody"
         user: "prosody"
 
+- name: "Create prosody data directory"
+  file:
+    path: "{{ prosody_datadir }}"
+    state: "directory"
+    owner: "prosody"
+    group: "prosody"
+

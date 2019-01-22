@@ -1,3 +1,4 @@
 ---
 prosody_postgres_host: "{{ postgres_host }}"
+prosody_datadir: "/var/prosody"
 
