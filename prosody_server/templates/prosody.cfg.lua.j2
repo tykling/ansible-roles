@@ -38,6 +38,6 @@ statistics = "internal"
 certificates = "certs"
 
 {% for vhost in prosody_virtualhosts %}
-VirtualHost "{{ item.key }}"
+VirtualHost "{{ vhost }}"
 {% endfor %}
 
