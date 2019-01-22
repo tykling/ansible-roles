@@ -2,4 +2,5 @@
 prosody_postgres_host: "{{ postgres_host }}"
 prosody_datadir: "/var/prosody"
 certgrinder_cert_users: "prosody"
+prosody_certificate_path: "/usr/home/certgrinder/certificates"
 

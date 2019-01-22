@@ -2,4 +2,5 @@
 dependencies:
   - { role: handlers }
   - { role: supervisord_server }
+  - { role: certgrinder_client }
 

@@ -36,7 +36,7 @@ sql = { driver = "PostgreSQL", database = "{{ prosody_postgres_dbname }}", usern
 archive_expires_after = "1w" -- Remove archived messages after 1 week
 log = "*syslog"
 statistics = "internal"
-certificates = "certs"
+certificates = "{{ prosody_certificate_path }}"
 daemonize = false
 
 {% for vhost in prosody_virtualhosts %}
