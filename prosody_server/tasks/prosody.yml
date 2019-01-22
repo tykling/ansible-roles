@@ -9,6 +9,8 @@
     src: "prosody.cfg.lua.j2"
     dest: "/usr/local/etc/prosody/prosody.cfg.lua"
     mode: "0600"
+    owner: "prosody"
+    group: "prosody"
 
 - name: "Create supervisord.d config file to run prosody"
   include_role:
