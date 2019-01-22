@@ -21,8 +21,6 @@
     supervisord_programs:
       - name: "prosody"
         comment: "run prosody"
-        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
-        user: "grafana"
-        startretries: 200
-
+        command: "/usr/local/bin/lua51 /usr/local/bin/prosody"
+        user: "prosody"
 
