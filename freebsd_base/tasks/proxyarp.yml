@@ -20,9 +20,15 @@
     src: "proxyarp-carp-control.sh.j2"
     dest: "/usr/local/bin/proxyarp-carp-control.sh"
     mode: "0755"
+  when: proxyarp_configs is defined
+  tags:
+    - "proxyarp"
 
 - name: "Add devd config to call proxyarp-carp-control.sh"
   template:
     src: "proxyarp-carp.j2"
     dest: "/etc/devd/proxyarp-carp"
+  when: proxyarp_configs is defined
+  tags:
+    - "proxyarp"
 
