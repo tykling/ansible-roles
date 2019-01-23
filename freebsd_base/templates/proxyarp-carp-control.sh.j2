@@ -10,7 +10,7 @@ fi
 {% for interface in proxyarp_configs %}
 # handle {{ proxyarp_interface }}.{{ item.vlan }}
 /usr/bin/logger "${ACTION}'ing interface {{ proxyarp_interface }}.{{ item.vlan }}"
-/sbin/ifconfig {{ proxyarp_interface }}.{{ item.vlan }} $ACTION
+/sbin/ifconfig {{ proxyarp_interface }}.{{ interface.vlan }} $ACTION
 
 {% endfor %}
 
