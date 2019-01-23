@@ -26,8 +26,8 @@
 
 - name: "Add devd config to call proxyarp-carp-control.sh"
   template:
-    src: "proxyarp-carp.j2"
-    dest: "/etc/devd/proxyarp-carp"
+    src: "proxyarp-carp.conf.j2"
+    dest: "/etc/devd/proxyarp-carp.conf"
   when: proxyarp_configs is defined
   tags:
     - "proxyarp"
