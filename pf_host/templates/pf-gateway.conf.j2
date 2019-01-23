@@ -29,16 +29,6 @@ scrub in on { {% for interface in pf_gateway_interfaces %}{% if interface.scrub 
 
 
 ####################################################################################################
-############### translation BINAT ########################
-{% for binat in pf_gateway_binat_rules | default([]) %}
-binat on ${{ binat.outside_if }} from {{ binat.inside }} -> {{ binat.outside }}
-{% endfor %}
-
-############### translation RDR ########################
-
-############### translation NAT ########################
-
-####################################################################################################
 ############### filtering ##############################
 ### block everything
 block log all
@@ -66,17 +56,22 @@ pass in quick on ${{ if.macro }} inet proto icmp all icmp-type { unreach, echore
 pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 {% endfor %}
 
-### permit selected ICMP types to binat machines
-{% for rule in pf_gateway_binat_rules | default([]) %}
-pass in quick on ${{ rule.outside_if }} inet proto icmp from any to {{ rule.inside }} icmp-type { unreach, echoreq, timex }
-{% endfor %}
-
 #######################################################
 # CUSTOM FILTER RULES BELOW HERE
 
 {% for rule in pf_filter_rules %}
 # {{ rule.comment }}
-{% if rule.block is defined %}block{% else %}pass{% endif %}{% if rule.direction is defined %} {{ rule.direction }}{% endif %}{% if not rule.slow is defined %} quick{% endif %}{% if rule.block is defined or rule.log is defined %} log{% endif %}{% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
+{% if rule.block is defined %}block{% else %}pass{% endif %}
+{% if rule.direction is defined %} {{ rule.direction }}{% endif %}
+{% if not rule.slow is defined %} quick{% endif %}
+{% if rule.block is defined or rule.log is defined %} log{% endif %}
+{% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}
+{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}
+{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}
+{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}
+{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}
+{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}
+{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
 
 {% endfor %}
 
