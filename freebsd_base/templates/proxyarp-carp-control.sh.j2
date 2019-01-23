@@ -8,8 +8,8 @@ else
 fi
 
 {% for interface in proxyarp_configs %}
-# handle {{ proxyarp_interface }}.{{ item.vlan }}
-/usr/bin/logger "${ACTION}'ing interface {{ proxyarp_interface }}.{{ item.vlan }}"
+# handle {{ proxyarp_interface }}.{{ interface.vlan }}
+/usr/bin/logger "${ACTION}'ing interface {{ proxyarp_interface }}.{{ interface.vlan }}"
 /sbin/ifconfig {{ proxyarp_interface }}.{{ interface.vlan }} $ACTION
 
 {% endfor %}
