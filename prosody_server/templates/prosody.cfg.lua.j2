@@ -1,5 +1,5 @@
 admins = { {% for admin in prosody_admins %}"{{ admin }}",{% endfor %} }
-data_path = {{ prosody_datadir }}
+data_path = "{{ prosody_datadir }}"
 
 modules_enabled = {
                 "roster"; -- Allow users to have a roster. Recommended ;)
