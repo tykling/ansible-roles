@@ -1,5 +1,9 @@
 admins = { {% for admin in prosody_admins %}"{{ admin }}",{% endfor %} }
 data_path = "{{ prosody_datadir }}"
+storage = "sql"
+sql = { driver = "PostgreSQL", database = "{{ prosody_postgres_dbname }}", username = "{{ prosody_postgres_username }}", password = "{{ prosody_postgres_password }}", host = "{{ prosody_postgres_host }}" }
+log = "*syslog"
+daemonize = false
 
 modules_enabled = {
                 "roster"; -- Allow users to have a roster. Recommended ;)
@@ -32,12 +36,9 @@ c2s_require_encryption = true
 s2s_require_encryption = true
 s2s_secure_auth = true
 authentication = "internal_hashed"
-sql = { driver = "PostgreSQL", database = "{{ prosody_postgres_dbname }}", username = "{{ prosody_postgres_username }}", password = "{{ prosody_postgres_password }}", host = "{{ prosody_postgres_host }}" }
 archive_expires_after = "1w" -- Remove archived messages after 1 week
-log = "*syslog"
 statistics = "internal"
 certificates = "{{ prosody_certificate_path }}"
-daemonize = false
 
 {% for vhost in prosody_virtualhosts %}
 VirtualHost "{{ vhost }}"
