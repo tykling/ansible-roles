@@ -52,6 +52,9 @@ pass in quick on { $ext_if $svc_if } inet6 proto icmp6 from any to { ($ext_if), 
 ### pass incoming ssh
 pass in quick on $ext_if proto tcp from { <allowssh> } to ($ext_if) port 22
 
+### block unwanted dns clients
+block in quick on { $ext_if $svc_if } proto udp from <blocked_udp_dns_clients> to { ($ext_if), ($svc_if) } port { 53 }
+
 ### pass incoming dns
 pass in quick on { $ext_if $svc_if } proto tcp from any to { ($ext_if), ($svc_if) } port { 53, 853, 5353 }
 pass in quick on { $ext_if $svc_if } proto udp from any to { ($ext_if), ($svc_if) } port { 53, 5353 }
