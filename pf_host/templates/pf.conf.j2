@@ -116,8 +116,8 @@ pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if)
 {% if rule.speed is defined %}{{ rule.speed }} {% else %}quick {% endif %}
 {% if rule.interfaces is defined %}on { {% for interface in rule.interfaces %}{{ interface }} {% endfor %}{% else %}on { $if $jail_if $nat_if lo0 } {% endif %}
 {% if rule.protocols is defined %} proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } {% endif %}
-{% if rule.sources is defined %}from { {{ rule.sources|join(" ") }} }{% endif %}
-{% if rule.destinations is defined %}to { rule.destinations|join(" ") }} }{% endif %}
+{% if rule.sources is defined %}from { {{ rule.sources|join(" ") }} } {% endif %}
+{% if rule.destinations is defined %}to { rule.destinations|join(" ") }} } {% endif %}
 {% if rule.ports is defined %} port { {{ rule.ports|join(" ") }} }{% endif %}
 {% endfor %}
 {% endfor %}
