@@ -108,7 +108,7 @@ pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if)
 {% for jail in pf_jail_rules | default({}) %}
 # {{ jail }} regular jail
 {% for rule in pf_jail_rules[jail] %}
-{% if rule.action is defined %}{{ rule.action }} {% else %}pass {% endif %}{% if rule.direction is defined %}{{ rule.direction }} {% else %}in {% endif %}quick on { $if $jail_if $nat_if lo0 } proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to {{ rule.table }} port { {% for port in rule.ports %}{{ port }} {% endfor %}}
+{% if rule.action is defined %}{{ rule.action }} {% else %}pass {% endif %}{% if rule.direction is defined %}{{ rule.direction }} {% else %}in {% endif %}quick on { $if $jail_if $nat_if lo0 } proto { {% for proto in rule.protocols %}{{ proto }} {% endfor %} } from { {% for client in rule.clients %}{{ client }} {% endfor %} } to {{ rule.table }}{% if rule.ports is defined %} port { {% for port in rule.ports %}{{ port }} {% endfor %}}{% endif %}
 {% endfor %}
 
 {% endfor %}
