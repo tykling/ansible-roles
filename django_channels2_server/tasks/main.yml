@@ -4,6 +4,8 @@
 - include_tasks: "redis.yml"
   when: "django_channels_layer_redis"
 - include_tasks: "pip-packages.yml"
+  tags:
+    - "pip"
 - include_tasks: "django-configuration.yml"
   tags:
     - "codedeploy"
