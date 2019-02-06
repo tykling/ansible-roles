@@ -3,5 +3,5 @@
   command: "/usr/local/bin/supervisorctl restart postgresql"
 
 - name: "reload postgresql"
-  command: "su -l postgres -c exec /usr/local/bin/pg_ctl -D {{ postgresql_datadir }} -w -s -m fast reload"
+  command: "su -l postgres -c '/usr/local/bin/pg_ctl -D {{ postgresql_datadir }} reload'"
 
