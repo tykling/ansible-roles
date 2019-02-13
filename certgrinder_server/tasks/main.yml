@@ -1,5 +1,6 @@
 ---
 - include_tasks: letsencrypt.yml
 - include_tasks: user.yml
+  tags: "sshkeys"
 - include_tasks: certgrinder.yml
 

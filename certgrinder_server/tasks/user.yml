@@ -10,6 +10,7 @@
     key: "{{ item.value.authkey }}"
     key_options: 'from="{{ item.value.fromip }}",command="~/certgrinder/csrgrinder",restrict'
   with_dict: "{{ certgrinder_authorized_keys | default({}) }}"
+  tags: "sshkeys"
 
 - name: "Add certgrinder user to sudoers (allow certbot)"
   lineinfile:
