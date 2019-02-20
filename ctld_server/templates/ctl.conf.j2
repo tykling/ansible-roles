@@ -9,6 +9,7 @@ portal-group {{ pg.name }} {
 }
 {% endfor %}
 
+
 ### auth groups
 {% for ag in ctld_auth_groups %}
 {% if ag.comment is defined %}
@@ -20,7 +21,9 @@ auth-group {{ ag.name }} {
     initiator-portal {{ ip }}
 {% endfor %}
 }
+
 {% endfor %}
+
 
 ### targets
 {% for t in ctld_targets %}
@@ -31,7 +34,7 @@ target {{ ctld_iqn_prefix }}:{{ t.name }} {
     auth-group {{ t.auth_group }}
     portal-group {{ t.portal_group }}
 
-{% for lun, path in t.luns %}
+{% for lun, path in t.luns.items() %}
     lun {{ lun }} {
         path {{ path }}
     }
