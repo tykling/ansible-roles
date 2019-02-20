@@ -1,0 +1,41 @@
+### portal groups
+{% for pg in ctld_portal_groups %}
+{% if pg.comment is defined %}
+# {{ pg.comment }}
+{% endif %}
+portal-group {{ pg.name }} {
+    discovery-auth-group {{ pg.discovery-auth-group }}
+    listen {{ pg.listen }}
+}
+{% endfor %}
+
+### auth groups
+{% for ag in ctld_auth_groups %}
+{% if ag.comment is defined %}
+# {{ ag.comment }}
+{% endif %}
+auth-group {{ ag.name }} {
+    auth-type {{ ag.auth-type }}
+{% for ip in ag.initiator-portals %}
+    initiator-portal {{ ip }}
+{% endfor %}
+}
+{% endfor %}
+
+### targets
+{% for t in ctld_targets %}
+{% if t.comment is defined %}
+# {{ t.comment }}
+{% endif %}
+target {{ ctld_iqn_prefix }}:{{ t.name }} {
+    auth-group {{ t.auth-group }}
+    portal-group {{ t.portal-group }}
+
+{% for lun, path in t.luns %}
+    lun {{ lun }} {
+        path {{ path }}
+    }
+{% endfor %}
+}
+
+{% endfor %}

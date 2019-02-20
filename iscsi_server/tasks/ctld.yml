@@ -9,8 +9,8 @@
     src: "ctld.conf.j2"
     dest: "/etc/ctld.conf"
 
-- name: Start murmur (if not running)
+- name: "Start ctld (if not running)"
   service:
-    name: murmur
-    state: started
+    name: "ctld"
+    state: "started"
 
