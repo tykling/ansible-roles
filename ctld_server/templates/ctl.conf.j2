@@ -4,7 +4,7 @@
 # {{ pg.comment }}
 {% endif %}
 portal-group {{ pg.name }} {
-    discovery-auth-group {{ pg.discovery-auth-group }}
+    discovery-auth-group {{ pg.discovery_auth_group }}
     listen {{ pg.listen }}
 }
 {% endfor %}
@@ -15,8 +15,8 @@ portal-group {{ pg.name }} {
 # {{ ag.comment }}
 {% endif %}
 auth-group {{ ag.name }} {
-    auth-type {{ ag.auth-type }}
-{% for ip in ag.initiator-portals %}
+    auth-type {{ ag.auth_type }}
+{% for ip in ag.initiator_portals %}
     initiator-portal {{ ip }}
 {% endfor %}
 }
@@ -28,8 +28,8 @@ auth-group {{ ag.name }} {
 # {{ t.comment }}
 {% endif %}
 target {{ ctld_iqn_prefix }}:{{ t.name }} {
-    auth-group {{ t.auth-group }}
-    portal-group {{ t.portal-group }}
+    auth-group {{ t.auth_group }}
+    portal-group {{ t.portal_group }}
 
 {% for lun, path in t.luns %}
     lun {{ lun }} {
@@ -39,3 +39,4 @@ target {{ ctld_iqn_prefix }}:{{ t.name }} {
 }
 
 {% endfor %}
+
