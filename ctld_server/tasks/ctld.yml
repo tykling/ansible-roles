@@ -7,7 +7,7 @@
 
 - name: "Copy ctld config"
   template:
-    src: "ctld.conf.j2"
-    dest: "/etc/ctld-test.conf"
+    src: "ctl.conf.j2"
+    dest: "/etc/ctl-test.conf"
   notify: "reload ctld"
 
