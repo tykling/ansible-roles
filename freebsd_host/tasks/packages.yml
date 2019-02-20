@@ -6,6 +6,6 @@
 
 - name: "Install FreeBSD host_type specific packages"
   pkgng:
-    name: "{{ hostvars[inventory_hostname]['default_' + host_type + '_host_packages'] | default([]) }}"
+    name: "{{ lookup('vars', host_type + '_host_packages') | default([]) }}"
     state: "present"
 
