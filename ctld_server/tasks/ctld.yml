@@ -8,6 +8,6 @@
 - name: "Copy ctld config"
   template:
     src: "ctl.conf.j2"
-    dest: "/etc/ctl.conf"
+    dest: {{ ctld_config_path }}
   notify: "reload ctld"
 
