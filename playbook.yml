@@ -354,3 +354,9 @@
   roles:
     - "prosody_server"
 
+- name: "configure ctld servers"
+  hosts: "ctld_servers"
+  become: yes
+  roles:
+    - "ctld_server"
+
