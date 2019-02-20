@@ -1,0 +1,11 @@
+---
+- name: "start ctld"
+  service:
+    name: "ctld"
+    state: "started"
+
+- name: "reload ctld"
+  service:
+    name: "ctld"
+    state: "reloaded"
+

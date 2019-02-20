@@ -3,14 +3,11 @@
   service:
     name: "ctld"
     enabled: yes
+  notify: "start ctld"
 
 - name: "Copy ctld config"
   template:
     src: "ctld.conf.j2"
-    dest: "/etc/ctld.conf"
-
-- name: "Start ctld (if not running)"
-  service:
-    name: "ctld"
-    state: "started"
+    dest: "/etc/ctld-test.conf"
+  notify: "reload ctld"
 
