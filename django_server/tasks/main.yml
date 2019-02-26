@@ -1,6 +1,0 @@
----
-- include_tasks: git.yml
-- include_tasks: postgres.yml
-- include_tasks: pip.yml
-- include_tasks: uwsgi.yml
-- include_tasks: django-configuration.yml

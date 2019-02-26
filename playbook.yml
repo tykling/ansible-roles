@@ -108,18 +108,6 @@
   roles:
     - "tor_server"
 
-- name: "configure django servers"
-  hosts: "django_servers"
-  become: yes
-  roles:
-    - "django_server"
-
-- name: "configure django channels servers"
-  hosts: "django_channels_servers"
-  become: yes
-  roles:
-    - "django_channels_server"
-
 - name: "configure kea dhcp servers"
   hosts: "kea_servers"
   become: yes
