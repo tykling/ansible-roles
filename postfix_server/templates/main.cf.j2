@@ -22,15 +22,11 @@ mailman_destination_recipient_limit = 1
 smtpd_restriction_classes = relaxed
 relaxed = permit
 
-# Relay related restrictions should be applied in smtpd_relay_restrictions rather than
-# smtpd_recipient_restrictions since postfix 2.10
-smtpd_relay_restrictions =
-    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
-    permit_mynetworks,
-    permit_sasl_authenticated,
-    reject_unauth_destination
+# smtpd_relay_restrictions for the smtp service rejects all relaying,
+# but master.cf softens this setting up for submission(s)
+smtpd_relay_restrictions = reject_unauth_destination
 
-# Recipient restrictions
+# smtpd_recipient_restrictions for the smtp service
 smtpd_recipient_restrictions =
     check_client_access pgsql:/usr/local/etc/postfix/access.sql,
     permit_mynetworks,
