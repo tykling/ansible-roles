@@ -1,0 +1,6 @@
+---
+- name: "Install gitea"
+  pkgng:
+    name: "gitea"
+    state: present
+

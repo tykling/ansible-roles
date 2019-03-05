@@ -348,3 +348,9 @@
   roles:
     - "ctld_server"
 
+- name: "configure gitea servers"
+  hosts: "gitea_servers"
+  become: yes
+  roles:
+    - "gitea_server"
+
