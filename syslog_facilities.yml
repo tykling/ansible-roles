@@ -5,6 +5,7 @@
   - kea_server
   - bind
   - postgres
+  - powerdns-recursor
 
 - local1:
   - rt_server
