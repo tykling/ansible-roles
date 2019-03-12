@@ -2,5 +2,10 @@
 - name: "Install gitea"
   pkgng:
     name: "gitea"
-    state: present
+    state: "present"
+
+- name: "Enable gitea"
+  service:
+    name: "gitea"
+    enabled: yes
 
