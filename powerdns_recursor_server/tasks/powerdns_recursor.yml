@@ -4,8 +4,3 @@
     name: "powerdns-recursor"
     state: "present"
 
-- name: "Enable powerdns_recursor"
-  service:
-    name: "powerdns_recursor"
-    enabled: yes
-
