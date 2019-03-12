@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run powerdns-recursor"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "powerdns_recursor"
+    supervisord_programs:
+      - name: "powerdns_recursor"
+        comment: "run powerdns-recursor"
+        command: "/usr/local/sbin/pdns_recursor"
+        user: "root"
+
