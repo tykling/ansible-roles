@@ -354,3 +354,9 @@
   roles:
     - "gitea_server"
 
+- name: "configure powerdns_recursor servers"
+  hosts: "powerdns_recursor_servers"
+  become: yes
+  roles:
+    - "powerdns_recursor_server"
+

@@ -1,0 +1,11 @@
+---
+- name: "Install powerdns_recursor"
+  pkgng:
+    name: "powerdns_recursor"
+    state: "present"
+
+- name: "Enable powerdns_recursor"
+  service:
+    name: "powerdns_recursor"
+    enabled: yes
+
