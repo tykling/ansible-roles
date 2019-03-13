@@ -20,3 +20,8 @@ newServer ({
 
 {% endfor %}
 
+-- ACL
+{% for prefix in dnsdist_acl %}
+addACL('{{ prefix }}')
+{% endfor %}
+
