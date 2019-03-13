@@ -8,5 +8,5 @@
   template:
     src: "recursor.conf.j2"
     dest: "/usr/local/etc/pdns/recursor.conf"
-  notify: "reload powerdns-recursor"
+  notify: "restart powerdns-recursor"
 

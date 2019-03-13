@@ -1,0 +1,4 @@
+---
+- name: "restart powerdns"
+  command: "/usr/local/bin/supervisorctl restart powerdns"
+

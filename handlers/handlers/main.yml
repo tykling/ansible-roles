@@ -39,4 +39,5 @@
 - import_tasks: "process_accounting.yml"
 - import_tasks: "ctld.yml"
 - import_tasks: "dnsdist.yml"
+- import_tasks: "powerdns_recursor.yml"
 
