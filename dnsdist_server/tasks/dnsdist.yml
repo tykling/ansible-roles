@@ -8,5 +8,5 @@
   template:
     src: "dnsdist.conf.j2"
     dest: "/usr/local/etc/dnsdist.conf"
-  notify: "reload dnsdist"
+  notify: "restart dnsdist"
 
