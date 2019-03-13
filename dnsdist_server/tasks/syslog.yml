@@ -1,0 +1,21 @@
+---
+- name: "add syslog.d config for dnsdist"
+  template:
+    src: "dnsdist_syslogd.conf.j2"
+    dest: "/usr/local/etc/syslog.d/dnsdist.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure dnsdist logfile exists"
+  copy:
+    dest: "{{ dnsdist_logfile_path }}"
+    content: ""
+    force: "no"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure dnsdist newsyslog config file exists"
+  template:
+    src: "dnsdist_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/dnsdist"
+

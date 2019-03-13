@@ -1,0 +1,6 @@
+---
+- name: "Install dnsdist"
+  pkgng:
+    name: "dnsdist"
+    state: "present"
+

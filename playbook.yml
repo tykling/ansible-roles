@@ -360,3 +360,9 @@
   roles:
     - "powerdns_recursor_server"
 
+- name: "configure dnsdist servers"
+  hosts: "dnsdist_servers"
+  become: yes
+  roles:
+    - "dnsdist_server"
+
