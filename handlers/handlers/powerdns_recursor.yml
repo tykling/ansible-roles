@@ -1,4 +1,4 @@
 ---
-- name: "restart powerdns"
-  command: "/usr/local/bin/supervisorctl restart powerdns"
+- name: "restart powerdns-recursor"
+  command: "/usr/local/bin/supervisorctl restart powerdns_recursor"
 
