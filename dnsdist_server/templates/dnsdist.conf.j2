@@ -1,0 +1,20 @@
+### client listeners
+addLocal('::1')
+addTLSLocal('127.0.0.1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
+addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
+
+### downstream DNS servers
+{% for server in dnsdist_servers %}
+{% if server.comment is defined %}
+# {{ server.comment }}
+newServer ({
+    address="{{ server.address }}",
+{% if server.name is defined %}
+    name="{{ server.name }}",
+{% endif %}
+{% if server.qps is defined %}
+    qps={{ server.qps }},
+{% endif %}
+})
+
+{% endfor %}
