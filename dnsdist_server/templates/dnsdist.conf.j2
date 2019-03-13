@@ -7,6 +7,7 @@ addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hos
 {% for server in dnsdist_servers %}
 {% if server.comment is defined %}
 # {{ server.comment }}
+{% endif %}
 newServer ({
     address="{{ server.address }}",
 {% if server.name is defined %}
@@ -18,3 +19,4 @@ newServer ({
 })
 
 {% endfor %}
+
