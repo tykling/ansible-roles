@@ -1,9 +1,10 @@
--- client listeners
+-- Client listeners
+addLocal('127.0.0.1')
 addLocal('::1')
 addTLSLocal('127.0.0.1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
 addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
 
--- downstream DNS servers
+-- Downstream DNS servers
 {% for server in dnsdist_servers %}
 {% if server.comment is defined %}
 -- {{ server.comment }}
@@ -24,4 +25,14 @@ newServer ({
 {% for prefix in dnsdist_acl %}
 addACL('{{ prefix }}')
 {% endfor %}
+
+-- Console management
+controlSocket('127.0.0.1:5199')
+controlSocket('[::1]:5199')
+-- generate with: openssl rand 32 | base64
+setKey("{{ dnsdist_console_key_base64 }}")
+
+-- Web management
+webserver("127.0.0.1:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
+webserver("[::1]:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
 
