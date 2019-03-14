@@ -31,8 +31,8 @@ controlSocket('127.0.0.1:5199')
 controlSocket('[::1]:5199')
 -- generate with: openssl rand 32 | base64
 setKey("{{ dnsdist_console_key_base64 }}")
-addConsoleACL("{{ ansible_default_ipv4.address }}/32")
-addConsoleACL("{{ ansible_default_ipv6.address }}/128")
+addConsoleACL("{{ ansible_default_ipv4.address|default(ansible_all_ipv4_addresses[0]) }}/32")
+addConsoleACL("{{ ansible_default_ipv6.address|default(ansible_all_ipv6_addresses[0]) }}/128")
 
 -- Web management
 webserver("127.0.0.1:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
