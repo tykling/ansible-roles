@@ -101,6 +101,7 @@ pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if)
 {% if ansible_default_ipv6 %}{% for v6ip in ansible_all_ipv6_addresses %}{% if not v6ip.startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip }} to {{ v6ip }}
 {% endif %}
 {% endfor %}
+{% endif %}
 
 
 ####################################################################################################
