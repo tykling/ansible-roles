@@ -95,12 +95,12 @@ pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if)
 # pass v4 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
 {% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
-# pass v6 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
+
+# pass v6 traffic from jails to themselves (rules go on lo0 because that is where the traffic is routed)
 # skip fe80: addresses because https://github.com/ansible/ansible/issues/16977
-{% if ansible_default_ipv6 %}{% for v6ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv6.device)]['ipv6'] %}{% if not v6ip['address'].startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip['address'] }} to {{ v6ip['address'] }}
+{% if ansible_default_ipv6 %}{% for v6ip in ansible_all_ipv6_addresses %}{% if not v6ip.startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip }} to {{ v6ip }}
 {% endif %}
 {% endfor %}
-{% endif %}
 
 
 ####################################################################################################
