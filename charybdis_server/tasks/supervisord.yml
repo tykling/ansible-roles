@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "charybdis"
         comment: "run charybdis"
-        command: "/usr/local/bin/ircd -configfile /usr/local/etc/charybdis/ircd.conf -foregrund"
+        command: "/usr/local/bin/ircd -foreground -configfile /usr/local/etc/charybdis/ircd.conf"
         user: "ircd"
 
