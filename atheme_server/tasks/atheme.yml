@@ -1,6 +1,6 @@
 ---
 - name: "Install atheme"
   pkgng:
-    name: "charybdis"
+    name: "atheme-services"
     state: "present"
 
