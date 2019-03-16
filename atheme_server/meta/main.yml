@@ -3,4 +3,5 @@ dependencies:
   - { role: handlers }
   - { role: dhparams_server }
   - { role: certgrinder_client }
+  - { role: supervisord_server }
 

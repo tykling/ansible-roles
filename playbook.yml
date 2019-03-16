@@ -139,10 +139,10 @@
     - "certgrinder_server"
 
 - name: "configure charybdis ircd servers"
-  hosts: "ircd_servers"
+  hosts: "charybdis_servers"
   become: yes
   roles:
-    - "ircd_server"
+    - "charybdis_server"
 
 - name: "configure PostgreSQL servers"
   hosts: "postgresql_servers"
@@ -365,4 +365,10 @@
   become: yes
   roles:
     - "dnsdist_server"
+
+- name: "configure atheme servers"
+  hosts: "atheme_servers"
+  become: yes
+  roles:
+    - "atheme_server"
 

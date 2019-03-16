@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run charybdis"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "charybdis"
+    supervisord_programs:
+      - name: "charybdis"
+        comment: "run charybdis"
+        command: "/usr/local/bin/ircd -configfile /usr/local/etc/charybdis/ircd.conf -foregrund"
+        user: "ircd"
+
