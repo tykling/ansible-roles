@@ -26,6 +26,10 @@ newServer ({
 addACL('{{ prefix }}')
 {% endfor %}
 
+-- Cache
+pc = newPacketCache(100000, 86400, 0, 60, 60, false)
+getPool(""):setCache(pc)
+
 -- Console management
 controlSocket('127.0.0.1:5199')
 controlSocket('[::1]:5199')
