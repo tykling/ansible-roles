@@ -11,9 +11,8 @@
     mode: "0644"
   notify: "start/reload unbound"
 
-- name: "Enable unbound"
-  service:
-    name: "unbound"
-    enabled: yes
-  notify: "start/reload unbound"
+- name: "Get unbound root trust anchor (when needed)"
+  command: "su -m unbound -c /usr/local/sbin/unbound-anchor"
+  args:
+    creates: "/usr/local/etc/unbound/root.key"
 

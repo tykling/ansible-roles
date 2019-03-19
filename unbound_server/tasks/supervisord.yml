@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run unbound"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "unbound"
+    supervisord_programs:
+      - name: "unbound"
+        comment: "run unbound"
+        command: "/usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf"
+        user: "root"
+
