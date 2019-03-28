@@ -23,8 +23,11 @@ smtpd_restriction_classes = relaxed
 relaxed = permit
 
 # smtpd_relay_restrictions for the smtp service rejects all relaying,
+# except for overrides in access,
 # but master.cf softens this setting up for submission(s)
-smtpd_relay_restrictions = reject_unauth_destination
+smtpd_relay_restrictions =
+    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
+    reject_unauth_destination
 
 # smtpd_recipient_restrictions for the smtp service
 smtpd_recipient_restrictions =
