@@ -1,8 +1,0 @@
-# {{ item.name }}
-
-vlans_{{ proxyarp_interface }}="${vlans_{{ proxyarp_interface }}} {{ item.vlan }}"
-
-ifconfig_{{ proxyarp_interface }}_{{ item.vlan }}="inet {{ proxyarp_ip }}"
-ifconfig_{{ proxyarp_interface }}_{{ item.vlan }}_aliases="inet vhid 1 advskew {{ proxyarp_carp_advskew }} pass {{ proxyarp_carp_password }} {{ proxyarp_vip }}"
-
-

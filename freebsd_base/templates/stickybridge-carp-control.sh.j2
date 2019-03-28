@@ -1,0 +1,12 @@
+#!/bin/sh
+/usr/bin/logger "CARP $1 just became $2 on $(hostname) !"
+
+if [ "$2" -eq "MASTER" ]; then
+    # add VIP to bridge interface
+    /usr/bin/logger "Adding {{ stickybridge_vip }} to {{ stickybridge_bridge }} ..."
+    /sbin/ifconfig {{ stickybridge_bridge }} inet {{ stickybridge_vip }}
+else
+    /usr/bin/logger "Removing {{ stickybridge_vip }} from {{ stickybridge_bridge }} ..."
+    /sbin/ifconfig {{ stickybridge_bridge }} inet {{ stickybridge_vip }} remove
+fi
+

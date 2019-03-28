@@ -1,0 +1,26 @@
+---
+- name: "Add /etc/rc.conf.d/netif/* files for stickybridge hosts"
+  template:
+    src: "stickybridge-netif"
+    dest: "/etc/rc.conf.d/netif/{{ item.name }}"
+  with_items: "{{ stickybridge_configs | default([]) }}"
+  tags:
+    - "stickybridge"
+
+- name: "Add devd script to add/remove gateway ip from stickybridge interface on CARP events"
+  template:
+    src: "stickybridge-carp-control.sh.j2"
+    dest: "/usr/local/bin/stickybridge-carp-control.sh"
+    mode: "0755"
+  when: stickybridge_configs is defined
+  tags:
+    - "stickybridge"
+
+- name: "Add devd config to call stickybridge-carp-control.sh"
+  template:
+    src: "devd-stickybridge-carp.conf.j2"
+    dest: "/etc/devd/stickybridge-carp.conf"
+  when: stickybridge_configs is defined
+  tags:
+    - "stickybridge"
+
