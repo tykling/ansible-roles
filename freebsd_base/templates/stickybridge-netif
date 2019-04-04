@@ -1,8 +1,7 @@
 # {{ item.name }}
 
-# create and configure VLAN interface
+# create the VLAN interface on the stickybridge
 vlans_{{ stickybridge_interface }}="${vlans_{{ stickybridge_interface }}} {{ item.vlan }}"
-ifconfig_{{ stickybridge_interface }}_{{ item.vlan }}="inet {{ stickybridge_ip }}"
 
 # add VLAN interface to bridge
 ifconfig_{{ stickybridge_interface }}="${ifconfig_{{ stickybridge_interface }}} addm {{ stickybridge_interface }}.{{ item.vlan }}"
