@@ -4,7 +4,7 @@
 vlans_{{ stickybridge_interface }}="${vlans_{{ stickybridge_interface }}} {{ item.vlan }}"
 
 # UP the VLAN interface
-ifconfig_{{ stickybridge_interface }}.{{ item.vlan }}="UP"
+ifconfig_{{ stickybridge_interface }}_{{ item.vlan }}="UP"
 
 # add VLAN interface to bridge
 ifconfig_{{ stickybridge_bridge }}="${ifconfig_{{ stickybridge_bridge }}} addm {{ stickybridge_interface }}.{{ item.vlan }}"
