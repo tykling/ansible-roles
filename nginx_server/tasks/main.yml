@@ -9,4 +9,5 @@
   when:
     - nginx_proxy
     - certgrinder_hostname_sets is defined
+    - nginx_ocsp_stapling
 
