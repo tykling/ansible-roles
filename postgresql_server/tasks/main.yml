@@ -8,5 +8,6 @@
 - include_tasks: "supervisord.yml"
 - include_tasks: "periodic-daily.yml"
 - include_tasks: "pgbouncer.yml"
+  when: postgresql_pgbouncer
 - include_tasks: "replicabackup.yml"
 
