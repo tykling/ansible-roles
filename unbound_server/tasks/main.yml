@@ -1,3 +1,4 @@
 ---
-- include_tasks: unbound.yml
+- include_tasks: "unbound.yml"
+- include_tasks: "supervisord.yml"
 
