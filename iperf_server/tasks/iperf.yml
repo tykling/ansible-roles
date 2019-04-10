@@ -1,4 +1,9 @@
 ---
+- name: "Install iperf2"
+  pkgng:
+    name: "iperf"
+    state: present
+
 - name: "Install iperf3"
   pkgng:
     name: "iperf3"
