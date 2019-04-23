@@ -9,5 +9,6 @@
   template:
     src: "ctl.conf.j2"
     dest: "{{ ctld_config_path }}"
+    mode: "0600"
   notify: "reload ctld"
 
