@@ -23,7 +23,7 @@
       loop: "{{ group_names }}"
       register: result
     - name: "Include group secrets when the file exists"
-      include_vars: "{{ item.path }}"
+      include_vars: "{{ item.stat.path }}"
       tags:
         - "always"
       when: item.stat.exists
