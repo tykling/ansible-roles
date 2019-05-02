@@ -23,7 +23,7 @@
       loop: "{{ group_names }}"
       register: result
     - name: "Include group secrets when the file exists"
-      include_vars: "/usr/local/etc/ansible/group_vars/{{ item }}-secrets.yml"
+      include_vars: "{{ item.path }}"
       tags:
         - "always"
       when: item.stat.exists
