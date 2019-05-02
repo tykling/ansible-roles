@@ -19,6 +19,9 @@ network {{ network.cidr }}
 neighbor ${{ neighbor.macro }} {
         descr "{{ neighbor.description }}"
         remote-as {{ neighbor.remote_as }}
+{% if neighbor.md5password is defined %}
+        tcp md5sig password {{ neighbor.md5password }}
+{% endif %}
 }
 {% endfor %}
 
