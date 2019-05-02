@@ -18,7 +18,6 @@
   tasks:
     - name: "Check if group secrets exists in group_vars for any group this host is a member of"
       local_action: stat path="/usr/local/etc/ansible/group_vars/{{ item }}-secrets.yml"
-      register: stat_result
       tags:
         - "always"
       loop: "{{ group_names }}"
