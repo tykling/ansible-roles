@@ -7,7 +7,7 @@
   tags:
     - "stickybridge"
 
-- name: "Add devd script to add/remove gateway ip from stickybridge interface on CARP events"
+- name: "Add devd script to up/down stickybridge interface on CARP events"
   template:
     src: "stickybridge-carp-control.sh.j2"
     dest: "/usr/local/bin/stickybridge-carp-control.sh"
