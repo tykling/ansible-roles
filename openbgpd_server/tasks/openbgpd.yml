@@ -10,3 +10,10 @@
     dest: "/usr/local/etc/bgpd.conf"
     mode: "0600"
 
+- name: "Enable load of tcpmd5 in /boot/loader.conf"
+  sysrc:
+  name: "tcpmd5_load"
+  value: "yes"
+  dest: "/boot/loader.conf"
+  notify: "load tcpmd5 module"
+

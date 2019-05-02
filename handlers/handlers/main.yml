@@ -40,4 +40,5 @@
 - import_tasks: "ctld.yml"
 - import_tasks: "dnsdist.yml"
 - import_tasks: "powerdns_recursor.yml"
+- import_tasks: "kldload-tcpmd5.yml"
 

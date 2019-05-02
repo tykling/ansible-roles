@@ -1,0 +1,5 @@
+---
+- name: "load tcpmd5 module"
+  command: "/sbin/kldload tcpmd5"
+  ignore_errors: yes
+
