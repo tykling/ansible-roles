@@ -3,10 +3,10 @@
 
 if [ "$2" = "MASTER" ]; then
     # add VIP to bridge interface
-    /usr/bin/logger "Adding {{ stickybridge_vip }} to {{ stickybridge_bridge }} because CARP $1 just became $2 ..."
-    /sbin/ifconfig {{ stickybridge_bridge }} alias {{ stickybridge_vip }}
+    /usr/bin/logger "UP'ing {{ stickybridge_bridge }} because CARP $1 just became $2 ..."
+    /sbin/ifconfig {{ stickybridge_bridge }} up
 else
-    /usr/bin/logger "Removing {{ stickybridge_vip }} from {{ stickybridge_bridge }} because CARP $1 just became $2 ..."
-    /sbin/ifconfig {{ stickybridge_bridge }} {{ stickybridge_vip }} remove
+    /usr/bin/logger "DOWN'ing {{ stickybridge_bridge }} because CARP $1 just became $2 ..."
+    /sbin/ifconfig {{ stickybridge_bridge }} down
 fi
 
