@@ -71,22 +71,6 @@
     group:  "wheel"
     mode: "0755"
 
-- name: "Create /usr/local/etc/pkg/ directory inside ezjail flavour {{ ezjail_flavourname }}"
-  file:
-    path: "{{ ezjail_flavour_root }}/usr/local/etc/pkg/"
-    state: "directory"
-    owner: "root"
-    group:  "wheel"
-    mode: "0755"
-
-- name: "Create /usr/local/etc/pkg/repos/ directory inside ezjail flavour {{ ezjail_flavourname }}"
-  file:
-    path: "{{ ezjail_flavour_root }}/usr/local/etc/pkg/repos/"
-    state: "directory"
-    owner: "root"
-    group:  "wheel"
-    mode: "0755"
-
 - name: "Create sudoers file inside ezjail flavour {{ ezjail_flavourname }}"
   copy:
     owner: "root"
@@ -102,33 +86,4 @@
     owner: "root"
     group: "wheel"
     mode: "0744"
-
-- name: "Enable poudriere repo in the flavour"
-  template:
-    src: "pkg_repo.conf.j2"
-    dest: "{{ ezjail_flavour_root }}/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
-    owner: "root"
-    group: "wheel"
-    mode: "0644"
-
-- name: "Disable default FreeBSD repo"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "644"
-    src: "FreeBSD.conf"
-    dest: "{{ ezjail_flavour_root }}/usr/local/etc/pkg/repos/FreeBSD.conf"
-
-- name: "Create repo cert directory inside the flavour"
-  file:
-    path: "{{ ezjail_flavour_root }}/usr/local/etc/ssl/certs"
-    state: "directory"
-
-- name: "Copy poudriere public key"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    content: "{{ poudriere_cert }}"
-    dest: "{{ ezjail_flavour_root }}/usr/local/etc/ssl/certs/poudriere.cert"
 
