@@ -5,7 +5,6 @@
   when: host_type == "hardware"
 - include_tasks: "zfs-periodic.yml"
 - include_tasks: "zfs-scrub.yml"
-- include_tasks: "netdata.yml"
 - include_tasks: "aesni.yml"
 - include_tasks: "sysctl.yml"
 - include_tasks: "arc_max.yml"
