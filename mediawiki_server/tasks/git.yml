@@ -1,6 +1,0 @@
----
-- name: Install git
-  pkgng:
-    name: git
-    state: present
-

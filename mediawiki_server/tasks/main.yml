@@ -1,5 +1,3 @@
 ---
-- include_tasks: nginx.yml
-- include_tasks: postgres.yml
-- include_tasks: git.yml
-- include_tasks: mediawiki.yml
+- include_tasks: "mediawiki.yml"
+
