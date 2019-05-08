@@ -1,27 +1,14 @@
 ---
-- include_vars: /usr/local/etc/ansible/host_vars/wiki.bornhack.org-passwords.yml
-
-- name: Install mediawiki
+- name: "Install mediawiki 1.32"
   pkgng:
-    name: mediawiki126
-    state: present
+    name: "mediawiki132"
+    state: "present"
 
-- name: Configure mediawiki
+- name: "Configure mediawiki"
   template:
-    src: LocalSettings.php.j2
-    dest: /usr/local/www/mediawiki/LocalSettings.php
-
-- name: Install calendar extension
-  git:
-    repo: "https://github.com/improper/mediawiki-extensions-yasec"
-    dest: "/usr/local/www/mediawiki/extensions/yasec"
-    version: "master"
-
-- name: Copy wiki logo
-  copy:
-    src: bornhacklogo.png
-    dest: /usr/local/www/mediawiki/resources/assets/
-    owner: root
-    group: wheel
-    mode: "755"
+    src: "LocalSettings.php.j2"
+    dest: "/usr/local/www/mediawiki/LocalSettings.php"
+    owner: "www"
+    group: "www"
+    mode: "0600"
 
