@@ -25,4 +25,5 @@
         comment: "run pgbouncer"
         command: "/usr/local/bin/pgbouncer /usr/local/etc/pgbouncer.ini"
         user: "pgbouncer"
+  when: postgresql_pgbouncer
 
