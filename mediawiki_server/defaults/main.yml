@@ -17,7 +17,7 @@ nginx_locationslash: |
 
     location ~ \.php$ {
         include fastcgi_params;
-        fastcgi_pass unix:/tmp/phpfpm.sock;
+        fastcgi_pass unix:/var/run/php/php-fpm.socket;
     }
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
@@ -36,6 +36,7 @@ nginx_locationslash: |
     }
 
     location /dumps {
-        root /var/www/mediawiki/local;
+        root /usr/local/www/mediawiki/local;
         autoindex on;
     }
+
