@@ -1,7 +1,7 @@
 ---
 - name: "Install mediawiki 1.32"
   pkgng:
-    name: "mediawiki132"
+    name: "mediawiki132-php72"
     state: "present"
 
 - name: "Configure mediawiki"
