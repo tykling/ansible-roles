@@ -388,3 +388,9 @@
   roles:
     - "atheme_server"
 
+- name: "configure openbgpd servers"
+  hosts: "openbgpd_servers"
+  become: yes
+  roles:
+    - "openbgpd_server"
+
