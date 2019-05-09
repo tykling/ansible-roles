@@ -8,7 +8,11 @@ listen on {{ listen }}
 
 AS {{ openbgpd_local_as }}
 router-id {{ openbgpd_router_id }}
+{% if openbgpd_fib_update|default(False) %}
+fib-update yes
+{% else %}
 fib-update no
+{% endif %}
 
 {% for network in openbgpd_networks|default([]) %}
 # {{ network.description }}
