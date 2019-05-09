@@ -9,6 +9,8 @@
     src: "openbgpd.conf.j2"
     dest: "/usr/local/etc/bgpd.conf"
     mode: "0600"
+  tags:
+    - "openbgpdconfig"
 
 - name: "Enable load of tcpmd5 in /boot/loader.conf"
   sysrc:
