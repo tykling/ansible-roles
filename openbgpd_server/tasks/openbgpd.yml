@@ -17,5 +17,5 @@
     name: "tcpmd5_load"
     value: "yes"
     dest: "/boot/loader.conf"
-    notify: "load tcpmd5 module"
+  notify: "load tcpmd5 module"
 
