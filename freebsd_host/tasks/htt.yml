@@ -1,9 +1,9 @@
 ---
 - name: "Disable HTT (hyperthreading) in /boot/loader.conf"
-  sysrc:
-    name: "machdep.hyperthreading_allowed"
-    value: "0"
+  lineinfile:
     dest: "/boot/loader.conf"
+    regexp: "^machdep.hyperthreading_allowed"
+    line: "machdep.hyperthreading_allowed=0"
   tags:
     - "htt"
 
