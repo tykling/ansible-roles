@@ -11,4 +11,7 @@
 - include_tasks: "vmware.yml"
   when: host_type == "vmware"
 - include_tasks: "accounting.yml"
+- include_tasks: "htt.yml"
+  tags:
+    - "htt"
 
