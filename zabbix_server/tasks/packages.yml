@@ -1,6 +1,6 @@
 ---
 - name: "Install zabbix"
   pkgng:
-    name: "zabbix32-server"
+    name: "zabbix40-server"
     state: "present"
 
