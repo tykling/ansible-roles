@@ -27,6 +27,9 @@ neighbor ${{ neighbor.macro }} {
         tcp md5sig password {{ neighbor.md5password }}
 {% endif %}
         local-address {{ neighbor.local_address }}
+{% if neighbor.nexthop is defined %}
+        set nexthop {{ neighbor.nexthop }}
+{% endif %}
 }
 {% endfor %}
 
