@@ -14,6 +14,10 @@ fib-update yes
 fib-update no
 {% endif %}
 
+{% for filter in openbgpd_filters|default([]) %}
+{{ filter }}
+{% endfor %}
+
 {% if openbgpd_rde_med_compare_always|default(False) %}
 rde med compare always
 {% endif %}
