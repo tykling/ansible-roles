@@ -11,6 +11,7 @@
     mode: "0600"
   tags:
     - "openbgpdconfig"
+  notify: "reload openbgpd"
 
 - name: "Enable load of tcpmd5 in /boot/loader.conf"
   sysrc:

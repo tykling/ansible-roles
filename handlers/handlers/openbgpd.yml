@@ -1,0 +1,4 @@
+---
+- name: "reload openbgpd"
+  command: "/usr/local/sbin/bgpctl reload"
+
