@@ -1,14 +1,14 @@
 ---
-- name: "Create supervisord.d config file to run radicale"
+- name: "Create supervisord.d config file to run radicale2"
   include_role:
     name: "supervisord_server"
     tasks_from: "supervisord.d"
   vars:
-    supervisord_filename: "radicale"
+    supervisord_filename: "radicale2"
     supervisord_programs:
-      - name: "radicale"
-        comment: "run radicale"
-        command: "{{ virtualenv_path }}/bin/python {{ virtualenv_path }}/bin/radicale -C /usr/local/etc/radicale/config"
+      - name: "radicale2"
+        comment: "run radicale2"
+        command: "/usr/local/bin/python3.6 /usr/local/bin/radicale -C /usr/local/etc/radicale/config -f"
         user: "radicale"
         priority: "1"
 
