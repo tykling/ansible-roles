@@ -1,37 +1,8 @@
 ---
-- name: "Add radicale user"
-  user:
-    name: "radicale"
-    comment: "Radicale daemon"
-    home: "/nonexistant"
-    shell: "/usr/sbin/nologin"
-    uid: "974"
-
-- name: "Install pip"
+- name: "Install radicale2"
   pkgng:
-    name: "py27-pip"
+    name: "py36-radicale2"
     state: "present"
-
-- name: "Install virtualenv"
-  pkgng:
-    name: "py27-virtualenv"
-    state: "present"
-
-- name: "Install python35"
-  pkgng:
-    name: "python35"
-    state: "present"
-
-- name: "Create virtualenv and install radicale in it"
-  pip:
-    virtualenv_python: "/usr/local/bin/python3.5"
-    virtualenv: "{{ virtualenv_path }}"
-    name: "radicale"
-
-- name: "Create radicale config directory"
-  file:
-    path: "{{ radicale_configdir }}"
-    state: "directory"
 
 - name: "Copy radicale config"
   template:
