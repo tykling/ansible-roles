@@ -1,0 +1,20 @@
+# Authenticated users can read and write their own collections.
+[owner-write]
+user = .+
+collection = %(login)s(/.*)?
+permission = rw
+
+# Everyone can read the root collection
+[read]
+user = .*
+collection =
+permission = r
+
+{% for section in radicale_rights_sections | default([]) %}
+[{{ section.title }}]
+user = {{ section.user }}
+collection = {{ section.collection }}
+permission = {{ section.permission }}
+
+{% endfor %}
+

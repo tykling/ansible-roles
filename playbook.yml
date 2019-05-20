@@ -394,3 +394,9 @@
   roles:
     - "openbgpd_server"
 
+- name: "configure radicale2 servers"
+  hosts: "radicale2_servers"
+  become: yes
+  roles:
+    - "radicale2_server"
+
