@@ -8,7 +8,7 @@
     supervisord_programs:
       - name: "radicale2"
         comment: "run radicale2"
-        command: "/usr/local/bin/python3.6 /usr/local/bin/radicale -C /usr/local/etc/radicale/config -f --debug"
+        command: "/usr/local/bin/python3.6 /usr/local/bin/radicale -C /usr/local/etc/radicale2/config -f --debug"
         user: "radicale"
         priority: "1"
 
