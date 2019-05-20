@@ -12,14 +12,6 @@
     group: "wheel"
     mode: "0644"
 
-- name: "Copy radicale logging config"
-  template:
-    src: "radicale-logging.j2"
-    dest: "{{ radicale_configdir }}/logging"
-    owner: "root"
-    group: "wheel"
-    mode: "0644"
-
 - name: "Copy radicale rights config"
   template:
     src: "radicale-rights.j2"
