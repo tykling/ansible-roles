@@ -6,7 +6,7 @@ zabbix_db_user: "zabbix"
 zabbix_db_port: "5432"
 
 nginx_locationslash: |
-    root /usr/local/www/zabbix32;
+    root /usr/local/www/zabbix4;
 
     location / {
             rewrite ^(/)$ /index.php permanent;

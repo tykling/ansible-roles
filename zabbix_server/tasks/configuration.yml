@@ -2,14 +2,14 @@
 - name: "copy zabbix_server.conf"
   template:
     src: "zabbix_server.conf.j2"
-    dest: "/usr/local/etc/zabbix32/zabbix_server.conf"
+    dest: "/usr/local/etc/zabbix4/zabbix_server.conf"
     mode: "0600"
   notify: "restart zabbix server"
 
 - name: "Get zabbix scripts from git"
   git:
     repo: "{{ zabbix_scripts_github_url }}"
-    dest: "/usr/local/etc/zabbix32/zabbix"
+    dest: "/usr/local/etc/zabbix4/zabbix"
     force: yes
     version: "master"
   when: zabbix_scripts_github_url is defined

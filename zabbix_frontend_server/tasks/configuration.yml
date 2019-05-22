@@ -2,5 +2,5 @@
 - name: "copy zabbix.conf.php config file"
   template:
     src: "zabbix.conf.php.j2"
-    dest: "/usr/local/www/zabbix32/conf/zabbix.conf.php"
+    dest: "/usr/local/www/zabbix4/conf/zabbix.conf.php"
 
