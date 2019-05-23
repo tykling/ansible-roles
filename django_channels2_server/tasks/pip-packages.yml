@@ -30,6 +30,7 @@
     requirements: "{{ django_pip_requirements_path }}"
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
+    extra_args: '--global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"'
   environment:
     LANG: "C.UTF-8"
   tags:
