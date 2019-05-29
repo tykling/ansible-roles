@@ -10,6 +10,8 @@
     dest: "/usr/local/etc/syslog.d/central_syslog.conf"
   when: syslog_server_ip | default(False)
   notify: "restart syslogd"
+  tags:
+    - "centralsyslog"
 
 - name: "Make sure /usr/local/etc/newsyslog.conf.d/ exists"
   file:
