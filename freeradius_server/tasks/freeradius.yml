@@ -31,9 +31,9 @@
     dest: "/usr/local/etc/raddb/mods-enabled/sql"
     state: "link"
 
-- name: "Set DEFAULT Auth-Type to Accept in /usr/local/etc/mods-config/files/authorize"
+- name: "Set DEFAULT Auth-Type to Accept in /usr/local/etc/raddb/mods-config/files/authorize"
   lineinfile:
     line: "DEFAULT Auth-Type := Accept"
     regexp: "^DEFAULT Auth-Type :="
-    dest: "/usr/local/etc/mods-config/files/authorize"
+    dest: "/usr/local/etc/raddb/mods-config/files/authorize"
 
