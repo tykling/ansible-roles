@@ -6,6 +6,9 @@ vlans_{{ stickybridge_interface }}="${vlans_{{ stickybridge_interface }}} {{ ite
 # UP the VLAN interface
 ifconfig_{{ stickybridge_interface }}_{{ item.vlan }}="UP"
 
+# configure ipv6 on the VLAN interface
+ifconfig_{{ stickybridge_interface }}_{{ item.vlan }}_ipv6="inet6 {{ item.ipv6net }}1/64"
+
 # add VLAN interface to bridge
 ifconfig_{{ stickybridge_bridge }}="${ifconfig_{{ stickybridge_bridge }}} addm {{ stickybridge_interface }}.{{ item.vlan }}"
 

@@ -1,5 +1,5 @@
 ---
-- name: "Create supervisord.d config file to run daphne+redis"
+- name: "Create supervisord.d config file to run daphne"
   include_role:
     name: "supervisord_server"
     tasks_from: "supervisord.d"
@@ -13,9 +13,17 @@
         directory: "{{ django_root }}"
         priority: "1"
 
+- name: "Create supervisord.d config file to run redis if needed"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "daphne"
+    supervisord_programs:
       - name: "redis"
         comment: "run redis"
         command: "/usr/local/bin/redis-server /usr/local/etc/redis.conf"
         user: "535" # 535 is the redis uid on freebsd
         priority: "1"
+  when: "django_channels_layer_redis"
 
