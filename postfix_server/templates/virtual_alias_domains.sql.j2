@@ -1,0 +1,6 @@
+hosts={{ postgres_host }}
+user={{ postgres_user }}
+password={{ postgres_password }}
+dbname={{ postgres_dbname }}
+query = SELECT 1 FROM virtual_alias_domains WHERE lower(domain) = lower('%s') AND enabled = 't' limit 1;
+

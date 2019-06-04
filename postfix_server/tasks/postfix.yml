@@ -63,6 +63,13 @@
     mode: "600"
   notify: "reload postfix"
 
+- name: "Copy postfix virtual_alias_domains.sql file"
+  template:
+    mode: "600"
+    src: "virtual_alias_domains.sql.j2"
+    dest: "/usr/local/etc/postfix/virtual_alias_domains.sql"
+  notify: "reload postfix"
+
 - name: "Run postalias"
   shell: "/usr/local/sbin/postalias /etc/aliases"
 
@@ -71,13 +78,6 @@
     mode: "644"
     src: "transport.j2"
     dest: "/usr/local/etc/postfix/transport"
-  notify: "reload postfix"
-
-- name: "Copy postfix extra_virtual_mailbox_domains file"
-  template:
-    mode: "644"
-    src: "extra_virtual_mailbox_domains.j2"
-    dest: "/usr/local/etc/postfix/extra_virtual_mailbox_domains"
   notify: "reload postfix"
 
 - name: "Enable submission (587) in master.cf"
