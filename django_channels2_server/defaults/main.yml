@@ -21,6 +21,7 @@ django_admin_prefix: "admin"
 django_email_backend: "django.core.mail.backends.console.EmailBackend"
 django_email_port: 587
 
+django_channels_daphne: True
 django_daphne_user: "www"
 django_channels_backend: "channels_redis.core.RedisChannelLayer"
 django_channels_config: '{"hosts": [("127.0.0.1", 6379)],}'

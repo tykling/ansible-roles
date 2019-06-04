@@ -12,6 +12,7 @@
         user: "{{ django_daphne_user }}"
         directory: "{{ django_root }}"
         priority: "1"
+  when: "django_channels_daphne"
 
 - name: "Create supervisord.d config file to run redis if needed"
   include_role:
