@@ -27,6 +27,12 @@
         flags=FR user=mailman:mailman
         argv=/usr/local/mailman/postfix-to-mailman.py ${nexthop} ${user}
 
+- name: "Configure mailman DEFAULT_HOST_NAME"
+  lineinfile:
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
+    regexp: "^DEFAULT_HOST_NAME = "
+    line: "DEFAULT_HOST_NAME = '{{ mailman_primary_domain }}'"
+
 - name: "Configure mailman DEFAULT_EMAIL_HOST"
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
