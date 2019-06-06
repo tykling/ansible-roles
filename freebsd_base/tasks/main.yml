@@ -21,8 +21,8 @@
   when: "'postfix_servers' not in group_names"
 - include_tasks: "newsyslog.yml"
 - include_tasks: "extra-cron.d-jobs.yml"
-- include_tasks: "stickybridge.yml"
-  when: stickybridge_configs is defined
+- include_tasks: "vlans.yml"
+  when: vlans is defined
   tags:
-    - "stickybridge"
+    - "vlans"
 

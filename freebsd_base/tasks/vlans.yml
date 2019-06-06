@@ -1,0 +1,9 @@
+---
+- name: "Configure VLAN interfaces (Add /etc/rc.conf.d/netif/* files)"
+  template:
+    src: "netif"
+    dest: "/etc/rc.conf.d/netif/{{ item.name }}"
+  with_items: "{{ vlans | default([]) }}"
+  tags:
+    - "vlans"
+

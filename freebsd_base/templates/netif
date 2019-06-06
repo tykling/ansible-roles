@@ -1,0 +1,11 @@
+# {{ item.name }}
+
+# create the VLAN interface
+vlans_{{ vlan_interface }}="${vlans_{{ vlan_interface }}} {{ item.vlan }}"
+
+# configure ipv4 on the VLAN interface
+ifconfig_{{ vlan_interface }}_{{ item.vlan }}="{{ lookup('vars', item.{{ ansible_host }}.v4ip ) }}"
+
+# configure ipv6 on the VLAN interface
+#ifconfig_{{ vlan_interface }}_{{ item.vlan }}_ipv6="inet6 {{ item.v6ip }}"
+
