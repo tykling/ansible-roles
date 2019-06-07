@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "unbound"
         comment: "run unbound"
-        command: "/usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf"
+        command: "/usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf -d"
         user: "root"
 
