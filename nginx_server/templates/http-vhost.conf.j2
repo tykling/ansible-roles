@@ -52,7 +52,11 @@ server {
 {% endif %}
     server_name             _;
     location / {
+{% if item.value.redirect_keep_url | default(True) %}
         return              302 https://{{ item.value.hostnames[0] }}$request_uri;
+{% else %}
+        return              302 https://{{ item.value.hostnames[0] }};
+{% endif %}
     }
 }
 {% endif %}
