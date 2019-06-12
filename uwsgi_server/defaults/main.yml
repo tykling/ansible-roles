@@ -7,4 +7,7 @@ uwsgi_statssocketpath: "{{ uwsgi_socketdir }}/stats.sock"
 uwsgi_touchchainreloadpath: "{{ uwsgi_socketdir }}/touch-to-reload-uwsgi"
 uwsgi_processes: 2
 uwsgi_http_timeout: 60
+uwsgi_prometheus_multiproc_dir: "/tmp/prometheus_multiproc_dir"
+uwsgi_environment:
+  prometheus_multiproc_dir: "{{ uwsgi_prometheus_multiproc_dir }}"
 

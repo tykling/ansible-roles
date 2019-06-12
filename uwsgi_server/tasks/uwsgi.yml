@@ -14,3 +14,11 @@
     owner: "www"
     group: "www"
 
+- name: "Create prometheus_multiproc_dir"
+  file:
+    path: "{{ uwsgi_prometheus_multiproc_dir }}"
+    state: "directory"
+    mode: "0755"
+    owner: "www"
+    group: "www"
+

@@ -17,4 +17,6 @@ uid=80
 gid=80
 log-x-forwarded-for=True
 http-timeout={{ uwsgi_http_timeout }}
+{% if uwsgi_environment is defined %}env={% for key, value in item.environment.items() %}{{ key }}="{{ value }}",{% endfor %}
+{% endif %}
 
