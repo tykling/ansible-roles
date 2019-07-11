@@ -1,5 +1,8 @@
 ---
 mailman: True
 opendkim: True
+opendkim_internalhosts:
+  - "127.0.0.1"
+  - "::1"
 postfix_sender_login_restriction: True
 

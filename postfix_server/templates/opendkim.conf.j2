@@ -8,3 +8,6 @@ SyslogSuccess           Yes
 TemporaryDirectory      /tmp
 UserID                  postfix
 SoftwareHeader          Yes
+LogWhy                  Yes
+InternalHosts           {{ opendkim_internalhosts|join(",") }}
+
