@@ -1,0 +1,7 @@
+---
+- name: "add syslog.d config for opendkim"
+  copy:
+    src: "opendkim-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/opendkim.conf"
+  notify: "restart syslogd"
+
