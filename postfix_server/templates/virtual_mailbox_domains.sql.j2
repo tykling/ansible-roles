@@ -2,5 +2,5 @@ hosts={{ postgres_host }}
 user={{ postgres_user }}
 password={{ postgres_password }}
 dbname={{ postgres_dbname }}
-query = SELECT distinct(domain) from users where lower(domain) = lower('%s') and enabled = 't'
+query = SELECT COALESCE((SELECT DISTINCT(domain) FROM virtual_alias_maps WHERE LOWER(domain) = LOWER('%s') and enabled = 't'), (SELECT DISTINCT(domain) FROM users WHERE LOWER(domain) = LOWER('swordfischer.com') AND enabled = 't'));
 
