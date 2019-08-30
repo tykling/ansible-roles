@@ -120,6 +120,8 @@ pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if)
 {% if rule.sources is defined %}from { {{ rule.sources|join(" ") }} } {% endif %}
 {% if rule.destinations is defined %}to { {{ rule.destinations|join(" ") }} } {% endif %}
 {% if rule.ports is defined %} port { {{ rule.ports|join(" ") }} }{% endif %}
+{% if rule.state is defined %} {{ rule.state }} state{% endif %}
+{% if rule.stateoptions is defined %} ({{ rule.stateoptions|join(", ") }}){% endif %}
 
 {% endfor %}
 {% endfor %}
