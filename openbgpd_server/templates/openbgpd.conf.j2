@@ -1,4 +1,4 @@
-{% for name, value in openbgpd_macros|default({}) %}
+{% for name, value in openbgpd_macros.items()|default({}) %}
 {{ name }}="{{ value }}"
 {% endfor %}
 
