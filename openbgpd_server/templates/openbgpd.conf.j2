@@ -1,5 +1,5 @@
-{% for macro in openbgpd_macros|default([]) %}
-{{ macro.name }}="{{ macro.value }}"
+{% for name, value in openbgpd_macros|default({}) %}
+{{ name }}="{{ value }}"
 {% endfor %}
 
 {% for listen in openbgpd_listen_ips|default([]) %}
