@@ -9,6 +9,11 @@
     name: "postgresql{{ postgresql_version }}-contrib"
     state: "present"
 
+- name: "Install Postgis"
+  pkgng:
+    name: "postgis25"
+    state: "present"
+
 - name: "Make sure postgres homedir is owned by postgres:postgres"
   file:
     dest: "{{ postgresql_homedir }}"
