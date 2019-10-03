@@ -10,5 +10,5 @@
         comment: "run openbgpd"
         command: "/usr/bin/limits -C daemon /usr/local/sbin/bgpd -d"
         user: "0"
-        autostart: no
+        autostart: "{{ openbgpd_autostart }}"
 
