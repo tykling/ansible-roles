@@ -1,11 +1,19 @@
 # {{ item.name }}
 
 # create the VLAN interface
-vlans_{{ vlan_interface }}="${vlans_{{ vlan_interface }}} {{ item.vlan }}"
+vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 
 # configure ipv4 on the VLAN interface
-ifconfig_{{ vlan_interface }}_{{ item.vlan }}="{{ item['ips'][inventory_hostname_short]['v4ip'] }}/{{ item.v4net.split("/")[1] }}"
+ifconfig_{{ item.interface }}_{{ item.vlan }}="inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
 
 # configure ipv6 on the VLAN interface
-ifconfig_{{ vlan_interface }}_{{ item.vlan }}="{{ item['ips'][inventory_hostname_short]['v6ip'] }}/{{ item.v6net.split("/")[1] }}"
+ifconfig_{{ item.interface }}_{{ item.vlan }}="inet6 {{ item.ips[inventory_hostname_short].v6ip }}/{{ item.v6net.split("/")[1] }}"
+
+{% if 'carp' in item.ips %}
+# configure ipv4 CARP on the VLAN interface
+ifconfig_{{ item.interface }}_{{ item.vlan }}="inet vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips['carp'].advskew }} pass {{ item.ips['carp'].password }} [[ item.ips['carp'].v4ip }}/{{ item.v4net.split("/")[1] }}"
+
+# configure ipv6 CARP on the VLAN interface
+ifconfig_{{ item.interface }}_{{ item.vlan }}="inet vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips['carp'].advskew }} pass {{ item.ips['carp'].password }} [[ item.ips['carp'].v4ip }}/{{ item.v4net.split("/")[1] }}"
+{% endif %}
 
