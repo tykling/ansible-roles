@@ -4,8 +4,8 @@
     name: "{{ item }}"
     state: "present"
   with_items:
-    - "py27-docutils"
-    - "py27-sqlite3"
+    - "py37-docutils"
+    - "py37-sqlite3"
 
 - name: "Get nipap-www code from git"
   git:

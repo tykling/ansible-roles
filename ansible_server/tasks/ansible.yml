@@ -1,7 +1,7 @@
 ---
 - name: "Install ansible"
   pkgng:
-    name: "py27-ansible"
+    name: "py37-ansible"
     state: "present"
 
 - name: "Install ansible config deploy.sh script"
@@ -12,9 +12,9 @@
     group: "wheel"
     mode: "0755"
 
-- name: "Create symlink from /usr/local/etc/py27-ansible/ to /usr/local/etc/ansible/"
+- name: "Create symlink from /usr/local/etc/py37-ansible/ to /usr/local/etc/ansible/"
   file:
     src: "/usr/local/etc/ansible"
-    dest: "/usr/local/etc/py27-ansible"
+    dest: "/usr/local/etc/py37-ansible"
     state: "link"
 

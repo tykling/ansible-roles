@@ -1,7 +1,7 @@
 ---
-- name: "Install py27-searx"
+- name: "Install py37-searx"
   pkgng:
-    name: "py27-searx"
+    name: "py37-searx"
     state: "present"
 
 - name: "Enable searx"

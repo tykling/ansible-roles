@@ -5,9 +5,9 @@
     dest: "/usr/local/bin/mailecho"
     mode: "0755"
 
-- name: "Install py27-yaml"
+- name: "Install py37-yaml"
   pkgng:
-    name: "py27-yaml"
+    name: "py37-yaml"
     state: "present"
 
 - name: "Enable mailecho service in master.cf"

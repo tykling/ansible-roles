@@ -1,7 +1,7 @@
 ---
 - name: "Install letsencrypt client"
   pkgng:
-    name: "py27-certbot"
+    name: "py37-certbot"
     state: "present"
 
 - name: "Create letsencrypt account config directory"
