@@ -1,17 +1,17 @@
 ---
 - name: "Install pip"
   pkgng:
-    name: "py27-pip"
+    name: "py37-pip"
+    state: "present"
+
+- name: "Install setuptools"
+  pkgng:
+    name: "py37-setuptools"
     state: "present"
 
 - name: "Install virtualenv"
   pkgng:
-    name: "py27-virtualenv"
-    state: "present"
-
-- name: "Install python 3.5 for django virtualenv"
-  pkgng:
-    name: "python35"
+    name: "py37-virtualenv"
     state: "present"
 
 - name: "Install OS dependencies for django"

@@ -6,12 +6,17 @@
 
 - name: "Install pip"
   pkgng:
-    name: "py27-pip"
+    name: "py37-pip"
+    state: "present"
+
+- name: "Install setuptools"
+  pkgng:
+    name: "py37-setuptools"
     state: "present"
 
 - name: "Install virtualenv"
   pkgng:
-    name: "py27-virtualenv"
+    name: "py37-virtualenv"
     state: "present"
 
 - name: "Create new virtualenv and install cryptography. Force pip to use /usr/local/ OpenSSL libs+include because https://github.com/pyca/cryptography/issues/3693#issuecomment-449982895"
