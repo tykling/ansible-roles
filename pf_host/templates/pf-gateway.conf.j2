@@ -64,7 +64,7 @@ pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, ech
 ## {{ vlan.name }}
 # vlan debug: {{ vlan }}
 # Block all connections from this vlan to the firewall itself
-block in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network) to { {% for interface in pf_gateway_interfaces %}(interface.interface) {% endfor %}}
+block in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network) to { {% for interface in pf_gateway_interfaces %}({{ interface.interface }}) {% endfor %}}
 # Permit all other traffic from this vlan
 pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network)
 
