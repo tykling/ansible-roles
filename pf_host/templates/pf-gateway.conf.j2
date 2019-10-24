@@ -58,9 +58,18 @@ pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, ech
 
 
 #######################################################
-# GENERAL CUSTOMER VLAN RULES BELOW HERE
+### GENERAL CUSTOMER VLAN RULES BELOW HERE
+
 {% for vlan in vlans %}
-{{ vlan }}
+## {{ vlan.name }}
+# vlan debug: {{ vlan }}
+# Block all connections from this vlan to the firewall itself
+{% for interface in pf_gateway_interfaces %}
+block in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:nework) to (interface.interface)
+{% endfor %}
+# Permit other traffic from this vlan
+pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:nework)
+
 {% endfor %}
 
 #######################################################
