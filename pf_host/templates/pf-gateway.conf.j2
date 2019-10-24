@@ -56,6 +56,13 @@ pass in quick on ${{ if.macro }} inet proto icmp all icmp-type { unreach, echore
 pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 {% endfor %}
 
+
+#######################################################
+# GENERAL CUSTOMER VLAN RULES BELOW HERE
+{% for vlan in vlans %}
+{{ vlan }}
+{% endfor %}
+
 #######################################################
 # CUSTOM FILTER RULES BELOW HERE
 
