@@ -1,4 +1,6 @@
 ---
 - include_tasks: "alertmanager.yml"
+  tags:
+    - "amconf"
 - include_tasks: "supervisord.yml"
 
