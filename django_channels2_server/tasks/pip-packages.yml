@@ -25,16 +25,25 @@
     state: "present"
   when: django_i18n | default(False)
 
+- name: "Check if we already have a virtualenv for Django"
+  stat:
+    path: "{{ django_virtualenv_path }}"
+    register: django_virtualenv
+  changed_when: False
+
 - name: "Check if we still have a py3.5 venv for Django"
   command: "{{ django_virtualenv_path }}/bin/python -V"
   register: python_version
   changed_when: False
+  when: django_virtualenv.stat.exists
 
 - name: "Remove py3.5 venv if we have one"
   file:
     state: "absent"
     path: "{{ django_virtualenv_path }}"
-  when: python_version.stdout[0:10] == "Python 3.5"
+  when:
+    - django_virtualenv.stat.exists
+    - python_version.stdout[0:10] == "Python 3.5"
 
 - name: "Install needed pip modules"
   pip:
