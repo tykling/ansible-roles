@@ -28,7 +28,7 @@
 - name: "Check if we already have a virtualenv for Django"
   stat:
     path: "{{ django_virtualenv_path }}"
-    register: django_virtualenv
+  register: django_virtualenv
   changed_when: False
 
 - name: "Check if we still have a py3.5 venv for Django"
