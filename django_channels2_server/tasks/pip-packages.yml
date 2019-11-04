@@ -34,7 +34,7 @@
   file:
     state: "absent"
     path: "{{ django_virtualenv_path }}"
-  when: python_version.stderr[0:10] == "Python 3.5"
+  when: python_version.stdout[0:10] == "Python 3.5"
 
 - name: "Install needed pip modules"
   pip:
