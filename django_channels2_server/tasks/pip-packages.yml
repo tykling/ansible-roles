@@ -45,15 +45,31 @@
     - django_virtualenv.stat.exists
     - python_version.stdout[0:10] == "Python 3.5"
 
-- name: "Install needed pip modules"
+- name: "Find snowflake pip modules which need --global-option=build_ext from requirements file"
+  command: "/usr/bin/grep -E '(^cryptography)' {{ django_pip_requirements_path }}"
+  register: result
+  ignore_errors: True
+
+- name: "Install snowflake pip modules which need --global-option=build_ext"
   pip:
-    requirements: "{{ django_pip_requirements_path }}"
+    name: "{{ result.stdout_lines }}"
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
     extra_args: '--global-option=build_ext'
   environment:
     CFLAGS: "-I/usr/local/include"
     LDFLAGS: "-L/usr/local/include"
+    LANG: "C.UTF-8"
+  tags:
+    - "pip"
+  when: result.stdout != ""
+
+- name: "Install remaining needed pip modules"
+  pip:
+    requirements: "{{ django_pip_requirements_path }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+  environment:
     LANG: "C.UTF-8"
   tags:
     - "pip"
