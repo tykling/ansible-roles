@@ -1,6 +1,6 @@
 ---
 postgresql_user: "postgres"
-postgresql_version: "96"
+postgresql_version: "11"
 postgresql_homedir: "/var/db/postgres"
 postgresql_datadir: "{{ postgresql_homedir }}/data{{ postgresql_version }}"
 postgresql_server_tls_enable: yes
