@@ -26,8 +26,8 @@
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
     extra_args: '--global-option=build_ext'
   environment:
-    CFLAGS: "-I/usr/local/lib"
-    LDFLAGS: "-L/usr/local/lib"
+    CFLAGS: "-I/usr/local/include"
+    LDFLAGS: "-L/usr/local/include"
 
 - name: "Upgrade pip to latest version to avoid problems when installing cffi"
   pip:
