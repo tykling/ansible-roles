@@ -30,12 +30,16 @@
     path: "{{ django_virtualenv_path }}"
   register: django_virtualenv
   changed_when: False
+  tags:
+    - "pip"
 
 - name: "Check if we still have a py3.5 venv for Django"
   command: "{{ django_virtualenv_path }}/bin/python -V"
   register: python_version
   changed_when: False
   when: django_virtualenv.stat.exists
+  tags:
+    - "pip"
 
 - name: "Remove py3.5 venv if we have one"
   file:
@@ -44,11 +48,15 @@
   when:
     - django_virtualenv.stat.exists
     - python_version.stdout[0:10] == "Python 3.5"
+  tags:
+    - "pip"
 
 - name: "Find snowflake pip modules which need --global-option=build_ext from requirements file"
   command: "/usr/bin/grep -E '(^cryptography)' {{ django_pip_requirements_path }}"
   register: result
   ignore_errors: True
+  tags:
+    - "pip"
 
 - name: "Install snowflake pip modules which need --global-option=build_ext"
   pip:
@@ -79,6 +87,8 @@
     name: "uwsgi"
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
+  tags:
+    - "pip"
 
 - name: "Install redis for django channel_layer where needed"
   pkgng:
