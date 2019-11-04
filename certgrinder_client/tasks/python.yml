@@ -19,12 +19,15 @@
     name: "py37-virtualenv"
     state: "present"
 
-- name: "Create new virtualenv and install cryptography. Force pip to use /usr/local/ OpenSSL libs+include because https://github.com/pyca/cryptography/issues/3693#issuecomment-449982895"
+- name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL libs+include"
   pip:
     virtualenv_python: "python"
     name: "cryptography"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
-    extra_args: '--global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"'
+    extra_args: '--global-option=build_ext'
+  environment:
+    CFLAGS: "-I/usr/local/lib"
+    LDFLAGS: "-L/usr/local/lib"
 
 - name: "Upgrade pip to latest version to avoid problems when installing cffi"
   pip:
