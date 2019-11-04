@@ -1,9 +1,4 @@
 ---
-- name: "Install python"
-  pkgng:
-    name: "python"
-    state: "present"
-
 - name: "Install pip"
   pkgng:
     name: "py37-pip"
@@ -14,12 +9,23 @@
     name: "py37-setuptools"
     state: "present"
 
+- name: "Check if we still have a py2.x venv for Certgrinder"
+  command: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python -V"
+  register: python_version
+  changed_when: False
+
+- name: "Remove py2.x venv if we have one"
+  file:
+    state: "absent"
+    path: "/usr/home/{{ certgrinder_user }}/virtualenv"
+    when: python_version.stdout[0:8] == "Python 2"
+
 - name: "Install virtualenv"
   pkgng:
     name: "py37-virtualenv"
     state: "present"
 
-- name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL libs+include"
+- name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL include"
   pip:
     virtualenv_python: "python"
     name: "cryptography"
