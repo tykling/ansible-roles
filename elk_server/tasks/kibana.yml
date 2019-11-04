@@ -1,7 +1,7 @@
 ---
-- name: "Install kibana5"
+- name: "Install kibana6"
   pkgng:
-    name: "kibana5"
+    name: "kibana6"
     state: "present"
 
 - name: "Enable kibana"
