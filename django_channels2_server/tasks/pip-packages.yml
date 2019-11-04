@@ -54,6 +54,7 @@
 - name: "Find snowflake pip modules which need --global-option=build_ext from requirements file"
   command: "/usr/bin/grep -E '(^cryptography)' {{ django_pip_requirements_path }}"
   register: result
+  changed_when: False
   ignore_errors: True
   tags:
     - "pip"
