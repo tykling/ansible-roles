@@ -19,6 +19,7 @@
   command: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python -V"
   register: python_version
   changed_when: False
+  when: certgrinder_virtualenv.stat.exists
 
 - name: "Remove py2.x venv if we have one"
   file:
