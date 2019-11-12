@@ -14,6 +14,14 @@
     owner: "www"
     group: "www"
 
+- name: "Create uwsgi touch-chain-reload file"
+  file:
+    path: "{{ uwsgi_touchchainreloadpath }}"
+    state: "file"
+    mode: "0600"
+    owner: "root"
+    group: "wheel"
+
 - name: "Create prometheus_multiproc_dir"
   file:
     path: "{{ uwsgi_prometheus_multiproc_dir }}"
