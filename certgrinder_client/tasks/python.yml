@@ -9,7 +9,13 @@
     name: "py37-setuptools"
     state: "present"
 
-- name: "Check if we still have a py2.x venv for Certgrinder"
+- name: "Check if we have an existing virtualenv for Certgrinder"
+  stat:
+    path: "/usr/home/{{ certgrinder }}/virtualenv/"
+  register: certgrinder_virtualenv
+  changed_when: False
+
+- name: "Check Python version of venv for Certgrinder"
   command: "/usr/home/{{ certgrinder_user }}/virtualenv/bin/python -V"
   register: python_version
   changed_when: False
@@ -18,7 +24,9 @@
   file:
     state: "absent"
     path: "/usr/home/{{ certgrinder_user }}/virtualenv"
-  when: python_version.stderr[0:8] == "Python 2"
+  when:
+    - python_version.stderr[0:8] == "Python 2"
+    - certgrinder_virtualenv.stat.exists
 
 - name: "Install virtualenv"
   pkgng:

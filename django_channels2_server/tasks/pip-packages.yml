@@ -25,7 +25,7 @@
     state: "present"
   when: django_i18n | default(False)
 
-- name: "Check if we already have a virtualenv for Django"
+- name: "Check if we have an existing virtualenv for Django"
   stat:
     path: "{{ django_virtualenv_path }}"
   register: django_virtualenv
@@ -33,7 +33,7 @@
   tags:
     - "pip"
 
-- name: "Check if we still have a py3.5 venv for Django"
+- name: "Get Python version for existing Django virtualenv"
   command: "{{ django_virtualenv_path }}/bin/python -V"
   register: python_version
   changed_when: False
