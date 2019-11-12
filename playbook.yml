@@ -394,3 +394,9 @@
   roles:
     - "openbgpd_server"
 
+- name: "configure prometheus monitored servers"
+  hosts: "prometheus_monitored_servers"
+  become: yes
+  roles:
+    - "prometheus_monitored_server"
+
