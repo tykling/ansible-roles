@@ -26,8 +26,8 @@
     state: "absent"
     path: "/usr/home/{{ certgrinder_user }}/virtualenv"
   when:
-    - python_version.stderr[0:8] == "Python 2"
     - certgrinder_virtualenv.stat.exists
+    - python_version.stderr[0:8] == "Python 2"
 
 - name: "Install virtualenv"
   pkgng:
