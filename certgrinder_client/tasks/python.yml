@@ -11,7 +11,7 @@
 
 - name: "Check if we have an existing virtualenv for Certgrinder"
   stat:
-    path: "/usr/home/{{ certgrinder }}/virtualenv/"
+    path: "/usr/home/{{ certgrinder_user }}/virtualenv/"
   register: certgrinder_virtualenv
   changed_when: False
 
