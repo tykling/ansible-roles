@@ -1,6 +1,7 @@
 ---
 - name: "restart daphne using supervisorctl"
   command: "/usr/local/bin/supervisorctl restart daphne"
+  when: "django_channels_daphne"
 
 - name: "restart supervisord_extra_programs"
   command: "/usr/local/bin/supervisorctl restart {{ item.name }}"
