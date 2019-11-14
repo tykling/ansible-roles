@@ -40,6 +40,8 @@
    remote_src: yes
   when:
     - gitresult.changed
+  notify:
+    - "restart postgres_exporter"
 
 - name: "Create supervisord.d config file to run postgres_exporter"
   include_role:
@@ -56,3 +58,4 @@
           DATA_SOURCE_NAME: "host={{ ansible_nodename }}"
   notify:
     - "restart postgres_exporter"
+
