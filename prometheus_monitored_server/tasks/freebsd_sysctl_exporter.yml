@@ -7,9 +7,9 @@
   notify:
     - "reload inetd"
 
-- name: "Enable nginx"
+- name: "Enable inetd"
   service:
-    name: "nginx"
+    name: "inetd"
     enabled: yes
   notify:
     - "restart inetd"
