@@ -37,7 +37,7 @@
 
 - name: "Copy postgres_exporter binary to /usr/local/bin"
   copy:
-   src: "{{ findresult[0].path }}"
+   src: "{{ findresult['files'][0].path }}"
    dest: "/usr/local/bin/postgres_exporter"
    remote_src: yes
   when:
