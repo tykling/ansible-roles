@@ -42,4 +42,5 @@
 - import_tasks: "powerdns_recursor.yml"
 - import_tasks: "kldload-tcpmd5.yml"
 - import_tasks: "openbgpd.yml"
+- import_tasks: "postgres_exporter.yml"
 

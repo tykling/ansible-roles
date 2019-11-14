@@ -43,3 +43,18 @@
   when:
     - gitresult.changed
 
+- name: "Create supervisord.d config file to run postgres_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "postgres_exporter"
+    supervisord_programs:
+      - name: "postgres_exporter"
+        comment: "run postgres_exporter"
+        command: "/usr/local/bin/postgres_exporter --auto-discover-databases"
+        user: "{{ postgresql_user }}"
+        environment:
+          - DATA_SOURCE_NAME: "host={{ ansible_nodename }}"
+  notify:
+    - "restart postgres_exporter"
