@@ -10,10 +10,4 @@ modules:
     http:
       port: 9187
 {% endif %}
-{% for exp in prometheus_exporter_exporters|default([]) %}
-  {{ exp.name }}:
-    method: http
-    http:
-      port: {{ exp.httpport }}
-{% endfor %}
 
