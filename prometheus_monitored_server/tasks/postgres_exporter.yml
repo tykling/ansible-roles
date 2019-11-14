@@ -55,6 +55,6 @@
         command: "/usr/local/bin/postgres_exporter --auto-discover-databases"
         user: "{{ postgresql_user }}"
         environment:
-          - DATA_SOURCE_NAME: "host={{ ansible_nodename }}"
+          DATA_SOURCE_NAME: "host={{ ansible_nodename }}"
   notify:
     - "restart postgres_exporter"
