@@ -2,8 +2,8 @@
 - name: "Make sure freebsd_sysctl_exporter is enabled in inetd.conf"
   lineinfile:
     dest: "/etc/inetd.conf"
-    regexp: "prom-sysctl	stream	tcpnowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
-    line: "prom-sysctl	stream	tcpnowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
+    regexp: "prom-sysctl	stream	tcp	nowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
+    line: "prom-sysctl	stream	tcp	nowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
 
 - name: "Create supervisord.d config file to run inetd"
   include_role:
