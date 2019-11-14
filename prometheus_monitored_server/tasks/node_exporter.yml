@@ -4,6 +4,11 @@
     name: "node_exporter"
     state: "present"
 
+- name: "Create textfile collector directory"
+  file:
+    path: "{{ node_exporter_textfile_path }}"
+    state: "directory"
+
 - name: "Create supervisord.d config file to run node_exporter"
   include_role:
     name: "supervisord_server"
