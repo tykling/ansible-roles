@@ -1,7 +1,8 @@
 ---
 - include_tasks: "user.yml"
-- include_tasks: "node_exporter.yml"
 - include_tasks: "exporter_exporter.yml"
+- include_tasks: "freebsd_sysctl_exporter.yml"
+- include_tasks: "node_exporter.yml"
 - include_tasks: "postgres_exporter.yml"
   when: "'postgresql_servers' in group_names"
 
