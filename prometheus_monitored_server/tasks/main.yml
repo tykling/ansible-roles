@@ -1,5 +1,5 @@
 ---
+- include_tasks: "user.yml"
 - include_tasks: "node_exporter.yml"
 - include_tasks: "exporter_exporter.yml"
-  when: exporter_exporter
 

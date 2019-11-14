@@ -14,6 +14,6 @@
       - name: "node_exporter"
         comment: "run node_exporter"
         command: "/usr/local/bin/node_exporter --web.listen-address={{ node_exporter_listen_address }} --collector.textfile.directory={{ node_exporter_textfile_path }} "
-        user: "{{ node_exporter_user }}"
+        user: "{{ prometheus_exporter_user }}"
   notify:
     - "restart node_exporter"

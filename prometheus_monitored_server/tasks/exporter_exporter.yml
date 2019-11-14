@@ -26,8 +26,8 @@
   template:
     src: "expexp.yml.j2"
     dest: "/usr/local/etc/expexp.yml"
-    owner: "{{ exporter_exporter_user }}"
-    group: "{{ exporter_exporter_group }}"
+    owner: "{{ prometheus_exporter_user }}"
+    group: "{{ prometheus_exporter_user }}"
     mode: 0644
   notify:
     - "restart exporter_exporter"
@@ -42,7 +42,7 @@
       - name: "exporter_exporter"
         comment: "run exporter_exporter"
         command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert=/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt -web.tls.key /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
-        user: "{{ exporter_exporter_user }}"
+        user: "{{ prometheus_exporter_user }}"
   notify:
     - "restart exporter_exporter"
 
