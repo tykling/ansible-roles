@@ -41,7 +41,7 @@
     supervisord_programs:
       - name: "exporter_exporter"
         comment: "run exporter_exporter"
-        command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert=/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt -web.tls.key /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
+        command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -web.listen-address= -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert=/usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt -web.tls.key /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
         user: "{{ prometheus_exporter_user }}"
   notify:
     - "restart exporter_exporter"
