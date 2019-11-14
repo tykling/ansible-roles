@@ -4,18 +4,13 @@
     dest: "/etc/inetd.conf"
     regexp: "prom-sysctl	stream	tcp	nowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
     line: "prom-sysctl	stream	tcp	nowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
+  notify:
+    - "reload inetd"
 
-- name: "Create supervisord.d config file to run inetd"
-  include_role:
-    name: "supervisord_server"
-    tasks_from: "supervisord.d"
-  vars:
-    supervisord_filename: "inetd"
-    supervisord_programs:
-      - name: "inetd"
-        comment: "run inetd"
-        command: "/usr/sbin/inetd -wW -C 60"
-        user: "root"
+- name: "Enable nginx"
+  service:
+    name: "nginx"
+    enabled: yes
   notify:
     - "restart inetd"
 

@@ -1,6 +1,11 @@
 ---
 - name: "restart inetd"
-  supervisorctl:
+  service:
     name: "inetd"
     state: "restarted"
+
+- name: "reload inetd"
+  service:
+    name: "inetd"
+    state: "reloaded"
 
