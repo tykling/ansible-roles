@@ -3,7 +3,7 @@
   lineinfile:
     dest: "/etc/inetd.conf"
     regexp: "prom-sysctl	stream	tcpnowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
-    like: "prom-sysctl	stream	tcpnowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
+    line: "prom-sysctl	stream	tcpnowait	nobody	/usr/sbin/prometheus_sysctl_exporter	prometheus_sysctl_exporter -dgh"
 
 - name: "Create supervisord.d config file to run inetd"
   include_role:
