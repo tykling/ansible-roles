@@ -14,4 +14,5 @@ node_exporter_textfile_path: "/var/tmp/node_exporter"
 
 postgres_exporter_version: "master"
 postgres_exporter_listen_address: ":9187"
+postgresql_user: "postgres"
 
