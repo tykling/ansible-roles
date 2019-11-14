@@ -4,7 +4,7 @@
     name: "go"
     state: "present"
 
-- name: "Get source code for postgres_exporter"
+- name: "Get source code for postgres_exporter with git so we know when it changed, not used for the build"
   git:
     repo: "https://github.com/wrouesnel/postgres_exporter"
     dest: "/root/postgres_exporter"
@@ -13,9 +13,7 @@
   register: gitresult
 
 - name: "Go get postgres_exporter (download source and deps)"
-  command: "go get ."
-  args:
-    chdir: "/root/postgres_exporter/cmd/postgres_exporter"
+  command: "go get github.com/wrouesnel/postgres_exporter/cmd/postgres_exporter"
   environment:
     GOPATH: "/root/go"
     GOBIN: "/usr/local/bin"
