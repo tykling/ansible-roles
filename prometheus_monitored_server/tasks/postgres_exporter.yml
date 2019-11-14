@@ -11,13 +11,13 @@
   environment:
     GOPATH: "/root/go"
     GOBIN: "/usr/local/bin"
-  when: gitresult.changed
+  register: goresult
 
 - name: "Build postgres_exporter with Mage"
   command: "go run mage.go binary"
   args:
     chdir: "/root/go/src/github.com/wrouesnel/postgres_exporter"
-  when: gitresult.changed
+  when: goresult.changed
 
 - name: "Find postgres_exporter binary"
   find:
@@ -25,7 +25,7 @@
     recurse: yes
     patterns: "postgres_exporter"
   register: findresult
-  when: gitresult.changed
+  when: goresult.changed
 
 - name: "Copy postgres_exporter binary to /usr/local/bin"
   copy:
