@@ -7,7 +7,7 @@ host    all             all             127.0.0.1/32            trust
 # IPv6 local connections:
 host    all             all             ::1/128                 trust
 # connections from the jail itself
-host    all             all             {{ ansible_nodename }}  trust
+host    all             all             samehost                trust
 
 # direct user access
 {% for user in postgresql_users|default([]) %}
