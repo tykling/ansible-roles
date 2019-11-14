@@ -4,7 +4,7 @@ modules:
     method: http
     http:
        port: 9100
-{% if 'postgresql_servers' in group_name %}
+{% if 'postgresql_servers' in group_names %}
   postgres_exporter:
     method: http
     http:
