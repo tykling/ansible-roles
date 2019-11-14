@@ -1,0 +1,29 @@
+---
+- name: "Install Go"
+  pkgng:
+    name: "go"
+    state: "present"
+
+- name: "Get source code for postgres_exporter"
+  git:
+    repo: "https://github.com/wrouesnel/postgres_exporter"
+    dest: "/tmp/postgres_exporter"
+    force: yes
+    version: "{{ postgres_exporter_version }}"
+  register: gitresult
+
+- name: "Go get postgres_exporter (download deps)"
+  command: "go get ."
+  args:
+    chdir: "/tmp/postgres_exporter"
+  environment:
+    GOPATH: "/root/go"
+    GOBIN: "/usr/local/bin"
+  when: gitresult.changed
+
+- name: "Build postgres_exporter with Mage"
+  command: "go run mage.go binary"
+  args:
+    chdir: "/root/go/src/github.com/wrouesnel/postgres_exporter"
+  when: gitresult.changed
+
