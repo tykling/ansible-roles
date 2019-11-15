@@ -4,6 +4,12 @@
     name: "{{ certgrinder_user }}"
     comment: "certgrinder user"
 
+- name: "Remove existing SSH authorized_keys file"
+  file:
+    path: "/usr/home/{{ certgrinder_user }}/.ssh/authorized_keys"
+    state: "absent"
+  tags: "sshkeys"
+
 - name: "Add ssh authorized_keys for all certgrinder clients"
   authorized_key:
     user: "{{ certgrinder_user }}"
