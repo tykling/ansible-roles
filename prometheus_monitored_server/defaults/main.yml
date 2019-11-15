@@ -16,3 +16,5 @@ postgres_exporter_version: "master"
 postgres_exporter_listen_address: ":9187"
 postgresql_user: "postgres"
 
+uwsgi_exporter_version: "master"
+

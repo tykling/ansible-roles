@@ -1,0 +1,5 @@
+---
+- name: "restart uwsgi_exporter"
+  supervisorctl:
+    name: "uwsgi_exporter"
+    state: restarted

@@ -44,4 +44,5 @@
 - import_tasks: "openbgpd.yml"
 - import_tasks: "postgres_exporter.yml"
 - import_tasks: "inetd.yml"
+- import_tasks: "uwsgi_exporter.yml"
 

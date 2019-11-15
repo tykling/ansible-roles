@@ -5,4 +5,6 @@
 - include_tasks: "node_exporter.yml"
 - include_tasks: "postgres_exporter.yml"
   when: "'postgresql_servers' in group_names"
+- include_tasks: "uwsgi_exporter.yml"
+  when: "'uwsgi_servers' in group_names" or "'django_channels2_servers' in group_names"
 

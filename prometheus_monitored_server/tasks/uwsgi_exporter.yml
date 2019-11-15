@@ -1,0 +1,52 @@
+---
+- name: "Install Go"
+  pkgng:
+    name: "go"
+    state: "present"
+
+- name: "Get source code for uwsgi_exporter"
+  git:
+    repo: "https://github.com/timonwong/uwsgi_exporter"
+    dest: "/root/uwsgi_exporter"
+    force: yes
+    version: "{{ uwsgi_exporter_version }}"
+  register: gitresult
+
+- name: "Go get uwsgi_exporter"
+  command: "go get github.com/timonwong/uwsgi_exporter"
+  environment:
+    GOPATH: "/root/go"
+    GOBIN: "/usr/local/bin"
+  when: gitresult.changed
+
+- name: "Install gmake (build dependency)"
+  pkgng:
+    name: "gmake"
+    state: "present"
+  when: gitresult.changed
+  register: gmakeresult
+
+- name: "Build uwsgi_exporter"
+  command: "gmake"
+  args:
+    chdir: "/root/go/src/github.com/timonwong/uwsgi_exporter"
+  when: gitresult.changed
+
+- name: "Copy uwsgi_exporter binary to /usr/local/bin"
+  copy:
+   src: "/root/go/src/github.com/timonwong/uwsgi_exporter/uwsgi_exporter"
+   dest: "/usr/local/bin/uwsgi_exporter"
+   remote_src: yes
+  when:
+    - gitresult.changed
+  notify:
+    - "restart uwsgi_exporter"
+
+- name: "Remove gmake build dep if we installed it"
+  pkgng:
+    name: "gmake"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - gmakeresult.changed
+
