@@ -22,3 +22,8 @@
     owner: "www"
     group: "www"
 
+- name: "Install uwsgitop"
+  pkgng:
+    name: "uwsgitop"
+    state: "present"
+
