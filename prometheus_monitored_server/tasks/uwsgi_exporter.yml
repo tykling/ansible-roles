@@ -50,3 +50,18 @@
     - gitresult.changed
     - gmakeresult.changed
 
+- name: "Create supervisord.d config file to run uwsgi_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "uwsgi_exporter"
+    supervisord_programs:
+      - name: "uwsgi_exporter"
+        comment: "run uwsgi_exporter"
+        command: "/usr/local/bin/uwsgi_exporter --stats.uri=http://{{ ansible_nodename }}/"
+        user: "nobody"
+    supervisord_extra_programs: []
+  notify:
+    - "restart uwsgi_exporter"
+
