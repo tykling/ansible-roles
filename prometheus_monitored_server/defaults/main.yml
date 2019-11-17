@@ -18,3 +18,5 @@ postgresql_user: "postgres"
 
 uwsgi_exporter_version: "master"
 
+nginx_exporter_version: "master"
+

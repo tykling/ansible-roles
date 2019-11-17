@@ -7,12 +7,12 @@
 - name: "Get source code for nginx_exporter"
   git:
     repo: "https://github.com/nginxinc/nginx-prometheus-exporter"
-    dest: "/root/uwsgi_exporter"
+    dest: "/root/nginx_exporter"
     force: yes
-    version: "{{ uwsgi_exporter_version }}"
+    version: "{{ nginx_exporter_version }}"
   register: gitresult
 
-- name: "Go get uwsgi_exporter"
+- name: "Go get nginx_exporter"
   command: "go get github.com/nginxinc/nginx-prometheus-exporter"
   environment:
     GOPATH: "/root/go"
