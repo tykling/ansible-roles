@@ -3,7 +3,7 @@ uwsgi_configpath: "/usr/local/etc/uwsgi.ini"
 uwsgi_socketdir: "/var/run/uwsgi"
 uwsgi_pidfile: "{{ uwsgi_socketdir }}/uwsgi.pid"
 uwsgi_socketpath: "{{ uwsgi_socketdir }}/uwsgi.sock"
-uwsgi_statsurl: "http://127.0.0.1:1717"
+uwsgi_statsurl: "127.0.0.1:1717"
 uwsgi_touchchainreloadpath: "{{ uwsgi_socketdir }}/touch-to-reload-uwsgi"
 uwsgi_processes: 2
 uwsgi_http_timeout: 60
