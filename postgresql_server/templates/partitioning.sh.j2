@@ -1,6 +1,6 @@
 #!/bin/sh
 
-create_partitions {
+create_partitions() {
     database=$1
     user=$2
     parent=$3
@@ -11,7 +11,7 @@ create_partitions {
     done
 }
 
-create_partition {
+create_partition() {
     database=$1
     user=$2
     parent=$3
