@@ -5,10 +5,14 @@ create_partitions() {
     user=$2
     parent=$3
     days=$4
-    echo "--- Creating $days partitions for database $database user $user parent table $parent"
-    for day in $(seq 1 ${days}); do
-        create_partition $database $user $parent ${parent}_$(date -v"+${day}d" +%Y_%m_%d)
-    done
+    /usr/local/bin/psql -c "\d ${parent}_default;" ${database} ${user} > /dev/null 2>&1
+    if [ "$?" -eq "0" ]; then
+        echo "--- Creating $days partitions for database $database user $user parent table $parent"
+        for day in $(seq 1 ${days}); do
+            create_partition $database $user $parent ${parent}_$(date -v"+${day}d" +%Y_%m_%d)
+        done
+    else
+        echo "not creating partitions for table ${parent} because default partition ${parent}_default was not found"
 }
 
 create_partition() {
@@ -22,12 +26,7 @@ create_partition() {
 
 {% for database in postgresql_partitioning_databases %}
 {% for table in database['tables'] %}
-/usr/local/bin/psql -c "\d {{ table }}_default; {{ database.database }} {{ database.user }}" > /dev/null 2>&1
-if [ $? -eq 0 ];
-    create_partitions "{{ database.database}}" "{{ database.user }}" "{{ table }}" {{ postgresql_partitioning_days_ahead }}
-else
-    echo "not creating partitions for table {{ table }} because default partition {{ table }}_default was not found"
-fi
+create_partitions "{{ database.database }}" "{{ database.user }}" "{{ table }}" "{{ postgresql_partitioning_days_ahead }}"
 {% endfor %}
 {% endfor %}
 
