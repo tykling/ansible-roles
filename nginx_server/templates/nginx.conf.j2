@@ -64,6 +64,13 @@ http {
 
         uwsgi_buffers 256 4k;
 
+        location = /stub_status {
+            stub_status;
+            allow 127.0.0.1;
+            allow ::1;
+            deny all;
+        }
+
 {{ nginx_locationslash | indent( width=8, indentfirst=True) }}
     }
 {% endif %}
