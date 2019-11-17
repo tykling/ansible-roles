@@ -1,0 +1,52 @@
+---
+- name: "Install Go"
+  pkgng:
+    name: "go"
+    state: "present"
+
+- name: "Get source code for nginx_exporter"
+  git:
+    repo: "https://github.com/nginxinc/nginx-prometheus-exporter"
+    dest: "/root/uwsgi_exporter"
+    force: yes
+    version: "{{ uwsgi_exporter_version }}"
+  register: gitresult
+
+- name: "Go get uwsgi_exporter"
+  command: "go get github.com/nginxinc/nginx-prometheus-exporter"
+  environment:
+    GOPATH: "/root/go"
+    GOBIN: "/usr/local/bin"
+  when: gitresult.changed
+
+- name: "Build nginx_exporter"
+  command: "make"
+  args:
+    chdir: "/root/go/src/github.com/nginxinc/nginx-prometheus-exporter"
+  when: gitresult.changed
+
+- name: "Copy nginx_exporter binary to /usr/local/bin"
+  copy:
+   src: "/root/go/src/github.com/nginxinc/nginx-prometheus-exporter/nginx-prometheus-exporter"
+   dest: "/usr/local/bin/nginx_exporter"
+   remote_src: yes
+  when:
+    - gitresult.changed
+  notify:
+    - "restart nginx_exporter"
+
+- name: "Create supervisord.d config file to run nginx_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "nginx_exporter"
+    supervisord_programs:
+      - name: "nginx_exporter"
+        comment: "run nginx_exporter"
+        command: "/usr/local/bin/nginx_exporter -nginx.scrape-uri=http://{{ ansible_nodename }}/stub_status"
+        user: "nobody"
+    supervisord_extra_programs: []
+  notify:
+    - "restart nginx_exporter"
+

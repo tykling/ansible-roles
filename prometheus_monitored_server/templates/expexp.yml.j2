@@ -20,4 +20,10 @@ modules:
     http:
       port: 9117
 {% endif %}
+{% if 'nginx_servers' in group_names or 'django_channels2_servers' in group_names %}
+  nginx_exporter:
+    method: http
+    http:
+      port: 9113
+{% endif %}
 
