@@ -59,7 +59,7 @@
     supervisord_programs:
       - name: "uwsgi_exporter"
         comment: "run uwsgi_exporter"
-        command: "/usr/local/bin/uwsgi_exporter --stats.uri=http://{{ ansible_nodename }}/"
+        command: "/usr/local/bin/uwsgi_exporter --stats.uri=http://{{ ansible_nodename }}:1717"
         user: "nobody"
     supervisord_extra_programs: []
   notify:
