@@ -27,3 +27,5 @@ postgresql_max_wal_senders: 3
 postgresql_wal_keep_segments: 100
 postgresql_pgbouncer: False
 
+postgresql_partitioning_days_ahead: 30
+

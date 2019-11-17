@@ -1,0 +1,9 @@
+---
+- name: "Copy partitioning.sh"
+  template:
+    src: "partitioning.sh.j2"
+    dest: "{{ postgresql_datadir }}/partitioning.sh"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: "0700"
+

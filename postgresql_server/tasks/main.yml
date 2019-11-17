@@ -10,4 +10,6 @@
 - include_tasks: "pgbouncer.yml"
   when: postgresql_pgbouncer
 - include_tasks: "replicabackup.yml"
+- include_tasks: "partitioning.yml"
+  when: postgresql_partitioning_databases is defined
 

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+{% for database in postgresql_partitioning_databases %}
+{% for table in database['tables'] %}
+create_partitions("{{ database.database}}", "{{ database.user }}", "{{ table }}", {{ postgresql_partitioning_days_ahead }})
+{% endfor %}
+{% endfor %}
+
+create_partitions(database, user, parent, days) {
+    echo "Creating $days partitions for database $database user $user parent table $parent"
+    for day in $(seq 1 ${days}); do
+        create_partition($database, $user, $parent, "${parent}_$(date -v"+${day}d" +%Y_%m_%d))
+    done
+}
+
+create_partition(database, user, parent, partition) {
+    echo "creating table $partition like table $parent in database $database with user $user ..."
+    /usr/local/bin/psql -c "create table if not exists ${partition} (like ${parent} including all);" ${database} ${user}
+}
