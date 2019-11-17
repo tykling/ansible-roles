@@ -7,13 +7,15 @@
 - name: "Get source code for exporter_exporter"
   git:
     repo: "https://github.com/QubitProducts/exporter_exporter"
-    dest: "/tmp/exporter_exporter"
+    dest: "/root/exporter_exporter"
     force: yes
     version: "{{ exporter_exporter_version }}"
   register: gitresult
 
 - name: "Go get exporter_exporter"
   command: "go get ."
+  args:
+    chdir: "/root/exporter_exporter"
   environment:
     GOPATH: "/root/go"
     GOBIN: "/usr/local/bin"
