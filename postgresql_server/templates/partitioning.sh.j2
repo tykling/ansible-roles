@@ -36,7 +36,7 @@ create_partition() {
 
     # attach the partition
     echo "--- Attaching partition $PARTITION to parent table table $PARENT for values from ${START} to ${END}"
-    /usr/local/bin/psql -c "ALTER TABLE ${PARENT} ATTACH PARTITION ${PARTITION} FOR VALUES FROM ( '${START}' ) TO ( '${END}' );"
+    /usr/local/bin/psql -c "ALTER TABLE ${PARENT} ATTACH PARTITION ${PARTITION} FOR VALUES FROM ( '${START}' ) TO ( '${END}' );" ${DATABASE} ${USER}
 }
 
 {% for database in postgresql_partitioning_databases %}
