@@ -26,4 +26,10 @@ modules:
     http:
       port: 9113
 {% endif %}
+{% if 'freebsd_hosts' in group_names %}
+  gstat_exporter:
+    method: http
+    http:
+      port: 9248
+{% endif %}
 

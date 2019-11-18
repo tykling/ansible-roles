@@ -9,4 +9,6 @@
   when: ('uwsgi_servers' in group_names) or ('django_channels2_servers' in group_names)
 - include_tasks: "nginx_exporter.yml"
   when: ('nginx_servers' in group_names) or ('django_channels2_servers' in group_names)
+- include_tasks: "gstat_exporter.yml"
+  when: "'freebsd_hosts' in group_names"
 

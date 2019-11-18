@@ -1,0 +1,41 @@
+---
+- name: "Install pip, setuptools, virtualenv"
+  pkgng:
+    name:
+      - "py37-pip"
+      - "py37-setuptools"
+      - "py37-virtualenv"
+    state: "present"
+
+- name: "Get gstat_exporter code from git"
+  git:
+    repo: "https://github.com/tykling/gstat_exporter"
+    dest: "/usr/local/gstat_exporter"
+    force: yes
+    version: "master"
+  register: gitresult
+
+- name: "Install the requirements.txt modules with pip"
+  pip:
+    virtualenv_python: "python"
+    requirements: "/usr/local/gstat_exporter/requirements.txt"
+    virtualenv: "/usr/local/gstat_exporter/venv"
+  when: gitresult.changed
+  notify:
+    - "restart gstat_exporter"
+
+- name: "Create supervisord.d config file to run gstat_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "gstat_exporter"
+    supervisord_programs:
+      - name: "gstat_exporter"
+        comment: "run gstat_exporter"
+        command: "/usr/local/gstat_exporter/venv/bin/python /usr/local/gstat_exporter/gstat_exporter.py"
+        user: "nobody"
+    supervisord_extra_programs: []
+  notify:
+    - "restart gstat_exporter"
+

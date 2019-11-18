@@ -46,4 +46,5 @@
 - import_tasks: "inetd.yml"
 - import_tasks: "uwsgi_exporter.yml"
 - import_tasks: "nginx_exporter.yml"
+- import_tasks: "gstat_exporter.yml"
 
