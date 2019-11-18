@@ -23,4 +23,8 @@ ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}.key'
 wal_level = {{ postgresql_wal_level }}
 max_wal_senders = {{ postgresql_max_wal_senders }}
 wal_keep_segments = {{ postgresql_wal_keep_segments }}
+shared_preload_libraries = 'auto_explain,pg_stat_statements'
+pg_stat_statements.max = {{ postgresql_pg_stat_statements_track }}
+pg_stat_statements.track = all
+auto_explain.log_min_duration = '{{ postgresql_auto_explain_min_duration_seconds }}s'
 
