@@ -43,6 +43,22 @@
   notify:
     - "restart postgres_exporter"
 
+- name: "Copy postgres_exporter queries.yml to /usr/local/etc"
+  copy:
+   src: "/root/go/src/github.com/wrouesnel/postgres_exporter/queries.yaml"
+   dest: "/usr/local/etc/postgres_exporter_queries.yml"
+   remote_src: yes
+  when:
+    - gitresult.changed
+  notify:
+    - "restart postgres_exporter"
+
+- name: "Add any custom queries to postgres_exporter_queries.yml"
+  blockinfile:
+    dest: "/usr/local/etc/postgres_exporter_queries.yml"
+    marker: "# custom postgres_exporter queries added by ansible below here - not part of the default distributed queries.yaml"
+    content: "{{ postgresql_exporter_extra_queries|default:{} | to_nice_yaml(indent=2) | indent(2,False) }}"
+
 - name: "Create supervisord.d config file to run postgres_exporter"
   include_role:
     name: "supervisord_server"
@@ -52,7 +68,7 @@
     supervisord_programs:
       - name: "postgres_exporter"
         comment: "run postgres_exporter"
-        command: "/usr/local/bin/postgres_exporter --auto-discover-databases"
+        command: "/usr/local/bin/postgres_exporter --auto-discover-databases --extend.query-path=/usr/local/etc/postgres_exporter_queries.yml"
         user: "{{ postgresql_user }}"
         environment:
           DATA_SOURCE_NAME: "postgresql://{{ ansible_nodename }}:5432/postgres?sslmode=disable"
