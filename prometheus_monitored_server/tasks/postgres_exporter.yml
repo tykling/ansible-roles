@@ -71,7 +71,8 @@
     supervisord_programs:
       - name: "postgres_exporter"
         comment: "run postgres_exporter"
-        command: "/usr/local/bin/postgres_exporter --auto-discover-databases --extend.query-path=/usr/local/etc/postgres_exporter_queries.yml"
+        #command: "/usr/local/bin/postgres_exporter --auto-discover-databases --extend.query-path=/usr/local/etc/postgres_exporter_queries.yml"
+        command: "/usr/local/bin/postgres_exporter --auto-discover-databases"
         user: "{{ postgresql_user }}"
         environment:
           DATA_SOURCE_NAME: "postgresql://{{ ansible_nodename }}:5432/postgres?sslmode=disable"
