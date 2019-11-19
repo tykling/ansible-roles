@@ -57,7 +57,10 @@
   blockinfile:
     dest: "/usr/local/etc/postgres_exporter_queries.yml"
     marker: "# custom postgres_exporter queries added by ansible below here - not part of the default distributed queries.yaml"
-    content: "{{ postgresql_exporter_extra_queries|default:{} | to_nice_yaml(indent=2) | indent(2,False) }}"
+    content: "{{ postgresql_exporter_extra_queries | to_nice_yaml(indent=2) | indent(2,False) }}"
+  when: postgresql_exporter_extra_queries is defined
+  notify:
+    - "restart postgres_exporter"
 
 - name: "Create supervisord.d config file to run postgres_exporter"
   include_role:
