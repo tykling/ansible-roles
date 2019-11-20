@@ -1,0 +1,7 @@
+---
+- name: "Enable RCTL in /boot/loader.conf (works after a reboot)"
+  sysrc:
+    dest: "/boot/loader.conf"
+    name: "kern.racct.enable"
+    value: "1"
+
