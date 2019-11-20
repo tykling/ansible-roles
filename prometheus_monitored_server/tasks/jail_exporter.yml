@@ -1,0 +1,40 @@
+---
+- name: "Get source code for postgres_exporter with git"
+  git:
+    repo: "https://github.com/phyber/jail_exporter"
+    dest: "/root/jail_exporter"
+    force: yes
+    version: "{{ jail_exporter_version }}"
+  register: gitresult
+
+- name: "Build jail_exporter"
+  command: "make release"
+  args:
+    chdir: "/root/jail_exporter"
+  when: gitresult.changed
+
+- name: "Copy jail_exporter binary to /usr/local/bin"
+  copy:
+   src: "/root/jail_exporter/target/release/jail_exporter"
+   dest: "/usr/local/bin/jail_exporter"
+   remote_src: yes
+  when:
+    - gitresult.changed
+  notify:
+    - "restart jail_exporter"
+
+- name: "Create supervisord.d config file to run jail_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "jail_exporter"
+    supervisord_programs:
+      - name: "jail_exporter"
+        comment: "run jail_exporter"
+        command: "/usr/local/bin/jail_exporter"
+        user: "root"
+    supervisord_extra_programs: []
+  notify:
+    - "restart jail_exporter"
+
