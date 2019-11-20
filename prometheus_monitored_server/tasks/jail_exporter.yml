@@ -7,11 +7,23 @@
     version: "{{ jail_exporter_version }}"
   register: gitresult
 
+- name: "Install rust for the build"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: rustresult
+
 - name: "Build jail_exporter"
   command: "make release"
   args:
     chdir: "/root/jail_exporter"
   when: gitresult.changed
+
+- name: "Uninstall rust if this role installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when: rustresult
 
 - name: "Copy jail_exporter binary to /usr/local/bin"
   copy:
