@@ -12,6 +12,7 @@
     name: "go"
     state: "present"
   register: rustresult
+  when: gitresult.changed
 
 - name: "Build jail_exporter"
   command: "make release"
@@ -23,7 +24,9 @@
   pkgng:
     name: "go"
     state: "absent"
-  when: rustresult
+  when:
+    - gitresult.changed
+    - rustresult
 
 - name: "Copy jail_exporter binary to /usr/local/bin"
   copy:
