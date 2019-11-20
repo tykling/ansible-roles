@@ -29,6 +29,7 @@
   copy:
    src: "/root/jail_exporter/target/release/jail_exporter"
    dest: "/usr/local/bin/jail_exporter"
+   mode: "0755"
    remote_src: yes
   when:
     - gitresult.changed
