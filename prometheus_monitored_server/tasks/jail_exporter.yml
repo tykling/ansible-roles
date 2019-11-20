@@ -9,7 +9,7 @@
 
 - name: "Install rust for the build"
   pkgng:
-    name: "go"
+    name: "rust"
     state: "present"
   register: rustresult
   when: gitresult.changed
