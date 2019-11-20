@@ -32,4 +32,10 @@ modules:
     http:
       port: 9248
 {% endif %}
+{% if 'ezjail_hosts' in group_names %}
+  jail_exporter:
+    method: http
+    http:
+      port: 9452
+{% endif %}
 
