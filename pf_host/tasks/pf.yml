@@ -8,7 +8,7 @@
 
 - name: "Setup pf.conf for jail/vm hosts"
   template:
-    src: "pf.conf.j2"
+    src: "pf-jail.conf.j2"
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
   when: pf_jail_vm_host
