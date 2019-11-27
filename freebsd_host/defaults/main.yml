@@ -3,9 +3,7 @@ default_host_packages:
   - "pftop"
   - "openntpd"
   - "dmidecode"
-  - "netdata"
   - "zfs-periodic"
-  - "zfs-stats"
 
 hardware_host_packages:
   - "smartmontools"
