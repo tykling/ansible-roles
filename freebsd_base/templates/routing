@@ -1,5 +1,5 @@
 # {{ item.name }}
-
+# {{ item.description }}
 route_{{ item.name }}="{{ item.route }}"
 static_routes="${static_routes} {{ item.name }}"
 
