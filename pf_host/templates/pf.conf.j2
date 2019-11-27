@@ -35,6 +35,13 @@ scrub in on $if all fragment reassemble
 {% endif %}
 
 
+############### outgoing translation NAT #################
+{{ pf_nat_rules | default("# No custom NAT rules found") }}
+
+############### incoming translation RDR ########################
+{{ pf_rdr_rules | default("# No RDR rules found") }}
+
+
 ####################################################################################################
 ############### filtering ##############################
 ### block everything
