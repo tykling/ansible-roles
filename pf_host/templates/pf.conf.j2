@@ -62,11 +62,15 @@ pass quick on ${{ if.macro }} proto carp keep state (no-sync)
 {% endif %}
 
 ### permit selected ICMP types on all interfaces
-{% for if in pf_interfaces|default:[{"macro": "if"}] %}
+{% if pf_interfaces is defined %}
+{% for if in pf_interfaces %}
 pass in quick on ${{ if.macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }
 pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 {% endfor %}
-
+{% else %}
+pass in quick on $if inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass in quick on $if inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+{% endif %}
 
 {% if vlans is defined %}
 #######################################################
