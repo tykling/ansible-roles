@@ -21,3 +21,10 @@
     line: "kern.ipc.semmni=200"
     state: "present"
 
+- name: "Enable randomized ip ids in /etc/sysctl.conf"
+  lineinfile:
+    dest: "/etc/sysctl.conf"
+    regexp: "^net.inet.ip.random_id="
+    line: "net.inet.ip.random_id=1"
+    state: "present"
+
