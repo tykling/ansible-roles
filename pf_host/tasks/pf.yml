@@ -22,8 +22,8 @@
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
   when:
-    - pf_jail_vm_host is not defined
-    - pf_anycast_host is not defined
+    - not pf_jail_vm_host
+    - not pf_anycast_host
   notify: "reload pf"
   tags:
     - "pf"
