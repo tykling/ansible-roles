@@ -79,6 +79,11 @@ pass in quick on $if inet proto icmp all icmp-type { unreach, echoreq, timex }
 pass in quick on $if inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
 {% endif %}
 
+{% if pf_interfaces is not defined %}
+### permit outgoing traffic
+pass out quick on $if from ($if)
+{% endif %}
+
 {% if vlans is defined %}
 #######################################################
 ### GENERAL CUSTOMER VLAN RULES BELOW HERE
