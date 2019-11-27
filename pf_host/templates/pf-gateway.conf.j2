@@ -66,7 +66,7 @@ pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, ech
 # Block all connections from this vlan to the firewall itself
 block in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network) to { {% for interface in pf_gateway_interfaces %}({{ interface.interface }}) {% endfor %}}
 # Permit all other traffic from this vlan
-pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network)
+pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} {% if vlan.route_to %} route-to ({{ vlan.route_to }}) {% endif %}from ({{ vlan.interface }}.{{ vlan.vlan }}:network)
 
 {% endfor %}
 
@@ -80,6 +80,7 @@ pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}
 {% if not rule.slow is defined %} quick{% endif %}
 {% if rule.block is defined or rule.log is defined %} log{% endif %}
 {% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}
+{% if rule.reply_to is defined %} reply-to ( {{ rule.reply_to }} }{% endif %}
 {% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}
 {% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}
 {% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}
