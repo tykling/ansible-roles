@@ -1,0 +1,9 @@
+---
+- name: "Configure static routing (Add /etc/rc.conf.d/routing/* files)"
+  template:
+    src: "routing"
+    dest: "/etc/rc.conf.d/routing/{{ item.name }}"
+  with_items: "{{ static_routes | default([]) }}"
+  tags:
+    - "routing"
+

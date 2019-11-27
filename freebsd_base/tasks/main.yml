@@ -1,4 +1,5 @@
 ---
+- include_tasks: "debug.yml"
 - include_tasks: "etchosts.yml"
 - include_tasks: "pkg.yml"
   when: "poudriere_client"
@@ -26,4 +27,8 @@
   when: vlans is defined
   tags:
     - "vlans"
+- include_tasks: "static_routes.yml"
+  when: static_routes is defined
+  tags:
+    - "routing"
 
