@@ -16,12 +16,14 @@
   tags:
     - "pf"
 
-- name: "Setup pf.conf for gateways"
+- name: "Setup pf.conf for regular hosts and gateways"
   template:
-    src: "pf-gateway.conf.j2"
+    src: "pf.conf.j2"
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
-  when: pf_gateway
+  when:
+    - pf_jail_vm_host is not defined
+    - pf_anycast_host is not defined
   notify: "reload pf"
   tags:
     - "pf"

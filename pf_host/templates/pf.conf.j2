@@ -1,0 +1,105 @@
+####################################################################################################
+### THIS pf.conf IS MANAGED BY ANSIBLE, CHANGES WILL BE OVERWRITTEN!
+####################################################################################################
+
+####################################################################################################
+################ options ###############################
+set limit states 500000 # increased from default 10000
+set limit frags 100000 # increased frm default 5000
+set block-policy drop
+
+
+####################################################################################################
+################ macros ################################
+{% if pf_interfaces is defined %}
+{% for interface in pf_interfaces %}
+{{ interface.macro }}="{{ interface.interface }}"
+{% endfor %}
+{% else %}
+if="{{ ansible_default_ipv4.device }}"
+{% endif %}
+
+################ common/shared address macros ###############
+{{ pf_common_address_macros | default("# No common macros found") }}
+
+################ macros specific to {{ ansible_nodename }} #######################
+{{ pf_local_address_macros | default("# No local macros found") }}
+
+
+###################################################################################################
+############### scrubbing ##############################
+{% if pf_interfaces is defined %}
+scrub in on { {% for interface in pf_gateway_interfaces %}{% if interface.scrub %}${{ interface.macro }} {% endif %}{% endfor %}} all fragment reassemble
+{% else %}
+scrub in on $if all fragment reassemble
+{% endif %}
+
+
+####################################################################################################
+############### filtering ##############################
+### block everything
+block log all
+
+### skip loopback interface(s)
+set skip on lo0
+
+{% if pf_interfaces is defined %}
+### permit pfsync traffic on all sync interfaces (if any)
+{% for if in pf_interfaces %}
+{% if if.sync %}
+pass quick on ${{ if.macro }} proto pfsync keep state (no-sync)
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if pf_interfaces is defined %}
+### permit CARP traffic on all CARP interfaces (if any)
+{% for if in pf_gateway_interfaces %}
+{% if if.carp %}
+pass quick on ${{ if.macro }} proto carp keep state (no-sync)
+{% endif %}
+{% endfor %}
+{% endif %}
+
+### permit selected ICMP types on all interfaces
+{% for if in pf_interfaces|default:[{"macro": "if"}] %}
+pass in quick on ${{ if.macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass in quick on ${{ if.macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol }
+{% endfor %}
+
+
+{% if vlans is defined %}
+#######################################################
+### GENERAL CUSTOMER VLAN RULES BELOW HERE
+
+{% for vlan in vlans %}
+## {{ vlan.name }}
+# vlan debug: {{ vlan }}
+# Block all connections from this vlan to the firewall itself
+block in quick on {{ vlan.interface }}.{{ vlan.vlan }} from ({{ vlan.interface }}.{{ vlan.vlan }}:network) to { {% for interface in pf_gateway_interfaces %}({{ interface.interface }}) {% endfor %}}
+# Permit all other traffic from this vlan
+pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} {% if vlan.route_to %}route-to ({{ vlan.route_to }}) {% endif %}from ({{ vlan.interface }}.{{ vlan.vlan }}:network)
+
+{% endfor %}
+{% endif %}
+
+#######################################################
+# CUSTOM FILTER RULES BELOW HERE
+
+{% for rule in pf_filter_rules %}
+# {{ rule.comment }}
+{% if rule.block is defined %}block{% else %}pass{% endif %}
+{% if rule.direction is defined %} {{ rule.direction }}{% endif %}
+{% if not rule.slow is defined %} quick{% endif %}
+{% if rule.block is defined or rule.log is defined %} log{% endif %}
+{% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}
+{% if rule.reply_to is defined %} reply-to ( {{ rule.reply_to }} ){% endif %}
+{% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}
+{% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}
+{% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}
+{% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}
+{% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}
+{% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
+
+{% endfor %}
+
