@@ -110,6 +110,7 @@ pass in quick on {{ vlan.interface }}.{{ vlan.vlan }} {% if vlan.route_to %}rout
 {% if rule.block is defined or rule.log is defined %} log{% endif %}
 {% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}
 {% if rule.reply_to is defined %} reply-to ( {{ rule.reply_to }} ){% endif %}
+{% if rule.inet is defined %} {{ rule.inet }}{% endif %}
 {% if rule.protocols is defined %} proto { {{ rule.protocols | join(" ") }} }{% endif %}
 {% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}
 {% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}
