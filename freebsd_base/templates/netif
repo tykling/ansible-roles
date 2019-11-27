@@ -11,7 +11,7 @@ ifconfig_{{ item.interface }}_{{ item.vlan }}_ipv6="inet6 {{ item.ips[inventory_
 
 {% if 'carp' in item.ips %}
 # configure CARP on the VLAN interface
-ifconfig_{{ item.interface }}_{{ item.vlan }}_aliases="inet vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips[inventory_hostname_short].advskew }} pass {{ item.ips['carp'].password }} {{ item.ips['carp'].v4ip }}/{{ item.v4net.split("/")[1] }} \
+ifconfig_{{ item.interface }}_{{ item.vlan }}_aliases="inet vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips[inventory_hostname_short].advskew }} pass {{ vlan_carp_password }} {{ item.ips['carp'].v4ip }}/{{ item.v4net.split("/")[1] }} \
                           inet6 vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips[inventory_hostname_short].advskew }} pass {{ item.ips['carp'].password }} {{ item.ips['carp'].v6ip }}/{{ item.v6net.split("/")[1] }}"
 {% endif %}
 
