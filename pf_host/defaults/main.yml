@@ -5,4 +5,11 @@ pf_jail_vm_host: no
 pf_gateway: no
 pf_anycast_host: no
 anycast_serviceinterface: no
+pf_interfaces:
+  - comment: "Upstream / outside interface"
+    macro: "if"
+    interface: "{{ ansible_default_ipv4.device }}"
+    scrub: True
+    sync: False
+    carp: False
 
