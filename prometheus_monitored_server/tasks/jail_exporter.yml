@@ -51,6 +51,4 @@
         command: "/usr/local/bin/jail_exporter"
         user: "root"
     supervisord_extra_programs: []
-  notify:
-    - "restart jail_exporter"
 

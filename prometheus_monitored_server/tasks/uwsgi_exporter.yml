@@ -62,6 +62,4 @@
         command: "/usr/local/bin/uwsgi_exporter --stats.uri=http://{{ ansible_nodename }}:1717"
         user: "nobody"
     supervisord_extra_programs: []
-  notify:
-    - "restart uwsgi_exporter"
 

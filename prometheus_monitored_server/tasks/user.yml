@@ -1,5 +1,5 @@
 ---
-- name: "Add prometheus user"
+- name: "Add prometheus exporter user"
   user:
     name: "{{ prometheus_exporter_user }}"
     comment: "Prometheus exporter user"

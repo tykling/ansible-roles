@@ -36,6 +36,4 @@
         command: "/usr/local/gstat_exporter/venv/bin/python /usr/local/gstat_exporter/gstat_exporter.py"
         user: "nobody"
     supervisord_extra_programs: []
-  notify:
-    - "restart gstat_exporter"
 

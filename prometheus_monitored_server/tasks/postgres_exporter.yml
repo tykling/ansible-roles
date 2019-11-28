@@ -77,6 +77,4 @@
         environment:
           DATA_SOURCE_NAME: "postgresql://{{ ansible_nodename }}:5432/postgres?sslmode=disable"
     supervisord_extra_programs: []
-  notify:
-    - "restart postgres_exporter"
 

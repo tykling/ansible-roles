@@ -48,6 +48,4 @@
         command: "/usr/local/bin/nginx_exporter -nginx.scrape-uri=http://{{ ansible_nodename }}/stub_status"
         user: "nobody"
     supervisord_extra_programs: []
-  notify:
-    - "restart nginx_exporter"
 
