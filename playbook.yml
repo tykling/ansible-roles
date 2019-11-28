@@ -61,12 +61,6 @@
   roles:
     - "chyves_host"
 
-- name: "censurfridns dns servers"
-  hosts: "cfd_dns_servers"
-  become: yes
-  roles:
-    - "cfd_dns_server"
-
 ##############################################################################
 ### application roles below here
 
