@@ -13,4 +13,6 @@
   when: "'freebsd_hosts' in group_names"
 - include_tasks: "jail_exporter.yml"
   when: "'ezjail_hosts' in group_names"
+- include_tasks: "bind_exporter.yml"
+  when: "'bind_servers' in group_names"
 

@@ -1,9 +1,0 @@
----
-- name: "Copy the prometheus bind_exporter binary into place"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-    src: "bind_exporter"
-    dest: "/usr/local/bin/bind_exporter"
-
