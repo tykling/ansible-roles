@@ -6,9 +6,11 @@ global:
 rule_files:
   - "/usr/local/etc/prometheus-rules.yml"
 
+{% if prometheus_alertmanager_configs is defined %}
 alerting:
   alertmanagers:
     {{ prometheus_alertmanager_configs | to_nice_yaml(indent=2) | indent(4,False) }}
+{% endif %}
 
 scrape_configs:
   - job_name: 'prometheus self-scrape'
