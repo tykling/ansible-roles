@@ -69,6 +69,7 @@ pass in quick on ${{ interface.macro }} inet6 proto icmp6 from { fe80::/10 ${{ i
 {% for interface in pf_interfaces %}
 ### permit outgoing traffic
 pass out quick on ${{ interface.macro }} from (${{ interface.macro }})
+{% endfor %}
 {% endif %}
 
 {% if vlans is defined %}
