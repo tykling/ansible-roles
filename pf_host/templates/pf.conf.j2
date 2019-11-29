@@ -51,14 +51,12 @@ set skip on lo0
 pass quick on ${{ interface.macro }} proto pfsync keep state (no-sync)
 {% endif %}
 {% endfor %}
-{% endif %}
 
 {% for interface in pf_interfaces %}
 {% if interface.carp %}
 pass quick on ${{ interface.macro }} proto carp keep state (no-sync)
 {% endif %}
 {% endfor %}
-{% endif %}
 
 ### permit selected ICMP types on all interfaces
 {% for interface in pf_interfaces %}
