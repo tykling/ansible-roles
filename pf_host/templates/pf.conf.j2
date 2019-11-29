@@ -60,8 +60,8 @@ pass quick on ${{ interface.macro }} proto carp keep state (no-sync)
 
 ### permit selected ICMP types on all interfaces
 {% for interface in pf_interfaces %}
-pass in quick on ${{ interface.macro }} inet proto icmp from any to (${{ interface.macro }}) icmp-type { unreach, echoreq, timex }
-pass in quick on ${{ interface.macro }} inet6 proto icmp6 from any to (${{ interface.macro }}) icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+pass in quick on ${{ interface.macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass in quick on ${{ interface.macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 pass in quick on ${{ interface.macro }} inet6 proto icmp6 from { fe80::/10 ${{ interface.macro }}:network } to ff02:0:0:0:0:1:ff00::/104 icmp6-type neighbrsol
 {% endfor %}
 
