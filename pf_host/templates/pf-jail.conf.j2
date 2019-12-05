@@ -12,7 +12,6 @@ set block-policy drop
 ####################################################################################################
 ################ macros ################################
 if="{{ ansible_default_ipv4.device }}"
-nat_if="lo1"
 jail_if="lo2"
 {% if anycast_serviceinterface %}
 svc_if="lo3"
@@ -45,9 +44,7 @@ scrub in on $if all fragment reassemble
 {{ pf_early_nat_rules | default("# No early custom NAT rules found") }}
 
 ############### translation NAT ########################
-# regular jail NAT
-nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
-# vnet jail NAT
+# NAT outgoing traffic from rfc1918 jails
 nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 
 ############### custom translation NAT #################
@@ -68,9 +65,11 @@ pass quick on lo0 inet6 from ::1 to ::1
 
 ### pass outgoing
 pass out quick on $if all
-pass out quick on $nat_if all
 pass out quick on $jail_if all
 pass out quick on lo0 all
+
+### pass incoming traffic to jails initiated by localhost
+pass in quick on lo0 from { 127.0.0.1, ::1 } to ($if) all
 
 ### pass incoming icmp4
 pass in quick on { $if $jail_if $nat_if } inet proto icmp from any to { ($if), ($jail_if), ($nat_if) } icmp-type { unreach, echoreq, timex }
