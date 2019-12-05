@@ -20,6 +20,8 @@ svc_if="lo3"
 
 {% if pf_jail_nat_ip is defined %}jail_nat_ip="{{ pf_jail_nat_ip }}"
 {% endif %}
+{% if jail_nat_range is defined %}jail_nat_range="{{ pf_jail_nat_range }}"
+{% endif %}
 main_v4_ip="{{ ansible_default_ipv4.address }}"
 {% if ansible_default_ipv6 %}main_v6_ip="{{ ansible_default_ipv6.address }}"
 {% endif %}
@@ -45,6 +47,8 @@ scrub in on $if all fragment reassemble
 ############### translation NAT ########################
 # regular jail NAT
 nat on $if from ($nat_if) to ! ($if) -> $jail_nat_ip
+# vnet jail NAT
+nat on $if from $jail_nat_range to ! ($if) -> $jail_nat_ip
 
 ############### custom translation NAT #################
 {{ pf_nat_rules | default("# No custom NAT rules found") }}
