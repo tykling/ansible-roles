@@ -72,6 +72,9 @@ pass out quick on $nat_if all
 pass out quick on $jail_if all
 pass out quick on lo0 all
 
+### pass incoming traffic to jails initiated by localhost
+pass in quick on lo0 from { 127.0.0.1, ::1 } to ($if) all
+
 ### pass incoming icmp4
 pass in quick on { $if $jail_if $nat_if } inet proto icmp from any to { ($if), ($jail_if), ($nat_if) } icmp-type { unreach, echoreq, timex }
 
