@@ -6,8 +6,8 @@ command={{ item.command }}
 {% if item.numprocs is defined and item.numprocs | int > 1 %}process_name=%(program_name)s_%(process_num)02d
 {% endif %}
 user={{ item.user }}
-stdout_logfile=syslog
-stderr_logfile=syslog
+stdout_syslog=True
+stderr_syslog=True
 startsecs={{ item.startsecs | default(5) }}
 {% if item.numprocs is defined and item.numprocs | int > 1 %}numprocs={{ item.numprocs | default(1) }}
 {% endif %}
