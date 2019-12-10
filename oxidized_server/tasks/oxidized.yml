@@ -1,0 +1,22 @@
+---
+- name: "Install oxidized, oxidized-script and oxidized-web"
+  pkgng:
+    name:
+      - "rubygem-oxidized"
+      - "rubygem-oxidized-script"
+      - "rubygem-oxidized-web"
+    state: "present"
+
+- name: "Create supervisord.d config file to run oxidized"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "oxidized"
+    supervisord_programs:
+      - name: "oxidized"
+        comment: "run oxidized"
+        command: "/usr/local/bin/ruby26 /usr/local/bin/oxidized"
+        user: "{{ oxidized_user }}"
+        priority: "1"
+

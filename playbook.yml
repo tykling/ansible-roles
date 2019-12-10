@@ -394,3 +394,9 @@
   roles:
     - "prometheus_monitored_server"
 
+- name: "configure oxidized servers"
+  hosts: "oxidized_servers"
+  become: yes
+  roles:
+    - "oxidized_server"
+
