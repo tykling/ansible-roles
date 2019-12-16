@@ -26,7 +26,7 @@
   args:
     chdir: "{{ nipap_checkout_path }}/nipap-www"
     executable: "/usr/local/bin/bash"
-    creates: "/usr/local/lib/python2.7/site-packages/nipap_www-0.29.8-py3.7.egg/nipapwww"
+    creates: "/usr/local/lib/python3.7/site-packages/nipap_www-0.29.8-py3.7.egg/nipapwww"
 
 - name: "Fix permissions of /var/cache/nipap-www/"
   file:
