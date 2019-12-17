@@ -47,7 +47,7 @@ scrape_configs:
 {% endif %}
 {% if job.labels is defined %}
         labels:
-{% for key, value in job.labels.iteritems() %}
+{% for key, value in job.labels.items() %}
           "{{ key }}": "{{ value }}"
 {% endfor %}
 {% endif %}

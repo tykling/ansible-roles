@@ -21,7 +21,7 @@ $PROFILERS = 2;
 $DISKLIMIT = 98;
 $PROFILERS = 6;
 %sources = (
-    {% for name, value in nfsen_sources.iteritems() %}
+    {% for name, value in nfsen_sources.items() %}
     '{{ name }}'        => { 'port' => '{{ value.port }}', 'col'=> '{{ value.colour }}', 'type'=> '{{ value.type }}' , 'optarg' => '{{ value.optarg }}'},
     {% endfor %}
 );
