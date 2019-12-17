@@ -4,7 +4,8 @@ create_partitions() {
     DATABASE=$1
     USER=$2
     PARENT=$3
-    DAYS=$4
+    COLUMN=$4
+    DAYS=$5
 
     # check if we have a default partition for this table
     /usr/local/bin/psql -c "\d ${PARENT}_default;" ${DATABASE} ${USER} > /dev/null 2>&1
@@ -15,10 +16,7 @@ create_partitions() {
 
     echo "--- Creating $DAYS partitions for database $DATABASE user $USER parent table $PARENT"
     for DAY in $(seq 1 ${DAYS}); do
-        PARTITION="${PARENT}_$(date -v"+${DAY}d" +%Y_%m_%d)"
-        START=$(date -v"+${DAY}d" +%Y-%m-%d)
-        END=$(date -v"+$(echo ${DAY}+1|bc)d" +%Y-%m-%d)
-        create_partition "${DATABASE}" "${USER}" "${PARENT}" "${PARTITION}" "${START}" "${END}"
+        create_partition "${DATABASE}" "${USER}" "${PARENT}" "${COLUMN}" "${DAY}"
     done
 }
 
@@ -26,22 +24,35 @@ create_partition() {
     DATABASE=$1
     USER=$2
     PARENT=$3
-    PARTITION=$4
-    START=$5
-    END=$6
+    COLUMN=$4
+    DAY=$5
+    PARTITION=${PARENT}_$(date -v"+${DAY}d" +%Y_%m_%d)
+    START=$(date -v"+${DAY}d" +%Y-%m-%d)
+    END=$(date -v"+$(echo ${DAY}+1|bc)d" +%Y-%m-%d)
+    CONSTRAINT=${COLUMN}_not_$(date -v"+${DAY}d" +%Y_%m_%d)
 
     # create the partition
     echo "--- Creating table $PARTITION like table $PARENT in database $DATABASE with user $USER"
     /usr/local/bin/psql -c "CREATE TABLE IF NOT EXISTS ${PARTITION} (LIKE ${PARENT} INCLUDING ALL);" ${DATABASE} ${USER}
 
-    # attach the partition
+    # add constraint for the partition dates to default partition so postgres doesn't have to do a scan when attaching the partition
+    echo "--- Adding constraint ${CONSTRAINT} to default partition ${PARENT}_default"
+    /usr/local/bin/psql -c "ALTER TABLE ${PARENT}_default ADD CONSTRAINT ${CONSTRAINT} CHECK ( eventtime not between '${START}' AND '${END}' ) NOT VALID;" ${DATABASE} ${USER}
+
+    # validating the constraint requires a full table scan (indexes are not used), but it does not lock read/writes, only DDL changes
+    echo "--- Validating constraint ${CONSTRAINT} on default partition ${PARENT}_default"
+    /usr/local/bin/psql -c "ALTER TABLE ${PARENT}_default VALIDATE CONSTRAINT ${CONSTRAINT};" ${DATABASE} ${USER}
+
+    # attach the partition, this should be almost instant, made possible by the constraint above
     echo "--- Attaching partition $PARTITION to parent table table $PARENT for values from ${START} to ${END}"
     /usr/local/bin/psql -c "ALTER TABLE ${PARENT} ATTACH PARTITION ${PARTITION} FOR VALUES FROM ( '${START}' ) TO ( '${END}' );" ${DATABASE} ${USER}
+
+    echo "--- Done attaching partition $PARTITION to parent table table $PARENT for values from ${START} to ${END}"
 }
 
 {% for database in postgresql_partitioning_databases %}
 {% for table in database['tables'] %}
-create_partitions "{{ database.database }}" "{{ database.user }}" "{{ table }}" "{{ postgresql_partitioning_days_ahead }}"
+create_partitions "{{ database.database }}" "{{ database.user }}" "{{ table.table }}" "{{ table.column }}" "{{ postgresql_partitioning_days_ahead }}"
 {% endfor %}
 {% endfor %}
 
