@@ -37,7 +37,7 @@ create_partition() {
 
     # add constraint for the partition dates to default partition so postgres doesn't have to do a scan when attaching the partition
     echo "--- Adding constraint ${CONSTRAINT} to default partition ${PARENT}_default"
-    /usr/local/bin/psql -c "ALTER TABLE ${PARENT}_default ADD CONSTRAINT ${CONSTRAINT} CHECK ( eventtime not between '${START}' AND '${END}' ) NOT VALID;" ${DATABASE} ${USER}
+    /usr/local/bin/psql -c "ALTER TABLE ${PARENT}_default ADD CONSTRAINT ${CONSTRAINT} CHECK ( ${COLUMN} not between '${START}' AND '${END}' ) NOT VALID;" ${DATABASE} ${USER}
 
     # validating the constraint requires a full table scan (indexes are not used), but it does not lock read/writes, only DDL changes
     echo "--- Validating constraint ${CONSTRAINT} on default partition ${PARENT}_default"
