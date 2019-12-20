@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python2.7
 
 # Configuration variables - Change these for your site if necessary.
 MailmanHome = "/usr/local/mailman"; # Mailman home directory.
