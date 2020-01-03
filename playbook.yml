@@ -400,3 +400,9 @@
   roles:
     - "oxidized_server"
 
+- name: "configure certgrinder clients"
+  hosts: "certgrinder_clients"
+  become: yes
+  roles:
+    - "certgrinder_client"
+
