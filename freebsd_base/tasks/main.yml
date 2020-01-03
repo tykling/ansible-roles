@@ -1,5 +1,6 @@
 ---
 - include_tasks: "debug.yml"
+- include_tasks: "resolvconf.yml"
 - include_tasks: "etchosts.yml"
 - include_tasks: "pkg.yml"
   when: "poudriere_client"
@@ -14,7 +15,6 @@
   tags:
     - "ansiblekeys"
 - include_tasks: "motd.yml"
-- include_tasks: "resolvconf.yml"
 - include_tasks: "sshd.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "resolvconf.yml"
