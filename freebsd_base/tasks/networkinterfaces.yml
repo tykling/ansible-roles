@@ -3,7 +3,7 @@
   template:
     src: "netif"
     dest: "/etc/rc.conf.d/netif/{{ item.name }}"
-  with_items: "{{ network_interfaces | default([]) }}"
+  with_items: "{{ network_interfaces }}"
   tags:
-    - "networkinterfaces"
+    - "network"
 

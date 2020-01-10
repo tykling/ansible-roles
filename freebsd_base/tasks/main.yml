@@ -23,10 +23,10 @@
   when: "'postfix_servers' not in group_names"
 - include_tasks: "newsyslog.yml"
 - include_tasks: "extra-cron.d-jobs.yml"
-- include_tasks: "vlans.yml"
-  when: vlans is defined
+- include_tasks: "networkinterfaces.yml"
+  when: network_interfaces is defined
   tags:
-    - "vlans"
+    - "network"
 - include_tasks: "static_routes.yml"
   when: static_routes is defined
   tags:
