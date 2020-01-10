@@ -5,11 +5,17 @@ pf_jail_vm_host: no
 pf_gateway: no
 pf_anycast_host: no
 anycast_serviceinterface: no
-pf_interfaces:
+network_interfaces:
   - comment: "Upstream / outside interface"
-    macro: "if"
     interface: "{{ ansible_default_ipv4.device }}"
-    scrub: True
-    sync: False
-    carp: False
+    configure: False
+    v4net: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask | ipaddr('prefix') }}"
+    v6net: "{{ ansible_default_ipv6.network }}/{{ ansible_default_ipv6.netmask | ipaddr('prefix') }}"
+    pf_macro: "if"
+    pf_scrub: True
+    pf_sync: False
+    pf_carp: False
+
+network_interfaces["ips"][{{ ansible_host }}]["v4ip"]: "{{ ansible_default_ipv4.address }}"
+network_interfaces["ips"][{{ ansible_host }}]["v6ip"]: "{{ ansible_default_ipv6.address }}"
 
