@@ -16,6 +16,7 @@ set block-policy drop
 {{ interface.pf_macro }}="{{ interface.interface }}.{{ interface.vlan }}"
 {% else %}
 {{ interface.pf_macro }}="{{ interface.interface }}"
+{% endif %}
 {% endfor %}
 
 ################ common/shared address macros ###############
