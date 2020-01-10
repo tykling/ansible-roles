@@ -1,7 +1,7 @@
 ---
 - name: "Configure network interfaces (Add /etc/rc.conf.d/netif/* files)"
   template:
-    src: "netif"
+    src: "netif.j2"
     dest: "/etc/rc.conf.d/netif/{{ item.name }}"
   with_items: "{{ network_interfaces }}"
   tags:

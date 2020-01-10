@@ -2,11 +2,11 @@
 # {{ item.description }}
 
 {% if item.vlan is defined %}
-{% set interface = {{ item.interface }}_{{ item.vlan }} %}
+{% set interface = item.interface ~ "_" ~ item.vlan %}
 # create the VLAN interface
 vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 {% else %}
-{% set interface = {{ item.interface }} %}
+{% set interface = item.interface %}
 {% endif %}
 
 {% if item.ips[inventory_hostname_short].v4ip is defined %}
