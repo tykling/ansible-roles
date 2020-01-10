@@ -4,6 +4,7 @@
     src: "netif.j2"
     dest: "/etc/rc.conf.d/netif/{{ item.name }}"
   with_items: "{{ network_interfaces }}"
+  when: item.configure
   tags:
     - "network"
 
