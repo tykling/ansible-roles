@@ -90,7 +90,6 @@ pass in quick on {{ interface.pf_macro }} {% if interface.route_to is defined %}
 pass out quick on {{ interface.pf_macro }} from { {% for iface in network_interfaces %}({{ iface.pf_macro }}) {% endfor %}} to ({{ interface.pf_macro }}:network)
 
 {% endfor %}
-{% endif %}
 
 #######################################################
 # CUSTOM FILTER RULES BELOW HERE
