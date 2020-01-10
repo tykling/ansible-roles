@@ -110,5 +110,6 @@ pass out quick on {{ interface.pf_macro }} from { {% for iface in network_interf
 {% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}
 {% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
 
+
 {% endfor %}
 
