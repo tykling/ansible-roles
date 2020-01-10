@@ -84,8 +84,8 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 # interface debug: {{ interface }}
 # Block all connections from this network to the firewall itself
 block in quick on {{ interface.pf_macro }} from ({{ interface.pf_macro }}:network) to { {% for iface in network_interfaces %}({{ iface.pf_macro }}) {% endfor %}}
-# Permit all other traffic from this vlan
-pass in quick on {{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ vlan.route_to }}) {% endif %}from ({{ interface.pf_macro }}:network)
+# Permit all other traffic from this interface
+pass in quick on {{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ interface.route_to }}) {% endif %}from ({{ interface.pf_macro }}:network)
 # Permit traffic from the firewall itself to this network
 pass out quick on {{ interface.pf_macro }} from { {% for iface in network_interfaces %}({{ iface.pf_macro }}) {% endfor %}} to ({{ interface.pf_macro }}:network)
 
