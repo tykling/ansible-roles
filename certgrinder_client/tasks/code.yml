@@ -4,5 +4,5 @@
     repo: "https://github.com/tykling/certgrinder"
     dest: "/usr/home/{{ certgrinder_user }}/certgrinder"
     force: yes
-    version: "v0.12.1"
+    version: "{{ certgrinder_version }}"
 

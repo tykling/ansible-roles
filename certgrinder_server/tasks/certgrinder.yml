@@ -4,7 +4,7 @@
     repo: "https://github.com/tykling/certgrinder"
     dest: "/usr/home/{{ certgrinder_user }}/certgrinder"
     force: yes
-    version: "master"
+    version: "{{ certgrinder_version }}"
 
 - name: "Install csrgrinder.conf"
   copy:
