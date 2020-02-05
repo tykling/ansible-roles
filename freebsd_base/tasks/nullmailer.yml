@@ -26,6 +26,7 @@
     name: "postfix"
     state: "absent"
   when: postfixresult is changed
+  notify: "send postfix uninstalled email"
 
 - name: "Install nullmailer"
   pkgng:
@@ -51,7 +52,8 @@
   service:
     name: "nullmailer"
     enabled: yes
-  notify: "start nullmailer"
+  notify:
+    - "start nullmailer"
 
 - name: "create /usr/local/etc/mail/ if needed"
   file:
@@ -68,11 +70,4 @@
     mode: "0644"
     owner: "root"
     group: "wheel"
-
-- name: "postfix uninstalled email"
-  mail:
-    to: "{{ certgrinder_admin_email }}"
-    subject: "postfix has been replaced with nullmailer on host {{ ansible_host }}"
-    body: "Ansible has uninstalled postfix and installed nullmailer on host {{ ansible_host }}. Please run pkg autoremove on {{ ansible_host }} to clean up dependencies that are no longer needed."
-  when: postfixresult is changed
 
