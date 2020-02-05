@@ -63,7 +63,7 @@
 
 - name: "activate nullmailer as mailer program"
   copy:
-    src: "mailer.conf"
+    src: "nullmailer.conf"
     dest: "/usr/local/etc/mail/mailer.conf"
     mode: "0644"
     owner: "root"
