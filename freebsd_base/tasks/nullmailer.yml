@@ -1,0 +1,59 @@
+---
+- name: "Disable sendmail"
+  sysrc:
+    name: "sendmail_enable"
+    value: "none"
+  register: disableresult
+
+- name: "onestop sendmail when needed"
+  command: "/usr/sbin/service sendmail onestop"
+  ignore_errors: True
+  when: disableresult is changed
+
+- name: "Install nullmailer"
+  pkgng:
+    name: "nullmailer"
+    state: "present"
+
+- name: "Create the nullmailer remotes file"
+  template:
+    src: "nullmailer-remotes.j2"
+    dest: "/usr/local/etc/nullmailer/remotes"
+  notify: "restart nullmailer"
+
+- name: "write hostname to nullmailer me file"
+  copy:
+    content: "{{ ansible_nodename }}"
+    dest: "/usr/local/etc/nullmailer/me"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+  notify: "restart nullmailer"
+
+- name: "Enable and start nullmailer"
+  service:
+    name: "nullmailer"
+    enabled: yes
+  notify: "start nullmailer"
+
+- name: "create /usr/local/etc/mail/ if needed"
+  file:
+    path: "/usr/local/etc/mail/"
+    state: directory
+    mode: "755"
+    owner: "root"
+    group: "wheel"
+
+- name: "activate nullmailer as mailer program"
+  copy:
+    src: "mailer.conf"
+    dest: "/usr/local/etc/mail/mailer.conf"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+
+- name: "Uninstall postfix (from before nullmailer)"
+  pkgng:
+    name: "postfix"
+    state: "absent"
+

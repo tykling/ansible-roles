@@ -2,6 +2,7 @@
 dns_resolver_ips:
   - '91.239.100.100'
   - '89.233.43.71'
+
 packages:
   - "tmux"
   - "screen"
@@ -10,7 +11,7 @@ packages:
   - "git"
   - "bash"
   - "vim-console"
-  - "postfix"
+
 poudriere_client: True
 
 disable_ssh_password_login: True
