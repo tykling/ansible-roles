@@ -96,7 +96,6 @@ pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is define
 pass in quick on ${{ interface.pf_macro }} inet6 proto icmp6 from any to <firewalls_own_ips> icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 # permit incoming ICMP6 to other destinations, route-to as needed
 pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
-{% endfor %}
 
 {% if interface.pf_sync %}
 ### permit pfsync on this interface
