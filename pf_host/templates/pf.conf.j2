@@ -108,8 +108,12 @@ pass quick on ${{ interface.pf_macro }} proto carp keep state (no-sync)
 {% endif %}
 
 # Permit all remaining inbound traffic on this interface
+{% if "v4net" in interface %}
 pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is defined %}route-to ({{ interface.route_to_v4 }}) {% endif %}inet from ${{ interface.pf_macro }}:network to <not_firewalls_own_ips>
+{% endif %}
+{% if "v6net" in interface %}
 pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 from ${{ interface.pf_macro }}:network to <not_firewalls_own_ips>
+{% endif %}
 
 # Permit traffic from the firewall itself to this network
 pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to ${{ interface.pf_macro }}:network
