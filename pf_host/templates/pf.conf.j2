@@ -19,6 +19,9 @@ set block-policy drop
 {% endif %}
 {% endfor %}
 
+table <firewalls_own_ips> { {% for interface in network_interfaces %}{% for ip in interface["ips"] %}{% if "v4ip" in interface["ips"][ip] %}{{ interface["ips"][ip]["v4ip"] }} {% endif %}{% if "v6ip" in interface["ips"][ip] %}{{ interface["ips"][ip]["v6ip"] }} {% endif %}{% endfor %}{% endfor %} }
+table <not_firewalls_own_ips> { {% for interface in network_interfaces %}{% for ip in interface["ips"] %}{% if "v4ip" in interface["ips"][ip] %}!{{ interface["ips"][ip]["v4ip"] }} {% endif %}{% if "v6ip" in interface["ips"][ip] %}!{{ interface["ips"][ip]["v6ip"] }} {% endif %}{% endfor %}{% endfor %} }
+
 ################ common/shared address macros ###############
 {{ pf_common_address_macros | default("# No common macros found") }}
 
@@ -48,26 +51,6 @@ block log all
 
 ### skip loopback interface(s)
 set skip on lo0
-
-{% for interface in network_interfaces %}
-{% if interface.pf_sync %}
-### permit pfsync traffic
-pass quick on ${{ interface.pf_macro }} proto pfsync keep state (no-sync)
-{% endif %}
-{% endfor %}
-
-{% for interface in network_interfaces %}
-{% if interface.pf_carp %}
-pass quick on ${{ interface.pf_macro }} proto carp keep state (no-sync)
-{% endif %}
-{% endfor %}
-
-### permit selected ICMP types inbound on all interfaces
-{% for interface in network_interfaces %}
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is defined %}route-to ({{ interface.route_to_v4 }}) {% endif %}inet proto icmp all icmp-type { unreach, echoreq, timex }
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 from { fe80::/10 ${{ interface.pf_macro }}:network } to ff02:0:0:0:0:1:ff00::/104 icmp6-type neighbrsol
-{% endfor %}
 
 {% if network_interfaces|length == 1 %}
 {% for interface in network_interfaces %}
@@ -104,12 +87,33 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 {% for interface in network_interfaces %}
 ## {{ interface.interface }} - {{ interface.description }}
 # interface debug: {{ interface }}
-# Block all connections from this network to the firewall itself
-block in quick log on ${{ interface.pf_macro }} from (${{ interface.pf_macro }}:network) to { {% for iface in network_interfaces %}(${{ iface.pf_macro }}) {% endfor %}}
-# Permit all other traffic from this interface
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ interface.route_to }}) {% endif %}from ${{ interface.pf_macro }}:network
+
+# permit incoming ICMP4 to the firewall itself
+pass in quick on ${{ interface.pf_macro }} inet proto icmp from any to <firewalls_own_ips> icmp-type { unreach, echoreq, timex }
+# permit incoming ICMP4 to other destinations, route-to as needed
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is defined %}route-to ({{ interface.route_to_v4 }}) {% endif %}inet proto icmp all icmp-type { unreach, echoreq, timex }
+# permit incoming ICMP6 to the firewall itself
+pass in quick on ${{ interface.pf_macro }} inet6 proto icmp6 from any to <firewalls_own_ips> icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+# permit incoming ICMP6 to other destinations, route-to as needed
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+{% endfor %}
+
+{% if interface.pf_sync %}
+### permit pfsync on this interface
+pass quick on ${{ interface.pf_macro }} proto pfsync keep state (no-sync)
+{% endif %}
+
+{% if interface.pf_carp %}
+### permit CARP on this interface
+pass quick on ${{ interface.pf_macro }} proto carp keep state (no-sync)
+{% endif %}
+
+# Permit all remaining inbound traffic on this interface
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is defined %}route-to ({{ interface.route_to_v4 }}) {% endif %}inet from ${{ interface.pf_macro }}:network to <not_firewalls_own_ips>
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 from ${{ interface.pf_macro }}:network to <not_firewalls_own_ips>
+
 # Permit traffic from the firewall itself to this network
-pass out quick on ${{ interface.pf_macro }} from { {% for iface in network_interfaces %}(${{ iface.pf_macro }}) {% endfor %}} to ${{ interface.pf_macro }}:network
+pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to ${{ interface.pf_macro }}:network
 
 {% endfor %}
 
