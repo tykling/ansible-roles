@@ -64,9 +64,9 @@ pass quick on ${{ interface.pf_macro }} proto carp keep state (no-sync)
 
 ### permit selected ICMP types inbound on all interfaces
 {% for interface in network_interfaces %}
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ interface.route_to }}) {% endif %}inet proto icmp all icmp-type { unreach, echoreq, timex }
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ interface.route_to }}) {% endif %}inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
-pass in quick on ${{ interface.pf_macro }} {% if interface.route_to is defined %}route-to ({{ interface.route_to }}) {% endif %}inet6 proto icmp6 from { fe80::/10 ${{ interface.pf_macro }}:network } to ff02:0:0:0:0:1:ff00::/104 icmp6-type neighbrsol
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v4 is defined %}route-to ({{ interface.route_to_v4 }}) {% endif %}inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+pass in quick on ${{ interface.pf_macro }} {% if interface.route_to_v6 is defined %}route-to ({{ interface.route_to_v6 }}) {% endif %}inet6 proto icmp6 from { fe80::/10 ${{ interface.pf_macro }}:network } to ff02:0:0:0:0:1:ff00::/104 icmp6-type neighbrsol
 {% endfor %}
 
 {% if network_interfaces|length == 1 %}
