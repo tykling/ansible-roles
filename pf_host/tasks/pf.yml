@@ -21,19 +21,7 @@
     src: "pf.conf.j2"
     dest: "{{ pf_conf_path }}"
     validate: 'pfctl -n -f %s'
-  when:
-    - not pf_jail_vm_host
-    - not pf_anycast_host
-  notify: "reload pf"
-  tags:
-    - "pf"
-
-- name: "Setup pf.conf for anycast hosts"
-  template:
-    src: "pf-anycast.conf.j2"
-    dest: "{{ pf_conf_path }}"
-    validate: 'pfctl -n -f %s'
-  when: pf_anycast_host
+  when: not pf_jail_vm_host
   notify: "reload pf"
   tags:
     - "pf"
