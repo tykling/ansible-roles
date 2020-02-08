@@ -47,6 +47,15 @@
     group: "wheel"
   notify: "restart nullmailer"
 
+- name: "write admin email to nullmailer adminaddr file"
+  copy:
+    content: "{{ ansible_admin_email }}"
+    dest: "/usr/local/etc/nullmailer/adminaddr"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+  notify: "restart nullmailer"
+
 - name: "Enable and start nullmailer"
   service:
     name: "nullmailer"
