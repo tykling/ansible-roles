@@ -104,6 +104,11 @@ pass in quick on ${{ interface.pf_macro }}
 # Permit traffic from the firewall itself on this interface
 pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
 
+{% if interface.pf_upstream %}
+# this is an upstream interface, permit all remaining outgoing traffic
+pass out quick on ${{ interface.pf_macro }} all
+{% endif %}
+
 {% if interface.pf_sync %}
 # permit pfsync on this interface
 pass quick on ${{ interface.pf_macro }} proto pfsync keep state (no-sync)
