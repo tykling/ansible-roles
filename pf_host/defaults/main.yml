@@ -9,13 +9,8 @@ network_interfaces:
   - description: "Upstream / outside interface"
     interface: "{{ ansible_default_ipv4.device }}"
     configure: False
-    v4net: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask | ipaddr('prefix') }}"
-    v6net: "{{ ansible_default_ipv6.network }}/{{ ansible_default_ipv6.prefix }}"
     pf_macro: "if"
     pf_scrub: True
     pf_sync: False
     pf_carp: False
-
-network_interfaces["ips"][{{ ansible_host }}]["v4ip"]: "{{ ansible_default_ipv4.address }}"
-network_interfaces["ips"][{{ ansible_host }}]["v6ip"]: "{{ ansible_default_ipv6.address }}"
 

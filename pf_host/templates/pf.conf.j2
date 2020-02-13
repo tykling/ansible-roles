@@ -19,8 +19,8 @@ set block-policy drop
 {% endif %}
 {% endfor %}
 
-table <firewalls_own_ips> { {% for interface in network_interfaces %}{% for ip in interface["ips"] %}{% if "v4ip" in interface["ips"][ip] %}{{ interface["ips"][ip]["v4ip"] }} {% endif %}{% if "v6ip" in interface["ips"][ip] %}{{ interface["ips"][ip]["v6ip"] }} {% endif %}{% endfor %}{% endfor %} }
-table <not_firewalls_own_ips> { {% for interface in network_interfaces %}{% for ip in interface["ips"] %}{% if "v4ip" in interface["ips"][ip] %}!{{ interface["ips"][ip]["v4ip"] }} {% endif %}{% if "v6ip" in interface["ips"][ip] %}!{{ interface["ips"][ip]["v6ip"] }} {% endif %}{% endfor %}{% endfor %} 0/0 0::/0 }
+table <firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}{{ ip }} {% endfor %} }
+table <not_firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
 
 ################ common/shared address macros ###############
 {{ pf_common_address_macros | default("# No common macros found") }}
