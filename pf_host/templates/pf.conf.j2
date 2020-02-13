@@ -74,7 +74,7 @@ pass in quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unrea
 pass in quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 
 # block remaining inbound traffic to the firewalls own IPs on this interface
-block in quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
+block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 
 # Permit all remaining inbound traffic on this interface
 pass in quick on ${{ interface.pf_macro }}
