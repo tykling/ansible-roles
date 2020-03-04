@@ -102,6 +102,7 @@
         -o smtpd_recipient_restrictions=
         -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
         -o milter_macro_daemon_name=ORIGINATING
+        -o header_checks=regexp:/usr/local/etc/postfix/privacy_header_checks.regexp
   notify: "reload postfix"
 
 - name: "Enable smtps (465) in master.cf"
@@ -121,6 +122,7 @@
         -o smtpd_recipient_restrictions=
         -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
         -o milter_macro_daemon_name=ORIGINATING
+        -o header_checks=regexp:/usr/local/etc/postfix/privacy_header_checks.regexp
   notify: "reload postfix"
 
 - name: "Change so we keep a years maillogs in newsyslog.conf"
@@ -128,6 +130,23 @@
     dest: "/etc/newsyslog.conf"
     regexp: "^/var/log/maillog"
     line: "/var/log/maillog                        640  365   *    @T00  JC"
+
+- name: "Write privacy_header_checks.regexp file"
+  copy:
+    dest: "/usr/local/etc/postfix/privacy_header_checks.regexp"
+    mode: "0640"
+    owner: "root"
+    group: "wheel"
+    content: |
+      # Remove Received: header showing clients ip for authenticated locally submitted email
+      /^Received:.* with ESMTPSA id/ IGNORE
+
+      # Remove X-Originating-IP
+      /^X-Originating-IP:/ IGNORE
+
+      # Remove X-Mailer and User-Agent
+      /^X-Mailer:/ IGNORE
+      /^User-Agent:/ IGNORE
 
 - name: "enable Postfix in mailer.conf"
   copy:
