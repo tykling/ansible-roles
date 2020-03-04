@@ -92,6 +92,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK submission"
     content: |
       submission inet n       -       n       -       -       smtpd
+        -o cleanup_service_name=$privacy_cleanup_service_name
         -o syslog_name=postfix/submission
         -o smtpd_tls_security_level=encrypt
         -o smtpd_sasl_auth_enable=yes
@@ -102,7 +103,6 @@
         -o smtpd_recipient_restrictions=
         -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
         -o milter_macro_daemon_name=ORIGINATING
-        -o header_checks=regexp:/usr/local/etc/postfix/privacy_header_checks.regexp
   notify: "reload postfix"
 
 - name: "Enable smtps (465) in master.cf"
@@ -112,6 +112,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK smtps"
     content: |
       smtps     inet  n       -       n       -       -       smtpd
+        -o cleanup_service_name=$privacy_cleanup_service_name
         -o syslog_name=postfix/smtps
         -o smtpd_tls_wrappermode=yes
         -o smtpd_sasl_auth_enable=yes
@@ -122,7 +123,16 @@
         -o smtpd_recipient_restrictions=
         -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
         -o milter_macro_daemon_name=ORIGINATING
-        -o header_checks=regexp:/usr/local/etc/postfix/privacy_header_checks.regexp
+  notify: "reload postfix"
+
+- name: "Enable privacy_cleanup service in master.cf"
+  blockinfile:
+    create: yes
+    dest: "/usr/local/etc/postfix/master.cf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK privacy_cleanup"
+    content: |
+      privacy_cleanup   unix  n       -       n       -       0       cleanup
+        -o header_checks=$privacy_header_checks
   notify: "reload postfix"
 
 - name: "Change so we keep a years maillogs in newsyslog.conf"

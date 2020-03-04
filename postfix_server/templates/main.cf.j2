@@ -82,3 +82,7 @@ compatibility_level=2
 mailbox_size_limit=102400000
 message_size_limit=102400000
 
+# privacy cleanup service (to remove sensitive headers from submitted email)
+privacy_cleanup_service_name = privacy_cleanup
+privacy_header_checks = regexp:/usr/local/etc/postfix/privacy_header_checks.regexp
+
