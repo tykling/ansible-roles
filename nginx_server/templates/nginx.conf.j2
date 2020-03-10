@@ -21,6 +21,10 @@ http {
     log_format                  timing '$time_local - $http_host - $remote_addr:$remote_port - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id - upstream: $upstream_addr';
     access_log                  /usr/local/www/logs/proxytiming.log timing;
     access_log                  syslog:server=unix:/var/run/log timing; # defaults to facility local7
+{% if nginx_cache %}
+    proxy_cache_path {{ nginx_cache_path }} levels=1:2 keys_zone=my_cache:10m max_size={{ nginx_cache_size }} inactive={{ nginx_cache_inactive }} use_temp_path=off;
+{% endif %}
+
 {% else %}
     log_format                  main  '$host - $remote_addr:$http_x_forwarded_port - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id';
     access_log                  syslog:server=unix:/var/run/log main;

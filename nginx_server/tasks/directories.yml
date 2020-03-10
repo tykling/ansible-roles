@@ -16,10 +16,16 @@
     state: "directory"
   when: nginx_proxy
 
+- name: "Create nginx cache directory"
+  file:
+    path: "{{ nginx_cache_path }}"
+    state: "directory"
+    owner: "www"
+    group: "www"
+  when: nginx_cache
+
 - name: "Create nginx certificates directory"
   file:
     path: "/usr/local/etc/nginx/certificates"
     state: "directory"
   when: nginx_proxy
-
-
