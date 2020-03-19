@@ -18,7 +18,11 @@ http {
     include                     mime.types;
     default_type                application/octet-stream;
 {% if nginx_proxy | default(False) %}
+{% if nginx_cache %}
     log_format                  timing '$time_local - $http_host - $remote_addr:$remote_port - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id - upstream: $upstream_addr - cache: $upstream_cache_status';
+{% else %}
+    log_format                  timing '$time_local - $http_host - $remote_addr:$remote_port - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id - upstream: $upstream_addr';
+{% endif %}
     access_log                  /usr/local/www/logs/proxytiming.log timing;
     access_log                  syslog:server=unix:/var/run/log timing; # defaults to facility local7
 {% if nginx_cache %}
