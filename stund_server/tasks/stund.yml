@@ -1,0 +1,6 @@
+---
+- name: "Install stund"
+  pkgng:
+    name: "stund"
+    state: "present"
+

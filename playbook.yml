@@ -406,3 +406,9 @@
   roles:
     - "certgrinder_client"
 
+- name: "configure stund servers"
+  hosts: "stund_servers"
+  become: yes
+  roles:
+    - "stund_server"
+
