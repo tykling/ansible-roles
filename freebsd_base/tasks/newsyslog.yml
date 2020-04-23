@@ -4,3 +4,10 @@
     path: "/usr/local/etc/newsyslog.conf.d"
     state: "directory"
 
+- name: "Make newsyslog use timestamps instead of sequential filenames for rotated logfiles"
+  lineinfile:
+    dest: "/etc/crontab"
+    regexp: "	newsyslog"
+    line: "0	*	*	*	*	root	newsyslog -t DEFAULT"
+    state: "present"
+  notify: "rename sequential logs"

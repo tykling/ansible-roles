@@ -1,0 +1,5 @@
+---
+- name: "rename sequential logs"
+  shell: |
+    for INCLUDEPATH in $($(cat /etc/newsyslog.conf | grep "^<include>" | cut -d " " -f 2); cat /etc/newsyslog.conf $INCLUDEPATHS | grep -v "^#" | grep -v "^$" | grep -v "^<include>" | awk "{print \$1}" | sed -e 's,/[^/]*$,,' | sort | uniq); do for EXT in bz2 xz; do for FILE in $(ls -1 ${INCLUDEPATH}/*.${EXT}); do MTIME=$(stat -f %Sm -t "%Y%m%dT%H%M%S" ${FILE}); NEWNAME=$(echo $(basename ${FILE}) | sed -E "s/(.+)\.[0-9]+\.${EXT}/\1.${MTIME}.${EXT}/"); mv ${FILE} $(dirname ${FILE})/${NEWNAME}; done; done; done
+
