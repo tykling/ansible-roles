@@ -41,9 +41,9 @@
 
 - name: "Add cronjob to run goaccess daily"
   cron:
-    name: "Run goaccess on yesterdays log"
+    name: "Run goaccess on the latest logfile"
     hour: "1"
     minute: "0"
-    job: "/usr/bin/xzcat /usr/local/www/logs/proxytiming.log.0.xz | /usr/local/bin/goaccess -p /usr/local/etc/goaccess.conf --invalid-requests=/var/log/goaccess-fail-$(date +'%Y-%m-%d').log --db-path=/var/db/goaccess --load-from-disk --keep-db-files -o /usr/local/www/goaccess/index.html"
+    job: "/usr/bin/xzcat $(ls -1rt /usr/local/www/logs/proxytiming.log.*.xz | tail -1) | tail +2 | awk $9=$4$9 | /usr/local/bin/goaccess -p /usr/local/etc/goaccess.conf --invalid-requests=/var/log/goaccess-fail-$(date +'%Y-%m-%d').log --db-path=/var/db/goaccess --load-from-disk --keep-db-files -o /usr/local/www/goaccess/index.html"
     cron_file: "/etc/crontab"
     user: "root"
