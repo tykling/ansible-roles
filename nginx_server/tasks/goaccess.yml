@@ -1,0 +1,49 @@
+---
+- name: "Install goaccess"
+  pkgng:
+    name: "goaccess"
+    state: "present"
+
+- name: "Create goaccess html directory"
+  file:
+    path: "/usr/local/www/goaccess"
+    state: "directory"
+    mode: "0755"
+
+- name: "Create goaccess data directory"
+  file:
+    path: "/var/db/goaccess"
+    state: "directory"
+    mode: "0755"
+
+- name: "Create goaccess.conf"
+  template:
+    src: "goaccess.conf.j2"
+    dest: "/usr/local/etc/goaccess.conf"
+
+- name: "Install script for downloading geoip db"
+  copy:
+    src: "download_geoip_database.sh"
+    dest: "/usr/local/bin/download_geoip_database.sh"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+
+- name: "Add cronjob to download fresh geoip db monthly"
+  cron:
+    name: "Download a fresh geoip db monthly"
+    day: "1"
+    hour: "3"
+    minute: "0"
+    job: "/usr/local/bin/download_geoip_database.sh"
+    cron_file: "/etc/crontab"
+    user: "root"
+
+- name: "Add cronjob to run goaccess daily"
+  cron:
+    name: "Run goaccess on yesterdays log"
+    hour: "1"
+    minute: "0"
+    job: "/usr/bin/xzcat /usr/local/www/logs/proxytiming.log.0.xz | /usr/local/bin/goaccess -p /usr/local/etc/goaccess.conf --invalid-requests=/var/log/goaccess-fail-$(date +'%Y-%m-%d').log --db-path=/var/db/goaccess --load-from-disk --keep-db-files -o /usr/local/www/goaccess/index.html"
+    cron_file: "/etc/crontab"
+    user: "root"

@@ -1,0 +1,8 @@
+date-format %d/%b/%Y
+time-format %H:%M:%S
+{% if nginx_cache %}
+log-format %d:%t %^ - %v - [%h]:%^ - %m %U %H - HTTP %s - upstream_response_time %T - total_request_time %T - tls: %^ - "%u" - request_id: %^ - upstream: %^ - cache: %^ - request_length: %^ - bytes_sent: %b
+{% else %}
+log-format %d:%t %^ - %v - [%h]:%^ - %m %U %H - HTTP %s - upstream_response_time %T - total_request_time %T - tls: %^ - "%u" - request_id: %^ - upstream: %^ - request_length: %^ - bytes_sent: %b
+{% endif %}
+geoip-database /var/db/geoip/db-ip.mmdb
