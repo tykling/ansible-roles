@@ -31,4 +31,4 @@
   when: static_routes is defined
   tags:
     - "routing"
-
+- include_tasks: "newsyslog.yml"
