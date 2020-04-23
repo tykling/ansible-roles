@@ -2,7 +2,7 @@
 - name: "rename sequential logs"
   shell: |
     INCLUDEPATHS=$(cat /etc/newsyslog.conf | grep "^<include>" | cut -d " " -f 2)
-    for LOGPATH in $(cat /etc/newsyslog.conf $INCLUDEPATHS | grep -v "^#" | grep -v "^$" | grep -v "^<include>" | awk "{print \$1}" | sed -e 's,/[^/]*$,,' | sort | uniq); do
+    for LOGPATH in $(cat /etc/newsyslog.conf $INCLUDEPATHS | grep -v "^#" | grep -v "^$" | grep -v "^<include>" | awk "{print \$1}" | sed -e 's,/[^/]*$,,' | sort -u); do
         for EXT in bz2 xz; do
             for FILE in $(ls -1 ${LOGPATH}/*.${EXT}); do
                 MTIME=$(stat -f %Sm -t "%Y%m%dT%H%M%S" ${FILE})
