@@ -1,6 +1,7 @@
 # path                               mode  copies  size  time  flags     pidfile           signal
 {% if nginx_proxy | default(False) %}
 /usr/local/www/logs/proxytiming.log  644   1000     *    @T00   JX    /var/run/nginx.pid   SIGUSR1
+/usr/local/www/logs/proxytiming.json 644   1000     *    @T00   JX    /var/run/nginx.pid   SIGUSR1
 {% else %}
 /usr/local/www/logs/access.log       644   1000     *    @T00   JX    /var/run/nginx.pid   SIGUSR1
 {% endif %}

@@ -18,20 +18,35 @@ http {
     include                     mime.types;
     default_type                application/octet-stream;
 {% if nginx_proxy | default(False) %}
-{% if nginx_cache %}
-    log_format                  timing '$time_local - $http_host - [$remote_addr]:$remote_port - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id - upstream: $upstream_addr - cache: $upstream_cache_status - request_length: $request_length - bytes_sent: $bytes_sent';
-{% else %}
-    log_format                  timing '$time_local - $http_host - [$remote_addr]:$remote_port - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time - tls: $ssl_protocol/$ssl_cipher - "$http_user_agent" - request_id: $request_id - upstream: $upstream_addr - request_length: $request_length - bytes_sent: $bytes_sent';
-{% endif %}
-    access_log                  /usr/local/www/logs/proxytiming.log timing;
-    access_log                  syslog:server=unix:/var/run/log timing; # defaults to facility local7
+    log_format timingjson escape=json '{'
+      '"time_local": "$time_local"', # local time in the Common Log Format
+      '"request_id": "$request_id"', # the unique request id
+      '"request_length": "$request_length"', # request length (including headers and body)
+      '"request_time": "$request_time"', # request processing time in seconds with msec resolution
+      '"remote_addr": "$remote_addr"', # client IP
+      '"remote_port": "$remote_port"', # client port
+      '"ssl_protocol": "$ssl_protocol"', # TLS protocol
+      '"ssl_cipher": "$ssl_cipher"', # TLS cipher
+      '"http_user_agent": "$http_user_agent"', # user agent
+      '"http_referer": "$http_referer"', # HTTP referer
+      '"http_host": "$http_host"', # the request Host: header
+      '"bytes_sent": "$bytes_sent"', # the number of bytes sent to a client
+      '"connection": "$connection"', # connection serial number
+      '"connection_requests": "$connection_requests"', # number of requests made through connection
+      '"msec": "$msec"', # request unixtime in seconds with a milliseconds resolution
+      '"pipe": "$pipe"', # “p” if request was pipelined, “.” otherwise
+      '"status": "$status"', # response status code
+      '"time_iso8601": "$time_iso8601"', # local time in the ISO 8601 standard format
+      '"upstream": "$upstream_addr"', # upstream backend server for proxied requests
+      '"upstream_cache_status": "$upstream_cache_status"', # cache HIT/MISS where applicable
+    '}';
+    access_log                  /usr/local/www/logs/proxytiming.json timingjson;
 {% if nginx_cache %}
     proxy_cache_path {{ nginx_cache_path }} levels=1:2 keys_zone=my_cache:10m max_size={{ nginx_cache_size }} inactive={{ nginx_cache_inactive }} use_temp_path=off;
 {% endif %}
 
 {% else %}
     log_format                  main  '$host - [$remote_addr]:$http_x_forwarded_port - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id - request_length: $request_length';
-    access_log                  syslog:server=unix:/var/run/log main;
     access_log                  /usr/local/www/logs/access.log  main;
 {% endif %}
     sendfile                    off;
