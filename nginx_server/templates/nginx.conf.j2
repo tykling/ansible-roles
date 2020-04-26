@@ -20,24 +20,33 @@ http {
 {% if nginx_proxy | default(False) %}
     log_format timingjson escape=json '{'
       '"time_local": "$time_local", ' # local time in the Common Log Format
+      '"time_iso8601": "$time_iso8601", ' # local time in the ISO 8601 standard format
+      '"msec": "$msec", ' # request unixtime in seconds with a milliseconds resolution
+      '"connection": "$connection", ' # connection serial number
+      '"connection_requests": "$connection_requests", ' # number of requests made in connection
       '"request_id": "$request_id", ' # the unique request id
       '"request_length": "$request_length", ' # request length (including headers and body)
       '"request_time": "$request_time", ' # request processing time in seconds with msec resolution
       '"remote_addr": "$remote_addr", ' # client IP
       '"remote_port": "$remote_port", ' # client port
+      '"remote_user": "$remote_user", ' # client HTTP username
       '"ssl_protocol": "$ssl_protocol", ' # TLS protocol
       '"ssl_cipher": "$ssl_cipher", ' # TLS cipher
       '"http_user_agent": "$http_user_agent", ' # user agent
       '"http_referer": "$http_referer", ' # HTTP referer
       '"http_host": "$http_host", ' # the request Host: header
+      '"server_name": "$server_name", ' # the name of the vhost serving the request
+      '"scheme": "$scheme", ' # http or https
+      '"request_method": "$request_method", ' # request method
+      '"request_uri": "$request_uri", ' # full path and arguments if the request
+      '"server_protocol": "$server_protocol", ' # request protocol, like HTTP/1.1 or HTTP/2.0
       '"bytes_sent": "$bytes_sent", ' # the number of bytes sent to a client
-      '"connection": "$connection", ' # connection serial number
-      '"connection_requests": "$connection_requests", ' # number of requests made in connection
-      '"msec": "$msec", ' # request unixtime in seconds with a milliseconds resolution
-      '"pipe": "$pipe", ' # “p” if request was pipelined, “.” otherwise
       '"status": "$status", ' # response status code
-      '"time_iso8601": "$time_iso8601", ' # local time in the ISO 8601 standard format
+      '"pipe": "$pipe", ' # “p” if request was pipelined, “.” otherwise
       '"upstream": "$upstream_addr", ' # upstream backend server for proxied requests
+      '"upstream_connect_time": "$upstream_connect_time", ' # upstream handshake time incl. TLS
+      '"upstream_header_time": "$upstream_header_time", ' # time spent receiving upstream headers
+      '"upstream_response_time": "$upstream_response_time", ' # time spend receiving upstream body
       '"upstream_cache_status": "$upstream_cache_status"' # cache HIT/MISS where applicable
     '}';
     access_log                  /usr/local/www/logs/proxytiming.json timingjson;
