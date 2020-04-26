@@ -19,26 +19,26 @@ http {
     default_type                application/octet-stream;
 {% if nginx_proxy | default(False) %}
     log_format timingjson escape=json '{'
-      '"time_local": "$time_local"', # local time in the Common Log Format
-      '"request_id": "$request_id"', # the unique request id
-      '"request_length": "$request_length"', # request length (including headers and body)
-      '"request_time": "$request_time"', # request processing time in seconds with msec resolution
-      '"remote_addr": "$remote_addr"', # client IP
-      '"remote_port": "$remote_port"', # client port
-      '"ssl_protocol": "$ssl_protocol"', # TLS protocol
-      '"ssl_cipher": "$ssl_cipher"', # TLS cipher
-      '"http_user_agent": "$http_user_agent"', # user agent
-      '"http_referer": "$http_referer"', # HTTP referer
-      '"http_host": "$http_host"', # the request Host: header
-      '"bytes_sent": "$bytes_sent"', # the number of bytes sent to a client
-      '"connection": "$connection"', # connection serial number
-      '"connection_requests": "$connection_requests"', # number of requests made through connection
-      '"msec": "$msec"', # request unixtime in seconds with a milliseconds resolution
-      '"pipe": "$pipe"', # “p” if request was pipelined, “.” otherwise
-      '"status": "$status"', # response status code
-      '"time_iso8601": "$time_iso8601"', # local time in the ISO 8601 standard format
-      '"upstream": "$upstream_addr"', # upstream backend server for proxied requests
-      '"upstream_cache_status": "$upstream_cache_status"', # cache HIT/MISS where applicable
+      '"time_local": "$time_local",' # local time in the Common Log Format
+      '"request_id": "$request_id",' # the unique request id
+      '"request_length": "$request_length",' # request length (including headers and body)
+      '"request_time": "$request_time",' # request processing time in seconds with msec resolution
+      '"remote_addr": "$remote_addr",' # client IP
+      '"remote_port": "$remote_port",' # client port
+      '"ssl_protocol": "$ssl_protocol",' # TLS protocol
+      '"ssl_cipher": "$ssl_cipher",' # TLS cipher
+      '"http_user_agent": "$http_user_agent",' # user agent
+      '"http_referer": "$http_referer",' # HTTP referer
+      '"http_host": "$http_host",' # the request Host: header
+      '"bytes_sent": "$bytes_sent",' # the number of bytes sent to a client
+      '"connection": "$connection",' # connection serial number
+      '"connection_requests": "$connection_requests",' # number of requests made through connection
+      '"msec": "$msec",' # request unixtime in seconds with a milliseconds resolution
+      '"pipe": "$pipe",' # “p” if request was pipelined, “.” otherwise
+      '"status": "$status",' # response status code
+      '"time_iso8601": "$time_iso8601",' # local time in the ISO 8601 standard format
+      '"upstream": "$upstream_addr",' # upstream backend server for proxied requests
+      '"upstream_cache_status": "$upstream_cache_status",' # cache HIT/MISS where applicable
     '}';
     access_log                  /usr/local/www/logs/proxytiming.json timingjson;
 {% if nginx_cache %}
