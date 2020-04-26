@@ -19,7 +19,6 @@ http {
     default_type                application/octet-stream;
 {% if nginx_proxy | default(False) %}
     log_format timingjson escape=json '{'
-      '"time_local": "$time_local", ' # local time in the Common Log Format
       '"time_iso8601": "$time_iso8601", ' # local time in the ISO 8601 standard format
       '"msec": "$msec", ' # request unixtime in seconds with a milliseconds resolution
       '"connection": "$connection", ' # connection serial number
