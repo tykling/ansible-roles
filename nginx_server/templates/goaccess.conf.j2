@@ -1,8 +1,4 @@
-date-format %d/%b/%Y
-time-format %H:%M:%S
-{% if nginx_cache %}
-log-format %d:%t %^ - %v - [%h]:%^ - %m %U %H - HTTP %s - upstream_response_time %T - total_request_time %T - tls: %^ - "%u" - request_id: %^ - upstream: %^ - cache: %^ - request_length: %^ - bytes_sent: %b
-{% else %}
-log-format %d:%t %^ - %v - [%h]:%^ - %m %U %H - HTTP %s - upstream_response_time %T - total_request_time %T - tls: %^ - "%u" - request_id: %^ - upstream: %^ - request_length: %^ - bytes_sent: %b
-{% endif %}
+date-format %Y-%m-%d
+time-format %H:%M:%S%z
+log-format '{"time_iso8601": "%dT%t", "msec": "%^", "connection": "%^", "connection_requests": "%^", "request_id": "%^", "request_length": "%^", "request_time": "%T", "remote_addr": "%h", "remote_port": "%^", "remote_user": "%^", "ssl_protocol": "%^", "ssl_cipher": "%^", "http_user_agent": "%u", "http_referer": "%R", "http_host": "%^", "server_name": "%v", "scheme": "^%", "request_method": "%m", "request_uri": "%U", "server_protocol": "%H", "bytes_sent": "%b", "status": "%s", "pipe": "%^", "upstream": "%^", "upstream_connect_time": "%^", "upstream_header_time": "%^", "upstream_cache_status": "%^"}'
 geoip-database /var/db/geoip/db-ip.mmdb
