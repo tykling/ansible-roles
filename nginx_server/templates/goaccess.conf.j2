@@ -6,3 +6,6 @@ geoip-database /var/db/geoip/db-ip.mmdb
 {% for ip in goaccess_exclude_ips %}
 exclude-ip {{ ip }}
 {% endfor %}
+anonymize-ip true
+ignore-crawlers true
+
