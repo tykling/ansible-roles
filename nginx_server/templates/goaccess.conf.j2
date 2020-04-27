@@ -3,3 +3,6 @@ time-format %s
 # log-format must be shorter than 512 bytes https://github.com/allinurl/goaccess/issues/1744
 log-format {"time_iso8601": "%dT%^", "msec": "%t.%^", "connection": "%^", "connection_requests": "%^", "request_id": "%^", "request_length": "%^", "request_time": "%T", "remote_addr": "%h", "remote_port": "%^", "remote_user": "%^", "ssl_protocol": "%^", "ssl_cipher": "%^", "http_user_agent": "%u", "http_referer": "%R", "http_host": "%^", "server_name": "%v", "scheme": "^%", "request_method": "%m", "request_uri": "%U", "server_protocol": "%H", "bytes_sent": "%b", "status": "%s", %^}
 geoip-database /var/db/geoip/db-ip.mmdb
+{% for ip in goaccess_exclude_ips %}
+exclude-ip {{ ip }}
+{% endfor %}

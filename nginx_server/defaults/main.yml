@@ -13,4 +13,5 @@ nginx_cache_inactive: "60m"
 certgrinder_post_renew_hooks:
   - "/usr/sbin/service nginx reload"
 nginx_goaccess: True
+goaccess_exclude_ips: []
 
