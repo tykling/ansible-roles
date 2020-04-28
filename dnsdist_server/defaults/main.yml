@@ -1,3 +1,3 @@
 ---
 dnsdist_logfile_path: "/var/log/dnsdist.log"
-
+dnsdist_acl: []
