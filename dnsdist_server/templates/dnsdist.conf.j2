@@ -22,8 +22,10 @@ newServer ({
 {% endfor %}
 
 -- ACL
-{% for prefix in dnsdist_acl %}
+{% for prefix in dnsdist_acl|default:([]) %}
 addACL('{{ prefix }}')
+{% empty % }
+-- dnsdist_acl is not defined
 {% endfor %}
 
 -- Cache
