@@ -17,7 +17,6 @@
 - include_tasks: "motd.yml"
 - include_tasks: "sshd.yml"
 - include_tasks: "syslog.yml"
-- include_tasks: "resolvconf.yml"
 - include_tasks: "etcaliases.yml"
 - include_tasks: "nullmailer.yml"
   when: "'postfix_servers' not in group_names"
@@ -31,4 +30,3 @@
   when: static_routes is defined
   tags:
     - "routing"
-- include_tasks: "newsyslog.yml"
