@@ -27,7 +27,7 @@ addACL('{{ prefix }}')
 {% endfor %}
 
 -- Cache
-pc = newPacketCache(100000, 86400, 0, 60, 60, false)
+pc = newPacketCache(100000, {maxTTL=86400, minTTL=0, temporaryFailureTTL=60, staleTTL=60, dontAge=false})
 getPool(""):setCache(pc)
 
 -- Console management
