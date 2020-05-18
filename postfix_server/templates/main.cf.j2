@@ -13,6 +13,7 @@ virtual_alias_maps = {% if mailman %}texthash:/usr/local/etc/postfix/mailman_vir
 virtual_alias_domains = pgsql:/usr/local/etc/postfix/virtual_alias_domains.sql
 virtual_mailbox_domains = pgsql:/usr/local/etc/postfix/virtual_mailbox_domains.sql
 virtual_mailbox_maps = pgsql:/usr/local/etc/postfix/virtual_mailbox_maps.sql
+lmtp_destination_recipient_limit = 1
 {% if mailman %}
 mailman_destination_recipient_limit = 1
 {% endif %}
@@ -41,6 +42,7 @@ smtpd_recipient_restrictions =
     reject_non_fqdn_helo_hostname,
     reject_non_fqdn_sender,
     reject_non_fqdn_recipient,
+    reject_unknown_client_hostname,
     reject_unknown_sender_domain,
     reject_unknown_recipient_domain,
     reject_unauth_pipelining,
