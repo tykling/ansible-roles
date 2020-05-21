@@ -11,5 +11,7 @@
     - certgrinder_hostname_sets is defined
     - nginx_ocsp_stapling
 - include_tasks: "goaccess.yml"
-  when: nginx_goaccess
+  when:
+    - nginx_goaccess
+    - nginx_proxy
 
