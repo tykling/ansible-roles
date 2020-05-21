@@ -38,10 +38,16 @@ modules:
     http:
       port: 9452
 {% endif %}
-{% if 'bind_server' in group_names %}
+{% if 'bind_servers' in group_names %}
   bind_exporter:
     method: http
     http:
       port: 9119
+{% endif %}
+{% if 'dnsdist_servers' in group_names %}
+  dnsdist:
+    method: http
+    http:
+      port: 8083
 {% endif %}
 
