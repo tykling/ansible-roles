@@ -50,3 +50,4 @@
 - import_tasks: "jail_exporter.yml"
 - import_tasks: "nullmailer.yml"
 - import_tasks: "newsyslog.yml"
+- import_tasks: "kldload-coretemp.yml"

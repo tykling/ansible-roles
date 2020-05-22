@@ -1,0 +1,9 @@
+---
+- name: "add coretemp_load=yes to /boot/loader.conf"
+  sysrc:
+    dest: "/boot/loader.conf"
+    name: "coretemp_load"
+    value: "yes"
+  when: host_type == "hardware"
+  notify: "kldload coretemp module"
+
