@@ -1,5 +1,5 @@
 ---
-- name: "Get source code for postgres_exporter with git"
+- name: "Get source code for jail_exporter with git"
   git:
     repo: "https://github.com/phyber/jail_exporter"
     dest: "/root/jail_exporter"
