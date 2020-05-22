@@ -4,14 +4,5 @@
     name: "freebsd_base"
     tasks_from: "cron.d"
   vars:
-    cron_d_jobs:
-      - filename: "{{ item.filename }}"
-        minute: "{{ item.minute }}"
-        hour: "{{ item.hour }}"
-        mday: "{{ item.mday }}"
-        month: "{{ item.month }}"
-        wday: "{{ item.wday }}"
-        user: "{{ item.user }}"
-        command: "{{ item.command }}"
-  with_items: "{{ django_cron_d_jobs | default([]) }}"
+    cron_d_jobs: "{{ django_cron_d_jobs }}"
 
