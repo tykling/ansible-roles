@@ -1,0 +1,17 @@
+---
+- name: "Download smartmon.py script"
+  get_url:
+    url: "https://raw.githubusercontent.com/prometheus-community/node-exporter-textfile-collector-scripts/master/smartmon.py"
+    dest: "/usr/local/bin/smartmon-prometheus-textfile-collector.py"
+    mode: "0755"
+
+- name: "Create cron.d file to run smartmon-prometheus-textfile-collector.py every minute"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "cron.d"
+  vars:
+    cron_d_jobs:
+      - filename: "smartmon-prometheus-textfile-collector"
+        user: "root"
+        command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}"
+
