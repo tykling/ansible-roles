@@ -13,3 +13,5 @@ nginx_locationslash: |
 # LDAP can be enabled by defining grafana_ldap_config: http://docs.grafana.org/auth/ldap/
 grafana_ldap_config_path: /usr/local/etc/grafana-ldap.toml
 
+# set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
+grafana_allow_embedding: false
