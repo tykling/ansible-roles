@@ -12,7 +12,8 @@
   vars:
     cron_d_jobs:
       - filename: "smartmon-prometheus-textfile-collector"
-        comment: "Run the smartmon-prometheus-textfile-collector.py script every minute, put the output in prometheus textfile collector directory"
+        comment: "Run the smartmon-prometheus-textfile-collector.py script every 5 minutes, put the output in prometheus textfile collector directory"
         user: "root"
+        minute: "*/5"
         command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}"
 
