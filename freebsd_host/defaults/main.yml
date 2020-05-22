@@ -44,4 +44,3 @@ vmware_kernel_modules:
   - vmxnet
 
 process_accounting_file: "/var/account/acct"
-
