@@ -15,5 +15,5 @@
         comment: "Run the smartmon-prometheus-textfile-collector.py script every 5 minutes, put the output in prometheus textfile collector directory"
         user: "root"
         minute: "*/5"
-        command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}"
+        command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}/smartmon"
 
