@@ -24,3 +24,16 @@ nginx_locationslash: |
       autoindex on;
   }
 
+poudriere_hook_scripts:
+  - filename: "jail.sh"
+    content: |
+      #!/bin/sh
+      if [ "$1" = "mount" ]; then
+        mntpath="$2"
+        if [ ! -d "${mntpath}/local-patches" ]; then
+          /bin/mkdir "${mntpath}/local-patches"
+        fi
+        # mount our patches to that location
+        /sbin/mount -t nullfs /usr/local/etc/poudriere.d/local-patches "${mntpath}/local-patches"
+      fi
+      exit 0
