@@ -25,6 +25,12 @@
     value: "-s -b 127.0.0.1:514 -b [::1]:514"
   notify: "restart syslogd"
 
+- name: "Set inetd_flags to prevent it listening on all IPs"
+  sysrc:
+    name: "inetd_flags"
+    value: "-wW -C 60 -a {{ pf_main_v4_ip|default('127.0.0.1') }}"
+  notify: "restart inetd"
+
 - name: "check if jailstorage zfs exists"
   shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
   register: ezjail_jailstorage_result
