@@ -4,11 +4,10 @@
     name: "freebsd_base"
     tasks_from: "cron.d"
   vars:
-    item:
-      comment: "Run poudriere.sh daily"
-      filename: "poudriere"
-      minute: "0"
-      hour: "0"
-      user: "root"
-      command: "/usr/local/bin/poudriere.sh"
-
+    cron_d_jobs:
+      - comment: "Run poudriere.sh daily"
+        filename: "poudriere"
+        minute: "0"
+        hour: "0"
+        user: "root"
+        command: "/usr/local/bin/poudriere.sh"
