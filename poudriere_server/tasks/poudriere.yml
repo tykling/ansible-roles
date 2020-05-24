@@ -50,8 +50,11 @@
     - "{{ poudriere_jail_versions }}"
     - "{{ poudriere_jail_architechtures }}"
 
-- name: "Create poudriere local-patches directory"
-  file:
-    path: "/usr/local/etc/poudriere.d/local-patches"
-    state: "directory"
-    mode: "0755"
+- name: "Get local patches from git"
+  git:
+    repo: "{{ poudriere_local_patches_repo }}"
+    dest: "/usr/local/etc/poudriere.d/local-patches"
+    force: yes
+    version: "master"
+    accept_hostkey: yes
+  when: poudriere_local_patches_repo
