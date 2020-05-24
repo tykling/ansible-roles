@@ -57,4 +57,4 @@
     force: yes
     version: "master"
     accept_hostkey: yes
-  when: poudriere_local_patches_repo
+  when: poudriere_local_patches_repo is defined
