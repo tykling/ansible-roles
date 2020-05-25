@@ -1,3 +1,13 @@
+// built from tree https://github.com/tykling/freebsd-ports/tree/tykports
+{{ poudriere_repo_name }}: {
+    url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}-tykports",
+    mirror_type: "http",
+    signature_type: "pubkey",
+    pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
+    enabled: yes,
+    priority: 200
+}
+// built from default portsnap tree
 {{ poudriere_repo_name }}: {
     url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}",
     mirror_type: "http",
