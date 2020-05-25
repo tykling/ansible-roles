@@ -1,3 +1,4 @@
+{% if pkg_tykports_enable|default(True) %}
 // built from tree https://github.com/tykling/freebsd-ports/tree/tykports
 {{ poudriere_repo_name }}: {
     url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}-tykports",
@@ -7,6 +8,7 @@
     enabled: yes,
     priority: 200
 }
+{% endif %}
 // built from default portsnap tree
 {{ poudriere_repo_name }}: {
     url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}",
