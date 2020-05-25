@@ -12,19 +12,11 @@ for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudri
     # update jail
     /usr/local/bin/poudriere jail -u -j $JAIL
 
-    # loop over portlists
-    for PORTLIST in {% for portlist in poudriere_portlists %}{{ portlist.filename }} {% endfor %}; do
-        echo "************************** BUILDING FOR JAIL \"$JAIL\" - SET \"DEFAULT\" - PORTLIST \"$PORTLIST\" ********************************"
-        # build default package set
-        /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/${PORTLIST}
-{% if poudriere_package_sets is defined %}
-        # build additional package sets
-        for SET in {% for set in poudriere_package_sets %}{{ set }} {% endfor %}; do
-            echo "************************** BUILDING FOR JAIL \"$JAIL\" - SET \"$SET\" - PORTLIST \"$PORTLIST\" ********************************"
-            /usr/local/bin/poudriere bulk -j $JAIL -z $SET -f /usr/local/etc/poudriere.d/${PORTLIST}
-        done
-{% endif %}
-    done
+    # build everything
+    {% for portlist in poudriere_portlists %}
+    echo "************************** BUILDING FOR JAIL \"$JAIL\" - SET \"DEFAULT\" - PORTLIST \"{{ portlist.filename }}\" - TREE \"{{ portlist.tree|default('default') }}\" ********************************"
+    /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/{{ portlist.filename }} -p {{ portlist.tree|default('default') }}
+    {% endfor %}
 done
 
 echo "************************** DONE ********************************"
