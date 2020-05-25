@@ -1,5 +1,5 @@
 {% if pkg_tykports_enable|default(True) %}
-{{ poudriere_repo_name }}: {
+tykports: {
     url: "https://{{ poudriere_repo_hostname }}/packages/freebsd_{{ ansible_distribution_version|replace('.', '_') }}_{{ ansible_architecture }}-tykports",
     mirror_type: "http",
     signature_type: "pubkey",
