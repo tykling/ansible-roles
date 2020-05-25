@@ -13,10 +13,10 @@ for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudri
     /usr/local/bin/poudriere jail -u -j $JAIL
 
     # build everything
-    {% for portlist in poudriere_portlists %}
+{% for portlist in poudriere_portlists %}
     echo "************************** BUILDING FOR JAIL \"$JAIL\" - SET \"DEFAULT\" - PORTLIST \"{{ portlist.filename }}\" - TREE \"{{ portlist.tree|default('default') }}\" ********************************"
     /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/{{ portlist.filename }} -p {{ portlist.tree|default('default') }}
-    {% endfor %}
+{% endfor %}
 done
 
 echo "************************** DONE ********************************"
