@@ -29,13 +29,13 @@ relaxed = permit
 # and mynetworks so mailman can relay to nonlocal domains.
 # master.cf softens this setting up for submission(s)
 smtpd_relay_restrictions =
-    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
+    check_client_a_access pgsql:/usr/local/etc/postfix/access.sql,
     permit_mynetworks,
     reject_unauth_destination
 
 # smtpd_recipient_restrictions for the smtp service
 smtpd_recipient_restrictions =
-    check_client_access pgsql:/usr/local/etc/postfix/access.sql,
+    check_client_a_access pgsql:/usr/local/etc/postfix/access.sql,
     permit_mynetworks,
     permit_sasl_authenticated,
     reject_invalid_helo_hostname,
