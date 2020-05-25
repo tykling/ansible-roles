@@ -50,6 +50,12 @@
     - "{{ poudriere_jail_versions }}"
     - "{{ poudriere_jail_architechtures }}"
 
+- name: "Create poudriere port trees"
+  command: "/usr/local/bin/poudriere ports -c -p {{ item.name }}{% if item.method is defined %} -m {{ item.method }}{% endif %}{% if item.url is defined %} -U {{ item.url }}{% endif %}{% if item.branch is defined %} -B {{ item.branch }}{% endif %}"
+  args:
+    creates: "{{ poudriere_zfs_mountpoint }}/ports/{{ item.name }}"
+  with_items: "{{ poudriere_ports_trees }}"
+
 - name: "Get local patches from git"
   git:
     repo: "{{ poudriere_local_patches_repo }}"

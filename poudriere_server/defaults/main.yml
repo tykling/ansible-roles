@@ -33,7 +33,10 @@ poudriere_hook_scripts:
         if [ ! -d "${mntpath}/local-patches" ]; then
           /bin/mkdir "${mntpath}/local-patches"
         fi
-        # mount our patches to that location
         /sbin/mount -t nullfs /usr/local/etc/poudriere.d/local-patches "${mntpath}/local-patches"
       fi
       exit 0
+
+poudriere_ports_trees:
+  - name: "default"
+
