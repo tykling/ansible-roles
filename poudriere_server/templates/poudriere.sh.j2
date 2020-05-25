@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # update ports trees
-for PORTSTREE in {% for portstree in poudriere_ports_trees %}{{ portstree.name }}{% endfor %}; do
+for PORTSTREE in {% for portstree in poudriere_ports_trees %}{{ portstree.name }} {% endfor %}; do
     echo "************************** UPDATING PORTS TREE $PORTSTREE ********************************"
     /usr/local/bin/poudriere ports -u -p $PORTSTREE
 done
