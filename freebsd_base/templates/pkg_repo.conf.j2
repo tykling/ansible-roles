@@ -1,7 +1,7 @@
 {% if pkg_tykports_enable|default(True) %}
 // built from tree https://github.com/tykling/freebsd-ports/tree/tykports
 {{ poudriere_repo_name }}: {
-    url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}-tykports",
+    url: "https://{{ poudriere_repo_hostname }}/packages/freebsd_{{ ansible_facts['distribution_version']|replace('.', '_') }}_{{ ansible_facts['architechture'] }}-tykports",
     mirror_type: "http",
     signature_type: "pubkey",
     pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
