@@ -1,9 +1,9 @@
 ---
 groups:
-{% if prometheus_recording_rules is defined %}
+{% if prometheus_recording_rules is defined and prometheus_recording_rules %}
   {{ prometheus_recording_rules | to_nice_yaml(indent=2) | indent(2,False) }}
 {% endif %}
-{% if prometheus_alertmanager_rules is defined %}
+{% if prometheus_alertmanager_rules is defined and prometheus_alertmanager_rules %}
   {{ prometheus_alertmanager_rules | to_nice_yaml(indent=2) | indent(2,False) }}
 {% endif %}
 
