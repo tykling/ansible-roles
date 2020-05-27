@@ -28,7 +28,7 @@
 - name: "Set inetd_flags to prevent it listening on all IPs"
   sysrc:
     name: "inetd_flags"
-    value: "-wW -C 60 -a {{ 127.0.0.1 }}"
+    value: "-wW -C 60 -a 127.0.0.1"
   notify: "restart inetd"
 
 - name: "check if jailstorage zfs exists"
