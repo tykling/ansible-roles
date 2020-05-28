@@ -14,4 +14,6 @@ certgrinder_post_renew_hooks:
   - "/usr/sbin/service nginx reload"
 nginx_goaccess: True
 goaccess_exclude_ips: []
+nginx_sts: True
+nginx_sts_includesubdomains: True
 

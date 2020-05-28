@@ -9,5 +9,11 @@ ssl_session_tickets             off;
 ssl_stapling                    on;
 ssl_stapling_verify             on;
 resolver                        {% for resolver in dns_resolver_ips %}{% if ':' in resolver %}[{{resolver}}] {% else %}{{ resolver }} {% endif %}{% endfor %};
+{% if nginx_sts %}
+{% if nginx_sts_includesubdomains %}
 more_set_headers                "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload";
+{% else %}
+more_set_headers                "Strict-Transport-Security: max-age=31536000; preload";
+{% endif %}
+{% endif %}
 
