@@ -5,7 +5,9 @@ server {
     listen                  [::]:443 ssl http2;
 {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:443 ssl http2;
+{% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2;
+{% endif %}
 {% endif %}
 
     # hostnames handled in this vhost, IDN names are included both as idna and ascii, where applicable
@@ -65,7 +67,9 @@ server {
     # this is the default vhost for this v4 ip
     listen                  {{ nginx_v4_proxy_ip }}:443 default ssl http2;
 {% endif %}
+{% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:443 default ssl http2;
+{% endif %}
 {% endif %}
     server_name             _;
 

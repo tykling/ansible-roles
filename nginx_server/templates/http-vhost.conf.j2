@@ -5,7 +5,9 @@ server {
     listen                  [::]:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
 {% else %}
     listen                  {{ nginx_v4_proxy_ip }}:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
+{% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:80{% if not item.value.redirect_ip_to_hostname | default(True) %} default{% endif %};
+{% endif %}
 {% endif %}
 
     # hostnames handled in this vhost, IDN names are included both as idna and ascii, where applicable
@@ -48,7 +50,9 @@ server {
     # this is the default vhost for this v4 ip
     listen                  {{ nginx_v4_proxy_ip }}:80 default;
 {% endif %}
+{% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:80 default;
+{% endif %}
 {% endif %}
     server_name             _;
     location / {
