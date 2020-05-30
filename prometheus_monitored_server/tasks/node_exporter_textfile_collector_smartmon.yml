@@ -4,8 +4,9 @@
     url: "https://raw.githubusercontent.com/prometheus-community/node-exporter-textfile-collector-scripts/master/smartmon.py"
     dest: "/usr/local/bin/smartmon-prometheus-textfile-collector.py"
     mode: "0755"
+  creates: "/usr/local/bin/smartmon-prometheus-textfile-collector.py"
 
-- name: "Create cron.d file to run smartmon-prometheus-textfile-collector.py every minute"
+- name: "Create cron.d file to run smartmon-prometheus-textfile-collector.py every 5 minutes"
   include_role:
     name: "freebsd_base"
     tasks_from: "cron.d"
@@ -15,5 +16,5 @@
         comment: "Run the smartmon-prometheus-textfile-collector.py script every 5 minutes, put the output in prometheus textfile collector directory"
         user: "root"
         minute: "*/5"
-        command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}/smartmon"
+        command: "/usr/local/bin/smartmon-prometheus-textfile-collector.py | /usr/local/bin/sponge {{ node_exporter_textfile_path }}/smartmon.prom"
 
