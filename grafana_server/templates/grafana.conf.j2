@@ -20,6 +20,7 @@ config_file = {{ grafana_ldap_config_path }}
 [auth.anonymous]
 enabled = true
 org_name = {{ grafana_anonymous_org }}
+org_role = Viewer
 {% endif %}
 
 [session]
