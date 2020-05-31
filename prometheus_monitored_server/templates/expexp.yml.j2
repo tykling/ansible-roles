@@ -8,46 +8,31 @@ modules:
     method: http
     http:
        port: 9100
-{% if 'postgresql_servers' in group_names %}
   postgres_exporter:
     method: http
     http:
       port: 9187
-{% endif %}
-{% if 'uwsgi_servers' in group_names or 'django_channels2_servers' in group_names %}
   uwsgi_exporter:
     method: http
     http:
       port: 9117
-{% endif %}
-{% if 'nginx_servers' in group_names or 'django_channels2_servers' in group_names %}
   nginx_exporter:
     method: http
     http:
       port: 9113
-{% endif %}
-{% if 'freebsd_hosts' in group_names %}
   gstat_exporter:
     method: http
     http:
       port: 9248
-{% endif %}
-{% if 'ezjail_hosts' in group_names %}
   jail_exporter:
     method: http
     http:
       port: 9452
-{% endif %}
-{% if 'bind_servers' in group_names %}
   bind_exporter:
     method: http
     http:
       port: 9119
-{% endif %}
-{% if 'dnsdist_servers' in group_names %}
   dnsdist:
     method: http
     http:
       port: 8083
-{% endif %}
-

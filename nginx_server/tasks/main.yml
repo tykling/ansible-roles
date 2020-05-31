@@ -14,4 +14,6 @@
   when:
     - nginx_goaccess
     - nginx_proxy
+- include_tasks: "nginx_exporter.yml"
+  when: "'prometheus_monitored_servers' in group_names"
 
