@@ -38,8 +38,8 @@ server {
 {% if item.value.redirect_ip_to_hostname | default(True) %}
 # catch-all server block for the requests going to the v4 and v6 IPs with blank or unknown Host: header,
 # if this is the default vhost for the v4 or v6 ip
-{% if item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
 server {
+{% if item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
     # this vhosts wants to listen on ALL ips, and this is the default vhost for the IP addresses
     listen                  80 default;
 {% if item.value.vhost_v6ip is defined %}
