@@ -69,6 +69,7 @@ server {
 {% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:80 default ssl http2;
 {% endif %}
+{% endif %}
     server_name             _;
     # certificate and key (wont match hostname, but whatever, this is just a fallback vhost)
 {% if item.value.letsencrypt | default(True) %}

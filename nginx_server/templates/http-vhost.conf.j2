@@ -51,6 +51,7 @@ server {
 {% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:80 default;
 {% endif %}
+{% endif %}
     server_name             _;
     location / {
 {% if item.value.redirect_keep_url | default(True) %}
