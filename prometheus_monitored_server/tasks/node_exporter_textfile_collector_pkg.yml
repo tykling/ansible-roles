@@ -1,0 +1,19 @@
+---
+- name: "copy pkg_exporter.sh script"
+  copy:
+    src: "pkg_exporter.sh"
+    dest: "/usr/local/bin/pkg_exporter.sh"
+    mode: "0755"
+
+- name: "Create cron.d file to run pkg_exporter.sh every hour"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "cron.d"
+  vars:
+    cron_d_jobs:
+      - filename: "pkg_exporter"
+        comment: "Run pkg_exporter.sh hourly, put the output in prometheus textfile collector directory"
+        user: "root"
+        minute: "0"
+        command: "/usr/local/bin/pkg_exporter.sh | /usr/local/bin/sponge {{ node_exporter_textfile_path }}/pkg.prom"
+
