@@ -4,6 +4,7 @@
 - include_tasks: "freebsd_sysctl_exporter.yml"
   when: "'freebsd_hosts' in group_names"
 - include_tasks: "node_exporter.yml"
+- include_tasks: "node_exporter_textfile_collector_pkg.yml"
 - include_tasks: "node_exporter_textfile_collector_smartmon.yml"
   when: "'freebsd_hosts' in group_names"
 - include_tasks: "postgres_exporter.yml"
