@@ -35,26 +35,21 @@ server {
 {% endif %}
 }
 
-{% if item.value.redirect_ip_to_hostname | default(True) and ( item.value.default_vhost or item.value.vhost_v6ip ) %}
-# catch-all server block for the requests going to the v6 IPs with blank or unknown Host: header,
-# and to the v4 ip if this is the default vhost
+{% if item.value.redirect_ip_to_hostname | default(True) %}
+# catch-all server block for the requests going to the v4 and v6 IPs with blank or unknown Host: header,
+# if this is the default vhost for the v4 or v6 ip
+{% if item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
 server {
-{% if item.value.listen_on_all_ips | default(False) %}
-    # this vhosts wants to listen on ALL ips
-{% if item.value.default_vhost | default(False) %}
-    # this is the default vhost for this v4 ip
+    # this vhosts wants to listen on ALL ips, and this is the default vhost for the IP addresses
     listen                  80 default;
-{% endif %}
+{% if item.value.vhost_v6ip is defined %}
     listen                  [::]:80 default;
-{% else %}
-    # this vhosts does not want to listen on ALL ips
-{% if item.value.default_vhost | default(False) %}
-    # this is the default vhost for this v4 ip
-    listen                  {{ nginx_v4_proxy_ip }}:80 default;
 {% endif %}
+{% elif not item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
+    # this vhosts does not want to listen on ALL ips, and this is the default vhost for the addresses
+    listen                  {{ nginx_v4_proxy_ip }}:80 default;
 {% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:80 default;
-{% endif %}
 {% endif %}
     server_name             _;
     location / {
@@ -66,4 +61,3 @@ server {
     }
 }
 {% endif %}
-

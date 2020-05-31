@@ -53,27 +53,23 @@ server {
 {{ item.value.extraconfig }}
 {% endif %}
 
-{% if item.value.default_vhost or item.value.vhost_v6ip %}
-# catch-all server block for the requests going to the v6 IPs with blank or unknown Host: header,
-# and to the v4 ip if this is the default vhost
+{% if item.value.redirect_ip_to_hostname | default(True) %}
+# catch-all server block for the requests going to the v4 and v6 IPs with blank or unknown Host: header,
+# if this is the default vhost for the v4 or v6 ip
+{% if item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
 server {
-{% if item.value.listen_on_all_ips | default(False) %}
-{% if item.value.default_vhost | default(False) %}
-    # this is the default vhost for this v4 ip
+    # this vhosts wants to listen on ALL ips, and this is the default vhost for the IP addresses
     listen                  443 default ssl http2;
-{% endif %}
-    listen                  [::]:443 default ssl http2;
-{% else %}
-{% if item.value.default_vhost | default(False) %}
-    # this is the default vhost for this v4 ip
-    listen                  {{ nginx_v4_proxy_ip }}:443 default ssl http2;
-{% endif %}
 {% if item.value.vhost_v6ip is defined %}
-    listen                  [{{ item.value.vhost_v6ip }}]:443 default ssl http2;
+    listen                  [::]:443 default ssl http2;
 {% endif %}
+{% elif not item.value.listen_on_all_ips | default(False) and item.value.default_vhost | default(False) %}
+    # this vhosts does not want to listen on ALL ips, and this is the default vhost for the addresses
+    listen                  {{ nginx_v4_proxy_ip }}:80 default ssl http2;
+{% if item.value.vhost_v6ip is defined %}
+    listen                  [{{ item.value.vhost_v6ip }}]:80 default ssl http2;
 {% endif %}
     server_name             _;
-
     # certificate and key (wont match hostname, but whatever, this is just a fallback vhost)
 {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}.crt;
@@ -84,8 +80,6 @@ server {
 {% endif %}
     include                 /usr/local/etc/nginx/tls.conf;
     include                 /usr/local/etc/nginx/securityheaders.conf;
-
-    # redirect requests to the first hostname in the list
     location / {
 {% if item.value.redirect_keep_url | default(True) %}
         return              302 https://{{ item.value.hostnames[0] }}$request_uri;
