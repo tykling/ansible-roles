@@ -29,10 +29,9 @@
     group: "wheel"
     mode: "0755"
 
-- name: "Add cronjob to download fresh geoip db monthly"
+- name: "Add cronjob to download fresh geoip db daily as needed"
   cron:
-    name: "Download a fresh geoip db monthly"
-    day: "1"
+    name: "Download a fresh geoip db"
     hour: "3"
     minute: "0"
     job: "/usr/local/bin/download_geoip_database.sh"
