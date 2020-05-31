@@ -45,7 +45,7 @@
     supervisord_programs:
       - name: "nginx_exporter"
         comment: "run nginx_exporter"
-        command: "/usr/local/bin/nginx_exporter -nginx.scrape-uri=http://{{ ansible_nodename }}/stub_status"
+        command: "/usr/local/bin/nginx_exporter -nginx.scrape-uri={{ nginx_exporter_uri }}"
         user: "nobody"
     supervisord_extra_programs: []
 
