@@ -66,4 +66,5 @@ nginx_extra_http_config: |
 
 django_nginx_proxy_read_timeout: "60s"
 
+django_cron_d_jobs: []
 
