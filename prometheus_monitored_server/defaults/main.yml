@@ -18,8 +18,6 @@ postgresql_user: "postgres"
 
 uwsgi_exporter_version: "master"
 
-nginx_exporter_version: "master"
-
 jail_exporter_version: "master"
 
 bind_statsurl: "http://127.0.0.1:8080"

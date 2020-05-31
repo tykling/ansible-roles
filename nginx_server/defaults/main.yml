@@ -16,4 +16,5 @@ nginx_goaccess: True
 goaccess_exclude_ips: []
 nginx_sts: True
 nginx_sts_includesubdomains: True
+nginx_exporter_version: "master"
 
