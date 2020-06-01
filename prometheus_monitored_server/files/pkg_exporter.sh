@@ -13,5 +13,5 @@ echo "# TYPE pkg_packages_total gauge"
 
 echo "# HELP pkg_vulnerable_packages_total Total number of vulnerable packages installed, as reported by 'pkg audit'."
 echo "# TYPE pkg_vulnerable_packages_total gauge"
-/bin/echo "pkg_vulnerable_packages_total{version=\"vulnerable\"} $(/usr/sbin/pkg audit -q | /usr/bin/wc -l | /usr/bin/awk '{print $1}')"
+/bin/echo "pkg_vulnerable_packages_total $(/usr/sbin/pkg audit -q | /usr/bin/wc -l | /usr/bin/awk '{print $1}')"
 
