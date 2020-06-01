@@ -1,5 +1,5 @@
 #!/bin/sh
-/usr/sbin/pkg update
+/usr/sbin/pkg update > /dev/null 2>&1
 
 echo "# HELP pkg_build_info The version of pkg installed"
 echo "# TYPE pkg_build_info gauge"
