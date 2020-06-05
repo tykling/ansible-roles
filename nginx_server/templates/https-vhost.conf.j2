@@ -53,6 +53,8 @@ server {
 {{ item.value.extraconfig }}
 {% endif %}
 
+
+{% if item.value.redirect_ip_to_hostname | default(True) and ( item.value.vhost_v6ip is defined or item.value.default_vhost ) %}
 # catch-all server block for the requests going to the v6 IPs with blank or unknown Host: header,
 # and to the v4 ip if this is the default vhost
 server {
@@ -67,7 +69,9 @@ server {
     # this is the default vhost for this v4 ip
     listen                  {{ nginx_v4_proxy_ip }}:443 default ssl http2;
 {% endif %}
+{% if item.value.vhost_v6ip is defined %}
     listen                  [{{ item.value.vhost_v6ip }}]:443 default ssl http2;
+{% endif %}
 {% endif %}
     server_name             _;
 
@@ -91,4 +95,5 @@ server {
 {% endif %}
     }
 }
+{% endif %}
 
