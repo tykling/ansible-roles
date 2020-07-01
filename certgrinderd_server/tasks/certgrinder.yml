@@ -23,3 +23,10 @@
   pip:
     name: "certgrinderd"
     virtualenv: "/usr/home/{{ certgrinderd_user }}/virtualenv"
+
+- name: "Create certgrinderd.conf config file"
+  template:
+    src: "certgrinderd.conf.j2"
+    dest: "/usr/home/{{ certgrinderd_user }}/certgrinderd.conf"
+    owner: "{{ certgrinderd_user }}"
+    mode: "0644"

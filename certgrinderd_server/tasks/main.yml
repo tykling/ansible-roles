@@ -1,6 +1,8 @@
 ---
-- include_tasks: letsencrypt.yml
-- include_tasks: user.yml
+- include_tasks: "syslog.yml"
+- include_tasks: "newsyslog.yml"
+- include_tasks: "certbot.yml"
+- include_tasks: "user.yml"
   tags: "sshkeys"
-- include_tasks: certgrinder.yml
+- include_tasks: "certgrinderd.yml"
 
