@@ -412,3 +412,8 @@
   roles:
     - "stund_server"
 
+- name: "configure certgrinderd servers"
+  hosts: "certgrinderd_servers"
+  become: yes
+  roles:
+    - "certgrinderd_server"

@@ -1,0 +1,25 @@
+---
+- name: "Install virtualenv"
+  pkgng:
+    name: "py37-virtualenv"
+    state: "present"
+
+- name: "Install pip"
+  pkgng:
+    name: "py37-pip"
+    state: "present"
+
+- name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL include"
+  pip:
+    virtualenv_python: "python"
+    name: "cryptography"
+    virtualenv: "/usr/home/{{ certgrinderd_user }}/virtualenv"
+    extra_args: '--global-option=build_ext'
+  environment:
+    CFLAGS: "-I/usr/local/include"
+    LDFLAGS: "-L/usr/local/include"
+
+- name: "Install certgrinderd with pip"
+  pip:
+    name: "certgrinderd"
+    virtualenv: "/usr/home/{{ certgrinderd_user }}/virtualenv"

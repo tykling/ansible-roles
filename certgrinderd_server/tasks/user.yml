@@ -1,0 +1,34 @@
+---
+- name: "Add certgrinderd user"
+  user:
+    name: "{{ certgrinderd_user }}"
+    comment: "certgrinderd user"
+
+- name: "Remove existing SSH authorized_keys file"
+  file:
+    path: "/usr/home/{{ certgrinderd_user }}/.ssh/authorized_keys"
+    state: "absent"
+  tags: "sshkeys"
+
+- name: "Add ssh authorized_keys for all certgrinder clients"
+  authorized_key:
+    user: "{{ certgrinderd_user }}"
+    key: "{{ item.value.authkey }}"
+    key_options: 'from="{{ item.value.fromip }}",environment="CERTGRINDERD_DOMAINSETS={% for ds in item.value.domainsets %}{{ ds.join(",") }};{% endfor %}",command="~/virtualenv/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict'
+  with_dict: "{{ certgrinderd_authorized_keys | default({}) }}"
+  tags: "sshkeys"
+
+- name: "Add certgrinderd user to sudoers (to allow running certbot)"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    regexp: "^{{ certgrinderd_user }} ALL=\\(ALL\\) NOPASSWD: /usr/local/bin/certbot$"
+    line: "{{ certgrinderd_user }} ALL=(ALL) NOPASSWD: /usr/local/bin/certbot"
+    validate: "visudo -cf %s"
+
+- name: "allow ACMEZONE and WEBROOT env. vars. in sudoers for certgrinderd user"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    line: 'Defaults env_keep += "ACMEZONE WEBROOT"'
+    validate: "visudo -cf %s"
