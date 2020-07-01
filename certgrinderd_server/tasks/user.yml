@@ -14,7 +14,7 @@
   authorized_key:
     user: "{{ certgrinderd_user }}"
     key: "{{ item.value.authkey }}"
-    key_options: 'from="{{ item.value.fromip }}",environment="CERTGRINDERD_DOMAINSETS={% for ds in item.value.domainsets %}{{ ds.join(",") }};{% endfor %}",command="~/virtualenv/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict'
+    key_options: 'from="{{ item.value.fromip }}",environment="CERTGRINDERD_DOMAINSETS={% for ds in item.value.domainsets %}{{ ds|join(",") }};{% endfor %}",command="~/virtualenv/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict'
   with_dict: "{{ certgrinderd_authorized_keys | default({}) }}"
   tags: "sshkeys"
 
