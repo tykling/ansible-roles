@@ -61,7 +61,15 @@ options {
 };
 
 statistics-channels {
-    inet {{ bind_stats_ip }} port 8080 allow { {{ bind_stats_ip }}; };
+    inet {{ bind_stats_ip }} port 8080 allow {
+        {{ bind_stats_ip }};
+{% for ip in ansible_all_ipv4_addresses %}
+        {{ ip }};
+{% endfor %}
+{% for ip in ansible_all_ipv6_addresses %}
+        {{ ip }};
+{% endfor %}
+    };
 };
 
 {% if bind_recursive %}
