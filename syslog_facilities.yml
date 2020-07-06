@@ -34,6 +34,7 @@
   - isc_dhcpd_server
   - mediawiki_server
   - nfsen_server
+  - certgrinderd
 
 - local7:
   - nginx_server
