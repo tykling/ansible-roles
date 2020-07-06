@@ -50,8 +50,21 @@
     state: "latest"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
 
-- name: "Install the rest of requirements.txt modules with pip"
+- name: "Install certgrinder in the virtualenv"
   pip:
-    requirements: "/usr/home/{{ certgrinder_user }}/certgrinder/requirements.txt"
+    name: "certgrinder"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
 
+- name: "Create certificates directory"
+  file:
+    dest: "/usr/home/{{ certgrinder_user }}/certificates"
+    state: "directory"
+    mode: "0750"
+    owner: "{{ certgrinder_user }}"
+
+- name: "Create certgrinder.conf config file"
+  template:
+    src: "certgrinder.conf.j2"
+    dest: "/usr/home/{{ certgrinder_user }}/certgrinder.conf"
+    owner: "{{ certgrinder_user }}"
+    mode: "0644"
