@@ -5,7 +5,7 @@
     enabled: yes
 
 - name: "Run certgrinder"
-  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/python /usr/home/{{ certgrinder_user }}/certgrinder/certgrinder.py /usr/home/{{ certgrinder_user }}/certgrinder.yml'"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/certgrinder --config-file /usr/home/{{ certgrinder_user }}/certgrinder.conf --now periodic'"
 
 - name: "Start dovecot (if not running)"
   service:
