@@ -11,6 +11,7 @@
     mode: "600"
     path: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}"
     state: "directory"
+  when: certgrinderd_manage_letsencrypt_account
 
 - name: "Create letsencrypt meta.json"
   copy:
@@ -19,6 +20,7 @@
     mode: "600"
     content: "{{ letsencrypt_meta_json }}"
     dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/meta.json"
+  when: certgrinderd_manage_letsencrypt_account
 
 - name: "Create letsencrypt private_key.json"
   copy:
@@ -27,6 +29,7 @@
     mode: "600"
     content: "{{ letsencrypt_private_key_json }}"
     dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/private_key.json"
+  when: certgrinderd_manage_letsencrypt_account
 
 - name: "Create letsencrypt regr.json"
   copy:
@@ -35,6 +38,7 @@
     mode: "600"
     content: "{{ letsencrypt_regr_json }}"
     dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/regr.json"
+  when: certgrinderd_manage_letsencrypt_account
 
 - name: "Create letsencrypt webroot folder"
   file:
