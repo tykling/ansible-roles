@@ -14,7 +14,7 @@ postgresql_shared_buffers: "20GB"
 
 certgrinder_post_renew_hooks:
   - "/bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}.key {{ postgresql_homedir }}"
-  - "/bin/chown root {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
+  - "/usr/sbin/chown root {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
   - "/bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}.*"
   - "/usr/sbin/service postgresql onereload"
 certgrinder_cert_users:
