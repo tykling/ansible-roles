@@ -23,9 +23,9 @@ DirPort 9091 NoAdvertise
 ControlPort 9051
 {% endif %}
 
-{% if hiddenservices is defined %}{% for key, value in hiddenservices.items() %}
-HiddenServiceDir /var/db/tor/{{ key }}/
-HiddenServicePort {{ value.hiddenserviceport }}
+{% if hiddenservices is defined %}{% for hs in hiddenservices %}
+HiddenServiceDir /var/db/tor/{{ hs.name }}/
+HiddenServicePort {{ hs.hiddenserviceport }}
 
 {% endfor %}{% endif %}
 
