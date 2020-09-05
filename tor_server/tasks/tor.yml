@@ -14,34 +14,3 @@
     src: "torrc.j2"
     dest: "/usr/local/etc/tor/torrc"
   notify: "reload tor"
-
-- name: "Create hidden service folders"
-  file:
-    path: "/var/db/tor/{{ item.key }}"
-    state: "directory"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0700"
-  with_dict: "{{ hiddenservices | default({}) }}"
-  notify: "reload tor"
-
-- name: "Copy hidden service hostnames"
-  copy:
-    content: "{{ item.value.onion_hostname }}"
-    dest: "/var/db/tor/{{ item.key }}/hostname"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0600"
-  with_dict: "{{ hiddenservices | default({}) }}"
-  notify: "reload tor"
-
-- name: "Copy hidden service keys"
-  copy:
-    content: "{{ item.value.private_key }}"
-    dest: "/var/db/tor/{{ item.key }}/private_key"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0600"
-  with_dict: "{{ hiddenservices | default({}) }}"
-  notify: "reload tor"
-
