@@ -18,6 +18,7 @@ poudriere_client: True
 disable_ssh_password_login: True
 
 pkg_repository_filename: poudriere_tyknet_dk.conf
+pkg_tykports_enable: False
 poudriere_repo_name: poudriere_tyknet_dk
 poudriere_repo_hostname: poudriere.tyknet.dk
 poudriere_cert: |
