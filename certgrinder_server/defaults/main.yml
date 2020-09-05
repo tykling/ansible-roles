@@ -1,5 +1,5 @@
 ---
 letsencrypt_webroot: "/usr/local/www/letsencrypt-auto"
 certgrinder_user: "certgrinder"
-certgrinder_version: "v0.12.1"
+certgrinder_version: "v0.14.0"
 certgrinder_onion_service: True
