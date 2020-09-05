@@ -14,3 +14,36 @@
     src: "torrc.j2"
     dest: "/usr/local/etc/tor/torrc"
   notify: "reload tor"
+
+- name: "Create hidden service folders"
+  file:
+    path: "/var/db/tor/{{ item.name }}"
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0700"
+  with_items: "{{ hiddenservices | default([]) }}"
+  notify: "reload tor"
+
+- name: "Create hidden service client auth folders"
+  file:
+    path: "/var/db/tor/{{ item.name }}/authorized_clients"
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0700"
+  with_items: "{{ hiddenservices }}"
+  when: item.authclients is defined
+  notify: "reload tor"
+
+- name: "Copy hidden service client auth files"
+  copy:
+    dest: "/var/db/tor/{{ item.key }}/authorized_clients/{{ key.1.name }}"
+    content: "descriptor:x25519:{{ key.1.key }}"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0600"
+  with_subelements:
+    - "{{ hiddenservices }}"
+    - authclients
+  notify: "reload tor"
