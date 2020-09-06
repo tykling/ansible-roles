@@ -95,6 +95,7 @@ pass quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unreach,
 # permit ICMP6
 pass quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 
+{% if interface.gateway is defined and interface.gateway %}
 # block remaining inbound traffic to the firewalls own IPs on this interface
 block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 
@@ -102,9 +103,7 @@ block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 pass in quick on ${{ interface.pf_macro }}
 
 # Permit traffic from the firewall itself on this interface
-{% if interface.dynamic_ip is defined and interface.dynamic_ip %}pass out quick on ${{ interface.pf_macro }} from $({{ interface.pf_macro }}) to any
-{% else %}pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
-{% endif %}
+pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
 
 {% if "pf_upstream" in interface and interface.pf_upstream %}
 # this is an upstream interface, permit all remaining outgoing traffic
@@ -121,6 +120,10 @@ pass quick on ${{ interface.pf_macro }} proto pfsync keep state (no-sync)
 pass quick on ${{ interface.pf_macro }} proto carp keep state (no-sync)
 {% endif %}
 
-{% endfor %}
+{% else %}
+# pass all outgoing traffic on this interface
+pass out quick on ${{ interface.pf_macro }} all
+{% endif %}
 
+{% endfor %}
 
