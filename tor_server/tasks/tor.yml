@@ -47,3 +47,8 @@
     - "{{ hiddenservices }}"
     - authclients
   notify: "reload tor"
+
+- name: "Install socat"
+  pkgng:
+    name: "socat"
+    state: "present"
