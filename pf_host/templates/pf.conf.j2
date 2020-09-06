@@ -102,7 +102,9 @@ block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 pass in quick on ${{ interface.pf_macro }}
 
 # Permit traffic from the firewall itself on this interface
-pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
+{% if interface.dynamic_ip is defined and interface.dynamic_ip %}pass out quick on ${{ interface.pf_macro }} from $({{ interface.pf_macro }}) to any
+{% else %}pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
+{% endif %}
 
 {% if "pf_upstream" in interface and interface.pf_upstream %}
 # this is an upstream interface, permit all remaining outgoing traffic
