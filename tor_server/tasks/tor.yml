@@ -38,8 +38,8 @@
 
 - name: "Copy hidden service client auth files"
   copy:
-    dest: "/var/db/tor/{{ item.key }}/authorized_clients/{{ key.1.name }}"
-    content: "descriptor:x25519:{{ key.1.key }}"
+    dest: "/var/db/tor/{{ item.0.name }}/authorized_clients/{{ item.1.name }}"
+    content: "descriptor:x25519:{{ item.1.key }}"
     owner: "_tor"
     group: "_tor"
     mode: "0600"
