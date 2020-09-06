@@ -1,8 +1,8 @@
 -- Client listeners
 addLocal('127.0.0.1')
 addLocal('::1')
-addTLSLocal('127.0.0.1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
-addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_host }}.key')
+addTLSLocal('127.0.0.1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.key')
+addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.key')
 
 -- Downstream DNS servers
 {% for server in dnsdist_servers %}

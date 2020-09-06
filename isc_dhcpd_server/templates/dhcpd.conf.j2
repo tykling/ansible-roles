@@ -22,7 +22,7 @@ key omapi_key {
 # failover configuration, this server is primary
 failover peer "failover-partner" {
     primary;
-    address {{ ansible_host }};
+    address {{ ansible_hostname }};
     port 647;
     peer address {{ isc_dhcpd_secondary_peer }};
     peer port 847;
@@ -37,7 +37,7 @@ failover peer "failover-partner" {
 # failover configuration, this server is secondary
 failover peer "failover-partner" {
     secondary;
-    address {{ ansible_host }};
+    address {{ ansible_hostname }};
     port 847;
     peer address {{ isc_dhcpd_primary_peer }};
     peer port 647;
