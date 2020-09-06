@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: tor_server, when: ansible_server_tor }
+  - { role: tor_server }
 
