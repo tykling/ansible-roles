@@ -39,7 +39,7 @@ nginx_locationslash: |
   # /public/ uses x-accel-redirect
   location /public/ {
         internal;
-        root {{ django_media_root }};
+        alias {{ django_media_root }}/;
   }
   # django backend, proxy_pass to daphne or uwsgi
   location / {
