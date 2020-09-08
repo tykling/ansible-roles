@@ -52,6 +52,7 @@ http {
     access_log                  /usr/local/www/logs/proxytiming.json timingjson;
 {% if nginx_cache %}
     proxy_cache_path {{ nginx_cache_path }} levels=1:2 keys_zone=my_cache:10m max_size={{ nginx_cache_size }} inactive={{ nginx_cache_inactive }} use_temp_path=off;
+    proxy_cache_key "$scheme://$host$request_uri";
 {% endif %}
 
 {% else %}
@@ -60,7 +61,7 @@ http {
 {% endif %}
     sendfile                    off;
     keepalive_timeout           65;
-    client_max_body_size        100m;
+    client_max_body_size        {{ nginx_client_max_body_size }};
     client_body_buffer_size     1m;
     proxy_buffers               256 4k;
     server_tokens               off;

@@ -18,4 +18,4 @@ nginx_sts: True
 nginx_sts_includesubdomains: True
 nginx_exporter_version: "master"
 nginx_exporter_uri: "http://{{ ansible_nodename }}/stub_status"
-
+nginx_client_max_body_size: "100m"
