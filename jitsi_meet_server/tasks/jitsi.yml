@@ -1,0 +1,11 @@
+---
+- name: "Install jitsi-meet"
+  pkgng:
+    name: "jitsi-meet"
+    state: "present"
+
+- name: "Install jitsi-videobridge"
+  pkgng:
+    name: "jitsi-videobridge"
+    state: "present"
+

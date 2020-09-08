@@ -417,3 +417,9 @@
   become: yes
   roles:
     - "certgrinderd_server"
+
+- name: "configure jitsi-meet servers"
+  hosts: "jitsi_meet_servers"
+  become: yes
+  roles:
+    - "jitsi_meet_server"
