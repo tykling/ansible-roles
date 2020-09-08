@@ -42,6 +42,10 @@ statistics = "internal"
 certificates = "{{ prosody_certificate_path }}"
 
 {% for vhost in prosody_virtualhosts %}
-VirtualHost "{{ vhost }}"
+VirtualHost "{{ vhost.hostname }}"
+{{ vhost.config }}
 {% endfor %}
+
+# custom extra config below here
+{{ prosody_custom_extra_config }}
 
