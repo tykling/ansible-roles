@@ -6,7 +6,7 @@
 
 - name: "Install db stuff for prosody, shit port doesn't do it"
   pkgng:
-    name: "lua51-luadbi"
+    name: "lua52-luadbi"
     state: "present"
 
 - name: "Copy prosody config file"
