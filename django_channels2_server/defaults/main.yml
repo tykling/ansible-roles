@@ -32,6 +32,16 @@ django_os_dependencies:
   - "databases/postgresql{{ postgresql_version }}-client"
 
 nginx_locationslash: |
+  # django backend, proxy_pass to daphne or uwsgi
+  location @django {
+      proxy_pass http://$mapped_ws_upstream;
+      proxy_http_version 1.1;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+      proxy_read_timeout {{ django_nginx_proxy_read_timeout }};
+  }
   # static file served directly by nginx
   location /static/ {
         alias {{ django_nginx_static_root }};
@@ -41,15 +51,9 @@ nginx_locationslash: |
         internal;
         alias {{ django_media_root }}/;
   }
-  # django backend, proxy_pass to daphne or uwsgi
+  # pass the rest to django (try_files needs >1 args)
   location / {
-      proxy_pass http://$mapped_ws_upstream;
-      proxy_http_version 1.1;
-      proxy_set_header Host $http_host;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
-      proxy_read_timeout {{ django_nginx_proxy_read_timeout }};
+      try_files /dev/null @django;
   }
 
 nginx_extra_http_config: |
