@@ -7,3 +7,4 @@ certgrinderd_cleanup_hook: "/usr/home/certgrinderd/virtualenv/lib/python3.7/site
 certgrinderd_syslog_socket: "/var/run/log"
 certgrinderd_syslog_facility: "LOG_LOCAL6"
 certgrinderd_manage_letsencrypt_account: False
+certgrinderd_onion_service: True
