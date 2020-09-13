@@ -14,6 +14,7 @@
     state: "present"
     line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item.split(' ')[1:] }}"
     validate: "visudo -cf %s"
+    create: True
   with_items: "{{ certgrinder_post_renew_hooks | default([]) }}"
   when: "'sudo' in item.split(' ')[0]"
 
