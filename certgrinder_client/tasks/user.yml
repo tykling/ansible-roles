@@ -15,7 +15,7 @@
     line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item.split(' ')[1:] }}"
     validate: "visudo -cf %s"
   with_items: "{{ certgrinder_post_renew_hooks | default([]) }}"
-  when: "sudo" in item.split( " " )[0]
+  when: "'sudo' in item.split(' ')[0]"
 
 - name: "Add ssh pubkey fingerprint to .ssh/known_hosts"
   lineinfile:
