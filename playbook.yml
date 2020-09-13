@@ -142,12 +142,6 @@
   roles:
     - "metabase_server"
 
-- name: "configure certgrinder servers"
-  hosts: "certgrinder_servers"
-  become: yes
-  roles:
-    - "certgrinder_server"
-
 - name: "configure charybdis ircd servers"
   hosts: "charybdis_servers"
   become: yes
