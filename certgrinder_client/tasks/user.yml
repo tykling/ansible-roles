@@ -12,7 +12,7 @@
   lineinfile:
     dest: "/usr/local/etc/sudoers.d/certgrinder"
     state: "present"
-    line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item.split(' ')[1:] }}"
+    line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item.split(' ')[1:].join(' ') }}"
     validate: "visudo -cf %s"
     create: True
   with_items: "{{ certgrinder_post_renew_hooks | default([]) }}"
