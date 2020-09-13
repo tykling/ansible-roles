@@ -10,11 +10,12 @@
 
 - name: "Add sudoers permission so the certgrinder user can run post renew hooks"
   lineinfile:
-    dest: "/usr/local/etc/sudoers"
+    dest: "/usr/local/etc/sudoers.d/certgrinder"
     state: "present"
-    line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item }}"
+    line: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ item.split(' ')[1:] }}"
     validate: "visudo -cf %s"
   with_items: "{{ certgrinder_post_renew_hooks | default([]) }}"
+  when: "sudo" in item.split( " " )[0]
 
 - name: "Add ssh pubkey fingerprint to .ssh/known_hosts"
   lineinfile:
@@ -29,4 +30,3 @@
   command: "/usr/sbin/pw group mod {{ certgrinder_user }} -m {{ item }}"
   with_items: "{{ certgrinder_cert_users | default([]) }}"
   ignore_errors: yes
-
