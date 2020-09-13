@@ -30,3 +30,12 @@
     dest: "/usr/home/{{ certgrinderd_user }}/certgrinderd.conf"
     owner: "{{ certgrinderd_user }}"
     mode: "0644"
+
+- name: "Make sure PermitUserEnvironment=CERTGRINDERD_DOMAINSETS is set in sshd_config"
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^PermitUserEnvironment="
+    line: "PermitUserEnvironment=CERTGRINDERD_DOMAINSETS"
+    state: present
+  notify:
+    - "restart sshd"
