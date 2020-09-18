@@ -12,7 +12,7 @@
 - include_tasks: "uwsgi_exporter.yml"
   when: ('uwsgi_servers' in group_names) or ('django_channels2_servers' in group_names)
 - include_tasks: "gstat_exporter.yml"
-  when: ('freebsd_hosts' in group_names) and ('host_type' == 'hardware')
+  when: 'freebsd_hosts' in group_names
 - include_tasks: "jail_exporter.yml"
   when: "'ezjail_hosts' in group_names"
 - include_tasks: "bind_exporter.yml"
