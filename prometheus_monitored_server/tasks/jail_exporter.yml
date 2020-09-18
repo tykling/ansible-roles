@@ -52,3 +52,8 @@
         user: "root"
     supervisord_extra_programs: []
 
+- name: "Enable racct (rctl) in /boot/loader.conf"
+  sysrc:
+    dest: "/boot/loader.conf"
+    name: "kern.racct.enable"
+    value: "1"
