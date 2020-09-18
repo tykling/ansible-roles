@@ -5,3 +5,5 @@
 - name: "reload bind"
   command: "/usr/local/sbin/rndc reload"
 
+- name: "restart bind_dampening_stats"
+  command: "/usr/local/bin/supervisorctl restart bind_dampening_stats"
