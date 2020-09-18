@@ -34,3 +34,22 @@
   notify: "reload bind"
   tags: "bindconfig"
 
+- name: "Add dampening stats script"
+  copy:
+    src: "bind_dampening_stats.sh"
+    dest: "/usr/local/bin/bind_dampening_stats.sh"
+  notify: "restart bind_dampening_stats"
+  when: bind_dampening
+
+- name: "Create supervisord.d config to run bind_dampening_stats.sh"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "bind_dampening_stats"
+    supervisord_programs:
+      - name: "bind_dampening_stats"
+        comment: "run bind_dampening_stats"
+        command: "/usr/local/bin/bind_dampening_stats.sh"
+        user: "0"
+  when: bind_dampening
