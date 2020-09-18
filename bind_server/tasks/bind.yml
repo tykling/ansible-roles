@@ -38,6 +38,7 @@
   copy:
     src: "bind_dampening_stats.sh"
     dest: "/usr/local/bin/bind_dampening_stats.sh"
+    mode: "0755"
   notify: "restart bind_dampening_stats"
   when: bind_dampening
 
