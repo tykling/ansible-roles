@@ -15,6 +15,13 @@
   with_dict: "{{ users | default({}) }}"
   tags: usermanagement
 
+- name: "Add #include line to sudoers"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    line: "#includedir /usr/local/etc/sudoers.d"
+    validate: "visudo -cf %s"
+
 - name: "Add users to sudoers"
   lineinfile:
     dest: "/usr/local/etc/sudoers"
