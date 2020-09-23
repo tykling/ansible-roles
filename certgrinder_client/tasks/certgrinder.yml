@@ -53,6 +53,7 @@
 - name: "Install certgrinder in the virtualenv"
   pip:
     name: "certgrinder"
+    state: "latest"
     virtualenv: "/usr/home/{{ certgrinder_user }}/virtualenv"
 
 - name: "Create certificates directory"
