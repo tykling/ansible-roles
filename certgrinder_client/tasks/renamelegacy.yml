@@ -14,6 +14,7 @@
     owner: "{{ certgrinder_user }}"
     group: "{{ certgrinder_user }}"
     mode: "0640"
+    remote_src: True
   loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results.results)|list }}"
   when: item.1.stat.exists
   tags: "renamelegacy"
