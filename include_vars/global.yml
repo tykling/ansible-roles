@@ -1,4 +1,5 @@
 ---
 certgrinder_user: "certgrinder"
+certgrinder_home: "/usr/home/{{ certgrinder_user }}"
 certgrinder_client: yes
 
