@@ -5,3 +5,4 @@
 - include_tasks: "certgrinder.yml"
 - include_tasks: "cron.yml"
 #- include_tasks: "renamelegacy.yml"
+#  tags: "renamelegacy"

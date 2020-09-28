@@ -5,6 +5,7 @@
   register: old_key_files_results
   changed_when: False
   with_items: certgrinder_hostname_sets
+  tags: "renamelegacy"
 
 - name: "Copy any .key files with pre-0.15 filenames to new filename"
   copy:
@@ -15,6 +16,7 @@
     mode: "0640"
   loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results)|list }}"
   when: item.1.stat.exists
+  tags: "renamelegacy"
 
 - name: "Remove the old .key file with pre-0.15 filename"
   file:
@@ -22,3 +24,4 @@
     state: "absent"
   loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results)|list }}"
   when: item.1.stat.exists
+  tags: "renamelegacy"
