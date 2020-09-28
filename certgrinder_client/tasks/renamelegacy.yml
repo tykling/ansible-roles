@@ -1,27 +1,27 @@
 ---
 - name: "Check if we have .key files with pre-0.15 filenames which need renaming"
   stat:
-    path: "{{ certgrinder_home }}/certificates/{{ item.split(',')[0].encode('idna') }}.key"
+    path: "{{ certgrinder_home }}/certificates/{{ item.split(',')[0].encode('idna').decode('ascii') }}.key"
   register: old_key_files_results
   changed_when: False
-  with_items: certgrinder_hostname_sets
+  with_items: "{{ certgrinder_hostname_sets }}"
   tags: "renamelegacy"
 
 - name: "Copy any .key files with pre-0.15 filenames to new filename"
   copy:
-    src: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna') }}.key"
-    dest: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna')[-230:] }}-keypair.rsa.key"
+    src: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna').decode('ascii') }}.key"
+    dest: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna').decode('ascii')[-230:] }}-keypair.rsa.key"
     owner: "{{ certgrinder_user }}"
     group: "{{ certgrinder_user }}"
     mode: "0640"
-  loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results)|list }}"
+  loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results.results)|list }}"
   when: item.1.stat.exists
   tags: "renamelegacy"
 
 - name: "Remove the old .key file with pre-0.15 filename"
   file:
-    path: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna') }}.key"
+    path: "{{ certgrinder_home }}/certificates/{{ item.0.split(',')[0].encode('idna').decode('ascii') }}.key"
     state: "absent"
-  loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results)|list }}"
+  loop: "{{ certgrinder_hostname_sets|zip(old_key_files_results.results)|list }}"
   when: item.1.stat.exists
   tags: "renamelegacy"
