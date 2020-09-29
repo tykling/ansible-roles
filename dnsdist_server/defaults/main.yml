@@ -1,3 +1,6 @@
 ---
 dnsdist_logfile_path: "/var/log/dnsdist.log"
 dnsdist_acl: []
+dnsdist_listen_plain53: True
+dnsdist_listen_dot: True
+dnsdist_listen_doh: True
