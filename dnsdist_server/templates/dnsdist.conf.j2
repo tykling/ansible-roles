@@ -5,13 +5,13 @@ addLocal('::1')
 {% endif %}
 
 {% if dnsdist_listen_dot %}
-addTLSLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
-addTLSLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+addTLSLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.ecdsa.key'})
+addTLSLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.ecdsa.key'})
 {% endif %}
 
 {% if dnsdist_listen_doh %}
-addDOHLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
-addDOHLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+addDOHLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.ecdsa.key'})
+addDOHLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.ecdsa.key'})
 {% endif %}
 
 
