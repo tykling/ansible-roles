@@ -53,3 +53,5 @@ addConsoleACL("{{ ansible_default_ipv6.address|default(ansible_all_ipv6_addresse
 webserver("127.0.0.1:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
 webserver("[::1]:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
 
+-- custom config below here
+{{ dnsdist_extra_config }}
