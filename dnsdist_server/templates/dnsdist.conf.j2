@@ -1,10 +1,14 @@
 -- Client listeners
 addLocal('127.0.0.1')
 addLocal('::1')
-addTLSLocal('127.0.0.1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.key')
-addTLSLocal('::1', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.crt', '/usr/home/{{ certgrinder_user }}/certificates/{{ ansible_hostname }}.key')
 
--- Downstream DNS servers
+addTLSLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+addTLSLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+
+addDOHLocal('127.0.0.1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+addDOHLocal('::1', {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.rsa.crt', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-chain.ecdsa.crt'}, {'{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.rsa.key', '{{ certgrinder_home }}/certificates/{{ ansible_hostname }}-keypair.ecdsa.key'})
+
+-- Upstream DNS servers
 {% for server in dnsdist_servers %}
 {% if server.comment is defined %}
 -- {{ server.comment }}

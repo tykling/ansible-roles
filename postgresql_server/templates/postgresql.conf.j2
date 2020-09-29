@@ -15,8 +15,8 @@ default_text_search_config = 'pg_catalog.english'
 full_page_writes = off
 {% if postgresql_server_tls_enable %}
 ssl = on
-ssl_cert_file = '{{postgresql_homedir }}/{{ ansible_nodename }}.crt'
-ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}.key'
+ssl_cert_file = '{{postgresql_homedir }}/{{ ansible_nodename }}-chain.rsa.crt'
+ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}-keypair.rsa.key'
 {% endif %}
 {% if postgresql_hot_standby %}hot_standby = on
 {% endif %}
