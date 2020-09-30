@@ -1,6 +1,4 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client, when: certgrinder_client|d(True) }
   - { role: nginx_server, nginx_proxy: yes }
-

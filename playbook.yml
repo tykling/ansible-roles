@@ -2,7 +2,7 @@
 - name: "Include host secrets"
   hosts: "all"
   tasks:
-    - name: "Check if host secrets exists for in host_vars"
+    - name: "Check if host secrets exists in host_vars"
       local_action: stat path="/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
       register: stat_result
       tags:
@@ -382,23 +382,11 @@
   roles:
     - "openbgpd_server"
 
-- name: "configure prometheus monitored servers"
-  hosts: "prometheus_monitored_servers"
-  become: yes
-  roles:
-    - "prometheus_monitored_server"
-
 - name: "configure oxidized servers"
   hosts: "oxidized_servers"
   become: yes
   roles:
     - "oxidized_server"
-
-- name: "configure certgrinder clients"
-  hosts: "certgrinder_clients"
-  become: yes
-  roles:
-    - "certgrinder_client"
 
 - name: "configure stund servers"
   hosts: "stund_servers"

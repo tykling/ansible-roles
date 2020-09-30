@@ -18,3 +18,11 @@
   when: network_interfaces is defined
   tags:
     - "network"
+- include_tasks: "freebsd_sysctl_exporter.yml"
+- include_tasks: "node_exporter_textfile_collector_smartmon.yml"
+  when: host_type == 'hardware'
+- include_tasks: "gstat_exporter.yml"
+- include_tasks: "static_routes.yml"
+  when: static_routes is defined
+  tags:
+    - "routing"

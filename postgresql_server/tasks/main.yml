@@ -12,4 +12,4 @@
 - include_tasks: "replicabackup.yml"
 - include_tasks: "partitioning.yml"
   when: postgresql_partitioning_databases is defined
-
+- include_tasks: "postgres_exporter.yml"

@@ -1,0 +1,7 @@
+---
+- name: "Create exporter_exporter.d config file"
+  template:
+    src: "exporter_exporter.d.conf.j2"
+    dest: "/usr/local/etc/exporter_exporter.d/{{ expexp_filename }}"
+  notify:
+    - "restart exporter_exporter"

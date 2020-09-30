@@ -12,3 +12,5 @@ jailmergemaster_github_branch: "master"
 
 freebsd_weekly_locate_enable: False
 
+jail_exporter_version: "master"
+

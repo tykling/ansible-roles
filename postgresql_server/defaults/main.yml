@@ -36,3 +36,5 @@ postgresql_auto_explain_min_duration_seconds: 3
 postgresql_postgis: True
 postgis_package: "postgis25"
 
+postgres_exporter_version: "master"
+postgres_exporter_listen_address: ":9187"

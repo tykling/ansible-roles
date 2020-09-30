@@ -3,4 +3,4 @@
 - include_tasks: "supervisord.yml"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
-
+- include_tasks: "uwsgi_exporter.yml"

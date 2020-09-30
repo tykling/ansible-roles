@@ -22,7 +22,10 @@
   when: "'postfix_servers' not in group_names"
 - include_tasks: "newsyslog.yml"
 - include_tasks: "extra-cron.d-jobs.yml"
-- include_tasks: "static_routes.yml"
-  when: static_routes is defined
-  tags:
-    - "routing"
+- include_role:
+    name: "supervisord_server"
+- include_role:
+    name: "certgrinder_client"
+- include_tasks: "exporter_exporter.yml"
+- include_tasks: "node_exporter.yml"
+- include_tasks: "node_exporter_textfile_collector_pkg.yml"

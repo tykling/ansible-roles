@@ -2,6 +2,5 @@
 - include_tasks: "ezjail.yml"
 - include_tasks: "flavour.yml"
 - include_tasks: "jailmergemaster.yml"
-- include_tasks: "fixsyslogd.yml"
 - include_tasks: "rctl.yml"
-
+- include_tasks: "jail_exporter.yml"

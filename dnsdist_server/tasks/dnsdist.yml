@@ -10,3 +10,16 @@
     dest: "/usr/local/etc/dnsdist/dnsdist.conf"
   notify: "restart dnsdist"
 
+- name: "Create exporter_exporter.d config file for dnsdist"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "dnsdist.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 8083
+      basic_auth:
+        username: "dnsdist"
+        password: "{{ dnsdist_web_password }}"

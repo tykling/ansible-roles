@@ -78,3 +78,13 @@
           DATA_SOURCE_NAME: "postgresql://{{ ansible_nodename }}:5432/postgres?sslmode=disable"
     supervisord_extra_programs: []
 
+- name: "Create exporter_exporter.d config file for postgres_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "postgres_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9187

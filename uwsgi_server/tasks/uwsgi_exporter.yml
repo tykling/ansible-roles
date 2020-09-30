@@ -63,3 +63,13 @@
         user: "nobody"
     supervisord_extra_programs: []
 
+- name: "Create exporter_exporter.d config file for uwsgi_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "uwsgi_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9117

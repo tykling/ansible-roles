@@ -14,3 +14,13 @@
   notify:
     - "restart inetd"
 
+- name: "Create exporter_exporter.d config file for sysctl_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "sysctl_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9124

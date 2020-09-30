@@ -1,6 +1,4 @@
 ---
 dependencies:
   - { role: handlers }
-  - { role: certgrinder_client }
   - { role: nginx_server }
-

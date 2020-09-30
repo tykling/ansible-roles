@@ -20,3 +20,13 @@
         user: "0"
     supervisord_extra_programs: []
 
+- name: "Create exporter_exporter.d config file for bind_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "bind_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9119

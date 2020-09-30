@@ -42,3 +42,7 @@ etcaliases_root_forward_email: "{{ ansible_admin_email }}"
 freebsd_daily_status_security_enable: False
 extra_cron_d_jobs: []
 
+node_exporter_listen_address: ":9100"
+node_exporter_textfile_path: "/var/tmp/node_exporter"
+
+

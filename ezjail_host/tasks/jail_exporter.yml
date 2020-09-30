@@ -58,3 +58,14 @@
     regexp: "^kern.racct.enable="
     line: "kern.racct.enable=1"
     state: "present"
+
+- name: "Create exporter_exporter.d config file for jail_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "jail_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9452
