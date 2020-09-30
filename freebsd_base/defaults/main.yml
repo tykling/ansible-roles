@@ -45,3 +45,11 @@ extra_cron_d_jobs: []
 prometheus_exporter_user: "promexp"
 node_exporter_listen_address: ":9100"
 node_exporter_textfile_path: "/var/tmp/node_exporter"
+
+certgrinder_cert_users:
+  - "promexp"
+
+exporter_exporter_version: "master"
+exporter_exporter_listen_address: ":9999"
+exporter_exporter_proxy_path: "/proxy"
+exporter_exporter_telemetry_path: "/metrics"
