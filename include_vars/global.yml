@@ -1,5 +1,6 @@
 ---
 certgrinder_user: "certgrinder"
 certgrinder_home: "/usr/home/{{ certgrinder_user }}"
+
 certgrinder_hostname_sets:
-  - {{ ansible_nodename }}
+  - "{{ ansible_nodename }}"
