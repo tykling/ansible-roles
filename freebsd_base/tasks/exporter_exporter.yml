@@ -28,6 +28,16 @@
     GOBIN: "/usr/local/bin"
   when: gitresult.changed
 
+- name: "Install exporter_exporter config"
+  template:
+    src: "expexp.yml.j2"
+    dest: "/usr/local/etc/expexp.yml"
+    owner: "{{ prometheus_exporter_user }}"
+    group: "{{ prometheus_exporter_user }}"
+    mode: 0644
+  notify:
+    - "restart exporter_exporter"
+
 - name: "Create exporter_exporter.d config directory"
   file:
     path: "/usr/local/etc/exporter_exporter.d"
@@ -45,4 +55,3 @@
         command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -config.dirs=/usr/local/etc/exporter_exporter.d -web.listen-address= -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert=/usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt -web.tls.key /usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
         user: "{{ prometheus_exporter_user }}"
     supervisord_extra_programs: []
-
