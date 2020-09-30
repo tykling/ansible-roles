@@ -29,11 +29,10 @@
       when: item.stat.exists
       loop: "{{ result.results }}"
 
-- name: "Include include_vars/global.yml if available"
+- name: "Include include_vars/global.yml with variables used across multiple roles"
   hosts: "all"
   tasks:
     - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
-      ignore_errors: yes
       tags:
         - "always"
 
