@@ -2,4 +2,4 @@
 ansible_admin_email: "{{ etcaliases_root_forward_email }}"
 ansible_server_checkstuff_cronjob: True
 ansible_user: "ansible"
-
+ansible_server_tor: True
