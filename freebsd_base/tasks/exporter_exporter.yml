@@ -1,11 +1,4 @@
 ---
-- name: "Add prometheus exporter user"
-  user:
-    name: "{{ prometheus_exporter_user }}"
-    comment: "Prometheus exporter user"
-    home: "/nonexistent"
-    create_home: False
-
 - name: "Install Go"
   pkgng:
     name: "go"

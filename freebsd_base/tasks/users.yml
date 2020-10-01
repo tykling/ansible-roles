@@ -43,3 +43,9 @@
   with_items: "{{ sudoers_extra_users | default([]) }}"
   tags: usermanagement
 
+- name: "Add prometheus exporter user"
+  user:
+    name: "{{ prometheus_exporter_user }}"
+    comment: "Prometheus exporter user"
+    home: "/nonexistent"
+    create_home: False
