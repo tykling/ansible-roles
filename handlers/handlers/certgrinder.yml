@@ -2,6 +2,6 @@
 - name: "certgrinder ssh key created email"
   mail:
     to: "{{ certgrinder_admin_email }}"
-    subject: "new certgrinder_client ssh key generated on host {{ ansible_hostname }}"
-    body: "Ansible has generated a new SSH key on certgrinder_client host {{ ansible_hostname }}. Please add it to certgrinder_authorized_keys on {{ certgrinder_ssh_server }}, and then rerun ansible for {{ ansible_hostname }} again to issue proper certificates."
+    subject: "new certgrinder_client ssh key generated on host {{ ansible_nodename }}"
+    body: "Ansible has generated a new SSH key on certgrinder_client host {{ ansible_nodename }}. Please add it to certgrinder_authorized_keys on {{ certgrinder_ssh_server }}, and then rerun ansible for {{ ansible_nodename }} again to issue proper certificates."
 
