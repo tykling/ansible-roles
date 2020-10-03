@@ -20,6 +20,5 @@
       method: "http"
       http:
         port: 8083
-        basic_auth:
-          username: "dnsdist"
-          password: "{{ dnsdist_web_password }}"
+        basic_auth_username: "dnsdist"
+        basic_auth_password: "{{ dnsdist_web_password }}"
