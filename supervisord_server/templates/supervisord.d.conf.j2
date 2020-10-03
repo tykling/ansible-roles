@@ -26,4 +26,6 @@ autostart={{ item.autostart | default(True) }}
 {% endif %}
 {% if item.environment is defined %}environment={% for key, value in item.environment.items() %}{{ key }}="{{ value }}",{% endfor %}
 {% endif %}
+{% if item.stopasgroup is defined %}stopasgroup={{ item.stopasgroup }}
+{% endif %}
 
