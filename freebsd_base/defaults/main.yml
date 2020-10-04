@@ -49,6 +49,9 @@ node_exporter_textfile_path: "/var/tmp/node_exporter"
 certgrinder_cert_users:
   - "promexp"
 
+certgrinder_hostname_sets:
+  - "{{ ansible_nodename }}"
+
 exporter_exporter_version: "master"
 exporter_exporter_listen_address: ":9999"
 exporter_exporter_proxy_path: "/proxy"
