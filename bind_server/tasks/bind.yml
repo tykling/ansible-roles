@@ -53,4 +53,5 @@
         comment: "run bind_dampening_stats"
         command: "/usr/local/bin/bind_dampening_stats.sh"
         user: "0"
+        stopasgroup: True
   when: bind_dampening
