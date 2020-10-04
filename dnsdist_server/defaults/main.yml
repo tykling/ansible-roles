@@ -4,3 +4,5 @@ dnsdist_acl: []
 dnsdist_listen_plain53: True
 dnsdist_listen_dot: True
 dnsdist_listen_doh: True
+dnsdist_web_management_v4_listen: "127.0.0.1:8083"
+dnsdist_web_management_v6_listen: "[::1]:8083"

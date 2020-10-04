@@ -50,8 +50,8 @@ addConsoleACL("{{ ansible_default_ipv4.address|default(ansible_all_ipv4_addresse
 addConsoleACL("{{ ansible_default_ipv6.address|default(ansible_all_ipv6_addresses[0]) }}/128")
 
 -- Web management
-webserver("127.0.0.1:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
-webserver("[::1]:8083", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
+webserver("{{ dnsdist_web_management_v4_listen }}", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
+webserver("{{ dnsdist_web_management_v6_listen }}", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}")
 
 -- custom config below here
 {{ dnsdist_extra_config }}
