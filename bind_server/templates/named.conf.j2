@@ -27,6 +27,10 @@ options {
         query-source-v6 address {{ bind_v6_source_ip }};
 {% endif %}
 
+        # dns flag day 2020
+        edns-udp-size 1232;
+        max-udp-size 1232;
+
 {% if bind_recursive %}
         disable-empty-zone "255.255.255.255.IN-ADDR.ARPA";
         disable-empty-zone "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.IP6.ARPA";
