@@ -1,9 +1,14 @@
 ---
 dnsdist_logfile_path: "/var/log/dnsdist.log"
 dnsdist_acl: []
+dnsdist_listen_ipv4: "127.0.0.1"
+dnsdist_listen_ipv6: "::1"
 dnsdist_listen_plain53: True
+dnsdist_listen_plain53_port: "53"
 dnsdist_listen_dot: True
+dnsdist_listen_dot_port: "853"
 dnsdist_listen_doh: True
+dnsdist_listen_doh_port: "443"
 dnsdist_web_mgmt_v4_listen_ip: "127.0.0.1"
 dnsdist_web_mgmt_v4_listen_port: 8083
 dnsdist_web_mgmt_v6_listen_ip: "::1"
