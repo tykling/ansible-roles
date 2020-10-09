@@ -6,8 +6,7 @@ type = http_x_remote_user
 
 [rights]
 type = from_file
-file = /usr/local/etc/radicale2/rights
+file = {{ radicale_configdir }}/rights
 
 [storage]
 filesystem_folder = {{ radicale_datadir }}
-
