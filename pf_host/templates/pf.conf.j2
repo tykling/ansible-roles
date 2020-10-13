@@ -100,7 +100,8 @@ pass quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echor
 block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 
 # Permit all remaining inbound traffic on this interface
-pass in quick on ${{ interface.pf_macro }}
+pass in quick on ${{ interface.pf_macro }}{% if pf_reply_to_v4 in interface %} reply-to { interface.pf_reply_to_v4.interface interface.pf_reply_to_v4.nexthop }{% endif %} inet
+pass in quick on ${{ interface.pf_macro }}{% if pf_reply_to_v6 in interface %} reply-to { interface.pf_reply_to_v6.interface interface.pf_reply_to_v6.nexthop }{% endif %} inet6
 
 # Permit traffic from the firewall itself on this interface
 pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
