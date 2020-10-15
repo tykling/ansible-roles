@@ -1,9 +1,4 @@
 ---
-- name: "Install Go"
-  pkgng:
-    name: "go"
-    state: "present"
-
 - name: "Get source code for nginx_exporter"
   git:
     repo: "https://github.com/nginxinc/nginx-prometheus-exporter"
@@ -11,6 +6,13 @@
     force: yes
     version: "{{ nginx_exporter_version }}"
   register: gitresult
+
+- name: "Install Go to build nginx_exporter"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: goresult
+  when: gitresult.changed
 
 - name: "Go get nginx_exporter"
   command: "go get github.com/nginxinc/nginx-prometheus-exporter"
@@ -24,6 +26,14 @@
   args:
     chdir: "/root/go/src/github.com/nginxinc/nginx-prometheus-exporter"
   when: gitresult.changed
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - goresult.changed
 
 - name: "Copy nginx_exporter binary to /usr/local/bin"
   copy:

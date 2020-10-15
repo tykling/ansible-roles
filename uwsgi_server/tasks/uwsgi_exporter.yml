@@ -1,9 +1,4 @@
 ---
-- name: "Install Go"
-  pkgng:
-    name: "go"
-    state: "present"
-
 - name: "Get source code for uwsgi_exporter"
   git:
     repo: "https://github.com/timonwong/uwsgi_exporter"
@@ -12,6 +7,13 @@
     version: "{{ uwsgi_exporter_version }}"
   register: gitresult
 
+- name: "Install Go to build uwsgi_exporter"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: goresult
+  when: gitresult.changed
+ 
 - name: "Go get uwsgi_exporter"
   command: "go get github.com/timonwong/uwsgi_exporter"
   environment:
@@ -49,6 +51,14 @@
   when:
     - gitresult.changed
     - gmakeresult.changed
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - goresult.changed
 
 - name: "Create supervisord.d config file to run uwsgi_exporter"
   include_role:

@@ -1,9 +1,4 @@
 ---
-- name: "Install Go"
-  pkgng:
-    name: "go"
-    state: "present"
-
 - name: "Get source code for postgres_exporter with git so we know when it changed, not used for the build"
   git:
     repo: "https://github.com/wrouesnel/postgres_exporter"
@@ -12,6 +7,13 @@
     version: "{{ postgres_exporter_version }}"
   register: gitresult
 
+- name: "Install Go to build postgres_exporter"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: goresult
+  when: gitresult.changed
+ 
 - name: "Go get postgres_exporter (download source and deps)"
   command: "go get github.com/wrouesnel/postgres_exporter/cmd/postgres_exporter"
   environment:
@@ -24,6 +26,14 @@
   args:
     chdir: "/root/go/src/github.com/wrouesnel/postgres_exporter"
   when: gitresult.changed
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - goresult.changed
 
 - name: "Find postgres_exporter binary"
   find:

@@ -1,9 +1,4 @@
 ---
-- name: "Install Go"
-  pkgng:
-    name: "go"
-    state: "present"
-
 - name: "Get source code for exporter_exporter"
   git:
     repo: "https://github.com/QubitProducts/exporter_exporter"
@@ -12,6 +7,13 @@
     version: "{{ exporter_exporter_version }}"
   register: gitresult
 
+- name: "Install Go"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: goresult
+  when: gitresult.changed
+ 
 - name: "Go get exporter_exporter"
   command: "go get ."
   args:
@@ -20,6 +22,14 @@
     GOPATH: "/root/go"
     GOBIN: "/usr/local/bin"
   when: gitresult.changed
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - goresult.changed
 
 - name: "Install exporter_exporter config"
   template:
