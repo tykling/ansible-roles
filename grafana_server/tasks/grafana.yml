@@ -1,7 +1,7 @@
 ---
-- name: "Install grafana6"
+- name: "Install grafana7"
   pkgng:
-    name: "grafana6"
+    name: "grafana7"
     state: "present"
 
 - name: "Install Grafana config"
