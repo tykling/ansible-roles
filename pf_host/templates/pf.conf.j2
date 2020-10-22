@@ -101,8 +101,7 @@ block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 
 {% if "pf_routing" in interface and interface.pf_routing %}
 # We are acting as router for the network this interface is connected to, so permit all remaining inbound traffic on the interface
-pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet
-pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6
+pass in quick on ${{ interface.pf_macro }}
 {% endif %}
 
 # Permit traffic from the firewall itself on this interface
