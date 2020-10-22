@@ -99,9 +99,11 @@ pass quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echor
 # this is a gateway, block remaining inbound traffic to the firewalls own IPs on this interface
 block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 
-# Permit all remaining inbound traffic on this interface
+{% if "pf_routing" in interface and interface.pf_routing %}
+# We are acting as router for the network this interface is connected to, so permit all remaining inbound traffic on the interface
 pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet
 pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6
+{% endif %}
 
 # Permit traffic from the firewall itself on this interface
 pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any
