@@ -17,6 +17,7 @@
     src: "portlist.j2"
     dest: "/usr/local/etc/poudriere.d/{{ item['filename'] }}"
   with_items: "{{ poudriere_portlists }}"
+  tags: "portlists"
 
 - name: "Copy extra poudriere makefiles"
   copy:
