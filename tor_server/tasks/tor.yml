@@ -16,12 +16,16 @@
   when: tor_instances|length > 1
 
 - name: "Configure Tor instances"
-  include_tasks: "configure_tor_instance"
+  include_tasks:
+    file: "configure_tor_instance.yml"
+    apply:
+      tags: "torconf"
   vars:
     instance: "{{ item }}"
     datadir: "{% if 'datadir' in item %}{{ item.datadir }}{% elif item.name == 'main' %}/var/db/tor{% else %}/var/db/tor/instance@{{ item.name }}{% endif %}"
     confpath: "/usr/local/etc/tor/torrc{% if item.name != 'main' %}@{{ item.name }}{% endif %}"
-  loop: "{{ tor_instances }}"
+  loop: "{{ tor_instances | dict2items }}"
+  tags: "torconf"
 
 - name: "Install socat"
   pkgng:
