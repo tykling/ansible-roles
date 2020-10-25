@@ -33,7 +33,10 @@
     owner: "_tor"
     group: "_tor"
     mode: "0600"
-    loop: "{{ instance.value.onion_services|default([])|subelements('auth_clients') }}"
+  with_subelements:
+    - "{{ instance.value.onion_services }}"
+    - auth_clients
+  when: "'onion_services' in instance.value.keys()"
   notify: "reload tor"
 
 - name: "Create tor client onion auth folder (to contain keys for accessing onion services running on other hosts)"
@@ -53,4 +56,5 @@
     group: "_tor"
     mode: "0600"
   loop: "{{ instance.value.onion_client_auths|default([]) }}"
+  when: "'onion_client_auths' in instance.value.keys()"
   notify: "reload tor"
