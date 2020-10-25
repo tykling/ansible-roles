@@ -27,7 +27,7 @@ ControlPort 9051
 HiddenServiceDir {{ datadir }}/{{ os.name }}/
 HiddenServicePort {{ os.hidden_service_port }}
 
-{% endfor %}{% endif %}
+{% endfor %}
 
 {% if instance.onion_client_auths | default({}) %}
 ClientOnionAuthDir {{ datadir }}/onion_client_auths
