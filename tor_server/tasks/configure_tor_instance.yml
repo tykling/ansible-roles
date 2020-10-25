@@ -17,25 +17,29 @@
 
 - name: "Create onion service client auth folders (for onion services running on this host)"
   file:
-    path: "{{ datadir }}/{{ item.name }}/authorized_clients"
+    path: "{{ datadir }}/{{ loopitem.name }}/authorized_clients"
     state: "directory"
     owner: "_tor"
     group: "_tor"
     mode: "0700"
   loop: "{{ instance.value.onion_services | default([]) }}"
+  loop_control:
+    loop_var: "loopitem"
   when: item.auth_clients is defined
   notify: "reload tor"
 
 - name: "Copy onion service client auth files (for onion services running on this host)"
   copy:
-    dest: "{{ datadir }}/{{ item.0.name }}/authorized_clients/{{ item.1.name }}.auth"
-    content: "descriptor:x25519:{{ item.1.pubkey }}"
+    dest: "{{ datadir }}/{{ loopitem.0.name }}/authorized_clients/{{ loopitem.1.name }}.auth"
+    content: "descriptor:x25519:{{ loopitem.1.pubkey }}"
     owner: "_tor"
     group: "_tor"
     mode: "0600"
   with_subelements:
     - "{{ instance.value.onion_services }}"
     - auth_clients
+  loop_control:
+    loop_var: "loopitem"
   when: "'onion_services' in instance.value.keys()"
   notify: "reload tor"
 
@@ -50,11 +54,13 @@
 
 - name: "Copy onion service client auth files (keys for accessing onion services running on other hosts)"
   copy:
-    dest: "{{ datadir }}/onion_auth/{{ item.name }}.auth_private"
-    content: "{{ item.onion }}:descriptor:x25519:{{ item.privkey }}"
+    dest: "{{ datadir }}/onion_auth/{{ loopitem.name }}.auth_private"
+    content: "{{ loopitem.onion }}:descriptor:x25519:{{ loopitem.privkey }}"
     owner: "_tor"
     group: "_tor"
     mode: "0600"
   loop: "{{ instance.value.onion_client_auths|default([]) }}"
+  loop_control:
+    loop_var: "loopitem"
   when: "'onion_client_auths' in instance.value.keys()"
   notify: "reload tor"
