@@ -1,20 +1,20 @@
 Log notice syslog
 RunAsDaemon 1
-DataDirectory /var/db/tor
+DataDirectory {{ datadir }}
 
-{% if tor_relay_nickname is defined %}
+{% if instance.relay | default({}) %}
 Address {{ ansible_nodename }}
-Nickname {{ tor_relay_nickname }}
-ContactInfo {{ tor_relay_contactinfo }}
+Nickname {{ instance.relay.nickname }}
+ContactInfo {{ instance.relay.contactinfo }}
 MyFamily {{ tor_relay_family | join(",") }}
 
 ExitPolicy reject *:*
 
 ORPort 443 NoListen
 ORPort 9090 NoAdvertise
-{% if tor_relay_v6ip is defined %}
-ORPort [{{ tor_relay_v6ip }}]:443 NoListen
-ORPort [{{ tor_relay_v6ip }}]:9090 NoAdvertise
+{% if instance.relay.v6ip is defined %}
+ORPort [{{ instance.relay.v6ip }}]:443 NoListen
+ORPort [{{ instance.relay.v6ip }}]:9090 NoAdvertise
 {% endif %}
 
 DirPort 80 NoListen
@@ -23,9 +23,12 @@ DirPort 9091 NoAdvertise
 ControlPort 9051
 {% endif %}
 
-{% if hiddenservices is defined %}{% for hs in hiddenservices %}
-HiddenServiceDir /var/db/tor/{{ hs.name }}/
-HiddenServicePort {{ hs.hiddenserviceport }}
+{% for os in instance.onion_services | default([]) %}
+HiddenServiceDir {{ datadir }}/{{ os.name }}/
+HiddenServicePort {{ os.hidden_service_port }}
 
 {% endfor %}{% endif %}
 
+{% if instance.onion_client_auths | default({}) %}
+ClientOnionAuthDir {{ datadir }}/onion_client_auths
+{% endif %}

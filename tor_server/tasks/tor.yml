@@ -9,44 +9,19 @@
     name: "tor"
     enabled: yes
 
-- name: "Configure tor"
-  template:
-    src: "torrc.j2"
-    dest: "/usr/local/etc/tor/torrc"
-  notify: "reload tor"
+- name: "Enable multiple Tor instances in rc.conf, if there is more than one"
+  sysrc:
+    name: "tor_instances"
+    value: "{% for instance in tor_instances %}{{ instance.name }} {% endfor %}"
+  when: tor_instances|length > 1
 
-- name: "Create hidden service folders"
-  file:
-    path: "/var/db/tor/{{ item.name }}"
-    state: "directory"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0700"
-  with_items: "{{ hiddenservices | default([]) }}"
-  notify: "reload tor"
-
-- name: "Create hidden service client auth folders"
-  file:
-    path: "/var/db/tor/{{ item.name }}/authorized_clients"
-    state: "directory"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0700"
-  with_items: "{{ hiddenservices }}"
-  when: item.authclients is defined
-  notify: "reload tor"
-
-- name: "Copy hidden service client auth files"
-  copy:
-    dest: "/var/db/tor/{{ item.0.name }}/authorized_clients/{{ item.1.name }}"
-    content: "descriptor:x25519:{{ item.1.key }}"
-    owner: "_tor"
-    group: "_tor"
-    mode: "0600"
-  with_subelements:
-    - "{{ hiddenservices }}"
-    - authclients
-  notify: "reload tor"
+- name: "Configure Tor instances"
+  include_tasks: "configure_tor_instance"
+  vars:
+    instance: "{{ item }}"
+    datadir: "{% if 'datadir' in item %}{{ item.datadir }}{% elif item.name == 'main' %}/var/db/tor{% else %}/var/db/tor/instance@{{ item.name }}{% endif %}"
+    confpath: "/usr/local/etc/tor/torrc{% if item.name != 'main' %}@{{ item.name }}{% endif %}"
+  loop: "{{ tor_instances }}"
 
 - name: "Install socat"
   pkgng:

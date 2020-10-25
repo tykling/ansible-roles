@@ -1,3 +1,4 @@
 ---
-hiddenservices: []
-
+tor_instances:
+  - name: "main"
+    datadir: "/var/db/tor"

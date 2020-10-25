@@ -1,0 +1,57 @@
+---
+- name: "Configure tor"
+  template:
+    src: "torrc.j2"
+    dest: "{{ confpath }}"
+  notify: "reload tor"
+
+- name: "Create hidden service folders"
+  file:
+    path: "{{ datadir }}/{{ item.name }}"
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0700"
+  loop: "{{ instance.onion_services | default([]) }}"
+  notify: "reload tor"
+
+- name: "Create onion service client auth folders (for onion services running on this host)"
+  file:
+    path: "{{ datadir }}/{{ item.name }}/authorized_clients"
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0700"
+  loop: "{{ instance.onion_services | default([]) }}"
+  when: item.auth_clients is defined
+  notify: "reload tor"
+
+- name: "Copy onion service client auth files (for onion services running on this host)"
+  copy:
+    dest: "{{ datadir }}/{{ item.0.name }}/authorized_clients/{{ item.1.name }}.auth"
+    content: "descriptor:x25519:{{ item.1.pubkey }}"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0600"
+    loop: "{{ instance.onion_services|subelements('auth_clients') }}"
+  notify: "reload tor"
+
+- name: "Create tor client onion auth folder (to contain keys for accessing onion services running on other hosts)"
+  file:
+    path: "{{ datadir }}/onion_auth"
+    state: "directory"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0700"
+  when: "'onion_client_auths' in instance and instance.onion_client_auths"
+  notify: "reload tor"
+
+- name: "Copy onion service client auth files (keys for accessing onion services running on other hosts)"
+  copy:
+    dest: "{{ datadir }}/onion_auth/{{ item.name }}.auth_private"
+    content: "{{ item.onion }}:descriptor:x25519:{{ item.privkey }}"
+    owner: "_tor"
+    group: "_tor"
+    mode: "0600"
+  loop: "{{ instance.onion_client_auths }}"
+  notify: "reload tor"
