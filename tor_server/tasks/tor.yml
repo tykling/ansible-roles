@@ -22,8 +22,8 @@
       tags: "torconf"
   vars:
     instance: "{{ item }}"
-    datadir: "{% if 'datadir' in item %}{{ item.datadir }}{% elif item.name == 'main' %}/var/db/tor{% else %}/var/db/tor/instance@{{ item.name }}{% endif %}"
-    confpath: "/usr/local/etc/tor/torrc{% if item.name != 'main' %}@{{ item.name }}{% endif %}"
+    datadir: "{% if 'datadir' in item.value %}{{ item.value.datadir }}{% elif item.key == 'main' %}/var/db/tor{% else %}/var/db/tor/instance@{{ item.key }}{% endif %}"
+    confpath: "/usr/local/etc/tor/torrc{% if item.key != 'main' %}@{{ item.key }}{% endif %}"
   loop: "{{ tor_instances | dict2items }}"
   tags: "torconf"
 

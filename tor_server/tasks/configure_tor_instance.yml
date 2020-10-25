@@ -12,7 +12,7 @@
     owner: "_tor"
     group: "_tor"
     mode: "0700"
-  loop: "{{ instance.onion_services | default([]) }}"
+  loop: "{{ instance.value.onion_services | default([]) }}"
   notify: "reload tor"
 
 - name: "Create onion service client auth folders (for onion services running on this host)"
@@ -22,7 +22,7 @@
     owner: "_tor"
     group: "_tor"
     mode: "0700"
-  loop: "{{ instance.onion_services | default([]) }}"
+  loop: "{{ instance.value.onion_services | default([]) }}"
   when: item.auth_clients is defined
   notify: "reload tor"
 
@@ -33,7 +33,7 @@
     owner: "_tor"
     group: "_tor"
     mode: "0600"
-    loop: "{{ instance.onion_services|subelements('auth_clients') }}"
+    loop: "{{ instance.value.onion_services|default([])|subelements('auth_clients') }}"
   notify: "reload tor"
 
 - name: "Create tor client onion auth folder (to contain keys for accessing onion services running on other hosts)"
@@ -43,7 +43,6 @@
     owner: "_tor"
     group: "_tor"
     mode: "0700"
-  when: "'onion_client_auths' in instance and instance.onion_client_auths"
   notify: "reload tor"
 
 - name: "Copy onion service client auth files (keys for accessing onion services running on other hosts)"
@@ -53,5 +52,5 @@
     owner: "_tor"
     group: "_tor"
     mode: "0600"
-  loop: "{{ instance.onion_client_auths }}"
+  loop: "{{ instance.value.onion_client_auths|default([]) }}"
   notify: "reload tor"
