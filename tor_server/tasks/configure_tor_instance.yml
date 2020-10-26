@@ -1,9 +1,18 @@
 ---
-- name: "Configure tor"
+- name: "Configure Tor"
   template:
     src: "torrc.j2"
     dest: "{{ confpath }}"
   notify: "reload tor"
+
+- name: "Set FIB for this Tor instance"
+  sysrc:
+    name: "tor_{% if instance.key != 'main' %}{{ instance.key }}_{% endif %}fib"
+    value: "{{ instance.value.fib }}"
+  tags: "tor"
+  when:
+    - instance.value.fib is defined
+    - instance.value.fib != 0
 
 - name: "Create onion service folders"
   file:
