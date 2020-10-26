@@ -5,14 +5,16 @@
     dest: "{{ confpath }}"
   notify: "reload tor"
 
-- name: "Create hidden service folders"
+- name: "Create onion service folders"
   file:
-    path: "{{ datadir }}/{{ item.name }}"
+    path: "{{ datadir }}/{{ loopitem.name }}"
     state: "directory"
     owner: "_tor"
     group: "_tor"
     mode: "0700"
   loop: "{{ instance.value.onion_services | default([]) }}"
+  loop_control:
+    loop_var: "loopitem"
   notify: "reload tor"
 
 - name: "Create onion service client auth folders (for onion services running on this host)"
