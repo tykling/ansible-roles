@@ -1,3 +1,5 @@
 ---
 - include_tasks: tor.yml
-  tags: "torconf"
+  tags:
+    - "tor"
+    - "torconf"

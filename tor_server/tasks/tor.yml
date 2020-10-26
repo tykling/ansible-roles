@@ -3,31 +3,39 @@
   pkgng:
     name: "tor"
     state: "present"
+  tags: "tor"
 
 - name: "Enable tor"
-  service:
-    name: "tor"
-    enabled: yes
+  sysrc:
+    name: "tor_enabled"
+    value: "YES"
+  tags: "tor"
 
 - name: "Enable multiple Tor instances in rc.conf, if there is more than one"
   sysrc:
     name: "tor_instances"
     value: "{% for instance in tor_instances %}{{ instance.name }} {% endfor %}"
   when: tor_instances|length > 1
+  tags: "tor"
 
 - name: "Configure Tor instances"
   include_tasks:
     file: "configure_tor_instance.yml"
     apply:
-      tags: "torconf"
+      tags:
+        - "tor"
+        - "torconf"
   vars:
     instance: "{{ item }}"
     datadir: "{% if 'datadir' in item.value %}{{ item.value.datadir }}{% elif item.key == 'main' %}/var/db/tor{% else %}/var/db/tor/instance@{{ item.key }}{% endif %}"
     confpath: "/usr/local/etc/tor/torrc{% if item.key != 'main' %}@{{ item.key }}{% endif %}"
   loop: "{{ tor_instances | dict2items }}"
-  tags: "torconf"
+  tags:
+    - "tor"
+    - "torconf"
 
 - name: "Install socat"
   pkgng:
     name: "socat"
     state: "present"
+  tags: "tor"
