@@ -2,7 +2,7 @@ Log notice syslog
 RunAsDaemon 1
 DataDirectory {{ datadir }}
 
-{% if instance.value.disable_socks %}
+{% if instance.value.disable_socks|default(False) %}
 SocksPort 0
 {% endif %}
 
