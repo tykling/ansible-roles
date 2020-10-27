@@ -36,7 +36,7 @@
   loop: "{{ instance.value.onion_services | default([]) }}"
   loop_control:
     loop_var: "loopitem"
-  when: item.auth_clients is defined
+  when: item.onion_client_auths is defined
   notify: "reload tor"
 
 - name: "Copy onion service client auth files (for onion services running on this host)"
