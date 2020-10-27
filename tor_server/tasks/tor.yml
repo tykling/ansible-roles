@@ -14,7 +14,7 @@
 - name: "Enable multiple Tor instances in rc.conf, if there is more than one"
   sysrc:
     name: "tor_instances"
-    value: "{% for instance in tor_instances %}{{ instance.name }} {% endfor %}"
+    value: "{% for instance in tor_instances %}{% if instance.name != 'main' %}{{ instance.name }} {% endif %}{% endfor %}"
   when: tor_instances|length > 1
   tags: "tor"
 
