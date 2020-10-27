@@ -26,7 +26,7 @@
     loop_var: "loopitem"
   notify: "reload tor"
 
-- name: "Create onion service client auth folders (for onion services running on this host)"
+- name: "Create client auth folder for each onion service running on this host"
   file:
     path: "{{ datadir }}/{{ loopitem.name }}/authorized_clients"
     state: "directory"
@@ -36,7 +36,6 @@
   loop: "{{ instance.value.onion_services | default([]) }}"
   loop_control:
     loop_var: "loopitem"
-  when: item.onion_client_auths is defined
   notify: "reload tor"
 
 - name: "Copy onion service client auth files (for onion services running on this host)"
