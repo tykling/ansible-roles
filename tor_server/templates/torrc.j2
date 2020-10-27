@@ -2,6 +2,10 @@ Log notice syslog
 RunAsDaemon 1
 DataDirectory {{ datadir }}
 
+{% if instance.value.disable_socks %}
+SocksPort 0
+{% endif %}
+
 {% if instance.value.relay | default({}) %}
 Address {{ ansible_nodename }}
 Nickname {{ instance.value.relay.nickname }}
