@@ -1,7 +1,9 @@
 Log notice syslog
 RunAsDaemon 1
 DataDirectory {{ datadir }}
-
+{% if instance.value.syslog_identity|default("") %}
+SyslogIdentityTag {{ instance.value.syslog_identity }}
+{% endif %}
 {% if instance.value.disable_socks|default(False) %}
 SocksPort 0
 {% endif %}
