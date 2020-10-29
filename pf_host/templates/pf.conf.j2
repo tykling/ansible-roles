@@ -90,10 +90,10 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 # interface debug: {{ interface }}
 
 # permit ICMP4
-pass quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }
+pass quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet proto icmp all icmp-type { unreach, echoreq, timex }
 
 # permit ICMP6
-pass quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+pass quick on ${{ interface.pf_macro }} inet6 proto {% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 
 {% if pf_gateway %}
 # this is a gateway, block remaining inbound traffic to the firewalls own IPs on this interface
