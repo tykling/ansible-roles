@@ -1,4 +1,4 @@
 ---
 tor_instances:
-  - name: "main"
+  main:
     datadir: "/var/db/tor"
