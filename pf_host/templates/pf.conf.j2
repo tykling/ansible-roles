@@ -92,11 +92,15 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 
 # permit ICMP4
 pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet proto icmp all icmp-type { unreach, echoreq, timex }{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 pass out quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 
 # permit ICMP6
 pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 pass out quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 
 {% if pf_gateway %}
 # this is a gateway, block remaining inbound traffic to the firewalls own IPs on this interface
@@ -105,11 +109,14 @@ block in log quick on ${{ interface.pf_macro }} from any to <firewalls_own_ips>
 {% if "pf_routing" in interface and interface.pf_routing %}
 # We are acting as router for the network this interface is connected to, so permit all remaining inbound traffic on the interface
 pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 pass in quick on ${{ interface.pf_macro }}{% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 {% endif %}
 
 # Permit traffic from the firewall itself on this interface
 pass out quick on ${{ interface.pf_macro }} from <firewalls_own_ips> to any{% if interface.pf_sync %} keep state (no-sync){% endif %}
+
 
 {% if "pf_upstream" in interface and interface.pf_upstream %}
 # this is an upstream interface, permit all remaining outgoing traffic
