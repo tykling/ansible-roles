@@ -94,7 +94,7 @@ pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v4" in interface %
 pass out quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unreach, echoreq, timex }
 
 # permit ICMP6
-pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v4" in interface %} reply-to ( {{ interface.pf_reply_to_v4.interface }} {{ interface.pf_reply_to_v4.nexthop }} ){% endif %} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
+pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 pass out quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }
 
 {% if pf_gateway %}
