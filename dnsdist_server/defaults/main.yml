@@ -16,3 +16,8 @@ dnsdist_web_mgmt_v6_listen_port: 8083
 dnsdist_web_acl:
   - "127.0.0.1"
   - "[::1]"
+
+dnsdist_doh_custom_headers:
+  - name: "Strict-Transport-Security"
+    value: "max-age=31536000; includeSubDomains; preload"
+  , customResponseHeaders={["Strict-Transport-Security"]='max-age=31536000; includeSubDomains; preload'}
