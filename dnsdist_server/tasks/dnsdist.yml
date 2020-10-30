@@ -8,6 +8,7 @@
   template:
     src: "dnsdist.conf.j2"
     dest: "/usr/local/etc/dnsdist/dnsdist.conf"
+  tags: "dnsdistconf"
   notify: "restart dnsdist"
 
 - name: "Create exporter_exporter.d config file for dnsdist"
