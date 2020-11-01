@@ -33,6 +33,6 @@
     supervisord_programs:
       - name: "lte_modem_exporter"
         comment: "run lte_modem_exporter"
-        command: "/usr/local/bin/run_lte_modem_exporter.sh 10 {{ node_exporter_textfile_path }} {{ lte_modems.join(' ') }}"
+        command: "/usr/local/bin/run_lte_modem_exporter.sh 10 {{ node_exporter_textfile_path }} {{ lte_modems|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
