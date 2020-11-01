@@ -26,3 +26,5 @@
   when: static_routes is defined
   tags:
     - "routing"
+- include_tasks: "lte_modem_exporter.yml"
+  when: lte_modems is defined

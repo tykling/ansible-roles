@@ -1,0 +1,32 @@
+---
+- name: "Install pip, setuptools, virtualenv for pipeserial"
+  pkgng:
+    name:
+      - "py37-pip"
+      - "py37-setuptools"
+      - "py37-virtualenv"
+    state: "present"
+
+- name: "Install pipeserial in virtualenv"
+  pip:
+    virtualenv_python: "python"
+    virtualenv: "/usr/local/pipeserial_venv"
+
+- name: "copy lte_modem_exporter.sh script"
+  copy:
+    src: "lte_modem_exporterr.sh"
+    dest: "/usr/local/bin/lte_modem_exporter.sh"
+    mode: "0755"
+
+- name: "Create supervisord.d config file to run lte_modem_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "lte_modem_exporter"
+    supervisord_programs:
+      - name: "lte_modem_exporter"
+        comment: "run lte_modem_exporter"
+        command: "/usr/local/bin/lte_modem_exporter.sh {{ lte_modems.join(' ') }}"
+        user: "root"
+    supervisord_extra_programs: []
