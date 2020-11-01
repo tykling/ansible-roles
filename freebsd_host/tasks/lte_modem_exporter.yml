@@ -9,7 +9,7 @@
 
 - name: "Install pipeserial in virtualenv"
   pip:
-    virtualenv_python: "python"
+    name: "pipeserial"
     virtualenv: "/usr/local/pipeserial_venv"
 
 - name: "copy lte_modem_exporter.sh script"
