@@ -14,8 +14,14 @@
 
 - name: "copy lte_modem_exporter.sh script"
   copy:
-    src: "lte_modem_exporterr.sh"
+    src: "lte_modem_exporter.sh"
     dest: "/usr/local/bin/lte_modem_exporter.sh"
+    mode: "0755"
+
+- name: "copy run_lte_modem_exporter.sh script"
+  copy:
+    src: "run_lte_modem_exporter.sh"
+    dest: "/usr/local/bin/run_lte_modem_exporter.sh"
     mode: "0755"
 
 - name: "Create supervisord.d config file to run lte_modem_exporter"
@@ -27,6 +33,6 @@
     supervisord_programs:
       - name: "lte_modem_exporter"
         comment: "run lte_modem_exporter"
-        command: "/usr/local/bin/lte_modem_exporter.sh {{ lte_modems.join(' ') }}"
+        command: "/usr/local/bin/run_lte_modem_exporter.sh 10 {{ node_exporter_textfile_path }} {{ lte_modems.join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
