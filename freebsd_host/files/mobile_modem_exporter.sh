@@ -26,5 +26,5 @@ for modem in "$@"; do
 
     # output the metrics
     /bin/echo "mobile_modem_atcsq_rssi{device=\"$modem\", manufacturer=\"$manu\", model=\"$model\", revision=\"$rev\", serial=\"$serial\"} $rssi"
-    /bin/echo "mobile_modem_atcsq_ber{device=\"$modem\", manufacturer=\"$manu\", model=\"$model\", revision=\"$rev\", serial=\"$serial\"} $rssi"
+    /bin/echo "mobile_modem_atcsq_ber{device=\"$modem\", manufacturer=\"$manu\", model=\"$model\", revision=\"$rev\", serial=\"$serial\"} $ber"
 done
