@@ -27,10 +27,10 @@
   tags:
     - "routing"
 - include_tasks:
-    file: "lte_modem_exporter.yml"
+    file: "mobile_modem_exporter.yml"
     apply:
       tags:
-        - "ltemodem"
-  when: lte_modems is defined
+        - "mobilemodem"
+  when: mobile_modem_devices is defined
   tags:
-    - "ltemodem"
+    - "mobilemodem"

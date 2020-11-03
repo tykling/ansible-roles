@@ -1,0 +1,38 @@
+---
+- name: "Install pip, setuptools, virtualenv for pipeserial"
+  pkgng:
+    name:
+      - "py37-pip"
+      - "py37-setuptools"
+      - "py37-virtualenv"
+    state: "present"
+
+- name: "Install pipeserial in virtualenv"
+  pip:
+    name: "pipeserial"
+    virtualenv: "/usr/local/pipeserial_venv"
+
+- name: "copy mobile_modem_exporter.sh script"
+  copy:
+    src: "mobile_modem_exporter.sh"
+    dest: "/usr/local/bin/mobile_modem_exporter.sh"
+    mode: "0755"
+
+- name: "copy run_mobile_modem_exporter.sh script"
+  copy:
+    src: "run_mobile_modem_exporter.sh"
+    dest: "/usr/local/bin/run_mobile_modem_exporter.sh"
+    mode: "0755"
+
+- name: "Create supervisord.d config file to run mobile_modem_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "mobile_modem_exporter"
+    supervisord_programs:
+      - name: "mobile_modem_exporter"
+        comment: "run mobile_modem_exporter"
+        command: "/usr/local/bin/run_mobile_modem_exporter.sh 10 {{ node_exporter_textfile_path }} {{ mobile_modem_devices|join(' ') }}"
+        user: "root"
+    supervisord_extra_programs: []
