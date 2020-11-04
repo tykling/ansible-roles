@@ -34,3 +34,5 @@
   when: mobile_modem_devices is defined
   tags:
     - "mobilemodem"
+- include_tasks: "ppp.yml"
+  when: ppp_profiles is defined
