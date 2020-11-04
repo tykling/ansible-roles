@@ -1,43 +1,8 @@
 ---
-- name: "Get source code for jail_exporter with git"
-  git:
-    repo: "https://github.com/phyber/jail_exporter"
-    dest: "/root/jail_exporter"
-    force: yes
-    version: "{{ jail_exporter_version }}"
-  register: gitresult
-
-- name: "Install rust for the build"
+- name: "Install jail_exporter"
   pkgng:
-    name: "rust"
+    name: "jail_exporter"
     state: "present"
-  register: rustresult
-  when: gitresult.changed
-
-- name: "Build jail_exporter"
-  command: "make release"
-  args:
-    chdir: "/root/jail_exporter"
-  when: gitresult.changed
-
-- name: "Uninstall rust if this role installed it"
-  pkgng:
-    name: "go"
-    state: "absent"
-  when:
-    - gitresult.changed
-    - rustresult
-
-- name: "Copy jail_exporter binary to /usr/local/bin"
-  copy:
-   src: "/root/jail_exporter/target/release/jail_exporter"
-   dest: "/usr/local/bin/jail_exporter"
-   mode: "0755"
-   remote_src: yes
-  when:
-    - gitresult.changed
-  notify:
-    - "restart jail_exporter"
 
 - name: "Create supervisord.d config file to run jail_exporter"
   include_role:
