@@ -7,22 +7,26 @@
       - "py37-virtualenv"
     state: "present"
 
-- name: "Install pipeserial in virtualenv"
+- name: "Install mobile_modem_exporter in virtualenv"
   pip:
-    name: "pipeserial"
-    virtualenv: "/usr/local/pipeserial_venv"
+    name: "mobile_modem_exporter"
+    virtualenv: "/usr/local/mobile_modem_exporter_venv"
 
-- name: "copy mobile_modem_exporter.sh script"
-  copy:
-    src: "mobile_modem_exporter.sh"
-    dest: "/usr/local/bin/mobile_modem_exporter.sh"
-    mode: "0755"
+- name: "Create a symbolic link for mobile_modem_exporter"
+  file:
+    src: "/usr/local/mobile_modem_exporter_venv/bin/mobile_modem_exporter"
+    dest: "/usr/local/bin/mobile_modem_exporter"
+    owner: "root"
+    group: "wheel"
+    state: "link"
 
-- name: "copy run_mobile_modem_exporter.sh script"
-  copy:
-    src: "run_mobile_modem_exporter.sh"
-    dest: "/usr/local/bin/run_mobile_modem_exporter.sh"
-    mode: "0755"
+- name: "Create a symbolic link for pipeserial"
+  file:
+    src: "/usr/local/mobile_modem_exporter_venv/bin/pipeserial"
+    dest: "/usr/local/bin/pipeserial"
+    owner: "root"
+    group: "wheel"
+    state: "link"
 
 - name: "Create supervisord.d config file to run mobile_modem_exporter"
   include_role:
@@ -33,6 +37,6 @@
     supervisord_programs:
       - name: "mobile_modem_exporter"
         comment: "run mobile_modem_exporter"
-        command: "/usr/local/bin/run_mobile_modem_exporter.sh 10 {{ node_exporter_textfile_path }} {{ mobile_modem_devices|join(' ') }}"
+        command: "/usr/local/bin/mobile_modem_exporter {{ node_exporter_textfile_path }} {{ mobile_modem_devices|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
