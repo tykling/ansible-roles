@@ -6,4 +6,3 @@
   vars:
     supervisord_filename: "ppp"
     supervisord_programs: "{{ ppp_profiles }}"
-  when: ppp_profiles is defined
