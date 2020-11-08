@@ -37,6 +37,6 @@
     supervisord_programs:
       - name: "mobile_modem_exporter"
         comment: "run mobile_modem_exporter"
-        command: "/usr/local/bin/mobile_modem_exporter {{ node_exporter_textfile_path }} {{ mobile_modem_devices|join(' ') }}"
+        command: "/usr/local/bin/mobile_modem_exporter {{ node_exporter_textfile_path }}/mobile_modem.prom {{ mobile_modem_devices|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
