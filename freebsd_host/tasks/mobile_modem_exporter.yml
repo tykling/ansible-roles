@@ -1,5 +1,5 @@
 ---
-- name: "Install pip, setuptools, virtualenv for pipeserial"
+- name: "Install pip, setuptools, virtualenv for mobile_modem_exporter"
   pkgng:
     name:
       - "py37-pip"
