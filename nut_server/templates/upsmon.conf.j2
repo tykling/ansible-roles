@@ -1,5 +1,5 @@
 {% for ups in nut_ups_list %}
-MONITOR {{ ups.name }}@localhost 1 {{ nut_upsmon_upsd_username }} {{ nut_upsmon_upsd_password }} master
+MONITOR {{ ups.name }}@localhost 1 {{ ups.upsmon_upsd_username }} {{ ups.upsmon_upsd_password }} master
 {% endfor %}
 SHUTDOWNCMD {{ nut_upsmon_shutdown_cmd }} 
 NOTIFYCMD {{ nut_upsmon_notifycmd }}
