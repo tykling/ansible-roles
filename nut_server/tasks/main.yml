@@ -6,3 +6,10 @@
         - "nut"
   tags:
     - "nut"
+- include_tasks:
+    file: "nut_exporter.yml"
+    apply:
+      tags:
+        - "nut"
+  tags:
+    - "nut"
