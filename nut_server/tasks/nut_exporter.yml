@@ -12,10 +12,10 @@
     name: "supervisord_server"
     tasks_from: "supervisord.d"
   vars:
-    supervisord_filename: "nut_exporter"
+    supervisord_filename: "nut_exporter_{{ ups_item.name }}"
     supervisord_programs:
-      - name: "nut_exporter"
-        comment: "run nut_exporter"
+      - name: "nut_exporter_{{ ups_item.name }}"
+        comment: "run nut_exporter_{{ ups_item.name }}"
         command: "/usr/local/bin/nut_exporter -ups {{ ups_item.name }} -upsc /usr/local/bin/upsc -port {{ ups_idx +8100 }}"
         user: "nobody"
     supervisord_extra_programs: []
@@ -29,7 +29,7 @@
     name: "freebsd_base"
     tasks_from: "exporter_exporter.d"
   vars:
-    expexp_filename: "nut_exporter.yml"
+    expexp_filename: "nut_exporter_{{ ups_item.name }}.yml"
     expexp_program:
       method: "http"
       http:
