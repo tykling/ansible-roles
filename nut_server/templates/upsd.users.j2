@@ -5,8 +5,8 @@
     upsmon master
 {% endif %}
 {% for action in user.actions %}actions = {{ action }}
-{% endif %}
+{% endfor %}
 {% for cmd in user.instcmds %}instcmd = {{ cmd }}
-{% endif %}
+{% endfor %}
 
 {% endfor %}

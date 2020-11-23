@@ -30,7 +30,7 @@
 
 - name: "Write NUT upsd config file upsd.conf"
   copy:
-    dest: "/usr/local/etc/nut/nut.conf"
+    dest: "/usr/local/etc/nut/upsd.conf"
     content: ""
     owner: "root"
     group: "wheel"
