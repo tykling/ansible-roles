@@ -32,8 +32,7 @@
     expexp_filename: "nut_exporter_{{ ups_item.name }}.yml"
     expexp_program:
       method: "http"
-      http:
-        port: "{{ ups_idx + 8100 | int }}"
+      http: "{{ { 'port': ups_idx + 8100 } }}"
   loop: "{{ nut_ups_list }}"
   loop_control:
     index_var: "ups_idx"
