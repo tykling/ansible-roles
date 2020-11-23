@@ -404,3 +404,9 @@
   become: yes
   roles:
     - "jitsi_meet_server"
+
+- name: "configure NUT servers"
+  hosts: "nut_servers"
+  become: yes
+  roles:
+    - "nut_server"

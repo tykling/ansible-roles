@@ -1,0 +1,9 @@
+user = "root"
+
+{% for ups in nut_ups_list %}
+[{{ ups.name }}]
+       driver = {{ ups.driver }}
+       port = {{ ups.port  }}
+       desc = "{{ ups.description }}"
+
+{% endfor %}

@@ -1,0 +1,5 @@
+---
+nut_upsmon_deadtime_seconds: 15
+nut_upsmon_finaldelay_seconds: 5
+nut_upsmon_notifycmd: "/usr/bin/logger"
+nut_upsmon_shutdown_cmd: "/sbin/shutdown -h +0"

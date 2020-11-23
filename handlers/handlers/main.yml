@@ -51,3 +51,4 @@
 - import_tasks: "nullmailer.yml"
 - import_tasks: "newsyslog.yml"
 - import_tasks: "kldload-coretemp.yml"
+- import_tasks: "nut.yml"

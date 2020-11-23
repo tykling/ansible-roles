@@ -1,0 +1,68 @@
+---
+- name: "Install NUT"
+  pkgng:
+    name: "nut"
+    state: "present"
+
+- name: "Enable NUT (upsd)"
+  sysrc:
+    name: "nut_enable"
+    value: "YES"
+  notify: "start nut"
+
+- name: "Write NUT config file nut.conf"
+  copy:
+    dest: "/usr/local/etc/nut/nut.conf"
+    content: "MODE=none"
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart nut"
+
+- name: "Write NUT UPS config file ups.conf"
+  template:
+    src: "ups.conf.j2"
+    dest: "/usr/local/etc/nut/ups.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart nut"
+
+- name: "Write NUT upsd config file upsd.conf"
+  copy:
+    dest: "/usr/local/etc/nut/nut.conf"
+    content: ""
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart nut"
+
+- name: "Write NUT upsd users file upsd.users"
+  template:
+    src: "upsd.users.j2"
+    dest: "/usr/local/etc/nut/upsd.users"
+    owner: "root"
+    group: "wheel"
+    mode: "600"
+  notify: "restart nut"
+
+- name: "Enable upsmon"
+  sysrc:
+    name: "nut_upsmon_enable"
+    value: "YES"
+  notify: "start upsmon"
+
+- name: "Write NUT upsmon config file upsmon.conf"
+  template:
+    src: "upsmon.conf.j2"
+    dest: "/usr/local/etc/nut/upsmon.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "600"
+  notify: "restart upsmon"
+
+- name: "Enable NUT upsmon"
+  sysrc:
+    name: "nut_upsmon_enable"
+    value: "YES"
+  notify: "restart upsmon"

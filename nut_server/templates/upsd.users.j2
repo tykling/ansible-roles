@@ -1,0 +1,12 @@
+{% for user in nut_upsd_users %}
+[{{ user.username }}]
+    password = {{ user.password }}
+{% if user.upsmon is defined and user.upsmon %}
+    upsmon master
+{% endif %}
+{% for action in user.actions %}actions = {{ action }}
+{% endif %}
+{% for cmd in user.instcmds %}instcmd = {{ cmd }}
+{% endif %}
+
+{% endfor %}
