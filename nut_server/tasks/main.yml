@@ -1,2 +1,7 @@
 ---
 - include_tasks: "nut.yml"
+    apply:
+      tags:
+        - "nut"
+  tags:
+    - "nut"
