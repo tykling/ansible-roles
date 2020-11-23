@@ -16,7 +16,7 @@
     supervisord_programs:
       - name: "nut_exporter_{{ ups_item.name }}"
         comment: "run nut_exporter_{{ ups_item.name }}"
-        command: "/usr/local/bin/nut_exporter -ups {{ ups_item.name }} -upsc /usr/local/bin/upsc -port {{ ups_idx +8100 }}"
+        command: "/usr/local/bin/nut_exporter -ups {{ ups_item.name }} -upsc /usr/local/bin/upsc -port {{ ups_idx + 8100 }}"
         user: "nobody"
     supervisord_extra_programs: []
   loop: "{{ nut_ups_list }}"
@@ -33,7 +33,7 @@
     expexp_program:
       method: "http"
       http:
-        port: "{{ ups_idx +8100 | int }}"
+        port: "{{ ups_idx + 8100 | int }}"
   loop: "{{ nut_ups_list }}"
   loop_control:
     index_var: "ups_idx"
