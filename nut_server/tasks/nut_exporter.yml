@@ -33,7 +33,7 @@
     expexp_program:
       method: "http"
       http:
-        port: "{{ ups_idx +8100 }}"
+        port: "{{ ups_idx +8100 | int }}"
   loop: "{{ nut_ups_list }}"
   loop_control:
     index_var: "ups_idx"
