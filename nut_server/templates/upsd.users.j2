@@ -4,9 +4,9 @@
 {% if user.upsmon is defined and user.upsmon %}
     upsmon master
 {% endif %}
-{% for action in user.actions|default([]) %}actions = {{ action }}
+{% for action in user.actions|default([]) %}    actions = {{ action }}
 {% endfor %}
-{% for cmd in user.instcmds|default([]) %}instcmd = {{ cmd }}
+{% for cmd in user.instcmds|default([]) %}    instcmd = {{ cmd }}
 {% endfor %}
 
 {% endfor %}
