@@ -33,7 +33,7 @@
     dest: "/usr/local/etc/nut/upsd.conf"
     content: ""
     owner: "root"
-    group: "wheel"
+    group: "uucp"
     mode: "644"
   notify: "restart nut"
 
@@ -42,8 +42,8 @@
     src: "upsd.users.j2"
     dest: "/usr/local/etc/nut/upsd.users"
     owner: "root"
-    group: "wheel"
-    mode: "600"
+    group: "uucp"
+    mode: "640"
   notify: "restart nut"
 
 - name: "Enable upsmon"
