@@ -34,7 +34,7 @@
     content: ""
     owner: "root"
     group: "uucp"
-    mode: "644"
+    mode: "640"
   notify: "restart nut"
 
 - name: "Write NUT upsd users file upsd.users"
