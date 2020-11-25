@@ -66,6 +66,15 @@
     mode: "600"
   notify: "restart upsmon"
 
+- name: "Write NUT upsmon notify command script"
+  template:
+    src: "upsmon_notify_command.sh.j2"
+    dest: "/usr/local/bin/upsmon_notify_command.sh"
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+  notify: "restart upsmon"
+
 - name: "Enable NUT upsmon"
   sysrc:
     name: "nut_upsmon_enable"
