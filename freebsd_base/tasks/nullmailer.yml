@@ -36,6 +36,9 @@
   template:
     src: "nullmailer-remotes.j2"
     dest: "/usr/local/etc/nullmailer/remotes"
+    owner: "nullmail"
+    group: "nullmail"
+    mode: "600"
   notify: "restart nullmailer"
 
 - name: "write hostname to nullmailer me file"
