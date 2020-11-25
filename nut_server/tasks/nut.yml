@@ -10,6 +10,11 @@
     value: "YES"
   notify: "start nut"
 
+- name: "Set nut_upsshut=YES to make FreeBSD rc.d script shutdown UPS output on lowbatt OS shutdown"
+  sysrc:
+    name: "nut_upsshut"
+    value: "YES"
+
 - name: "Write NUT config file nut.conf"
   copy:
     dest: "/usr/local/etc/nut/nut.conf"
