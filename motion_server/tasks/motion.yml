@@ -4,6 +4,14 @@
     name: "motion"
     state: "present"
 
+- name: "Write motion video file mover script"
+  template:
+    src: "motion_move_video_to_upload_location.sh.j2"
+    dest: "/usr/local/bin/motion_move_video_to_upload_location.sh"
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+
 - name: "Write motion config file motion.conf"
   template:
     src: "motion.conf.j2"
