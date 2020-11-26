@@ -1,0 +1,31 @@
+daemon off
+setup_mode off
+log_level 6
+target_dir /motion
+width 640
+height 480
+framerate 15
+text_right %Y-%m-%d\n%T-%q
+emulate_motion off
+threshold 1500
+despeckle_filter EedDl
+minimum_motion_frames 1
+event_gap 60
+pre_capture 3
+post_capture 0
+on_movie_end /usr/local/bin/motion_move_video_to_upload_location.sh %f
+picture_output on
+picture_filename pictures/%Y%m%d%H%M%S-%q
+movie_output on
+movie_max_time 600
+movie_quality 45
+movie_codec mkv
+movie_filename videos/%t-%v-%Y%m%d%H%M%S
+webcontrol_port 8080
+webcontrol_localhost on
+webcontrol_parms 0
+stream_port 8081
+stream_localhost on
+{% for camera in motion_cameras %}
+camera /usr/local/etc/motion/{{ camera.filename }}
+{% endfor %}

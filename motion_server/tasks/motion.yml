@@ -1,0 +1,24 @@
+---
+- name: "Install motion"
+  pkgng:
+    name: "motion"
+    state: "present"
+
+- name: "Write motion config file motion.conf"
+  template:
+    src: "motion.conf.j2"
+    dest: "/usr/local/etc/motion/motion.conf"
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart motion"
+
+- name: "Write motion camera config files"
+  template:
+    src: "camera.conf.j2"
+    dest: "/usr/local/etc/motion/{{ item.filename }}"
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  loop: "{{ motion_cameras }}"
+  notify: "restart motion"

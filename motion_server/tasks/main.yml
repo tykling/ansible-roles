@@ -1,0 +1,8 @@
+---
+- include_tasks:
+    file: "motion.yml"
+    apply:
+      tags:
+        - "motion"
+  tags:
+    - "motion"

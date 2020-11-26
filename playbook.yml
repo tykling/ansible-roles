@@ -410,3 +410,9 @@
   become: yes
   roles:
     - "nut_server"
+
+- name: "configure motion servers"
+  hosts: "motion_servers"
+  become: yes
+  roles:
+    - "motion_server"

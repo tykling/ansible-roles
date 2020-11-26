@@ -1,0 +1,3 @@
+---
+- name: "restart motion"
+  command: "/usr/local/bin/supervisorctl restart motion"
