@@ -6,3 +6,10 @@
         - "motion"
   tags:
     - "motion"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "motion"
+  tags:
+    - "motion"

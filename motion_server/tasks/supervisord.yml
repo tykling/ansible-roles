@@ -1,0 +1,11 @@
+---
+- name: "Create supervisord.d config file to run motion"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "motion"
+    supervisord_programs:
+      - name: "motion"
+        comment: "run motion"
+        command: "/usr/local/bin/motion"
