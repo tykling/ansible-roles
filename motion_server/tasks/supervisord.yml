@@ -9,3 +9,4 @@
       - name: "motion"
         comment: "run motion"
         command: "/usr/local/bin/motion"
+        user: "root"
