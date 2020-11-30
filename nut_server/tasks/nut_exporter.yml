@@ -30,3 +30,4 @@
       method: "http"
       http:
         port: 9199
+        path: "/ups_metrics"
