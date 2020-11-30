@@ -16,7 +16,7 @@
     supervisord_programs:
       - name: "nut_exporter"
         comment: "run nut_exporter"
-        command: "/usr/local/bin/nut_exporter -ups {{ nut_ups_list.0.name }} -upsc /usr/local/bin/upsc"
+        command: "/usr/local/bin/nut_exporter --nut.vars_enable='' --metrics.namespace='nut'"
         user: "nobody"
     supervisord_extra_programs: []
 
@@ -29,4 +29,4 @@
     expexp_program:
       method: "http"
       http:
-        port: 8100
+        port: 9199
