@@ -7,7 +7,7 @@
 
 - name: "Enable tor"
   sysrc:
-    name: "tor_enabled"
+    name: "tor_enable"
     value: "YES"
   tags: "tor"
 
