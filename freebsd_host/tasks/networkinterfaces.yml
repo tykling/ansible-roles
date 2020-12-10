@@ -19,7 +19,6 @@
 
 - name: "(Re-)Configure network interfaces (service netif restart $interface)"
   command: "/usr/sbin/service netif restart {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %}"
-  with_items: "{{ network_interfaces }}"
   with_together:
     - "{{ network_interfaces }}"
     - "{{ result }}"
