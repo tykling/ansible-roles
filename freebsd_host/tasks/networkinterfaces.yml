@@ -24,6 +24,7 @@
     - "{{ result }}"
   when:
     - item.0.configure
+    - item.1.result
     - item.1.result.changed
   tags:
     - "network"
