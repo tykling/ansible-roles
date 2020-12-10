@@ -18,13 +18,12 @@
     - "network"
 
 - name: "(Re-)Configure network interfaces (service netif restart $interface)"
-  command: "/usr/sbin/service netif restart {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %}"
+  command: "/usr/sbin/service netif restart {{ item.0.interface }}{% if item.0.vlan is defined %}.{{ item.0.vlan }}{% endif %}"
   with_together:
     - "{{ network_interfaces }}"
-    - "{{ result }}"
+    - "{{ result.results }}"
   when:
     - item.0.configure
-    - item.1.result
-    - item.1.result.changed
+    - item.1.changed
   tags:
     - "network"
