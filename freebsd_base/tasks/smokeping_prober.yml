@@ -17,8 +17,8 @@
     supervisord_programs:
       - name: "smokeping_prober"
         comment: "run smokeping_prober"
-        command: "/usr/local/bin/smokeping_prober --log.format='logger:stderr?json=true' {{ prometheus_smokeping_targets|join(' ') }}"
-        user: "{{ prometheus_exporter_user }}"
+        command: "/usr/local/bin/smokeping_prober --privileged --log.format='logger:stderr?json=true' {{ prometheus_smokeping_targets|join(' ') }}"
+        user: "root"
     supervisord_extra_programs: []
 
 - name: "Create exporter_exporter.d config file for smokeping_prober"
