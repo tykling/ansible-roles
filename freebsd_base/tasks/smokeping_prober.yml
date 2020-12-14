@@ -20,6 +20,7 @@
         command: "/usr/local/bin/smokeping_prober --log.format='logger:stderr?json=true' {% prometheus_smokeping_targets|join(' ') %}"
         user: "{{ prometheus_exporter_user }}"
     supervisord_extra_programs: []
+  notify: "restart smokeping_prober"
 
 - name: "Create exporter_exporter.d config file for smokeping_prober"
   include_role:
