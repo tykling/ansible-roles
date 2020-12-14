@@ -29,3 +29,5 @@
 - include_tasks: "exporter_exporter.yml"
 - include_tasks: "node_exporter.yml"
 - include_tasks: "node_exporter_textfile_collector_pkg.yml"
+- include_tasks: "smokeping_prober.yml"
+  when: prometheus_smokeping_targets is defined

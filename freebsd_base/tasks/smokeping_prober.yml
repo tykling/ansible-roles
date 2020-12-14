@@ -1,0 +1,33 @@
+---
+- name: "Copy smokeping_prober binary"
+  copy:
+    src: "smokeping_prober"
+    dest: "/usr/local/bin/smokeping_prober"
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+  notify: "restart smokeping_prober"
+
+- name: "Create supervisord.d config file to run smokeping_prober"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "smokeping_prober"
+    supervisord_programs:
+      - name: "smokeping_prober"
+        comment: "run smokeping_prober"
+        command: "/usr/local/bin/smokeping_prober --log.format='logger:stderr?json=true' {% prometheus_smokeping_targets|join(' ') %}"
+        user: "{{ prometheus_exporter_user }}"
+    supervisord_extra_programs: []
+
+- name: "Create exporter_exporter.d config file for smokeping_prober"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "smokeping_prober.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9374
