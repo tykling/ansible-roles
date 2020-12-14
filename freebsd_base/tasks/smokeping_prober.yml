@@ -17,7 +17,7 @@
     supervisord_programs:
       - name: "smokeping_prober"
         comment: "run smokeping_prober"
-        command: "/usr/local/bin/smokeping_prober --log.format='logger:stderr?json=true' {% prometheus_smokeping_targets|join(' ') %}"
+        command: "/usr/local/bin/smokeping_prober --log.format='logger:stderr?json=true' {{ prometheus_smokeping_targets|join(' ') }}"
         user: "{{ prometheus_exporter_user }}"
     supervisord_extra_programs: []
 
