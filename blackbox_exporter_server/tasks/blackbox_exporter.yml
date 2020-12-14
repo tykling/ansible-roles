@@ -26,3 +26,13 @@
         command: "/usr/local/bin/blackbox_exporter --config.file=/usr/local/etc/blackbox_exporter.yml --web.listen-address={{ blackbox_exporter_listen_address }} --log.level={{ blackbox_exporter_log_level }}"
         user: "{{ blackbox_exporter_user }}"
 
+- name: "Create exporter_exporter.d config file for blackbox_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "blackbox_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9115
