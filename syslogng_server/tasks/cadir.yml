@@ -12,7 +12,7 @@
     src: "identrustroot.pem"
     dest: "{{ syslogng_cadir }}/identrustroot.pem"
 
-- name: "Add intermediate Let’s Encrypt Authority X3 to syslog-ng cadir"
+- name: "Add intermediate Lets Encrypt Authority X3 to syslog-ng cadir"
   copy:
     owner: "root"
     group: "wheel"
