@@ -24,3 +24,13 @@
   notify:
     - "restart alertmanager"
 
+- name: "Create exporter_exporter.d config file for alertmanagers own metrics"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "alertmanager.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9093
