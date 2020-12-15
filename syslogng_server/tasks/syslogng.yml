@@ -1,7 +1,7 @@
 ---
 - name: "Install syslog-ng"
   pkgng:
-    name: "syslog-ng324"
+    name: "syslog-ng"
     state: "present"
 
 - name: "Copy syslog-ng.conf"
