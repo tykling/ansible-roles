@@ -116,6 +116,11 @@ destination file{
 };
 {% endif %}
 
+
+# custom destination config below here
+{{ syslogng_extra_destinations }}
+
+
 ##################### LOGGING ##############################
 
 # send just the internal syslog-ng messages to the local system syslog
@@ -129,4 +134,8 @@ log { source(src); source(syslogng); destination(remote); flags(flow-control); }
 # log to file destination
 log { source(src); source(syslogng); destination(file); flags(flow-control); };
 {% endif %}
+
+
+# custom logging config below here
+{{ syslogng_extra_logging }}
 
