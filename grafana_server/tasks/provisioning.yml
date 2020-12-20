@@ -15,6 +15,16 @@
     group: "wheel"
     mode: "0755"
 
+- name: "Install Grafana dashboard provisioning config"
+  template:
+    src: "dashboards.yml.j2"
+    dest: "{{ grafana_provisioning_dashboard_path }}/ansible-dashboards.yml"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  notify:
+    - "restart grafana"
+
 - name: "Copy grafana dashboard templates"
   copy:
     src: "dashboards"
@@ -22,3 +32,5 @@
 
 - name: "Install alertmanager datasource using grafana-cli"
   command: "grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource"
+  args:
+    creates: "/var/db/grafana/plugins/camptocamp-prometheus-alertmanager-datasource"
