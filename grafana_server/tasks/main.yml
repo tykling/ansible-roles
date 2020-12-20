@@ -1,5 +1,17 @@
 ---
-- include_tasks: "grafana.yml"
+- include_tasks:
+    file: "grafana.yml"
+    apply:
+      tags:
+        - "grafana"
+  tags:
+    - "grafana"
 - include_tasks: "provisioning.yml"
+    file: "provisioning.yml"
+    apply:
+      tags:
+        - "grafana"
+  tags:
+    - "grafana"
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
