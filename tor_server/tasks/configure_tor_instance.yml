@@ -50,7 +50,9 @@
     - auth_clients
   loop_control:
     loop_var: "loopitem"
-  when: "'onion_services' in instance.value.keys()"
+  when:
+    - "'onion_services' in instance.value.keys()"
+    - "'auth_clients' in instance.value.onion_services.keys()"
   notify: "reload tor"
 
 - name: "Create tor client onion auth folder (to contain keys for accessing onion services running on other hosts)"
