@@ -27,7 +27,7 @@
 
 - name: "Copy grafana dashboard templates"
   copy:
-    src: "dashboards"
+    src: "dashboards/"
     dest: "{{ grafana_provisioning_dashboard_path }}"
 
 - name: "Install alertmanager datasource using grafana-cli"
