@@ -1,5 +1,5 @@
 ---
-- name: "Make sure grafana provisioning directory exists"
+- name: "Make sure grafana provisioning config directory exists"
   file:
     path: "{{ grafana_provisioning_config_path }}"
     state: "directory"
@@ -9,13 +9,18 @@
   notify:
     - "restart grafana"
 
-- name: "Make sure grafana dashboard provisioning directory exists"
+- name: "Make sure grafana provisioning config sub-directories exist"
   file:
-    path: "{{ grafana_provisioning_config_path }}/dashboards"
+    path: "{{ grafana_provisioning_config_path }}/{{ item }}"
     state: "directory"
     owner: "root"
     group: "wheel"
     mode: "0755"
+  loop:
+    - "dashboards"
+    - "datasources"
+    - "plugins"
+    - "notifiers"
   notify:
     - "restart grafana"
 
@@ -29,10 +34,31 @@
   notify:
     - "restart grafana"
 
-- name: "Copy grafana dashboard templates"
+- name: "Copy grafana dashboards"
   copy:
     src: "dashboards/"
     dest: "{{ grafana_provisioning_dashboard_path }}"
+  notify:
+    - "restart grafana"
+
+- name: "Copy grafana datasources"
+  copy:
+    src: "dashboards/"
+    dest: "{{ grafana_provisioning_datasource_path }}"
+  notify:
+    - "restart grafana"
+
+- name: "Copy grafana plugins"
+  copy:
+    src: "dashboards/"
+    dest: "{{ grafana_provisioning_plugin_path }}"
+  notify:
+    - "restart grafana"
+
+- name: "Copy grafana notifiers"
+  copy:
+    src: "dashboards/"
+    dest: "{{ grafana_provisioning_notifier_path }}"
   notify:
     - "restart grafana"
 

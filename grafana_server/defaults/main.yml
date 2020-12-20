@@ -17,4 +17,8 @@ grafana_ldap_config_path: /usr/local/etc/grafana-ldap.toml
 grafana_allow_embedding: false
 
 grafana_provisioning_config_path: "/usr/local/etc/grafana/"
+
 grafana_provisioning_dashboard_path: "/usr/local/share/grafana-dashboards-ansible/"
+grafana_provisioning_datasource_path: "/usr/local/share/grafana-datasources-ansible/"
+grafana_provisioning_plugin_path: "/usr/local/share/grafana-plugins-ansible/"
+grafana_provisioning_notifier_path: "/usr/local/share/grafana-notifiers-ansible/"
