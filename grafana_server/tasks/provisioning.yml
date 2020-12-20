@@ -61,10 +61,3 @@
     dest: "{{ grafana_provisioning_notifier_path }}"
   notify:
     - "restart grafana"
-
-- name: "Install alertmanager datasource using grafana-cli"
-  command: "grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource"
-  args:
-    creates: "/var/db/grafana/plugins/camptocamp-prometheus-alertmanager-datasource"
-  notify:
-    - "restart grafana"
