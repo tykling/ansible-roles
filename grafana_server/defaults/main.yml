@@ -15,3 +15,6 @@ grafana_ldap_config_path: /usr/local/etc/grafana-ldap.toml
 
 # set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
 grafana_allow_embedding: false
+
+grafana_provisioning_config_path: "/usr/local/etc/grafana/"
+grafana_provisioning_dashboard_path: "/usr/local/share/grafana-dashboards-ansible/"

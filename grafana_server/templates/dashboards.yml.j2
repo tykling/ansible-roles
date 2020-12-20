@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: 'Ansible file-provisioned dashboards'
+    disableDeletion: true
+    updateIntervalSeconds: 60
+    allowUiUpdates: false
+    options:
+      path: {{ grafana_provisioning_dashboard_path }}
+      foldersFromFilesStructure: true

@@ -1,0 +1,24 @@
+---
+- name: "Make sure grafana provisioning directory exists"
+  file:
+    path: "{{ grafana_provisioning_config_path }}"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+
+- name: "Make sure grafana dashboard provisioning directory exists"
+  file:
+    path: "{{ grafana_provisioning_config_path }}/dashboards"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+
+- name: "Copy grafana dashboard templates"
+  copy:
+    src: "dashboards"
+    dest: "{{ grafana_provisioning_dashboard_path }}"
+
+- name: "Install alertmanager datasource using grafana-cli"
+  command: "grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource"
