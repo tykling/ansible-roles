@@ -160,7 +160,12 @@
       "id": 4,
       "options": {
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Alerts"
+          }
+        ]
       },
       "pluginVersion": "7.3.4",
       "targets": [
@@ -263,7 +268,7 @@
       "pluginVersion": "7.3.4",
       "targets": [
         {
-          "expr": "ALERTS",
+          "expr": "label_replace(ALERTS, \"job\", \"no job label found\", \"job\", \"\")",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -471,7 +476,7 @@
       "pluginVersion": "7.3.4",
       "targets": [
         {
-          "expr": "ALERTS",
+          "expr": "label_replace(ALERTS, \"job\", \"no job label found\", \"job\", \"\")",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -507,12 +512,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Prometheus Alerts Template",
   "uid": "QRGsaY1Gz1",
-  "version": 10
+  "version": 11
 }
