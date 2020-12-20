@@ -22,3 +22,6 @@ grafana_provisioning_dashboard_path: "/usr/local/share/grafana-dashboards-ansibl
 grafana_provisioning_datasource_path: "/usr/local/share/grafana-datasources-ansible/"
 grafana_provisioning_plugin_path: "/usr/local/share/grafana-plugins-ansible/"
 grafana_provisioning_notifier_path: "/usr/local/share/grafana-notifiers-ansible/"
+
+grafana_plugins:
+  - "grafana-piechart-panel"

@@ -61,3 +61,19 @@
     dest: "{{ grafana_provisioning_notifier_path }}"
   notify:
     - "restart grafana"
+
+- name: "Install Grafana plugins"
+  command: "grafana-cli plugins install {{ item }}"
+  loop: "{{ grafana_plugins }}"
+  args:
+    creates: "/var/db/grafana/plugins/{{ item }}"
+  notify:
+    - "restart grafana"
+
+- name: "Install Grafana extra plugins"
+  command: "grafana-cli plugins install {{ item }}"
+  loop: "{{ grafana_extra_plugins|default([]) }}"
+  args:
+    creates: "/var/db/grafana/plugins/{{ item }}"
+  notify:
+    - "restart grafana"
