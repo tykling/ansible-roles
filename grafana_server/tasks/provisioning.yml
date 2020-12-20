@@ -18,7 +18,7 @@
 - name: "Install Grafana dashboard provisioning config"
   template:
     src: "dashboards.yml.j2"
-    dest: "{{ grafana_provisioning_config_path }}/ansible-dashboards.yml"
+    dest: "{{ grafana_provisioning_config_path }}/dashboards/ansible-dashboards.yml"
     owner: "root"
     group: "wheel"
     mode: "0755"
