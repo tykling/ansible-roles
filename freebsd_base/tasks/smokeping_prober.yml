@@ -17,12 +17,13 @@
     supervisord_programs:
       - name: "smokeping_prober_fib{{ fib }}"
         comment: "run smokeping_prober for fib {{ fib }}"
-        command: "/usr/sbin/setfib {{ fib }} /usr/local/bin/smokeping_prober --privileged --log.format='logger:stderr?json=true' --web.listen-address=':{{ loop.index0 + 9374 }}' {{ prometheus_smokeping_targets|join(' ') }}"
+        command: "/usr/sbin/setfib {{ fib }} /usr/local/bin/smokeping_prober --privileged --log.format='logger:stderr?json=true' --web.listen-address=':{{ loop_idx + 9374 }}' {{ prometheus_smokeping_targets|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
   loop: "{{ prometheus_smokeping_fibs }}"
   loop_control:
     loop_var: "fib"
+    index_var: "loop_idx"
 
 - name: "Create exporter_exporter.d config file for smokeping_prober"
   include_role:
@@ -33,7 +34,8 @@
     expexp_program:
       method: "http"
       http:
-        port: "{{ loop.index0 + 9374 }}"
+        port: "{{ loop_idx.index0 + 9374 }}"
   loop: "{{ prometheus_smokeping_fibs }}"
   loop_control:
     loop_var: "fib"
+    index_var: "loop_idx"
