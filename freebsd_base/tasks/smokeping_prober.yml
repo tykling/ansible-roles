@@ -33,8 +33,7 @@
     expexp_filename: "smokeping_prober_fib{{ fib }}.yml"
     expexp_program:
       method: "http"
-      http:
-        port: "{{ loop_idx + 9374 }}"
+      http: "{{ { 'port': loop_idx + 9374 } }}"
   loop: "{{ prometheus_smokeping_fibs }}"
   loop_control:
     loop_var: "fib"
