@@ -62,6 +62,7 @@
         "defaults": {
           "custom": {},
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -505,6 +506,7 @@
       "type": "table"
     }
   ],
+  "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -519,5 +521,5 @@
   "timezone": "",
   "title": "Prometheus Alerts Template",
   "uid": "QRGsaY1Gz1",
-  "version": 11
+  "version": 13
 }
