@@ -34,7 +34,7 @@
     expexp_program:
       method: "http"
       http:
-        port: "{{ loop_idx.index0 + 9374 }}"
+        port: "{{ loop_idx + 9374 }}"
   loop: "{{ prometheus_smokeping_fibs }}"
   loop_control:
     loop_var: "fib"
