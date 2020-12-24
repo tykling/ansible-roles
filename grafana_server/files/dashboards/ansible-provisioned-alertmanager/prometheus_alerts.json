@@ -497,13 +497,13 @@
         },
         "dateSettings": {
           "dateFormat": "YYYY-MM-DD",
-          "fontSize": "120px",
+          "fontSize": "500%",
           "fontWeight": "normal",
           "showDate": true
         },
         "mode": "time",
         "timeSettings": {
-          "fontSize": "120px",
+          "fontSize": "500%",
           "fontWeight": "normal"
         },
         "timezone": "",
@@ -616,5 +616,5 @@
   "timezone": "",
   "title": "Prometheus Alerts Template",
   "uid": "QRGsaY1Gz1",
-  "version": 14
+  "version": 15
 }
