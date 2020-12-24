@@ -25,7 +25,5 @@ grafana_provisioning_notifier_path: "/usr/local/share/grafana-notifiers-ansible/
 
 grafana_plugins:
   - "grafana-piechart-panel"
-  - "jdbranham-diagram-panel"
   - "grafana-clock-panel"
   - "grafana-worldmap-panel"
-  - "vonage-status-panel"
