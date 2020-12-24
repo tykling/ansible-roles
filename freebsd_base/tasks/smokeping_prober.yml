@@ -8,26 +8,32 @@
     mode: "755"
   notify: "restart smokeping_prober"
 
-- name: "Create supervisord.d config file to run smokeping_prober"
+- name: "Create supervisord.d config file to run smokeping_prober for enabled FIBs"
   include_role:
     name: "supervisord_server"
     tasks_from: "supervisord.d"
   vars:
     supervisord_filename: "smokeping_prober"
     supervisord_programs:
-      - name: "smokeping_prober"
-        comment: "run smokeping_prober"
-        command: "/usr/local/bin/smokeping_prober --privileged --log.format='logger:stderr?json=true' {{ prometheus_smokeping_targets|join(' ') }}"
+      - name: "smokeping_prober_fib{{ fib }}"
+        comment: "run smokeping_prober for fib {{ fib }}"
+        command: "/usr/sbin/setfib {{ fib }} /usr/local/bin/smokeping_prober --privileged --log.format='logger:stderr?json=true' --web.listen-address=':{{ loop.index0 + 9374 }}' {{ prometheus_smokeping_targets|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
+  loop: "{{ prometheus_smokeping_fibs }}"
+  loop_control:
+    loop_var: "fib"
 
 - name: "Create exporter_exporter.d config file for smokeping_prober"
   include_role:
     name: "freebsd_base"
     tasks_from: "exporter_exporter.d"
   vars:
-    expexp_filename: "smokeping_prober.yml"
+    expexp_filename: "smokeping_prober_fib{{ fib }}.yml"
     expexp_program:
       method: "http"
       http:
-        port: 9374
+        port: "{{ loop.index0 + 9374 }}"
+  loop: "{{ prometheus_smokeping_fibs }}"
+  loop_control:
+    loop_var: "fib"

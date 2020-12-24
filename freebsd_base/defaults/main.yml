@@ -55,3 +55,6 @@ exporter_exporter_version: "master"
 exporter_exporter_listen_address: ":9999"
 exporter_exporter_proxy_path: "/proxy"
 exporter_exporter_telemetry_path: "/metrics"
+
+prometheus_smokeping_fibs:
+  - 0
