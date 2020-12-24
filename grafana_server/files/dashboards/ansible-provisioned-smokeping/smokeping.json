@@ -46,9 +46,24 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1608805262495,
+  "iteration": 1608838281965,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "panels": [],
+      "repeat": "fib",
+      "title": "Smokeping for FIB $fib",
+      "type": "row"
+    },
     {
       "cards": {
         "cardPadding": null,
@@ -73,9 +88,9 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 6,
+        "w": 8,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "heatmap": {},
       "hideZeroBuckets": false,
@@ -85,11 +100,13 @@
         "show": true
       },
       "links": [],
+      "maxPerRow": 3,
       "repeat": "prober",
+      "repeatDirection": "h",
       "reverseYBuckets": false,
       "targets": [
         {
-          "expr": "sum(rate(smokeping_response_duration_seconds_bucket{instance=~\"$prober\",host=~\"$target\"}[$__rate_interval])) by (le)",
+          "expr": "sum(rate(smokeping_response_duration_seconds_bucket{instance=~\"$prober\",host=~\"$target\", fib=~\"$fib\"}[$__rate_interval])) by (le)",
           "format": "heatmap",
           "interval": "",
           "intervalFactor": 1,
@@ -97,7 +114,7 @@
           "refId": "A"
         }
       ],
-      "title": "Smokeping from $prober to $target",
+      "title": "Smokeping from $prober to $target using FIB $fib",
       "tooltip": {
         "show": true,
         "showHistogram": true
@@ -132,7 +149,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "",
+        "definition": "label_values(smokeping_prober_build_info, instance)",
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -173,11 +190,34 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(smokeping_prober_build_info, fib)",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "fib",
+        "options": [],
+        "query": "label_values(smokeping_prober_build_info, fib)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -208,5 +248,5 @@
   "timezone": "",
   "title": "Smokeping Template",
   "uid": "i5aRaLaik",
-  "version": 14
+  "version": 15
 }
