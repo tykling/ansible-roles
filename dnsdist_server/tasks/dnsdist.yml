@@ -8,6 +8,7 @@
   template:
     src: "dnsdist.conf.j2"
     dest: "/usr/local/etc/dnsdist/dnsdist.conf"
+    mode: "600"
   tags: "dnsdistconf"
   notify: "restart dnsdist"
 
