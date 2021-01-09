@@ -9,7 +9,7 @@
 
 - name: "Install ssl_exporter configuration"
   copy:
-    src: "ssl_exporter.yml"
+    src: "{{ role_path }}/files/ssl_exporter.yml"
     dest: "/usr/local/etc/ssl_exporter.yml"
     owner: "promexp"
     group: "promexp"
