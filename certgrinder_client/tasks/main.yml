@@ -2,7 +2,13 @@
 - include_tasks: "syslog.yml"
 - include_tasks: "newsyslog.yml"
 - include_tasks: "user.yml"
-- include_tasks: "certgrinder.yml"
+- include_tasks:
+    file: "certgrinder.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
 - include_tasks: "cron.yml"
 - include_tasks: "renamelegacy.yml"
   tags: "renamelegacy"
