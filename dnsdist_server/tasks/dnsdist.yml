@@ -25,3 +25,9 @@
         port: "{{ dnsdist_web_mgmt_v6_listen_port }}"
         basic_auth_username: "dnsdist"
         basic_auth_password: "{{ dnsdist_web_password }}"
+
+- name: "Copy dnsdist_reload_certificates.sh"
+  copy:
+    src: "dnsdist_reload_certificates.sh"
+    dest: "/usr/local/bin/dnsdist_reload_certificates.sh"
+    mode: "755"
