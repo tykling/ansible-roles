@@ -1,6 +1,10 @@
 ---
-- include_tasks: "dnsdist.yml"
-  tags: "dnsdistconf"
+- include_tasks:
+    file: "dnsdist.yml"
+    apply:
+      tags:
+        - "dnsdist"
+  tags:
+    - "dnsdist"
 - include_tasks: "supervisord.yml"
 - include_tasks: "syslog.yml"
-
