@@ -1,0 +1,18 @@
+---
+modules:
+  https:
+    prober: https
+  https_insecure:
+    prober: https
+    tls_config:
+      insecure_skip_verify: true
+  https_onion:
+    prober: https
+    https:
+      proxy_url: "socks5://localhost:9050"
+  tls:
+    prober: tcp
+  tls_smtp_starttls:
+    prober: tcp
+    tcp:
+      starttls: smtp

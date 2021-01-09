@@ -1,3 +1,9 @@
 ---
+- name: "restart blackbox_exporter"
+  command: "/usr/local/bin/supervisorctl restart blackbox_exporter"
+
 - name: "reload blackbox_exporter"
-  shell: pkill -SIGHUP blackbox_exporter
+  command: "/usr/local/bin/supervisorctl signal HUP blackbox_exporter"
+
+- name: "restart ssl_exporter"
+  command: "/usr/local/bin/supervisorctl restart ssl_exporter"

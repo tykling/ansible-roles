@@ -1,22 +1,44 @@
 ---
-nginx_locationslash: |
- location / {
-      proxy_pass http://127.0.0.1:9115;
-      proxy_http_version 1.1;
-      proxy_set_header Host $http_host;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  }
-
 blackbox_exporter_listen_address: ":9115"
 blackbox_exporter_log_level: "info"
-# if you need the icmp module blackbox_exporter must run as root on BSDs
 blackbox_exporter_user: "root"
+blackbox_exporter_modules:
+  icmp4-3s-100b:
+    prober: "icmp"
+    timeout: 3s
+    icmp:
+      source_ip_address: "127.0.0.1"
+      payload_size: 100
 
-# Example blackbox_exporter_modules
-#blackbox_exporter_modules:
-  #http_2xx:
-    #prober: http
-    #timeout: 5s
-    #http:
-      #method: GET
-      #preferred_ip_protocol: ip4
+  http_2xx:
+    prober: "http"
+    timeout: "5s"
+    http:
+      method: "GET"
+
+  smtp_starttls:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - expect: "^220 ([^ ]+) ESMTP (.+)$"
+        - send: "EHLO prober"
+        - expect: "^250-STARTTLS"
+        - send: "STARTTLS"
+        - expect: "^220"
+        - starttls: true
+        - send: "EHLO prober"
+        - expect: "^250-AUTH"
+        - send: "QUIT"
+
+  dovecot_tls:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      tls: true
+      query_response:
+        - expect: "Dovecot ready.$"
+
+ssl_exporter_listen_address: ":9219"
+ssl_exporter_log_level: "info"
+ssl_exporter_user: "promexp"

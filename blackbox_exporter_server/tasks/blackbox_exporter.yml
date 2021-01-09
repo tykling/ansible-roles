@@ -3,14 +3,16 @@
   pkgng:
     name: "blackbox_exporter"
     state: "present"
+  notify:
+    - "restart blackbox_exporter"
 
 - name: "Install blackbox_exporter configuration"
   template:
     src: "blackbox_exporter.yml.j2"
     dest: "/usr/local/etc/blackbox_exporter.yml"
-    owner: "prometheus"
-    group: "prometheus"
-    mode: "0755"
+    owner: "promexp"
+    group: "promexp"
+    mode: "0644"
   notify:
     - "reload blackbox_exporter"
 

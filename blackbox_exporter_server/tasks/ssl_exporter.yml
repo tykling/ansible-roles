@@ -1,0 +1,41 @@
+
+- name: "Copy ssl_exporter binary to /usr/local/bin"
+  copy:
+   src: "ssl_exporter"
+   dest: "/usr/local/bin/ssl_exporter"
+   mode: "0755"
+  notify:
+    - "restart ssl_exporter"
+
+- name: "Install ssl_exporter configuration"
+  copy:
+    src: "ssl_exporter.yml"
+    dest: "/usr/local/etc/ssl_exporter.yml"
+    owner: "promexp"
+    group: "promexp"
+    mode: "0644"
+  notify:
+    - "restart ssl_exporter"
+
+- name: "Create supervisord.d config file to run ssl_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "ssl_exporter"
+    supervisord_programs:
+      - name: "ssl_exporter"
+        comment: "run ssl_exporter"
+        command: "/usr/local/bin/ssl_exporter --config.file=/usr/local/etc/ssl_exporter.yml --web.listen-address={{ ssl_exporter_listen_address }} --log.level={{ ssl_exporter_log_level }} --log.format='logger:stdout?json=true'"
+        user: "{{ ssl_exporter_user }}"
+
+- name: "Create exporter_exporter.d config file for ssl_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "ssl_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9219
