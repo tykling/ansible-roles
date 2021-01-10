@@ -8,3 +8,5 @@ syslogng_tls_listener: True
 syslogng_plaintext_archive: True
 syslogng_cadir: "/usr/local/etc/syslog-ng-cadir"
 
+syslogng_extra_destinations: !unsafe |
+syslogng_extra_logging: !unsafe |
