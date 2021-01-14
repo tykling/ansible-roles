@@ -54,7 +54,6 @@ http {
 {% if nginx_cache %}
     proxy_cache_path {{ nginx_cache_path }} levels=1:2 keys_zone=my_cache:10m max_size={{ nginx_cache_size }} inactive={{ nginx_cache_inactive }} use_temp_path=off;
     proxy_cache_key "$scheme://$host$request_uri";
-    proxy_temp_path {{ nginx_proxy_temp_path }};
 {% endif %}
     proxy_buffers {{ nginx_proxy_buffers }};
     proxy_redirect {{ nginx_proxy_redirect }};
