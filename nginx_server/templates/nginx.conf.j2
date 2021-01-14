@@ -50,11 +50,20 @@ http {
       '"upstream_cache_status": "$upstream_cache_status"' # cache HIT/MISS where applicable
     '}';
     access_log                  /usr/local/www/logs/proxytiming.json timingjson;
+    port_in_redirect {{ nginx_port_in_redirect }};
 {% if nginx_cache %}
     proxy_cache_path {{ nginx_cache_path }} levels=1:2 keys_zone=my_cache:10m max_size={{ nginx_cache_size }} inactive={{ nginx_cache_inactive }} use_temp_path=off;
     proxy_cache_key "$scheme://$host$request_uri";
+    proxy_temp_path: {{ nginx_proxy_temp_path }};
 {% endif %}
-
+    proxy_buffers {{ nginx_proxy_buffers }};
+    proxy_redirect {{ nginx_proxy_redirect }};
+    proxy_buffer_size {{ nginx_proxy_buffer_size }};
+    proxy_busy_buffers_size {{ nginx_proxy_busy_buffers_size }};
+    proxy_http_version 1.1;
+{% for bypass in nginx_proxy_cache_bypass %}
+    proxy_cache_bypass {{ bypass }};
+{% endfor %}
 {% else %}
     log_format                  main  '$host - [$remote_addr]:$http_x_forwarded_port - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" - $request_time sec - request_id $http_x_request_id - request_length: $request_length';
     access_log                  /usr/local/www/logs/access.log  main;
@@ -63,7 +72,6 @@ http {
     keepalive_timeout           65;
     client_max_body_size        {{ nginx_client_max_body_size }};
     client_body_buffer_size     1m;
-    proxy_buffers               256 4k;
     server_tokens               off;
     more_set_headers            'Server: Yes';
 
