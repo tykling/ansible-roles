@@ -56,7 +56,6 @@ http {
     proxy_cache_key "$scheme://$host$request_uri";
 {% endif %}
     proxy_buffers {{ nginx_proxy_buffers }};
-    proxy_redirect {{ nginx_proxy_redirect }};
     proxy_buffer_size {{ nginx_proxy_buffer_size }};
     proxy_busy_buffers_size {{ nginx_proxy_busy_buffers_size }};
     proxy_http_version 1.1;

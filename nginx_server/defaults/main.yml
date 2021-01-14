@@ -19,7 +19,6 @@ nginx_sts_includesubdomains: True
 nginx_exporter_version: "master"
 nginx_exporter_uri: "http://{{ ansible_nodename }}/stub_status"
 nginx_client_max_body_size: "100m"
-nginx_proxy_redirect: "default"
 nginx_proxy_buffer_size: "4k"
 nginx_proxy_buffers: "8 4k"
 nginx_proxy_busy_buffers_size: "8k"
