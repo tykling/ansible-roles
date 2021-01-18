@@ -69,3 +69,10 @@
     dest: "{{ certgrinder_home }}/certgrinder.conf"
     owner: "{{ certgrinder_user }}"
     mode: "0644"
+
+- name: "Create hooks.d directory"
+  file:
+    dest: "{{ certgrinder_home }}/hooks.d"
+    state: "directory"
+    mode: "0755"
+    owner: "{{ certgrinder_user }}"

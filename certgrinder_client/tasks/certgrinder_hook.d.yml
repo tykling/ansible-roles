@@ -1,0 +1,13 @@
+---
+- name: "Create Certgrinder post-renew-hooks-dir file"
+  copy:
+    src: "{{ hookfile }}"
+    path: "{{ certgrinder_home }}/hooks.d/{{ hookname }}"
+    mode: "755"
+
+- name: "Add sudoers permission so the certgrinder user can run the post renew hook"
+  copy:
+    src: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ certgrinder_home }}/hooks.d/{{ hookname }}"
+    dest: "/usr/local/etc/sudoers.d/certgrinder-hook-{{ hookname }}"
+    validate: "visudo -cf %s"
+    create: True

@@ -58,3 +58,13 @@
         command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -config.dirs=/usr/local/etc/exporter_exporter.d -web.listen-address= -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert=/usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt -web.tls.key /usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
         user: "{{ prometheus_exporter_user }}"
     supervisord_extra_programs: []
+
+- name: "Create certgrinder hooks.d file to restart exporter_exporter"
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "certgrinder_hook.d"
+  vars:
+    hookname: "exporter_exporter"
+    hookfile: |
+      #!/bin/sh
+      /usr/local/bin/supervisorctl restart exporter_exporter
