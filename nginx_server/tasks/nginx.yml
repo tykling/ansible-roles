@@ -9,7 +9,7 @@
     name: "nginx"
     enabled: yes
 
-- name: "Create certgrinder hooks.d file to restart nginx"
+- name: "Create certgrinder hooks.d file to reload nginx"
   include_role:
     name: "certgrinder_client"
     tasks_from: "certgrinder_hook.d"
@@ -17,4 +17,4 @@
     hookname: "nginx"
     hookfile: |
       #!/bin/sh
-      /usr/sbin/service nginx restart
+      /usr/sbin/service nginx reload
