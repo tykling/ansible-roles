@@ -117,9 +117,10 @@ destination file{
 {% endif %}
 
 
+{% if syslogng_extra_destinations is defined %}
 # custom destination config below here
 {{ syslogng_extra_destinations }}
-
+{% endif %}
 
 ##################### LOGGING ##############################
 
@@ -136,6 +137,7 @@ log { source(src); source(syslogng); destination(file); flags(flow-control); };
 {% endif %}
 
 
+{% if syslogng_extra_logging is defined %}
 # custom logging config below here
 {{ syslogng_extra_logging }}
-
+{% endif %}
