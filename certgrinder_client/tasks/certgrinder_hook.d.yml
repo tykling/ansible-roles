@@ -1,7 +1,7 @@
 ---
 - name: "Create Certgrinder post-renew-hooks-dir file"
   copy:
-    src: "{{ hookfile }}"
+    content: "{{ hookfile }}"
     dest: "{{ certgrinder_home }}/hooks.d/{{ hookname }}"
     mode: "755"
 
