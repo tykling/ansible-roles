@@ -10,4 +10,3 @@
     content: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ certgrinder_home }}/hooks.d/{{ hookname }}"
     dest: "/usr/local/etc/sudoers.d/certgrinder-hook-{{ hookname }}"
     validate: "visudo -cf %s"
-    create: True
