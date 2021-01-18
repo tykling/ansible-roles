@@ -7,6 +7,6 @@
 
 - name: "Add sudoers permission so the certgrinder user can run the post renew hook"
   copy:
-    content: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ certgrinder_home }}/hooks.d/{{ hookname }}"
+    content: "{{ certgrinder_user }} ALL=(ALL) NOPASSWD: {{ certgrinder_home }}/hooks.d/{{ hookname }}\n"
     dest: "/usr/local/etc/sudoers.d/certgrinder-hook-{{ hookname }}"
     validate: "visudo -cf %s"
