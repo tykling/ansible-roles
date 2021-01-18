@@ -17,4 +17,5 @@
     - "certgrinder"
 - include_tasks: "cron.yml"
 - include_tasks: "renamelegacy.yml"
+  when: certgrinder_rename_legacy
   tags: "renamelegacy"
