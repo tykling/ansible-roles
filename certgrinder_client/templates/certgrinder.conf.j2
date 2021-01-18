@@ -12,9 +12,9 @@ domain-list:
 certgrinderd: "{{ certgrinder_certgrinderd_command }}"
 syslog-facility: "LOG_LOCAL4"
 syslog-socket: "{{ certgrinder_syslog_socket }}"
+# run these hooks after renewal of one or more certificates
 post-renew-hooks-dir: "{{ certgrinder_home }}/hooks.d/"
 {% if certgrinder_post_renew_hooks is defined %}
-# run these hooks after renewal of one or more certificates
 post-renew-hooks:
 {{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml }}
 {% endif %}
