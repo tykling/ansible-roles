@@ -55,3 +55,16 @@
     - "pghba"
   notify: "reload postgresql"
 
+- name: "Create certgrinder hooks.d file to copy certs and reload postgresql"
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "certgrinder_hook.d"
+  vars:
+    hookname: "postgresql"
+    hookfile: |
+      #!/bin/sh
+      /bin/cp {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt {{ postgresql_homedir }}
+      /bin/cp {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key {{ postgresql_homedir }}
+      /usr/sbin/chown root {{ postgresql_homedir }}/{{ ansible_nodename }}-*
+      /bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}-*
+      /usr/sbin/service postgresql onereload

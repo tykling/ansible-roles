@@ -11,25 +11,13 @@ postgresql_ip4r: False
 postgresql_hot_standby: False
 postgresql_check_mounts: True
 postgresql_shared_buffers: "20GB"
-
-certgrinder_post_renew_hooks:
-  - "/usr/local/bin/sudo /bin/cp /usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt /usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key {{ postgresql_homedir }}"
-  - "/usr/local/bin/sudo /usr/sbin/chown root {{ postgresql_homedir }}/{{ ansible_nodename }}-*"
-  - "/usr/local/bin/sudo /bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}-*"
-  - "/usr/local/bin/sudo /usr/sbin/service postgresql onereload"
-
-certgrinder_cert_users:
-  - "postgres"
-
 postgresql_daily_vacuum_enable: True
 postgresql_daily_backup_enable: True
 postgresql_wal_level: "hot_standby"
 postgresql_max_wal_senders: 3
 postgresql_wal_keep_segments: 100
 postgresql_pgbouncer: False
-
 postgresql_partitioning_days_ahead: 30
-
 postgresql_pg_stat_statements_track: 10000
 postgresql_auto_explain_min_duration_seconds: 3
 
