@@ -1,7 +1,4 @@
 ---
 murmur_welcometext: "<b>Welcome to mumble!</b>"
-certgrinder_post_renew_hooks:
-  - "/usr/sbin/service murmur restart"
 certgrinder_cert_users:
   - "murmur"
-

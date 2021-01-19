@@ -19,3 +19,12 @@
     name: "murmur"
     state: "started"
 
+- name: "Create certgrinder hooks.d file to restart murmur"
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "certgrinder_hook.d"
+  vars:
+    hookname: "murmur"
+    hookfile: |
+      #!/bin/sh
+      /usr/sbin/service murmur reload
