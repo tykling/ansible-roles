@@ -14,6 +14,7 @@ syslog-facility: "LOG_LOCAL4"
 syslog-socket: "{{ certgrinder_syslog_socket }}"
 # run these hooks after renewal of one or more certificates
 post-renew-hooks-dir: "{{ certgrinder_home }}/hooks.d/"
+post-renew-hooks-dir-runner: "/usr/local/bin/sudo"
 {% if certgrinder_post_renew_hooks is defined %}
 post-renew-hooks:
 {{ certgrinder_post_renew_hooks | default(None) | to_nice_yaml }}
