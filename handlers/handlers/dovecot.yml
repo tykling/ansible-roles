@@ -1,0 +1,10 @@
+---
+- name: "Start dovecot"
+  service:
+    name: "dovecot"
+    state: "started"
+
+- name: "Reload dovecot"
+  service:
+    name: "dovecot"
+    state: "reloaded"

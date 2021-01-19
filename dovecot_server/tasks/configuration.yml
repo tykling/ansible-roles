@@ -1,20 +1,22 @@
 ---
-- name: Copy dovecot config
+- name: "Copy dovecot config"
   template:
-    src: dovecot.conf.j2
-    dest: /usr/local/etc/dovecot/dovecot.conf
+    src: "dovecot.conf.j2"
+    dest: "/usr/local/etc/dovecot/dovecot.conf"
+  notify: "Reload dovecot"
 
-- name: Copy dovecot sql config
+- name: "Copy dovecot sql config"
   template:
-    src: dovecot-sql.conf.j2
-    dest: /usr/local/etc/dovecot/dovecot-sql.conf
+    src: "dovecot-sql.conf.j2"
+    dest: "/usr/local/etc/dovecot/dovecot-sql.conf"
     mode: "600"
+  notify: "Reload dovecot"
 
-- name: Create mailbox folder
+- name: "Create mailbox folder"
   file:
-    path: /usr/mailboxes
-    state: directory
+    path: "/usr/mailboxes"
+    state: "directory"
     mode: "700"
     owner: "{{ dovecot_vmail_username}}"
     group: "{{ dovecot_vmail_groupname}}"
-
+  notify: "Reload dovecot"

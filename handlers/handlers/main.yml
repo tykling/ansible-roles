@@ -54,3 +54,4 @@
 - import_tasks: "nut.yml"
 - import_tasks: "motion.yml"
 - import_tasks: "smokeping_prober.yml"
+- import_tasks: "dovecot.yml"
