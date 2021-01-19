@@ -1,10 +1,6 @@
 ---
-certgrinder_post_renew_hooks:
-  - "/usr/sbin/service syslog-ng restart"
-
 syslogng_upstream_server: False
 syslogng_upstream_elk: False
 syslogng_tls_listener: True
 syslogng_plaintext_archive: True
 syslogng_cadir: "/usr/local/etc/syslog-ng-cadir"
-

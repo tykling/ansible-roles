@@ -21,3 +21,12 @@
     value: "/var/run/syslog-ng.pid"
   notify: "reload syslog-ng"
 
+- name: "Create certgrinder hooks.d file to reload syslog-ng"
+  include_role:
+    name: "certgrinder_client"
+    tasks_from: "certgrinder_hook.d"
+  vars:
+    hookname: "syslog-ng"
+    hookfile: |
+      #!/bin/sh
+      /usr/sbin/service syslog-ng reload
