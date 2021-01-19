@@ -1,15 +1,8 @@
 ---
-nginx_proxy: False
-
 dovecot_vmail_username: "vmail"
 dovecot_vmail_uid: 10000
 dovecot_vmail_groupname: "vmail"
 dovecot_vmail_gid: 10000
 dovecot_dhparam_path: "{{ dhparam_path }}"
-
-certgrinder_post_renew_hooks:
-  - "/usr/sbin/service dovecot restart"
-
 mountwaiter_paths:
   - "/usr/mailboxes"
-
