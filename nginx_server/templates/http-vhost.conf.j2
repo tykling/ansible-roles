@@ -56,10 +56,18 @@ server {
 {% endif %}
     server_name             _;
     location / {
-{% if item.value.redirect_keep_url | default(True) %}
+{% if item.value.https_redirect | default(True) %}
+  {% if item.value.redirect_keep_url | default(True) %}
         return              302 https://{{ item.value.hostnames[0] }}$request_uri;
-{% else %}
+  {% else %}
         return              302 https://{{ item.value.hostnames[0] }};
+  {% endif %}
+{% else %}
+  {% if item.value.redirect_keep_url | default(True) %}
+        return              302 http://{{ item.value.hostnames[0] }}$request_uri;
+  {% else %}
+        return              302 http://{{ item.value.hostnames[0] }};
+  {% endif %}
 {% endif %}
     }
 }
