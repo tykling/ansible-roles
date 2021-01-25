@@ -14,11 +14,11 @@ server {
     server_name             {% for hostname in item.value.hostnames %}{{ hostname.encode('idna').decode('ascii') }} {% if hostname != hostname.encode('idna').decode('ascii') %}{{ hostname }} {% endif %}{% endfor %};
 
 {% if item.value.letsencrypt | default(True) %}
-    ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}-chain.rsa.crt;
-    ssl_certificate_key     /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}-keypair.rsa.key;
+    ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.rsa.crt;
+    ssl_certificate_key     /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.rsa.key;
 {% else %}
-    ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt;
-    ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.key;
+    ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.crt;
+    ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.key;
 {% endif %}
     include                 /usr/local/etc/nginx/tls.conf;
 {% if 'csp' in item.value %}
@@ -77,11 +77,11 @@ server {
 
     # certificate and key (wont match hostname, but whatever, this is just a fallback vhost)
 {% if item.value.letsencrypt | default(True) %}
-    ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}-chain.rsa.crt;
-    ssl_certificate_key     /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0] }}-keypair.rsa.key;
+    ssl_certificate         /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.rsa.crt;
+    ssl_certificate_key     /usr/home/{{ certgrinder_user }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.rsa.key;
 {% else %}
-    ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.crt;
-    ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0] }}.key;
+    ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.crt;
+    ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.key;
 {% endif %}
     include                 /usr/local/etc/nginx/tls.conf;
     include                 /usr/local/etc/nginx/securityheaders.conf;
