@@ -10,7 +10,7 @@
   register: result
 
 - name: "create network interfaces"
-  command: "/sbin/ifconfig {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %} || /sbin/ifconfig {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %} create"
+  shell: "/sbin/ifconfig {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %} || /sbin/ifconfig {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %} create"
   ignore_errors: yes
   with_items: "{{ network_interfaces }}"
   when: item.configure
