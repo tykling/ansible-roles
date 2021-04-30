@@ -204,3 +204,11 @@ pass out quick on {{ pf_vm_rules[vm]['interface'] }} proto { {% for proto in rul
 {% endfor %}
 {% endif %}
 {% endif %}
+
+
+####################################################################################################
+### custom rules
+{% if pf_custom_rules is defined %}
+{{ pf_custom_rules }}
+{% endif %}
+
