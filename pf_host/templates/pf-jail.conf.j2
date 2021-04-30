@@ -32,6 +32,9 @@ main_v4_ip="{{ ansible_default_ipv4.address }}"
 
 
 ################ macros specific to {{ ansible_nodename }} #######################
+table <firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}{{ ip }} {% endfor %} }
+table <not_firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
+
 {{ pf_local_address_macros | default("# No local macros found") }}
 
 
