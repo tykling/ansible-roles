@@ -88,20 +88,20 @@ pass in quick on $if inet6 proto icmp6 from { fe80::/10 $if:network } to FF02:0:
 ### pass incoming ssh to host and jails
 pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if), ($jail_if) } port 22
 
-{% if hostvars[ansible_host]['ansible_lo1'] is defined %}
+{% if hostvars[ansible_nodename]['ansible_lo1'] is defined %}
 ### pass v4 traffic from jail to itself on $nat_if
-{% for v4ip in hostvars[ansible_host]['ansible_lo1']['ipv4'] %}pass quick on $nat_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_nodename]['ansible_lo1']['ipv4'] %}pass quick on $nat_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 {% endif %}
 
-{% if hostvars[ansible_host]['ansible_lo2'] is defined %}
+{% if hostvars[ansible_nodename]['ansible_lo2'] is defined %}
 # pass v4 traffic from jails to themselves on $jail_if
-{% for v4ip in hostvars[ansible_host]['ansible_lo2']['ipv4'] %}pass quick on $jail_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_nodename]['ansible_lo2']['ipv4'] %}pass quick on $jail_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 {% endif %}
 
 # pass v4 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
-{% for v4ip in hostvars[ansible_host]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_nodename]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 
 # pass v6 traffic from jails to themselves (rules go on lo0 because that is where the traffic is routed)
