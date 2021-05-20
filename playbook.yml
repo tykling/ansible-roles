@@ -1,17 +1,12 @@
 ---
-- name: "Include host secrets"
+##############################################################################
+### Include extra variables, first global, then group secrets, then host secrets
+- name: "Include include_vars/global.yml with variables used across multiple roles"
   hosts: "all"
   tasks:
-    - name: "Check if host secrets exists in host_vars"
-      local_action: stat path="/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-      register: stat_result
+    - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
       tags:
         - "always"
-    - name: "Include host secrets when the file exists"
-      include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
-      tags:
-        - "always"
-      when: stat_result.stat.exists
 
 - name: "Include group secrets"
   hosts: "all"
@@ -29,12 +24,22 @@
       when: item.stat.exists
       loop: "{{ result.results }}"
 
-- name: "Include include_vars/global.yml with variables used across multiple roles"
+- name: "Include host secrets"
   hosts: "all"
   tasks:
-    - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
+    - name: "Check if host secrets exists in host_vars"
+      local_action: stat path="/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      register: stat_result
       tags:
         - "always"
+    - name: "Include host secrets when the file exists"
+      include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      tags:
+        - "always"
+      when: stat_result.stat.exists
+
+##############################################################################
+### base and host roles
 
 - name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
   hosts: "all"
