@@ -1,0 +1,24 @@
+---
+- name: "Install ezjail"
+  pkgng:
+    name: "ezjail"
+    state: "present"
+
+- name: "Copy ezjail config"
+  template:
+    src: "ezjail.conf.j2"
+    dest: "/usr/local/etc/ezjail.conf"
+
+- name: "Bootstrap ezjail (requires a built world in /usr/obj)"
+  command: "ezjail-admin update -i"
+  args:
+    creates: "{{ ezjail_root }}/basejail"
+
+- name: "check if jailstorage zfs exists"
+  shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
+  register: ezjail_jailstorage_result
+  ignore_errors: True
+
+- name: "Create main jailstorage zfs if neded"
+  command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ ezjail_jailstorage_dataset }}"
+  when: ezjail_jailstorage_result.rc == 1

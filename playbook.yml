@@ -65,6 +65,12 @@
   roles:
     - "chyves_host"
 
+- name: "configure vnet jail hosts"
+  hosts: "jail_hosts"
+  become: yes
+  roles:
+    - "jail_host"
+
 ##############################################################################
 ### application roles below here
 

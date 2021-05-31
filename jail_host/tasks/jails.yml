@@ -1,0 +1,13 @@
+---
+- name: "Configure jails"
+  include_tasks:
+    file: "configure_jail.yml"
+    apply:
+      tags:
+        - "jails"
+  vars:
+    jail: "{{ item.value }}"
+    jailname: "{{ item.value.hostname|replace('.','_') }}"
+  loop: "{{ jails | dict2items }}"
+  tags:
+    - "jails"

@@ -1,0 +1,14 @@
+# Prevent loads of jails doing their cron jobs at the same time
+cron_flags="$cron_flags -J 15"
+
+# Prevent syslog from listening on *:514
+syslogd_flags="-s"
+
+# Enable sshd
+sshd_enable="YES"
+
+# disable sendmail
+sendmail_enable="NONE"
+
+########### JAIL SERVICES BELOW HERE ##########################
+

@@ -1,0 +1,22 @@
+# add to jail list
+jail_list="$jail_list {{ jailname }}"
+
+# set hostname
+jail_{{ jailname }}_hostname="{{ jail.hostname }}"
+jail_{{ jailname }}_rootdir="{% if /usr/jails/unifi1.servers.tyknet.dk"
+jail_{{ jailname }}_vnet_interface0="epair143b"
+
+# prestart section (runs on host)
+{% for interface in jail.interfaces %}
+jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true && ifconfig epair{{ interface.epair }} create up && ifconfig epair{{ interface.epair }}a up && ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
+{% endfor %}
+
+# start section (runs in jail)
+{% for interface in jail.interfaces %}
+jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig }} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet6 }}"
+{% endfor %}
+
+# poststop section (runs on host)
+{% for interface in jail.interfaces %}
+jail_{{ jailname }}_exec_poststop{{ loop.index0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a && ifconfig epair{{ interface.epair }}a destroy"
+{% endfor %}

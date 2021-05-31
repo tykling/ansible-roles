@@ -1,0 +1,6 @@
+---
+- name: "restart jail {{ jailname }}"
+  service:
+    name: "jail"
+    state: "restarted"
+    args: "{{ jailname }}"

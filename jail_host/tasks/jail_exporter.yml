@@ -1,0 +1,36 @@
+---
+- name: "Install jail_exporter"
+  pkgng:
+    name: "jail_exporter"
+    state: "present"
+
+- name: "Create supervisord.d config file to run jail_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "jail_exporter"
+    supervisord_programs:
+      - name: "jail_exporter"
+        comment: "run jail_exporter"
+        command: "/usr/local/bin/jail_exporter"
+        user: "root"
+    supervisord_extra_programs: []
+
+- name: "Enable racct (rctl) in /boot/loader.conf"
+  lineinfile:
+    dest: "/boot/loader.conf"
+    regexp: "^kern.racct.enable="
+    line: "kern.racct.enable=1"
+    state: "present"
+
+- name: "Create exporter_exporter.d config file for jail_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "jail_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9452

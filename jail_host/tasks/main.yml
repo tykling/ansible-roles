@@ -1,0 +1,13 @@
+---
+- include_tasks: "ezjail.yml"
+- include_tasks: "flavour.yml"
+- include_tasks: "jailmergemaster.yml"
+- include_tasks: "rctl.yml"
+- include_tasks: "jail_exporter.yml"
+- include_tasks:
+    file: "jails.yml"
+    apply:
+      tags:
+        - "jails"
+  tags:
+    - "jails"
