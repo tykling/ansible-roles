@@ -1,3 +1,16 @@
 ---
+ezjail_dataset: "gelipool/jails"
+ezjail_jailstorage_dataset: "gelipool/jailstorage"
+ezjail_flavourname: "tykbasic"
+ezjail_ansible_userid: 1337
+ezjail_root: "/usr/jails"
+ezjail_flavour_root: "{{ ezjail_root }}/flavours/{{ ezjail_flavourname }}"
+
+jailmergemaster_github_repo_url: "https://github.com/tykling/jailmergemaster"
+jailmergemaster_checkout_path: "/tmp/jailmergemaster"
+jailmergemaster_github_branch: "master"
+
+freebsd_weekly_locate_enable: False
+
 jail_exporter_version: "master"
 
