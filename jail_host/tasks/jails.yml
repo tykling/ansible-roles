@@ -8,6 +8,6 @@
   vars:
     jail: "{{ item.value }}"
     jailname: "{{ item.value.hostname|replace('.','_') }}"
-  loop: "{{ jails | dict2items }}"
+  loop: "{{ jails }}"
   tags:
     - "jails"
