@@ -6,8 +6,8 @@
       tags:
         - "jails"
   vars:
-    jail: "{{ item.value }}"
-    jailname: "{{ item.value.hostname|replace('.','_') }}"
+    jail: "{{ item }}"
+    jailname: "{{ item.hostname|replace('.','_') }}"
   loop: "{{ jails }}"
   tags:
     - "jails"
