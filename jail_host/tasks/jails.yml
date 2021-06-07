@@ -1,10 +1,8 @@
 ---
 - name: "Configure jails"
-  include_tasks:
-    file: "configure_jail.yml"
-    apply:
-      tags:
-        - "jails"
+  template:
+    src: "jail.d.j2"
+    dest: "/etc/rc.conf.d/jail/{{ jailname }}"
   vars:
     jail: "{{ item }}"
     jailname: "{{ item.hostname|replace('.','_') }}"

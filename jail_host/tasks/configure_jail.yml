@@ -1,5 +1,1 @@
 ---
-- name: "Template /etc/rc.conf.d/jail/ config file for this jail"
-  template:
-    src: "jail.d.j2"
-    dest: "/etc/rc.conf.d/jail/{{ jailname }}"
