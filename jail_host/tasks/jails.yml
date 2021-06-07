@@ -11,3 +11,4 @@
   loop: "{{ jails }}"
   tags:
     - "jails"
+  notify: "restart jail {{ jailname }}"

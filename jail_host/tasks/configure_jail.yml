@@ -3,4 +3,3 @@
   template:
     src: "jail.d.j2"
     dest: "/etc/rc.conf.d/jail/{{ jailname }}"
-  notify: "restart jail {{ jailname }}"
