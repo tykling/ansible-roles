@@ -1,10 +1,14 @@
 # add to jail list
 jail_list="$jail_list {{ jailname }}"
 
-# set hostname
+# hostname and jail root
 jail_{{ jailname }}_hostname="{{ jail.hostname }}"
-jail_{{ jailname }}_rootdir="{% if /usr/jails/unifi1.servers.tyknet.dk"
-jail_{{ jailname }}_vnet_interface0="epair143b"
+jail_{{ jailname }}_rootdir="{{ jail.root }}"
+
+# epair interfaces
+{% for interface in jail.interfaces %}
+jail_{{ jailname }}_vnet_interface{{ loop.index0 }}="epair{{ interface.epair }}b"
+{% endfor %}
 
 # prestart section (runs on host)
 {% for interface in jail.interfaces %}
