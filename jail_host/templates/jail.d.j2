@@ -3,7 +3,7 @@ jail_list="$jail_list {{ jailname }}"
 
 # hostname and jail root
 jail_{{ jailname }}_hostname="{{ jail.hostname }}"
-jail_{{ jailname }}_rootdir="{{ jail.root }}"
+jail_{{ jailname }}_rootdir="{% if jail.root is defined %}jail.root{% else %}{{ jail_root }}/{{ jail.hostname }}{% endif %}"
 
 # epair interfaces
 {% for interface in jail.interfaces %}
@@ -17,7 +17,7 @@ jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 }}="ifconfig epair{{ i
 
 # start section (runs in jail)
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig }} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet6 }}"
+jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }}{% if interface.ifconfig_inet is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet }}{% endif %}{% if interface.ifconfig_inet6 is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet6 }}{% endif %}"
 {% endfor %}
 
 # poststop section (runs on host)
