@@ -1,5 +1,5 @@
 ---
-- name: "restart jail {{ jailname }}"
+- name: "restart jail"
   service:
     name: "jail"
     state: "restarted"
