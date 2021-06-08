@@ -10,3 +10,4 @@
   tags:
     - "jails"
   notify: "restart jail"
+  register: jail_results
