@@ -1,5 +1,5 @@
 ---
-- name: "Configure jails"
+- name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
   template:
     src: "jail.d.j2"
     dest: "/etc/rc.conf.d/jail/{{ jailname }}"
