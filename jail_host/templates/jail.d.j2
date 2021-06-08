@@ -5,20 +5,29 @@ jail_list="$jail_list {{ jailname }}"
 jail_{{ jailname }}_hostname="{{ jail.hostname }}"
 jail_{{ jailname }}_rootdir="{% if jail.root is defined %}jail.root{% else %}{{ jail_root }}/{{ jail.hostname }}{% endif %}"
 
-# epair interface(s)
+{% if jail.interfaces is defined %}
+# vnet epair interface(s)
 jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{{ interface.epair }}b {% endfor %}"
 
 # prestart section (runs on host)
 {% for interface in jail.interfaces %}
-jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true && ifconfig epair{{ interface.epair }} create up && ifconfig epair{{ interface.epair }}a up && ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
+jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 * 4 + 0 }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true"
+jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 * 4 + 1 }}="ifconfig epair{{ interface.epair }} create up"
+jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 * 4 + 2 }}="ifconfig epair{{ interface.epair }}a up"
+jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 * 4 + 3 }}="ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
 {% endfor %}
 
 # start section (runs inside jail)
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }}{% if interface.ifconfig_inet is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet }}{% endif %}{% if interface.ifconfig_inet6 is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet6 }}{% endif %}"
+jail_{{ jailname }}_exec_start{{ loop.index0 * 4 + 0 }}="/sbin/ifconfig epair{{ interface.epair }}b name vnet{{ loop.index0 }}"
+jail_{{ jailname }}_exec_start{{ loop.index0 * 4 + 1 }}="ifconfig vnet{{ loop.index0 }}{% if interface.ifconfig_inet is defined %} {{ interface.ifconfig_inet }}{% endif %}" # inet
+jail_{{ jailname }}_exec_start{{ loop.index0 * 4 + 2 }}="ifconfig vnet{{ loop.index0 }}{% if interface.ifconfig_inet6 is defined %} {{ interface.ifconfig_inet6 }}{% endif %}" # inet6
+jail_{{ jailname }}_exec_start{{ loop.index0 * 4 + 3 }}="true{% if jail.defaultrouter.inet is defined %} && route add default {{ jail.defaultrouter.inet }}{% endif %}{% if jail.defaultrouter.inet is defined %} && route add -inet6 default {{ jail.defaultrouter.inet }}{% endif %}" # default gateway(s)
 {% endfor %}
 
 # poststop section (runs on host)
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_poststop{{ loop.index0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a && ifconfig epair{{ interface.epair }}a destroy"
+jail_{{ jailname }}_exec_poststop{{ loop.index0 * 2 + 0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a"
+jail_{{ jailname }}_exec_poststop{{ loop.index0 * 2 + 1 }}="ifconfig epair{{ interface.epair }}a destroy"
 {% endfor %}
+{% endif %}
