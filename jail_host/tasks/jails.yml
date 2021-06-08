@@ -9,5 +9,5 @@
   loop: "{{ jails }}"
   tags:
     - "jails"
-  notify: "restart jail"
+  notify: "restart changed jails"
   register: jail_results

@@ -1,5 +1,5 @@
 ---
-- name: "restart jails (if needed)"
+- name: "restart changed jails"
   loop: "{{ jail_results.results | selectattr('changed', 'equalto', true) | map(attribute='item') | map(attribute='hostname') | list }}"
   service:
     name: "jail"
