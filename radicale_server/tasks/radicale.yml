@@ -1,7 +1,7 @@
 ---
 - name: "Install radicale2"
   pkgng:
-    name: "py36-radicale2"
+    name: "py37-radicale2"
     state: "present"
 
 - name: "Copy radicale config"
