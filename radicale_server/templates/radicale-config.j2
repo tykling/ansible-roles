@@ -7,4 +7,4 @@ file = {{ radicale_configdir }}/rights
 
 [storage]
 filesystem_folder = {{ radicale_datadir }}
-hook = ([ -d .git ] || git init) && git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(user)s)
+hook = ([ -d .git ] || /usr/local/bin/git init) && /usr/local/bin/git add -A && (/usr/local/bin/git diff --cached --quiet || /usr/local/bin/git commit -m "Changes by %(user)s")
