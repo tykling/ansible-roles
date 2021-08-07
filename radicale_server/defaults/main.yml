@@ -1,6 +1,6 @@
 ---
 virtualenv_path: "/usr/local/virtualenv"
-radicale_configdir: "/usr/local/etc/radicale2"
+radicale_configdir: "/usr/local/etc/radicale"
 
 nginx_locationslash: |
  location / {

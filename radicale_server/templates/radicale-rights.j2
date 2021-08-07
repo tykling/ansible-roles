@@ -1,20 +1,27 @@
-# Authenticated users can read and write their own collections.
-[owner-write]
-user = .+
-collection = %(login)s(/.*)?
-permission = rw
-
-# Everyone can read the root collection
+# Authenticated users can read the root collection
 [read]
-user = .*
+user = .+
 collection =
-permission = r
+permissions = r
 
+# Authenticated users can read and write their own principal collections
+[principal]
+user: .+
+collection: {user}
+permissions: RW
+
+# and their own calendars / contacts collections
+[calendars]
+user: .+
+collection: {user}/[^/]+
+permissions: rw
+
+# custom rights from ansible radicale_rights_sections below here
 {% for section in radicale_rights_sections | default([]) %}
 [{{ section.title }}]
 user = {{ section.user }}
 collection = {{ section.collection }}
-permission = {{ section.permission }}
+permissions = {{ section.permissions }}
 
 {% endfor %}
 
