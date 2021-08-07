@@ -1,4 +1,15 @@
 ---
-- include_tasks: "radicale.yml"
-- include_tasks: "supervisord.yml"
-
+- include_tasks:
+    file: "radicale.yml"
+    apply:
+      tags:
+        - "radicale"
+  tags:
+    - "radicale"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "supervisord"
+  tags:
+    - "supervisord"
