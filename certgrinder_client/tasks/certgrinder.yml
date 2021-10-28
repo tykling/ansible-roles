@@ -43,7 +43,7 @@
 - name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL include"
   pip:
     virtualenv_python: "python"
-    name: "cryptography"
+    name: "cryptography==3.4.7"
     virtualenv: "{{ certgrinder_home }}/virtualenv"
     extra_args: '--global-option=build_ext'
   environment:
