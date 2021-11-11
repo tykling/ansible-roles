@@ -2,6 +2,7 @@
 - name: "Add certgrinder user"
   user:
     name: "{{ certgrinder_user }}"
+    home: "{{ certgrinder_home }}"
     comment: "certgrinder user"
     ssh_key_type: "ed25519"
     generate_ssh_key: True
