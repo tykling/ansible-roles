@@ -20,7 +20,7 @@
 
 - name: "Add ssh pubkey fingerprint to .ssh/known_hosts"
   lineinfile:
-    dest: "/usr/home/{{ certgrinder_user }}/.ssh/known_hosts"
+    dest: "{{ certgrinder_home }}/.ssh/known_hosts"
     state: "present"
     create: yes
     owner: "{{ certgrinder_user }}"
