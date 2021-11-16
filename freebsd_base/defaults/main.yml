@@ -10,7 +10,7 @@ packages:
   - "stow"
   - "git"
   - "bash"
-  - "vim-console"
+  - "vim"
   - "moreutils"
 
 poudriere_client: True
