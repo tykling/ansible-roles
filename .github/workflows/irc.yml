@@ -1,0 +1,18 @@
+name: "IRC Notification on push"
+on:
+  - "push"
+  - "issues"
+
+jobs:
+  notification:
+    runs-on: "ubuntu-latest"
+    name: "IRC Notifications"
+    steps:
+    - name: "IRC notification"
+      uses: "Gottox/irc-message-action@v2"
+      with:
+        server: "ircd.tyknet.dk"
+        channel: "#tykling/ansible-roles"
+        nickname: "ansibot"
+        message: |-
+          ${{ github.actor }} pushed ${{ github.event.ref }} ${{ github.event.compare }}
