@@ -2,7 +2,7 @@
 - name: "Install poudriere"
   pkgng:
     name: "poudriere"
-    state: present
+    state: "present"
 
 - name: "Copy main poudriere.conf"
   template:
@@ -56,12 +56,3 @@
   args:
     creates: "{{ poudriere_zfs_mountpoint }}/ports/{{ item.name }}"
   with_items: "{{ poudriere_ports_trees }}"
-
-- name: "Get local patches from git"
-  git:
-    repo: "{{ poudriere_local_patches_repo }}"
-    dest: "/usr/local/etc/poudriere.d/local-patches"
-    force: yes
-    version: "master"
-    accept_hostkey: yes
-  when: poudriere_local_patches_repo is defined
