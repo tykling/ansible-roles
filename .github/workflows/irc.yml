@@ -15,4 +15,4 @@ jobs:
         channel: "#tykling/ansible-roles"
         nickname: "ansibot"
         message: |-
-          ${{ github.actor }} pushed ${{ github.event.payload.size }} commits ${{ github.event.compare }} - latest commit: "${{ github.event.head_commit.message }}"
+          ${{ github.actor }} pushed new commits: ${{ github.event.compare }} - latest commit msg: "${{ github.event.head_commit.message }}"
