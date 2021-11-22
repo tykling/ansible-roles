@@ -1,5 +1,16 @@
 ---
-- include_tasks: "poudriere.yml"
-  tags: "portlists"
-- include_tasks: "cron.d.yml"
-
+- include_tasks:
+    file: "poudriere.yml"
+    apply:
+      tags:
+        - "poudriere"
+  tags:
+    - "poudriere"
+    - "portlists"
+- include_tasks:
+    file: "cron.d.yml"
+    apply:
+      tags:
+        - "poudriere"
+  tags:
+    - "poudriere"
