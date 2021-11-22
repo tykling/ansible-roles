@@ -14,11 +14,12 @@ for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudri
 
     # build everything
 {% for portlist in poudriere_portlists %}
-  {% if portlist.build %}
+  {% if portlist.build|default(True) %}
     echo "************************** BUILDING FOR JAIL \"$JAIL\" - SET \"DEFAULT\" - PORTLIST \"{{ portlist.filename }}\" - TREE \"{{ portlist.tree|default('default') }}\"{% if portlist.overlay is defined %} - OVERLAY \"{{ portlist.overlay }}\"{% endif %} ********************************"
-    /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/{{ portlist.filename }} -p {{ portlist.tree|default('default') }}{% if portlist.overlay is defined %} -O {{ portlist.overlay }}{% endif %}
+    /usr/local/bin/poudriere bulk -j $JAIL -f /usr/local/etc/poudriere.d/{{ portlist.filename }} -p {{ portlist.tree|default('default') }}{% portlist.overlay is defined %} -O {{ portlist.overlay }}{% endif %}
   {% endif %}
 {% endfor %}
+
 done
 
 echo "************************** DONE ********************************"
