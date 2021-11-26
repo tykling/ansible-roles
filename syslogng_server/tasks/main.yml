@@ -1,7 +1,36 @@
 ---
-- include_tasks: "cadir.yml"
-- include_tasks: "syslogd.yml"
-- include_tasks: "syslogng.yml"
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
-
+- include_tasks:
+    file: "cadir.yml"
+    apply:
+      tags:
+        - "syslogng"
+  tags:
+    - "syslogng"
+- include_tasks:
+    file: "syslogd.yml"
+    apply:
+      tags:
+        - "syslogng"
+  tags:
+    - "syslogng"
+- include_tasks:
+    file: "syslogng.yml"
+    apply:
+      tags:
+        - "syslogng"
+  tags:
+    - "syslogng"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "syslogng"
+  tags:
+    - "syslogng"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "syslogng"
+  tags:
+    - "syslogng"
