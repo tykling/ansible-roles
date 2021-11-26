@@ -4,7 +4,7 @@
     path: "{{ syslogng_cadir }}"
     state: "directory"
 
-- name: "Add identrust root cert to syslog-ng cadir"
+- name: "Add identrust root cert to syslog-ng cadir (remove after the last X3 cert expires)"
   copy:
     owner: "root"
     group: "wheel"
@@ -12,7 +12,7 @@
     src: "identrustroot.pem"
     dest: "{{ syslogng_cadir }}/identrustroot.pem"
 
-- name: "Add intermediate Lets Encrypt Authority X3 to syslog-ng cadir"
+- name: "Add intermediate Lets Encrypt Authority X3 to syslog-ng cadir (remove after the last X3 cert expires)"
   copy:
     owner: "root"
     group: "wheel"
@@ -20,8 +20,24 @@
     src: "letsencryptx3auth.pem"
     dest: "{{ syslogng_cadir }}/letsencryptx3auth.pem"
 
+- name: "Add ISRG Root X1 cert to syslog-ng cadir"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "isrg_root_x1.pem"
+    dest: "{{ syslogng_cadir }}/isrg_root_x1.pem"
+
+- name: "Add intermediate Lets Encrypt R3 to syslog-ng cadir"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "letsencrypt_r3.pem"
+    dest: "{{ syslogng_cadir }}/letsencrypt_r3.pem"
+
 - name: "Run c_rehash in syslog-ng cadir"
   command: "/usr/local/bin/c_rehash {{ syslogng_cadir }}"
   args:
-    creates: "{{ syslogng_cadir }}/2e5ac55d.0"
+    creates: "{{ syslogng_cadir }}/foo.0"
 
