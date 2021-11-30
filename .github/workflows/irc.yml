@@ -9,7 +9,7 @@ jobs:
     name: "IRC Notifications"
     steps:
     - name: "IRC notification"
-      if: ${{ github.repository == "tykling/ansible-roles" }}
+      if: ${{ github.repository == 'tykling/ansible-roles' }}
       uses: "Gottox/irc-message-action@v2"
       with:
         server: "ircd.tyknet.dk"
