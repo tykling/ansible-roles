@@ -26,6 +26,8 @@
     name: "supervisord_server"
 - include_role:
     name: "certgrinder_client"
+  tags:
+    - "certgrinder"
 - include_tasks: "exporter_exporter.yml"
 - include_tasks: "node_exporter.yml"
 - include_tasks: "node_exporter_textfile_collector_pkg.yml"
