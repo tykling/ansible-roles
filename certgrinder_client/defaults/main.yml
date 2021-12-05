@@ -2,3 +2,4 @@
 certgrinder_certgrinderd_command: "ssh certgrinderd@{{ certgrinder_ssh_server }} -T -- --config-file /home/certgrinderd/certgrinderd.conf"
 certgrinder_syslog_socket: "/var/run/log"
 certgrinder_rename_legacy: True
+certgrinder_pip_install: True

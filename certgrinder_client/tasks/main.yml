@@ -1,6 +1,18 @@
 ---
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
 - include_tasks:
     file: "user.yml"
     apply:
@@ -8,6 +20,7 @@
         - "certgrinder"
   tags:
     - "certgrinder"
+  when: certgrinder_pip_install
 - include_tasks:
     file: "certgrinder.yml"
     apply:
@@ -15,7 +28,22 @@
         - "certgrinder"
   tags:
     - "certgrinder"
-- include_tasks: "cron.yml"
+  when: certgrinder_pip_install
+- include_tasks:
+    file: "package.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
+  when: not certgrinder_pip_install
+- include_tasks:
+    file: "cron.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
 - include_tasks: "renamelegacy.yml"
   when: certgrinder_rename_legacy
   tags: "renamelegacy"

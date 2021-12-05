@@ -1,0 +1,20 @@
+---
+- name: "Install certgrinder"
+  pkgng:
+    name: "py37-certgrinder"
+    state: "present"
+
+- name: "Create a symlink to the config folder"
+  ansible.builtin.file:
+    src: "/usr/local/etc/py37-certgrinder"
+    dest: "/usr/local/etc/certgrinder"
+    owner: "certgrinder"
+    group: "certgrinder"
+    state: "link"
+
+- name: "Create certgrinder.conf config file"
+  template:
+    src: "certgrinder.conf.j2"
+    dest: "{{ certgrinder_home }}/certgrinder.conf"
+    owner: "{{ certgrinder_user }}"
+    mode: "0644"
