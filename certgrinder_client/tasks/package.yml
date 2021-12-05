@@ -11,7 +11,11 @@
     owner: "certgrinder"
     group: "certgrinder"
     state: "link"
-
+- include_vars:
+    file: "package.yml"
+  tags:
+    - "certgrinder"
+  when: not certgrinder_pip_install
 - name: "Create certgrinder.conf config file"
   template:
     src: "certgrinder.conf.j2"
