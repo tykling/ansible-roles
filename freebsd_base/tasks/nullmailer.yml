@@ -52,7 +52,7 @@
 
 - name: "write admin email to nullmailer adminaddr file"
   copy:
-    content: "{{ ansible_admin_email }}"
+    content: "{{ etcaliases_root_forward_email }}"
     dest: "/usr/local/etc/nullmailer/adminaddr"
     mode: "0644"
     owner: "root"

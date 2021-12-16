@@ -3,4 +3,4 @@ nut_upsmon_deadtime_seconds: 15
 nut_upsmon_finaldelay_seconds: 5
 nut_upsmon_notifycmd: "/usr/local/bin/upsmon_notify_command.sh"
 nut_upsmon_shutdown_cmd: '"/sbin/shutdown -h now"'
-nut_upsmon_notify_email: "{{ ansible_admin_email }}"
+nut_upsmon_notify_email: "{{ etcaliases_root_forward_email }}"

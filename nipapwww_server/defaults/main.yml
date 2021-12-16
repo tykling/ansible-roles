@@ -1,7 +1,7 @@
 ---
 nipapd_postgres_host: "{{ postgres_host }}"
 nipap_checkout_path: "/home/ansible/NIPAP"
-nipap_admin_email: "{{ ansible_admin_email }}"
+nipap_admin_email: "{{ etcaliases_root_forward_email }}"
 nipap_smtp_server: "localhost"
 nipapd_port: "1337"
 
