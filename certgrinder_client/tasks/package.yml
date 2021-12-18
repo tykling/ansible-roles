@@ -4,6 +4,10 @@
     name: "py37-certgrinder"
     state: "present"
 
+- include_vars:
+    file: "package.yml"
+  when: not certgrinder_pip_install
+
 - name: "Create certgrinder.conf config file"
   template:
     src: "certgrinder.conf.j2"
