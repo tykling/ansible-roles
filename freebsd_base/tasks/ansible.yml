@@ -1,4 +1,12 @@
 ---
+- name: "Create .ssh directory for ansible user"
+  file:
+    path: "/usr/home/ansible/.ssh"
+    state: "directory"
+    mode: "0750"
+  tags:
+    - "ansiblekeys"
+
 - name: "Add authorized_keys for ansible user"
   copy:
     owner:  "ansible"
@@ -8,4 +16,3 @@
     dest: "/usr/home/ansible/.ssh/authorized_keys"
   tags:
     - "ansiblekeys"
-
