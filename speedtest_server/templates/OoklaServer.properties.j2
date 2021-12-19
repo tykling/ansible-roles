@@ -7,8 +7,8 @@ OoklaServer.maxThreads = 512
 OoklaServer.enableAutoUpdate = false
 
 # TLS options
-openSSL.server.certificateFile = /usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt
-openSSL.server.privateKeyFile = /usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key
+openSSL.server.certificateFile = {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt
+openSSL.server.privateKeyFile = {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key
 openSSL.server.verificationMode = none
 
 # logging

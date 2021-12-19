@@ -2,10 +2,10 @@
 #   SSL settings
 disable_plaintext_auth=yes
 ssl=required
-ssl_cert = </usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt
-ssl_key = </usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key
-ssl_alt_cert = </usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.ecdsa.crt
-ssl_alt_key = </usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.ecdsa.key
+ssl_cert = <{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt
+ssl_key = <{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key
+ssl_alt_cert = <{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.ecdsa.crt
+ssl_alt_key = <{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.ecdsa.key
 ssl_dh = <{{ dovecot_dhparam_path }}
 
 ####################################################################################

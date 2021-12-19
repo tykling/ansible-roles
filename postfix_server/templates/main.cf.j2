@@ -53,8 +53,8 @@ smtpd_recipient_restrictions =
     reject_unauth_destination
 
 # TLS settings
-smtpd_tls_cert_file = /usr/home/certgrinder/certificates/{{ ansible_nodename }}-chain.rsa.crt
-smtpd_tls_key_file = /usr/home/certgrinder/certificates/{{ ansible_nodename }}-keypair.rsa.key
+smtpd_tls_cert_file = {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt
+smtpd_tls_key_file = {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key
 smtpd_tls_auth_only = yes
 smtpd_tls_received_header = yes
 smtpd_tls_security_level = may
