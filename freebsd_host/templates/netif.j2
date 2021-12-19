@@ -9,6 +9,7 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 {% set interface = item.interface %}
 {% endif %}
 
+{% if item.ips is defined %}
 {% if item.ips[inventory_hostname_short].v4ip is defined %}
 # configure ipv4 on the interface
 ifconfig_{{ interface }}="inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
@@ -27,6 +28,7 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} inet vhid 
 {% if item.ips["carp"].v6ip is defined %}
 # configure CARP v6 on the interface
 ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} inet6 vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips[inventory_hostname_short].advskew }} pass {{ vlan_carp_password }} {{ item.ips['carp'].v6ip }}/{{ item.v6net.split("/")[1] }}"
+{% endif %}
 {% endif %}
 {% endif %}
 
