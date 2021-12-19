@@ -1,4 +1,10 @@
 ---
+- name: "Create /etc/rc.conf.d/netif config directory"
+  file:
+    path: "/etc/rc.conf.d/netif"
+    state: "directory"
+    mode: "0755"
+
 - name: "Configure network interfaces (Add /etc/rc.conf.d/netif/* files)"
   template:
     src: "netif.j2"
