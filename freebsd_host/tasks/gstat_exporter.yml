@@ -3,6 +3,7 @@
   pkgng:
     name: "py37-gstat_exporter-20191119"
     state: "present"
+  notify: "restart gstat_exporter"
 
 - name: "Create supervisord.d config file to run gstat_exporter"
   include_role:
