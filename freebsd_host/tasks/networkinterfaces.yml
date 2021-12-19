@@ -11,8 +11,6 @@
     dest: "/etc/rc.conf.d/netif/{{ item.name }}"
   with_items: "{{ network_interfaces }}"
   when: item.configure
-  tags:
-    - "network"
   register: result
 
 - name: "create network interfaces"
@@ -20,8 +18,6 @@
   ignore_errors: yes
   with_items: "{{ network_interfaces }}"
   when: item.configure
-  tags:
-    - "network"
 
 - name: "(Re-)Configure network interfaces (service netif restart $interface)"
   command: "/usr/sbin/service netif restart {{ item.0.interface }}{% if item.0.vlan is defined %}.{{ item.0.vlan }}{% endif %}"
@@ -31,5 +27,3 @@
   when:
     - item.0.configure
     - item.1.changed
-  tags:
-    - "network"

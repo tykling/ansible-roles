@@ -14,7 +14,11 @@
 - include_tasks: "htt.yml"
   tags:
     - "htt"
-- include_tasks: "networkinterfaces.yml"
+- include_tasks:
+    file: "networkinterfaces.yml"
+    apply:
+      tags:
+        - "network"
   when: network_interfaces is defined
   tags:
     - "network"
