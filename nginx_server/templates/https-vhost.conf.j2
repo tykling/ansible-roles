@@ -16,6 +16,8 @@ server {
 {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.rsa.crt;
     ssl_certificate_key     {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.rsa.key;
+    ssl_certificate         {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.ecdsa.crt;
+    ssl_certificate_key     {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.ecdsa.key;
 {% else %}
     ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.crt;
     ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.key;
@@ -79,6 +81,8 @@ server {
 {% if item.value.letsencrypt | default(True) %}
     ssl_certificate         {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.rsa.crt;
     ssl_certificate_key     {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.rsa.key;
+    ssl_certificate         {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-chain.ecdsa.crt;
+    ssl_certificate_key     {{ certgrinder_home }}/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}-keypair.ecdsa.key;
 {% else %}
     ssl_certificate         /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.crt;
     ssl_certificate_key     /usr/local/etc/nginx/certificates/{{ item.value.hostnames[0].encode('idna').decode('ascii') }}.key;
