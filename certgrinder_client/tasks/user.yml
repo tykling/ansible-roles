@@ -3,7 +3,8 @@
   community.crypto.openssh_keypair:
     path: "{{ certgrinder_home }}/.ssh/id_ed25519"
     type: "ed25519"
-  creates: "{{ certgrinder_home }}/.ssh/id_ed25519"
+  args:
+    creates: "{{ certgrinder_home }}/.ssh/id_ed25519"
 
 - name: "Add sudoers permission so the certgrinder user can run post renew hooks"
   lineinfile:
