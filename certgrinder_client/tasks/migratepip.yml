@@ -10,7 +10,7 @@
 - name: "Copy the old /usr/home/certgrinder/certificates dir to /usr/local/etc/certgrinder/certificates"
   ansible.builtin.copy:
     src: "/usr/home/certgrinder/certificates"
-    dest: "{{ certgrinder_home }}/certificates"
+    dest: "{{ certgrinder_home }}/"
     remote_src: True
     owner: "509"
     group: "509"
@@ -18,7 +18,7 @@
 - name: "Copy the old /usr/home/certgrinder/.ssh dir to /usr/local/etc/certgrinder/.ssh"
   ansible.builtin.copy:
     src: "/usr/home/certgrinder/.ssh"
-    dest: "{{ certgrinder_home }}/.ssh"
+    dest: "{{ certgrinder_home }}/"
     remote_src: True
     owner: "509"
     group: "509"
