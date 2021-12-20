@@ -1,4 +1,4 @@
 ---
 certgrinder_user: "certgrinder"
-certgrinder_home: "/usr/home/{{ certgrinder_user }}"
+certgrinder_home: "/usr/local/etc/certgrinder"
 node_exporter_textfile_path: "/var/tmp/node_exporter"

@@ -1,12 +1,29 @@
 ---
+- name: "Find out if /usr/local/etc/certgrinder exists"
+  stat:
+    path: "/usr/local/etc/certgrinder"
+  register: pkgpath
+
+- name: "Find out if /usr/home/certgrinder exists"
+  stat:
+    path: "/usr/home/certgrinder"
+  register: pippath
+
+- include_tasks:
+    file: "migratepip.yml"
+    apply:
+      tags:
+        - "certgrinder"
+  tags:
+    - "certgrinder"
+  when:
+    - not pkgpath.result.exists
+    - pippath.result.exists
+
 - name: "Install certgrinder"
   pkgng:
     name: "py37-certgrinder"
     state: "present"
-
-- include_vars:
-    file: "package.yml"
-  when: not certgrinder_pip_install
 
 - name: "Create certgrinder.conf config file"
   template:

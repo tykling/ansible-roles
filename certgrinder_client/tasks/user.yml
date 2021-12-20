@@ -1,13 +1,9 @@
 ---
-- name: "Add certgrinder user"
-  user:
-    name: "{{ certgrinder_user }}"
-    home: "{{ certgrinder_home }}"
-    comment: "certgrinder user"
-    ssh_key_type: "ed25519"
-    generate_ssh_key: True
-  notify:
-    - "certgrinder ssh key created email"
+- name: "Create SSH key for certgrinder user"
+  community.crypto.openssh_keypair:
+    path: "{{ certgrinder_home }}/.ssh/id_ed25519"
+    type: "ed25519"
+  creates: "{{ certgrinder_home }}/.ssh/id_ed25519"
 
 - name: "Add sudoers permission so the certgrinder user can run post renew hooks"
   lineinfile:

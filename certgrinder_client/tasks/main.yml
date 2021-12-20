@@ -20,15 +20,6 @@
         - "certgrinder"
   tags:
     - "certgrinder"
-  when: certgrinder_pip_install
-- include_tasks:
-    file: "certgrinder.yml"
-    apply:
-      tags:
-        - "certgrinder"
-  tags:
-    - "certgrinder"
-  when: certgrinder_pip_install
 - include_tasks:
     file: "package.yml"
     apply:
@@ -36,7 +27,6 @@
         - "certgrinder"
   tags:
     - "certgrinder"
-  when: not certgrinder_pip_install
 - include_tasks:
     file: "cron.yml"
     apply:

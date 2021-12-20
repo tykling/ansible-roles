@@ -1,0 +1,16 @@
+---
+- name: "Create /usr/local/etc/certgrinder directory"
+  file:
+    path: "/usr/local/etc/certgrinder"
+    state: "directory"
+    owner: "509"
+    group: "509"
+    mode: "0755"
+
+- name: "Copy the old /usr/home/certgrinder/certificates dir to /usr/local/etc/certgrinder/certificates"
+  ansible.builtin.copy:
+    src: "/usr/home/certgrinder/certificates"
+    dest: "{{ certgrinder_home }}/certificates"
+    remote_src: yes
+    owner: "509"
+    group: "509"
