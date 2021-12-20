@@ -1,50 +1,9 @@
 ---
-- name: "Get source code for nginx_exporter"
-  git:
-    repo: "https://github.com/nginxinc/nginx-prometheus-exporter"
-    dest: "/root/nginx_exporter"
-    force: yes
-    version: "{{ nginx_exporter_version }}"
-  register: gitresult
-
-- name: "Install Go to build nginx_exporter"
+- name: "Install nginx_exporter"
   pkgng:
-    name: "go"
+    name: "nginx-prometheus-exporter"
     state: "present"
-  register: goresult
-  when: gitresult.changed
-
-- name: "Go get nginx_exporter"
-  command: "go get github.com/nginxinc/nginx-prometheus-exporter"
-  environment:
-    GOPATH: "/root/go"
-    GOBIN: "/usr/local/bin"
-  when: gitresult.changed
-
-- name: "Build nginx_exporter"
-  command: "make"
-  args:
-    chdir: "/root/go/src/github.com/nginxinc/nginx-prometheus-exporter"
-  when: gitresult.changed
-
-- name: "Remove Go build dep if we installed it"
-  pkgng:
-    name: "go"
-    state: "absent"
-  when:
-    - gitresult.changed
-    - goresult.changed
-
-- name: "Copy nginx_exporter binary to /usr/local/bin"
-  copy:
-   src: "/root/go/src/github.com/nginxinc/nginx-prometheus-exporter/nginx-prometheus-exporter"
-   dest: "/usr/local/bin/nginx_exporter"
-   mode: "0755"
-   remote_src: yes
-  when:
-    - gitresult.changed
-  notify:
-    - "restart nginx_exporter"
+  notify: "restart nginx_exporter"
 
 - name: "Create supervisord.d config file to run nginx_exporter"
   include_role:
@@ -55,7 +14,7 @@
     supervisord_programs:
       - name: "nginx_exporter"
         comment: "run nginx_exporter"
-        command: "/usr/local/bin/nginx_exporter -nginx.scrape-uri={{ nginx_exporter_uri }}"
+        command: "/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri={{ nginx_exporter_uri }}"
         user: "nobody"
     supervisord_extra_programs: []
 
