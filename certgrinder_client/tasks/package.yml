@@ -17,8 +17,8 @@
   tags:
     - "certgrinder"
   when:
-    - not pkgpath.result.exists
-    - pippath.result.exists
+    - not pkgpath.stat.exists
+    - pippath.stat.exists
 
 - name: "Install certgrinder"
   pkgng:
