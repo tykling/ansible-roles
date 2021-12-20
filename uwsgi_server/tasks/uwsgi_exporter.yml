@@ -31,12 +31,12 @@
 - name: "Build uwsgi_exporter"
   command: "gmake"
   args:
-    chdir: "/root/go/src/github.com/timonwong/uwsgi_exporter"
+    chdir: "/root/uwsgi_exporter"
   when: gitresult.changed
 
 - name: "Copy uwsgi_exporter binary to /usr/local/bin"
   copy:
-   src: "/root/go/src/github.com/timonwong/uwsgi_exporter/uwsgi_exporter"
+   src: "/root/uwsgi_exporter/uwsgi_exporter"
    dest: "/usr/local/bin/uwsgi_exporter"
    remote_src: yes
   when:
