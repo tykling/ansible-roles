@@ -1,4 +1,10 @@
 ---
+- name: "Create certgrinder user .ssh directory"
+  file:
+    path: "/usr/local/etc/certgrinder/.ssh"
+    state: "directory"
+    mode: "0700"
+
 - name: "Create SSH key for certgrinder user"
   command: "/usr/bin/ssh-keygen -t ed25519 -f {{ certgrinder_home }}/.ssh/id_ed25519 -N ''"
   args:
@@ -18,7 +24,7 @@
   lineinfile:
     dest: "{{ certgrinder_home }}/.ssh/known_hosts"
     state: "present"
-    create: yes
+    create: True
     owner: "{{ certgrinder_user }}"
     group: "{{ certgrinder_user }}"
     line: "{{ certgrinder_ssh_server }} ecdsa-sha2-nistp256 {{ certgrinder_ssh_server_pubkey }}"
@@ -26,4 +32,4 @@
 - name: "add users to certgrinder group so they can read certificates - might fail if the user doesn't exist yet"
   command: "/usr/sbin/pw group mod {{ certgrinder_user }} -m {{ item }}"
   with_items: "{{ certgrinder_cert_users | default([]) }}"
-  ignore_errors: yes
+  ignore_errors: True
