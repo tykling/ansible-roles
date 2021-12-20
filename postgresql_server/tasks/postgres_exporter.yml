@@ -55,7 +55,7 @@
 
 - name: "Copy postgres_exporter queries.yml to /usr/local/etc"
   copy:
-   src: "/root/go/src/github.com/wrouesnel/postgres_exporter/queries.yaml"
+   src: "/root/postgres_exporter/queries.yaml"
    dest: "/usr/local/etc/postgres_exporter_queries.yml"
    remote_src: yes
   when:
