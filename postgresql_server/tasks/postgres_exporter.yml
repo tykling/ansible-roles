@@ -48,6 +48,7 @@
    src: "/root/postgres_exporter/postgres_exporter"
    dest: "/usr/local/bin/postgres_exporter"
    remote_src: True
+   mode: 0755
   when:
     - gitresult.changed
   notify:
@@ -58,7 +59,6 @@
    src: "/root/postgres_exporter/queries.yaml"
    dest: "/usr/local/etc/postgres_exporter_queries.yml"
    remote_src: yes
-   mode: 0755
   when:
     - gitresult.changed
   notify:
