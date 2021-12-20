@@ -14,17 +14,17 @@
   register: goresult
   when: gitresult.changed
  
-- name: "Go get postgres_exporter (download source and deps)"
-  command: "go get github.com/wrouesnel/postgres_exporter/cmd/postgres_exporter"
-  environment:
-    GOPATH: "/root/go"
-    GOBIN: "/usr/local/bin"
+- name: "Install gmake to build postgres_exporter"
+  pkgng:
+    name: "gmake"
+    state: "present"
+  register: gmakeresult
   when: gitresult.changed
 
-- name: "Build postgres_exporter with Mage"
-  command: "go run mage.go binary"
+- name: "Build postgres_exporter"
+  command: "gmake build"
   args:
-    chdir: "/root/go/src/github.com/wrouesnel/postgres_exporter"
+    chdir: "/root/postgres_exporter"
   when: gitresult.changed
 
 - name: "Remove Go build dep if we installed it"
@@ -35,19 +35,18 @@
     - gitresult.changed
     - goresult.changed
 
-- name: "Find postgres_exporter binary"
-  find:
-    paths: "/root/go/src/github.com/wrouesnel/postgres_exporter/bin/"
-    recurse: yes
-    patterns: "postgres_exporter"
-  register: findresult
-  when: gitresult.changed
+- name: "Remove gmake build dep if we installed it"
+  pkgng:
+    name: "gmake"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - gmakeresult.changed
 
 - name: "Copy postgres_exporter binary to /usr/local/bin"
   copy:
-   src: "{{ findresult['files'][0].path }}"
+   src: "/root/postgres_exporter/postgres_exporter"
    dest: "/usr/local/bin/postgres_exporter"
-   remote_src: yes
   when:
     - gitresult.changed
   notify:
