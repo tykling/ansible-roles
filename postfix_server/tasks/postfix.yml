@@ -172,4 +172,4 @@
       newaliases      /usr/local/sbin/sendmail
 
 - name: "Run certgrinder"
-  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/home/{{ certgrinder_user }}/virtualenv/bin/certgrinder --config-file /usr/home/{{ certgrinder_user }}/certgrinder.conf --now periodic'"
+  command: "/usr/bin/su {{ certgrinder_user }} -c '/usr/local/bin/certgrinder --config-file {{ certgrinder_home }}/certgrinder.conf --now periodic'"
