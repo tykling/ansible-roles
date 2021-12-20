@@ -14,7 +14,7 @@
   register: goresult
   when: gitresult.changed
  
-- name: "Go get uwsgi_exporter"
+- name: "Go install uwsgi_exporter"
   command: "go install github.com/timonwong/uwsgi_exporter@latest"
   when: gitresult.changed
 
