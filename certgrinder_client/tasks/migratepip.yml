@@ -28,3 +28,8 @@
     name: "certgrinder"
     state: "absent"
     remove: False
+
+- name: "Remove the old certgrinder group"
+  group:
+    name: "certgrinder"
+    state: "absent"
