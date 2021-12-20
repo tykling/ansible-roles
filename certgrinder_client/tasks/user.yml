@@ -1,4 +1,12 @@
 ---
+- name: "Create .ssh directory for certgrinder user"
+  file:
+    path: "{{ certgrinder_home }}/.ssh"
+    state: "directory"
+    owner: "509"
+    group: "509"
+    mode: "0755"
+
 - name: "Create SSH key for certgrinder user"
   command: "/usr/bin/ssh-keygen -t ed25519 -f {{ certgrinder_home }}/.ssh/id_ed25519 -N ''"
   args:

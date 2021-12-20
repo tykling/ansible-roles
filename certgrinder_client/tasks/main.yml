@@ -14,14 +14,14 @@
   tags:
     - "certgrinder"
 - include_tasks:
-    file: "user.yml"
+    file: "package.yml"
     apply:
       tags:
         - "certgrinder"
   tags:
     - "certgrinder"
 - include_tasks:
-    file: "package.yml"
+    file: "user.yml"
     apply:
       tags:
         - "certgrinder"
