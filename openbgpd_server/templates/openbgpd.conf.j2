@@ -37,6 +37,9 @@ neighbor ${{ neighbor.macro }} {
 {% if neighbor.nexthop is defined %}
         set nexthop {{ neighbor.nexthop }}
 {% endif %}
+{% if neighbor.multihop is defined %}
+        multihop {{ neighbor.multihop }}
+{% endif %}
 }
 {% endfor %}
 
