@@ -11,6 +11,15 @@
     creates: "{{ certgrinder_home }}/.ssh/id_ed25519"
   register: result
 
+- name: "Make sure certgrinder user owns the created SSH key directory"
+  file:
+    path: "{{ certgrinder_home }}/.ssh"
+    owner: "{{ certgrinder_user }}"
+    group: "{{ certgrinder_user }}"
+    mode: "0700"
+    state: "directory"
+  when: result is changed
+
 - name: "Make sure certgrinder user owns the created SSH key"
   file:
     path: "{{ item }}"
