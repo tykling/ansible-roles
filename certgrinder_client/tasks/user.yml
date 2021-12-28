@@ -13,7 +13,7 @@
 
 - name: "Make sure certgrinder user owns the created SSH key"
   file:
-    path: "{{ item.path }}"
+    path: "{{ item }}"
     owner: "{{ certgrinder_user }}"
     group: "{{ certgrinder_user }}"
     mode: "0600"
