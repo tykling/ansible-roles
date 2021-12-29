@@ -1,0 +1,5 @@
+repos:
+- repo: https://github.com/semaphor-dk/dansabel
+  rev: d80376a98f01613046f33fce197ccabf7be29554
+  hooks:
+  - id: dansabel
