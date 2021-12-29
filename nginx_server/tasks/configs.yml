@@ -71,11 +71,15 @@
   tags:
     - "vhosts"
 
-- name: "Run handlers now so http vhosts are available for Certgrinder"
-  meta: flush_handlers
+- name: "Reload nginx now, so http vhosts are available for Certgrinder"
+  service:
+    name: nginx
+    state: reloaded
   when:
     - nginx_proxy
     - certgrinder_hostname_sets is defined
+  tags:
+    - "vhosts"
 
 - name: "Run certgrinder"
   command: "/usr/bin/su -m {{ certgrinder_user }} -c '/usr/local/bin/certgrinder --config-file {{ certgrinder_home }}/certgrinder.conf --now periodic'"
