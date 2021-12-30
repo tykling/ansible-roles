@@ -41,6 +41,12 @@
 ##############################################################################
 ### base and host roles
 
+- name: "Install Python if needed"
+  raw: "pkg install -y python"
+  args:
+    creates: "/usr/local/bin/python"
+  when: bootstrap_python
+
 - name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
   hosts: "all"
   become: yes
