@@ -1,10 +1,22 @@
 ---
 ##############################################################################
+### Bootstrap hosts with no Python interpreter installed
+- name: "Install Python if needed"
+  hosts: "all"
+  gather_facts: False
+  tasks:
+    - name: "Install Python"
+      raw: "pkg install -y python"
+      args:
+        creates: "/usr/local/bin/python"
+
+
+##############################################################################
 ### Include extra variables, first global, then group secrets, then host secrets
 - name: "Include include_vars/global.yml with variables used across multiple roles"
   hosts: "all"
   tasks:
-    - include_vars: "/usr/local/etc/ansible/roles/include_vars/global.yml"
+    - include_vars: "include_vars/global.yml"
       tags:
         - "always"
 
@@ -12,7 +24,7 @@
   hosts: "all"
   tasks:
     - name: "Check if group secrets exists in group_vars for any group this host is a member of"
-      local_action: stat path="/usr/local/etc/ansible/group_vars/{{ item }}-secrets.yml"
+      local_action: stat path="../group_vars/{{ item }}-secrets.yml"
       tags:
         - "always"
       loop: "{{ group_names }}"
@@ -28,12 +40,12 @@
   hosts: "all"
   tasks:
     - name: "Check if host secrets exists in host_vars"
-      local_action: stat path="/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      local_action: stat path="../host_vars/{{ ansible_nodename }}-secrets.yml"
       register: stat_result
       tags:
         - "always"
     - name: "Include host secrets when the file exists"
-      include_vars: "/usr/local/etc/ansible/host_vars/{{ ansible_nodename }}-secrets.yml"
+      include_vars: "../host_vars/{{ ansible_nodename }}-secrets.yml"
       tags:
         - "always"
       when: stat_result.stat.exists
