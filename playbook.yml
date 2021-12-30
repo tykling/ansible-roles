@@ -1,5 +1,17 @@
 ---
 ##############################################################################
+### Bootstrap hosts with no Python interpreter installed
+- name: "Install Python if needed"
+  hosts: "all"
+  gather_facts: False
+  tasks:
+    - name: "Install Python"
+      raw: "pkg install -y python"
+      args:
+        creates: "/usr/local/bin/python"
+
+
+##############################################################################
 ### Include extra variables, first global, then group secrets, then host secrets
 - name: "Include include_vars/global.yml with variables used across multiple roles"
   hosts: "all"
@@ -40,16 +52,6 @@
 
 ##############################################################################
 ### base and host roles
-
-- name: "Install Python if needed"
-  hosts: "all"
-  gather_facts: False
-  tasks:
-    - name: "Install Python"
-      raw: "pkg install -y python"
-      args:
-        creates: "/usr/local/bin/python"
-      when: bootstrap_python
 
 - name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
   hosts: "all"
