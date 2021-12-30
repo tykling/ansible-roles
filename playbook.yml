@@ -43,6 +43,7 @@
 
 - name: "Install Python if needed"
   hosts: "all"
+  gather_facts: False
   tasks:
     - name: "Install Python"
       raw: "pkg install -y python"
