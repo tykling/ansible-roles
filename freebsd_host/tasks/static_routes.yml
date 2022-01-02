@@ -4,6 +4,8 @@
     path: "/etc/rc.conf.d/routing"
     state: "directory"
     mode: "0755"
+  tags:
+    - "routing"
 
 - name: "Configure static routing (Add /etc/rc.conf.d/routing/* files)"
   template:
