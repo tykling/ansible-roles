@@ -20,7 +20,7 @@ rde med compare always
 
 {% for network in openbgpd_networks|default([]) %}
 # {{ network.description }}
-network {{ network.cidr }}{% if network.nexthop is defined %} set nexthop {{ network.nexthop }}{% endif %}
+network {{ network.cidr }}{% for attribute, value in network.as_path_attributes %} set {{ attribute }} "{{ value }}"{% endfor %}
 
 {% endfor %}
 
