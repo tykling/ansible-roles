@@ -1,4 +1,10 @@
 ---
+- name: "Create /etc/rc.conf.d/routing directory"
+  file:
+    path: "/etc/rc.conf.d/routing"
+    state: "directory"
+    mode: "0755"
+
 - name: "Configure static routing (Add /etc/rc.conf.d/routing/* files)"
   template:
     src: "routing"
