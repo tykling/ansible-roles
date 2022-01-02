@@ -1,8 +1,30 @@
 ---
-- include_tasks: "openbgpd.yml"
+- include_tasks:
+    file: "openbgpd.yml"
+    apply:
+      tags:
+        - "openbgpd"
   tags:
-    - "openbgpdconfig"
-- include_tasks: "supervisord.yml"
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
+    - "openbgpd"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "openbgpd"
+  tags:
+    - "openbgpd"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "openbgpd"
+  tags:
+    - "openbgpd"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "openbgpd"
+  tags:
+    - "openbgpd"
 
