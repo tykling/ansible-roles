@@ -8,18 +8,24 @@
   file:
     path: "{{ ansible_home }}/.ssh"
     state: "directory"
-    owner:  "ansible"
-    group:  "ansible"
+    owner:  "{{ ansible_username }}"
+    group:  "{{ ansible_username }}"
     mode: "0750"
   tags:
     - "ansiblekeys"
 
 - name: "Add authorized_keys for ansible user"
   copy:
-    owner:  "ansible"
-    group:  "ansible"
+    owner:  "{{ ansible_username }}"
+    group:  "{{ ansible_username }}"
     mode: "0644"
     content: "{{ ansible_authorized_keys_file }}"
     dest: "{{ ansible_home }}/.ssh/authorized_keys"
   tags:
     - "ansiblekeys"
+
+- name: "Add sudoers permission for ansible user"
+  copy:
+    content: "{{ ansible_username }} ALL=(ALL) NOPASSWD: ALL\n"
+    dest: "/usr/local/etc/sudoers.d/ansible"
+    validate: "visudo -cf %s"
