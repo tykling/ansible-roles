@@ -15,6 +15,10 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 {% if item.lacp is defined %}
 # configure lagg (LACP) on the interface
 ifconfig_{{ interface }}="laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %}"
+# UP the individual lagg members
+{% for port in item.lacp.laggports %}
+ifconfig_{{ port }}="UP"
+{% endfor %}
 {% endif %}
 
 {% if item.ips is defined %}
