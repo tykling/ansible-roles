@@ -22,7 +22,7 @@ ifconfig_{{ interface }}="laggproto {{ item.lacp.laggproto }} {% for port in ite
 {% if item.ips is defined %}
 {% if item.ips[inventory_hostname_short].v4ip is defined %}
 # configure ipv4 on the interface
-ifconfig_{{ interface }}="${ ifconfig_{{ interface}} }inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
+ifconfig_{{ interface }}="${ifconfig_{{ interface}}}inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
 {% endif %}
 
 {% if item.ips[inventory_hostname_short].v6ip is defined %}
