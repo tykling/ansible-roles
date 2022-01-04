@@ -3,7 +3,7 @@
 
 {% if item.cloned is defined and item.cloned %}
 # add interface to cloned_interfaces
-cloned_interfaces += " {{ item.interface }}"
+cloned_interfaces="${cloned_interfaces} {{ item.interface }}"
 {% endif %}
 
 {% if item.vlan is defined %}
