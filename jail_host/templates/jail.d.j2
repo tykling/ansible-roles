@@ -10,7 +10,7 @@ jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{
 
 # prestart section (runs on host)
 {% for interface in jail.interfaces %}
-jail_unifi1_servers_tyknet_dk_exec_prestart{{ loop.index0 }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true && ifconfig epair{{ interface.epair }} create up && ifconfig epair{{ interface.epair }}a up && ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
+jail_{{ jailname }}_exec_prestart{{ loop.index0 }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true && ifconfig epair{{ interface.epair }} create up && ifconfig epair{{ interface.epair }}a up && ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
 {% endfor %}
 
 # start section (runs inside jail)
