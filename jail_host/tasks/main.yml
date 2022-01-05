@@ -1,13 +1,45 @@
 ---
-- include_tasks: "ezjail.yml"
-- include_tasks: "flavour.yml"
-- include_tasks: "jailmergemaster.yml"
-- include_tasks: "rctl.yml"
-- include_tasks: "jail_exporter.yml"
+- include_tasks:
+    file: "ezjail.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
+- include_tasks:
+    file: "flavour.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
+- include_tasks:
+    file: "jailmergemaster.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
+- include_tasks:
+    file: "rctl.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
+- include_tasks:
+    file: "jail_exporter.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
 - include_tasks:
     file: "jails.yml"
     apply:
       tags:
+        - "jail_host"
         - "jails"
   tags:
+    - "jail_host"
     - "jails"

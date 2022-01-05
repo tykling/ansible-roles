@@ -4,8 +4,14 @@
     path: "/etc/rc.conf.d/jail"
     state: "directory"
     mode: "0755"
-  tags:
-    - "jails"
+
+- name: "Create jails with ezjail"
+  command: "/usr/local/bin/ezjail-admin create {{ jailname }} 127.0.0.1"
+  vars:
+    jailname: "{{ item.hostname|replace('.','_') }}"
+  args:
+    creates: "{{ ezjail_root }}/{{ item.hostname }}"
+  loop: "{{ jails }}"
 
 - name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
   template:
@@ -15,7 +21,5 @@
     jail: "{{ item }}"
     jailname: "{{ item.hostname|replace('.','_') }}"
   loop: "{{ jails }}"
-  tags:
-    - "jails"
   notify: "restart changed jails"
   register: jail_results
