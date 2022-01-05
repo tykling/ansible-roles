@@ -15,7 +15,7 @@ jail_{{ jailname }}_exec_prestart{{ loop.index0 }}="ifconfig epair{{ interface.e
 
 # start section (runs inside jail)
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }}{% if interface.ifconfig_inet is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet }}{% endif %}{% if interface.ifconfig_inet6 is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet6 }}{% endif %}"
+jail_{{ jailname }}_exec_start{{ loop.index0 }}="/sbin/ifconfig epair{{ interface.epair }}b name em{{ loop.index0 }}{% if interface.ifconfig_inet is defined %} && ifconfig em{{ loop.index0 }} {{ interface.ifconfig_inet }}{% endif %}{% if interface.ifconfig_inet6 is defined %} && ifconfig em{{ loop.index0 }} inet6 {{ interface.ifconfig_inet6 }}{% endif %}"
 {% endfor %}
 {% for route in jail.routes %}
 jail_{{ jailname }}_exec_start{{ loop.index0 + jail.interfaces|length }}="route add {{ route }}"
