@@ -1,4 +1,12 @@
 ---
+- name: "Create /etc/rc.conf.d/jail directory"
+  file:
+    path: "/etc/rc.conf.d/jail"
+    state: "directory"
+    mode: "0755"
+  tags:
+    - "jails"
+
 - name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
   template:
     src: "jail.d.j2"
