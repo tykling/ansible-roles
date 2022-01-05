@@ -1,4 +1,11 @@
 ---
+- name: "Set jail_enable=YES in /etc/rc.conf"
+  service:
+    name: "jail"
+    enabled: yes
+  tags:
+    - "jail_host"
+
 - include_tasks:
     file: "ezjail.yml"
     apply:
