@@ -5,10 +5,8 @@
     state: "directory"
     mode: "0755"
 
-- name: "Create jails with ezjail"
-  command: "/usr/local/bin/ezjail-admin create {{ jailname }} 127.0.0.1"
-  vars:
-    jailname: "{{ item.hostname|replace('.','_') }}"
+- name: "Create jails filesystems with ezjail"
+  command: "/usr/local/bin/ezjail-admin create {{ item.hostname }} 127.0.0.1"
   args:
     creates: "{{ ezjail_root }}/{{ item.hostname }}"
   loop: "{{ jails }}"
