@@ -13,7 +13,7 @@
     supervisord_programs:
       - name: "jail_exporter"
         comment: "run jail_exporter"
-        command: "/usr/local/bin/jail_exporter"
+        command: "/usr/local/sbin/jail_exporter"
         user: "root"
     supervisord_extra_programs: []
 
