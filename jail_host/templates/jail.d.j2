@@ -4,6 +4,11 @@ jail_list="$jail_list {{ jailname }}"
 # hostname and jail root
 jail_{{ jailname }}_hostname="{{ jail.hostname }}"
 jail_{{ jailname }}_rootdir="{% if jail.root is defined %}jail.root{% else %}{{ jail_root }}/{{ jail.hostname }}{% endif %}"
+{% if jail.devfs_ruleset is defined %}
+# devfs
+jail_{{ jailname }}_devfs_enable="YES"
+jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
+{% endif %}
 
 # epair interface(s)
 jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{{ interface.epair }}b {% endfor %}"
