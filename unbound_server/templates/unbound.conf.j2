@@ -3,6 +3,9 @@ server:
         port: 53
         access-control: 0.0.0.0/0 allow_snoop
         access-control: ::/0 allow_snoop
+{% for interface in unbound_listen_ips %}
+        interface: {{ interface }}
+{% endfor %}
         auto-trust-anchor-file: "/usr/local/etc/unbound/root.key"
         prefetch: yes
         qname-minimisation: yes
