@@ -1,6 +1,6 @@
 ---
 postgresql_user: "postgres"
-postgresql_version: "12"
+postgresql_version: "14"
 postgresql_homedir: "/var/db/postgres"
 postgresql_datadir: "{{ postgresql_homedir }}/data{{ postgresql_version }}"
 postgresql_server_tls_enable: yes
@@ -22,7 +22,7 @@ postgresql_pg_stat_statements_track: 10000
 postgresql_auto_explain_min_duration_seconds: 3
 
 postgresql_postgis: True
-postgis_package: "postgis25"
+postgis_package: "postgis32"
 
 postgres_exporter_version: "master"
 postgres_exporter_listen_address: ":9187"
