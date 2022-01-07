@@ -1,4 +1,4 @@
-@version:3.30
+@version:3.35
 @include "scl.conf"
 
 #
@@ -19,7 +19,7 @@ options {
     use-dns(yes);
     stats-freq(60);
     stats-level(0);
-}; 
+};
 
 ##################### SOURCES ##############################
 
@@ -28,7 +28,7 @@ source syslogng { internal(); };
 source src {
 {% if syslogng_tls_listener %}
     syslog(
-        ip("127.0.0.1")
+        ip("{{ syslogng_listen_ipv4 }}")
         port("1999")
         transport("tls")
         tls(
@@ -40,7 +40,7 @@ source src {
         )
     );
     syslog(
-        ip("::1")
+        ip("{{ syslogng_listen_v6 }}")
         port("1999")
         transport("tls")
         ip-protocol(6)
@@ -54,13 +54,13 @@ source src {
     );
 {% endif %}
     network(
-        ip("127.0.0.1")
+        ip("{{ syslogng_listen_ipv4 }}")
         port(514)
         transport(udp)
         ip-protocol(4)
     );
     network(
-        ip("::1")
+        ip("{{ syslogng_listen_ipv6 }}")
         port(514)
         transport(udp)
         ip-protocol(6)

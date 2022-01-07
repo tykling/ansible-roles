@@ -4,3 +4,5 @@ syslogng_upstream_elk: False
 syslogng_tls_listener: True
 syslogng_plaintext_archive: True
 syslogng_cadir: "/usr/local/etc/syslog-ng-cadir"
+syslogng_listen_ipv4: "0.0.0.0"
+syslogng_listen_ipv6: "::0"
