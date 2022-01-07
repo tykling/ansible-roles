@@ -49,7 +49,7 @@ server {
 
     # vhost specific config below here
 
-{{ item.value.locationslash | indent( width=4, indentfirst=True) }}
+{{ item.value.locationslash | indent( width=4, first=True ) }}
 }
 {% if item.value.extraconfig | default(False) %}
 {{ item.value.extraconfig }}

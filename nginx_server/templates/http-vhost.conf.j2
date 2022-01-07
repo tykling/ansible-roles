@@ -31,7 +31,7 @@ server {
     include                 /usr/local/etc/nginx/proxyheaders.conf;
 {% endif %}
     # vhost specific config below here
-{{ item.value.locationslash | indent( width=4, indentfirst=True) }}
+{{ item.value.locationslash | indent( width=4, first=True ) }}
 {% endif %}
 }
 

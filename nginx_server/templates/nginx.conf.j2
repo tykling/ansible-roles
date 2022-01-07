@@ -74,7 +74,7 @@ http {
     more_set_headers            'Server: Yes';
 
 {% if nginx_extra_http_config|default("") %}
-{{ nginx_extra_http_config | indent( width=4, indentfirst=True) }}
+{{ nginx_extra_http_config | indent( width=4, first=True ) }}
 {% endif %}
 
 {% if nginx_proxy | default(False) %}
@@ -116,7 +116,7 @@ http {
             deny all;
         }
 
-{{ nginx_locationslash | indent( width=8, indentfirst=True) }}
+{{ nginx_locationslash | indent( width=8, first=True ) }}
     }
 {% endif %}
 }
