@@ -14,8 +14,8 @@
   authorized_key:
     user: "{{ certgrinderd_user }}"
     key: "{{ item.value.authkey }}"
-    key_options: 'from="{{ item.value.fromip }}",environment="CERTGRINDERD_DOMAINSETS={% for ds in item.value.domainsets %}{{ ds|join(",") }};{% endfor %}",command="~/virtualenv/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict'
-  with_dict: "{{ certgrinderd_authorized_keys | default({}) }}"
+    key_options: 'from="{% if item.value.fromip | type_debug == "AnsibleUnicode" %}{{ item.value.fromip }}{% else %}{{ item.value.fromip|join(",") }}{% endif %}",environment="CERTGRINDERD_DOMAINSETS={% for ds in item.value.domainsets %}{{ ds|join(",") }};{% endfor %}",command="~/virtualenv/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict'
+  loop: "{{ certgrinderd_authorized_keys | default({}) | dict2items }}"
   tags: "sshkeys"
 
 - name: "Add certgrinderd user to sudoers (to allow running certbot)"
