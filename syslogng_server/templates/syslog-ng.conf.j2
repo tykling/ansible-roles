@@ -40,7 +40,7 @@ source src {
         )
     );
     syslog(
-        ip("{{ syslogng_listen_v6 }}")
+        ip("{{ syslogng_listen_ipv6 }}")
         port("1999")
         transport("tls")
         ip-protocol(6)
