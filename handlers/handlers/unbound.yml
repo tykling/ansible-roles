@@ -1,6 +1,10 @@
 ---
-- name: "start/reload unbound"
-  service:
+- name: "start unbound"
+  supervisorctl:
     name: "unbound"
-    state: "reloaded"
+    state: "started"
 
+- name: "restart unbound"
+  supervisorctl:
+    name: "unbound"
+    state: "restarted"

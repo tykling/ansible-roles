@@ -3,16 +3,16 @@
   pkgng:
     name: "unbound"
     state: "present"
+  notify: "start unbound"
 
 - name: "Copy ubound config file"
   template:
     src: "unbound.conf.j2"
     dest: "/usr/local/etc/unbound/unbound.conf"
     mode: "0644"
-  notify: "start/reload unbound"
+  notify: "restart unbound"
 
 - name: "Get unbound root trust anchor (when needed)"
   command: "su -m unbound -c /usr/local/sbin/unbound-anchor"
   args:
     creates: "/usr/local/etc/unbound/root.key"
-
