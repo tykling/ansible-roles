@@ -8,7 +8,7 @@ function {{ f.name }} ({% if f.parameters is defined %}{% for p, t in f.paramete
 {% endfor %}
 {% endif %}
 {
-{{ f.body | indent(2) }}
+{{ f.body | indent(4) }}
 }
 
 {% endfor %}
@@ -24,7 +24,7 @@ filter {{ f.name }}
 {% endfor %}
 {% endif %}
 {
-{{ f.body | indent(2) }}
+{{ f.body | indent(4) }}
 }
 
 {% endfor %}
@@ -34,7 +34,7 @@ filter {{ f.name }}
 # template definitions
 {% for t in bird2_templates %}
 template {{ t.protocol }} {{ t.name }} {
-{{ t.body | indent(2) }}
+{{ t.body | indent(4) }}
 }
 
 {% endfor %}
@@ -43,7 +43,7 @@ template {{ t.protocol }} {{ t.name }} {
 # protocol definitions
 {% for p in bird2_protocols %}
 protocol {{ p.protocol }} {{ p.name }}{% if p.template is defined %} from {{ p.template }}{% endif %} {
-{{ p.body | indent(2) }}
+{{ p.body | indent(4) }}
 }
 
 {% endfor %}

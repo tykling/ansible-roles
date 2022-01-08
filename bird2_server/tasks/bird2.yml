@@ -3,6 +3,7 @@
   pkgng:
     name: "bird2"
     state: "present"
+  notify: "start bird2"
 
 - name: "Copy bird2 config"
   template:
@@ -11,7 +12,7 @@
     mode: "0600"
   tags:
     - "birdconfig"
-  notify: "reload bird2"
+  notify: "reconfigure bird2"
 
 - name: "Enable load of tcpmd5 in /boot/loader.conf"
   sysrc:

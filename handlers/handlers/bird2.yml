@@ -1,0 +1,9 @@
+---
+- name: "start bird2"
+  command: "/usr/local/bin/supervisorctl start bird2"
+
+- name: "restart bird2"
+  command: "/usr/local/bin/supervisorctl restart bird2"
+
+- name: "reconfigure bird2"
+  command: "/usr/local/sbin/birdc configure"

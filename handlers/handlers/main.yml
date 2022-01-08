@@ -55,3 +55,4 @@
 - import_tasks: "motion.yml"
 - import_tasks: "smokeping_prober.yml"
 - import_tasks: "dovecot.yml"
+- import_tasks: "bird2.yml"
