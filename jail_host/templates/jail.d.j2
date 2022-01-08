@@ -4,10 +4,24 @@ jail_list="$jail_list {{ jailname }}"
 # hostname and jail root
 jail_{{ jailname }}_hostname="{{ jail.hostname }}"
 jail_{{ jailname }}_rootdir="{% if jail.root is defined %}jail.root{% else %}{{ jail_root }}/{{ jail.hostname }}{% endif %}"
+
 {% if jail.devfs_ruleset is defined %}
 # devfs
 jail_{{ jailname }}_devfs_enable="YES"
 jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
+{% endif %}
+
+{% if jail.sysvshm is defined or jail.sysvsem is defined or jail.sysvmsg is defined %}
+# SYSV
+{% if jail.sysvshm is defined %}
+jail_{{ jailname }}_sysvshm="{{ jail.sysvshm }}"
+{% endif %}
+{% if jail.sysvsem is defined %}
+jail_{{ jailname }}_sysvsem="{{ jail.sysvsem }}"
+{% endif %}
+{% if jail.sysvmsg is defined %}
+jail_{{ jailname }}_sysvmsg="{{ jail.sysvmsg }}"
+{% endif %}
 {% endif %}
 
 # epair interface(s)
