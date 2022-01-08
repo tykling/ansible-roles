@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "bird2"
         comment: "run bird2"
-        command: "/usr/local/sbin/bird -c /usr/local/etc/bird.conf -g birdvty"
+        command: "/usr/local/sbin/bird -f -c /usr/local/etc/bird.conf -g birdvty"
         user: "0"
 
