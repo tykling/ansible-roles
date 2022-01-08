@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run bird2"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "bird2"
+    supervisord_programs:
+      - name: "bird2"
+        comment: "run bird2"
+        command: "/usr/local/sbin/bird -c /usr/local/etc/bird.conf -g birdvty"
+        user: "0"
+

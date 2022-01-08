@@ -1,0 +1,21 @@
+---
+- name: "Install bird2"
+  pkgng:
+    name: "bird2"
+    state: "present"
+
+- name: "Copy bird2 config"
+  template:
+    src: "bird.conf.j2"
+    dest: "/usr/local/etc/bird.conf"
+    mode: "0600"
+  tags:
+    - "birdconfig"
+  notify: "reload bird2"
+
+- name: "Enable load of tcpmd5 in /boot/loader.conf"
+  sysrc:
+    name: "tcpmd5_load"
+    value: "yes"
+    dest: "/boot/loader.conf"
+  notify: "load tcpmd5 module"

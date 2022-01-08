@@ -1,0 +1,18 @@
+---
+- name: "add syslog.d config for bird2"
+  copy:
+    src: "bird2-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/bird2.conf"
+  notify:
+    - "restart bird2"
+
+- name: "Make sure /var/log/bird.log exists"
+  copy:
+    dest: "/var/log/bird.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
+

@@ -1,0 +1,30 @@
+---
+- include_tasks:
+    file: "bird2.yml"
+    apply:
+      tags:
+        - "bird2"
+  tags:
+    - "bird2"
+    - "birdconfig"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "bird2"
+  tags:
+    - "bird2"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "bird2"
+  tags:
+    - "bird2"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "bird2"
+  tags:
+    - "bird2"

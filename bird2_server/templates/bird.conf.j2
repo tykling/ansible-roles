@@ -1,0 +1,49 @@
+{% if bird2_functions is defined %}
+# function definitions
+{% for f in bird2_functions %}
+function {{ f.name }} ({% if f.parameters is defined %}{% for p, t in f.parameters.items() %}{{ p }} {{ t }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %})
+{% if f.local_variables is defined %}
+{% for v, t in f.local_variables.items() %}
+{{ t }} {{ v }};
+{% endfor %}
+{% endif %}
+{
+{{ f.body | indent(2) }}
+}
+
+{% endfor %}
+{% endif %}
+
+{% if bird2_filters is defined %}
+# filter definitions
+{% for f in bird2_filters %}
+filter {{ f.name }}
+{% if f.local_variables is defined %}
+{% for v, t in f.local_variables.items() %}
+{{ t }} {{ v }};
+{% endfor %}
+{% endif %}
+{
+{{ f.body | indent(2) }}
+}
+
+{% endfor %}
+{% endif %}
+
+{% if bird2_templates is defined %}
+# template definitions
+{% for t in bird2_templates %}
+template {{ t.protocol }} {{ t.name }} {
+{{ t.body | indent(2) }}
+}
+
+{% endfor %}
+{% endif %}
+
+# protocol definitions
+{% for p in bird2_protocols %}
+protocol {{ p.protocol }} {{ p.name }}{% if p.template is defined %} from {{ p.template }}{% endif %} {
+{{ p.body | indent(2) }}
+}
+
+{% endfor %}
