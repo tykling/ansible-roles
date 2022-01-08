@@ -1,6 +1,13 @@
+log syslog all;
+#debug protocols all;
+
+router id {{ bird2_router_id }};
+
 {% if bird2_functions is defined %}
-# function definitions
+###########################################################
+### Function definitions
 {% for f in bird2_functions %}
+# {{ f.description }}
 function {{ f.name }} ({% if f.parameters is defined %}{% for p, t in f.parameters.items() %}{{ p }} {{ t }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %})
 {% if f.local_variables is defined %}
 {% for v, t in f.local_variables.items() %}
@@ -13,10 +20,14 @@ function {{ f.name }} ({% if f.parameters is defined %}{% for p, t in f.paramete
 
 {% endfor %}
 {% endif %}
-
 {% if bird2_filters is defined %}
-# filter definitions
+
+
+###########################################################
+### Filter definitions
+
 {% for f in bird2_filters %}
+# {{ f.description }}
 filter {{ f.name }}
 {% if f.local_variables is defined %}
 {% for v, t in f.local_variables.items() %}
@@ -31,8 +42,13 @@ filter {{ f.name }}
 {% endif %}
 
 {% if bird2_templates is defined %}
-# template definitions
+
+
+###########################################################
+### Template definitions
+
 {% for t in bird2_templates %}
+# {{ t.description }}
 template {{ t.protocol }} {{ t.name }} {
 {{ t.body | indent(4, first=True) }}
 }
@@ -40,8 +56,12 @@ template {{ t.protocol }} {{ t.name }} {
 {% endfor %}
 {% endif %}
 
-# protocol definitions
+
+###########################################################
+### Protocol definitions
+
 {% for p in bird2_protocols %}
+# {{ p.description }}
 protocol {{ p.protocol }} {{ p.name }}{% if p.template is defined %} from {{ p.template }}{% endif %} {
 {{ p.body | indent(4, first=True) }}
 }
