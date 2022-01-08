@@ -9,8 +9,8 @@ jail_{{ jailname }}_rootdir="{% if jail.root is defined %}jail.root{% else %}{{ 
 # devfs
 jail_{{ jailname }}_devfs_enable="YES"
 jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
-{% endif %}
 
+{% endif %}
 {% if jail.sysvshm is defined or jail.sysvsem is defined or jail.sysvmsg is defined %}
 # SYSV
 {% if jail.sysvshm is defined %}
@@ -22,8 +22,8 @@ jail_{{ jailname }}_sysvsem="{{ jail.sysvsem }}"
 {% if jail.sysvmsg is defined %}
 jail_{{ jailname }}_sysvmsg="{{ jail.sysvmsg }}"
 {% endif %}
-{% endif %}
 
+{% endif %}
 # epair interface(s)
 jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{{ interface.epair }}b {% endfor %}"
 
