@@ -5,7 +5,7 @@
     regexp: "^net.inet.carp.preempt="
     line: "net.inet.carp.preempt=1"
     state: "present"
-  when: pf_gateway and not pf_jail_vm_host
+  when: pf_gateway and not pf_jail_vm_host and carp_preempt
   notify: "reload sysctl.conf"
 
 - name: "add carp_load=yes to /boot/loader.conf"

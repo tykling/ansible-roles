@@ -4,6 +4,7 @@ pf_jail_nat_ip: "{{ ansible_default_ipv4.address }}"
 pf_jail_vm_host: no
 pf_gateway: no
 pf_anycast_host: no
+carp_preempt: yes
 anycast_serviceinterface: no
 network_interfaces:
   - description: "Upstream / outside interface"
