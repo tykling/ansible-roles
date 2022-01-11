@@ -3,6 +3,7 @@
   command: "python -V"
   register: python_version
   changed_when: False
+  check_mode: no
 
 - name: "Upgrade to python3"
   pkgng:
