@@ -10,6 +10,6 @@ for interface in $(/sbin/ifconfig -l -u); do
                 echo "interface \"$interface\";" >> $TMPFILE
         fi
 done
-/usr/bin/diff -u $TMPFILE $FILENAME | /usr/bin/tee >(/usr/bin/mail -s "CARP interface $1 on $(/bin/hostname) became $2 at $(/bin/date)" {{ ansible_admin_email }}) >(/usr/bin/logger -t carp)
+/usr/bin/diff -u $FILENAME $TMPFILE | /usr/bin/tee >(/usr/bin/mail -s "CARP interface $1 on $(/bin/hostname) became $2 at $(/bin/date)" {{ ansible_admin_email }}) >(/usr/bin/logger -t carp)
 mv $TMPFILE $FILENAME
 /usr/local/sbin/birdc configure
