@@ -56,3 +56,4 @@
 - import_tasks: "smokeping_prober.yml"
 - import_tasks: "dovecot.yml"
 - import_tasks: "bird2.yml"
+- import_tasks: "devd.yml"

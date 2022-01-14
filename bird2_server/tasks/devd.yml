@@ -1,0 +1,19 @@
+---
+- name: "Create /usr/local/etc/devd/ directory if needed"
+  file:
+    path: "/usr/local/etc/devd"
+    state: "directory"
+    mode: "0755"
+
+- name: "Create /usr/local/etc/devd/carp.conf"
+  copy:
+    mode: "0644"
+    src: "carp.conf"
+    dest: "/usr/local/etc/devd/carp.conf"
+  notify: "restart devd"
+
+- name: "Create /usr/local/bin/carpcontrol.sh"
+  copy:
+    mode: "0755"
+    src: "carpcontrol.sh"
+    dest: "/usr/local/bin/carpcontrol.sh"
