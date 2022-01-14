@@ -5,6 +5,14 @@
     state: "directory"
     mode: "0755"
 
+- name: "Create /usr/local/etc/bird-carp-master-interfaces.conf"
+  file:
+    path: "/usr/local/etc/bird-carp-master-interfaces.conf"
+    state: "touch"
+    mode: "644"
+    modification_time: "preserve"
+    access_time: "preserve"
+
 - name: "Create /usr/local/etc/devd/carp.conf"
   copy:
     mode: "0644"

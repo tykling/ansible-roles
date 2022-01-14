@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/bash
 # CARP control script called by devd on CARP state change
 # Used to give bird2 a list of all CARP MASTER interfaces
 # Part of https://github.com/tykling/ansible-roles/tree/master/bird2_server
@@ -10,6 +10,6 @@ for interface in $(/sbin/ifconfig -l -u); do
                 echo "interface \"$interface\";" >> $TMPFILE
         fi
 done
-/usr/bin/diff $TMPFILE $FILENAME | /usr/bin/tee >(/usr/bin/mail -s "CARP interface $1 on $(/bin/hostname) became $2 at $(/bin/date)" {{ ansible_admin_email }}) >(/usr/bin/logger -t carp)
+/usr/bin/diff -u $TMPFILE $FILENAME | /usr/bin/tee >(/usr/bin/mail -s "CARP interface $1 on $(/bin/hostname) became $2 at $(/bin/date)" {{ ansible_admin_email }}) >(/usr/bin/logger -t carp)
 mv $TMPFILE $FILENAME
 /usr/local/sbin/birdc configure
