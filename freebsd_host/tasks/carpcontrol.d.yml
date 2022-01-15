@@ -1,4 +1,10 @@
 ---
+- name: "Create /usr/local/etc/carpcontrol.d/ directory if needed"
+  file:
+    path: "/usr/local/etc/carpcontrol.d/{{ vhid }}/{{ state }}/"
+    state: "directory"
+    mode: "0755"
+
 - name: "Create carpcontrol.d hook script"
   copy:
     dest: "/usr/local/etc/carpcontrol.d/{{ vhid }}/{{ state }}/{{ filename }}"
