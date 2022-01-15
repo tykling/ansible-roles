@@ -31,7 +31,7 @@
       #!/bin/sh
       {{ item.ips.carp.commands.master|join("\n") }}
   with_items: "{{ network_interfaces }}"
-  when: item.ips is defined and item.ips.carp is defined and item.ips.carp.commands is defined and item.ips.carp.commands.master is defined
+  when: item.ips.carp.commands.master is defined
 
 - name: "Create carp BACKUP state change scripts"
   include_role:
@@ -45,7 +45,7 @@
       #!/bin/sh
       {{ item.ips.carp.commands.backup|join("\n") }}
   with_items: "{{ network_interfaces }}"
-  when: item.ips is defined and item.ips.carp is defined and item.ips.carp.commands is defined and item.ips.carp.commands.backup is defined
+  when: item.ips.carp.commands.backup is defined
 
 - name: "(Re-)Configure network interfaces (service netif restart $interface)"
   command: "/usr/sbin/service netif restart {{ item.0.interface }}{% if item.0.vlan is defined %}.{{ item.0.vlan }}{% endif %}"
