@@ -29,7 +29,12 @@
     filename: "customcommands.sh"
     content: |
       #!/bin/sh
-      {{ item.ips.carp.commands.master|join("\n") }}
+      logger -t carp "${0}: {{ vhid }} became {{ state }}, running {{ item.ips.carp.commands.master|length }} commands..."
+      {% for command in item.ips.carp.commands.master %}
+      logger -t carp "Running command: {{ command }}"
+      {{ command }}
+      {% endfor %}
+      logger -t carp "Done running {{ item.ips.carp.commands.master|length }} commands"
   with_items: "{{ network_interfaces }}"
   when: item.ips.carp.commands.master is defined
 
@@ -43,7 +48,12 @@
     filename: "customcommands.sh"
     content: |
       #!/bin/sh
-      {{ item.ips.carp.commands.backup|join("\n") }}
+      logger -t carp "${0}: {{ vhid }} became {{ state }}, running {{ item.ips.carp.commands.backup|length }} commands..."
+      {% for command in item.ips.carp.commands.backup %}
+      logger -t carp "Running command: {{ command }}"
+      {{ command }}
+      {% endfor %}
+      logger -t carp "Done running {{ item.ips.carp.commands.backup|length }} commands"
   with_items: "{{ network_interfaces }}"
   when: item.ips.carp.commands.backup is defined
 
