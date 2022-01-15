@@ -44,4 +44,4 @@
       done
       mv $TMPFILE $FILENAME
       /usr/local/sbin/birdc configure
-      logger -t CARP "${0} done reconfiguring bird2 (was called because ${1} became ${2})"
+      logger -t carp "${0} done reconfiguring bird2 (was called because ${1} became ${2})"
