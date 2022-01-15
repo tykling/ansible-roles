@@ -32,10 +32,10 @@
     content: |
       #!/bin/sh
       logger -t carp "${0}: ${1} became ${2} - updating pf table carp_backup_ips..."
-      TMPFILE=`mktemp /tmp/$(basename $0).XXXXXX` || exit 1
+      TMPFILE=$(mktemp /tmp/"$(basename "$0")".XXXXXX) || exit 1
       IPS=$(for vhid in $(/sbin/ifconfig | /usr/bin/grep BACKUP | /usr/bin/cut -d " " -f 4); do /sbin/ifconfig | /usr/bin/grep -e "vhid ${vhid}$" | /usr/bin/cut -d " " -f 2 | /usr/bin/cut -d "/" -f 1; done)
-      for IP in IPS; do
-          echo $IP >> $TMPFILE
+      for IP in $IPS; do
+          echo "$IP" >> "$TMPFILE"
       done
-      /sbin/pfctl -t carp_backup_ips -T replace -f $TMPFILE
+      /sbin/pfctl -t carp_backup_ips -T replace -f "$TMPFILE"
       /usr/bin/logger -t carp "${0}: Done updating pf table"
