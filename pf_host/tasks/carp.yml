@@ -16,4 +16,19 @@
   when: pf_gateway and not pf_jail_vm_host
   notify: "kldload carp module"
 
-
+- name: "Create carp BACKUP state change script"
+  include_role:
+    name: "freebsd_host"
+    tasks_from: "carpcontrol.d"
+  vars:
+    vhid: "any"
+    state: "BACKUP"
+    filename: "pftable.sh"
+    content: |
+      #!/bin/sh
+      logger -t carp "${0}: ${1} became ${2} - updating pf table carp_backup_ips..."
+      IPS=$(for vhid in $(/sbin/ifconfig | /usr/bin/grep BACKUP | /usr/bin/cut -d " " -f 4); do /sbin/ifconfig | /usr/bin/grep -e "vhid ${vhid}$" | /usr/bin/cut -d " " -f 2 | /usr/bin/cut -d "/" -f 1; done)
+      for IP in IPS; do
+          /sbin/pfctl -t carp_backup_ips -T add $IP
+      done
+      /usr/bin/logger -t carp "${0}: Done updating pf tables"
