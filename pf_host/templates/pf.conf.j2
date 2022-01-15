@@ -4,9 +4,9 @@
 
 ####################################################################################################
 ################ options ###############################
-set limit states 500000 # increased from default 10000
-set limit frags 100000 # increased frm default 5000
-set block-policy drop
+{% for option, value in pf_options.items() %}
+set {{ option }} {{ value }}
+{% endfor %}
 
 
 ####################################################################################################

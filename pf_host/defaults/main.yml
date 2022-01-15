@@ -1,11 +1,11 @@
 ---
 pf_conf_path: "/etc/pf.conf"
 pf_jail_nat_ip: "{{ ansible_default_ipv4.address }}"
-pf_jail_vm_host: no
-pf_gateway: no
-pf_anycast_host: no
-carp_preempt: yes
-anycast_serviceinterface: no
+pf_jail_vm_host: False
+pf_gateway: False
+pf_anycast_host: False
+carp_preempt: True
+anycast_serviceinterface: False
 network_interfaces:
   - description: "Upstream / outside interface"
     interface: "{{ ansible_default_ipv4.device }}"
@@ -15,3 +15,7 @@ network_interfaces:
     pf_sync: False
     pf_carp: False
 
+pf_options:
+  limit states: "500000"
+  limit frags: "100000"
+  block-policy: "drop"
