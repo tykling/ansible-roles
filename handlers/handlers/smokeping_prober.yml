@@ -1,5 +1,0 @@
----
-- name: "restart smokeping_prober"
-  supervisorctl:
-    name: "smokeping_prober"
-    state: restarted

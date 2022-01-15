@@ -1,5 +1,0 @@
----
-- name: "restart jail_exporter"
-  supervisorctl:
-    name: "jail_exporter"
-    state: restarted

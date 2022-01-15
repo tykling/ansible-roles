@@ -1,5 +1,0 @@
----
-- name: "restart gstat_exporter"
-  supervisorctl:
-    name: "gstat_exporter"
-    state: restarted

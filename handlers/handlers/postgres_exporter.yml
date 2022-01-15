@@ -1,6 +1,0 @@
----
-- name: "restart postgres_exporter"
-  supervisorctl:
-    name: "postgres_exporter"
-    state: restarted
-

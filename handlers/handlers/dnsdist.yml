@@ -1,4 +1,0 @@
----
-- name: "restart dnsdist"
-  command: "/usr/local/bin/supervisorctl restart dnsdist"
-

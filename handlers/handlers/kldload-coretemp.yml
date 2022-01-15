@@ -1,5 +1,0 @@
----
-- name: "kldload coretemp module"
-  command: "/sbin/kldload coretemp"
-  ignore_errors: yes
-

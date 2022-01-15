@@ -1,7 +1,0 @@
----
-- name: "restart pgbouncer"
-  command: "/usr/local/bin/supervisorctl restart pgbouncer"
-
-- name: "reload pgbouncer"
-  command: "id"
-

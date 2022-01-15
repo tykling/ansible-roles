@@ -1,6 +1,0 @@
----
-- name: "Reload kea"
-  service:
-    name: "kea"
-    state: "reloaded"
-

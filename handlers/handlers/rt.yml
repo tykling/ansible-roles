@@ -1,9 +1,0 @@
----
-- name: "clear rt mason cache"
-  file:
-    path: "/var/run/rt44/mason_data/obj/"
-    state: "absent"
-
-- name: "restart rt"
-  shell: "/usr/local/bin/supervisorctl restart rt:"
-

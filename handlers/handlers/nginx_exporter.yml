@@ -1,5 +1,0 @@
----
-- name: "restart nginx_exporter"
-  supervisorctl:
-    name: "nginx_exporter"
-    state: restarted

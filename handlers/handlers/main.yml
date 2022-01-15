@@ -1,59 +1,496 @@
 ---
-- import_tasks: "supervisord.yml"
-- import_tasks: "certgrinder.yml"
-- import_tasks: "django.yml"
-- import_tasks: "isc-dhcpd.yml"
-- import_tasks: "kea.yml"
-- import_tasks: "kldload-aesni.yml"
-- import_tasks: "nginx.yml"
-- import_tasks: "pf.yml"
-- import_tasks: "prosody.yml"
-- import_tasks: "sshd.yml"
-- import_tasks: "sysctl.yml"
-- import_tasks: "syslogd.yml"
-- import_tasks: "postfix.yml"
-- import_tasks: "syslogng.yml"
-- import_tasks: "tor.yml"
-- import_tasks: "zabbix.yml"
-- import_tasks: "php-fpm.yml"
-- import_tasks: "unbound.yml"
-- import_tasks: "nfsen.yml"
-- import_tasks: "spawn-fcgi.yml"
-- import_tasks: "postgresql.yml"
-- import_tasks: "rt.yml"
-- import_tasks: "elk.yml"
-- import_tasks: "bind.yml"
-- import_tasks: "prometheus.yml"
-- import_tasks: "speedtest.yml"
-- import_tasks: "alertmanager.yml"
-- import_tasks: "grafana.yml"
-- import_tasks: "smartd.yml"
-- import_tasks: "pgbouncer.yml"
-- import_tasks: "fail2ban.yml"
-- import_tasks: "uwsgi.yml"
-- import_tasks: "blackbox_exporter.yml"
-- import_tasks: "node_exporter.yml"
-- import_tasks: "exporter_exporter.yml"
-- import_tasks: "mountd.yml"
-- import_tasks: "snmp_exporter.yml"
-- import_tasks: "process_accounting.yml"
-- import_tasks: "ctld.yml"
-- import_tasks: "dnsdist.yml"
-- import_tasks: "powerdns_recursor.yml"
-- import_tasks: "kldload-tcpmd5.yml"
-- import_tasks: "openbgpd.yml"
-- import_tasks: "postgres_exporter.yml"
-- import_tasks: "inetd.yml"
-- import_tasks: "uwsgi_exporter.yml"
-- import_tasks: "nginx_exporter.yml"
-- import_tasks: "gstat_exporter.yml"
-- import_tasks: "jail_exporter.yml"
-- import_tasks: "nullmailer.yml"
-- import_tasks: "newsyslog.yml"
-- import_tasks: "kldload-coretemp.yml"
-- import_tasks: "nut.yml"
-- import_tasks: "motion.yml"
-- import_tasks: "smokeping_prober.yml"
-- import_tasks: "dovecot.yml"
-- import_tasks: "bird2.yml"
-- import_tasks: "devd.yml"
+### alertmanager_server
+- name: "restart alertmanager"
+  command: "/usr/local/bin/supervisorctl restart alertmanager"
+
+
+### bind_server
+- name: "restart bind"
+  command: "/usr/local/bin/supervisorctl restart bind"
+
+- name: "reload bind"
+  command: "/usr/local/sbin/rndc reload"
+
+- name: "restart bind_dampening_stats"
+  command: "/usr/local/bin/supervisorctl restart bind_dampening_stats"
+
+
+### bird2_server
+- name: "start bird2"
+  command: "/usr/local/bin/supervisorctl start bird2"
+
+- name: "restart bird2"
+  command: "/usr/local/bin/supervisorctl restart bird2"
+
+- name: "reconfigure bird2"
+  command: "/usr/local/sbin/birdc configure"
+
+
+### blackbox_exporter_server
+- name: "restart blackbox_exporter"
+  command: "/usr/local/bin/supervisorctl restart blackbox_exporter"
+
+- name: "reload blackbox_exporter"
+  command: "/usr/local/bin/supervisorctl signal HUP blackbox_exporter"
+
+- name: "restart ssl_exporter"
+  command: "/usr/local/bin/supervisorctl restart ssl_exporter"
+
+
+### certgrinder_client
+- name: "certgrinder ssh key created email"
+  mail:
+    to: "{{ certgrinder_admin_email }}"
+    subject: "new certgrinder_client ssh key generated on host {{ ansible_nodename }}"
+    body: "Ansible has generated a new SSH key on certgrinder_client host {{ ansible_nodename }}. Please add it to certgrinder_authorized_keys on {{ certgrinder_ssh_server }}, and then rerun ansible for {{ ansible_nodename }} again to issue proper certificates."
+
+
+### ctld_server
+- name: "start ctld"
+  service:
+    name: "ctld"
+    state: "started"
+
+- name: "reload ctld"
+  service:
+    name: "ctld"
+    state: "reloaded"
+
+
+### freebsd_host
+- name: "restart devd"
+  service:
+    name: "devd"
+    state: "restarted"
+
+
+### django_channels2_server
+- name: "restart daphne using supervisorctl"
+  command: "/usr/local/bin/supervisorctl restart daphne"
+  when: "django_channels_daphne"
+
+- name: "restart supervisord_extra_programs"
+  command: "/usr/local/bin/supervisorctl restart {{ item.name }}"
+  with_items: "{{ supervisord_extra_programs | default({}) }}"
+
+
+### dnsdist_server
+- name: "restart dnsdist"
+  command: "/usr/local/bin/supervisorctl restart dnsdist"
+
+
+### dovecot_server
+- name: "Start dovecot"
+  service:
+    name: "dovecot"
+    state: "started"
+
+- name: "Reload dovecot"
+  service:
+    name: "dovecot"
+    state: "reloaded"
+
+
+### elk_server
+- name: "start elasticsearch"
+  service:
+    name: "elasticsearch"
+    state: "started"
+
+- name: "restart elasticsearch"
+  service:
+    name: "elasticsearch"
+    state: "restarted"
+
+- name: "start logstash"
+  service:
+    name: "logstash"
+    state: "started"
+
+- name: "restart logstash"
+  service:
+    name: "logstash"
+    state: "restarted"
+
+- name: "start kibana"
+  service:
+    name: "kibana"
+    state: "started"
+
+- name: "restart kibana"
+  service:
+    name: "kibana"
+    state: "restarted"
+
+### freebsd_base
+- name: "restart exporter_exporter"
+  supervisorctl:
+    name: "exporter_exporter"
+    state: "restarted"
+
+
+### fail2ban_server
+- name: "restart fail2ban"
+  service:
+    name: "fail2ban"
+    state: "restarted"
+
+- name: "reload fail2ban"
+  service:
+    name: "fail2ban"
+    state: "reloaded"
+
+
+### grafana_server
+- name: "restart grafana"
+  command: "/usr/local/bin/supervisorctl restart grafana"
+
+
+### freebsd_host
+- name: "restart gstat_exporter"
+  supervisorctl:
+    name: "gstat_exporter"
+    state: "restarted"
+
+
+### freebsd_host
+- name: "restart inetd"
+  service:
+    name: "inetd"
+    state: "restarted"
+
+- name: "reload inetd"
+  service:
+    name: "inetd"
+    state: "reloaded"
+
+
+### isc_dhcpd_server
+- name: "restart isc dhcpd"
+  service:
+    name: "isc-dhcpd"
+    state: "restarted"
+
+
+### jail_host
+- name: "restart jail_exporter"
+  supervisorctl:
+    name: "jail_exporter"
+    state: "restarted"
+
+
+### kea_server
+- name: "Reload kea"
+  service:
+    name: "kea"
+    state: "reloaded"
+
+### freebsd_host
+- name: "load AESNI module"
+  command: "/sbin/kldload aesni"
+  ignore_errors: yes
+
+- name: "kldload coretemp module"
+  command: "/sbin/kldload coretemp"
+  ignore_errors: yes
+
+- name: "load tcpmd5 module"
+  command: "/sbin/kldload tcpmd5"
+  ignore_errors: yes
+
+
+### motion_server
+- name: "restart motion"
+  command: "/usr/local/bin/supervisorctl restart motion"
+
+
+### nfs_server
+- name: "reload mountd"
+  service:
+    name: "mountd"
+    state: "reloaded"
+
+
+### freebsd_base
+- name: "rename sequential logs"
+  shell: |
+    INCLUDEPATHS=$(cat /etc/newsyslog.conf | grep "^<include>" | cut -d " " -f 2)
+    for LOGPATH in $(cat /etc/newsyslog.conf $INCLUDEPATHS | grep -Ev "^(#|$|<include>)" | awk "{print \$1}" | sed -e 's,/[^/]*$,,' | sort -u); do
+        for EXT in bz2 xz; do
+            for FILE in $(ls -1 ${LOGPATH}/*.${EXT}); do
+                MTIME=$(stat -f %Sm -t "%Y%m%dT%H%M%S" ${FILE})
+                NEWNAME=$(echo $(basename ${FILE}) | sed -E "s/(.+)\.[0-9]+\.${EXT}/\1.${MTIME}.${EXT}/")
+                mv ${FILE} $(dirname ${FILE})/${NEWNAME}
+            done
+        done
+    done
+
+
+### nfsen_server
+- name: "reload nfsen"
+  service:
+    name: "nfsen"
+    state: "reloaded"
+
+
+### nginx_server
+- name: "restart nginx_exporter"
+  supervisorctl:
+    name: "nginx_exporter"
+    state: "restarted"
+
+- name: "start nginx"
+  service:
+    name: "nginx"
+    state: "started"
+
+- name: "reload nginx"
+  service:
+    name: "nginx"
+    state: "reloaded"
+
+
+### node_exporter
+- name: "restart node_exporter"
+  supervisorctl:
+    name: "node_exporter"
+    state: "restarted"
+
+
+### nullmailer
+- name: "start nullmailer"
+  service:
+    name: "nullmailer"
+    state: "started"
+
+- name: "restart nullmailer"
+  service:
+    name: "nullmailer"
+    state: "restarted"
+
+### nut_server
+- name: "start nut"
+  service:
+    name: "nut"
+    state: "started"
+
+- name: "restart nut"
+  service:
+    name: "nut"
+    state: "restarted"
+
+- name: "start upsmon"
+  service:
+    name: "nut_upsmon"
+    state: "started"
+
+- name: "restart upsmon"
+  service:
+    name: "nut_upsmon"
+    state: "restarted"
+
+
+### openbgpd_server
+- name: "reload openbgpd"
+  command: "/usr/local/sbin/bgpctl reload"
+
+### pf_host
+- name: "kldload pf module"
+  command: "/sbin/kldload pf"
+
+- name: "kldload pflog module"
+  command: "/sbin/kldload pflog"
+
+- name: "reload pf"
+  service:
+    name: "pf"
+    state: "reloaded"
+
+- name: "kldload carp module"
+  command: "/sbin/kldload carp"
+
+
+### postgresql_server
+- name: "restart pgbouncer"
+  command: "/usr/local/bin/supervisorctl restart pgbouncer"
+
+- name: "reload pgbouncer"
+  command: "id"
+
+- name: "restart postgres_exporter"
+  supervisorctl:
+    name: "postgres_exporter"
+    state: restarted
+
+- name: "restart postgresql"
+  command: "/usr/local/bin/supervisorctl restart postgresql"
+
+- name: "reload postgresql"
+  command: "su -l postgres -c '/usr/local/bin/pg_ctl -D {{ postgresql_datadir }} reload'"
+
+
+### php_fpm_server
+- name: "reload php-fpm"
+  service:
+    name: "php-fpm"
+    state: "reloaded"
+
+
+### postfix_server
+- name: "restart postfix"
+  service:
+    name: "postfix"
+    state: "restarted"
+
+- name: "reload postfix"
+  service:
+    name: "postfix"
+    state: "reloaded"
+
+
+### powerdns_recursor_server
+- name: "restart powerdns-recursor"
+  command: "/usr/local/bin/supervisorctl restart powerdns_recursor"
+
+
+### freebsd_base
+- name: "start process accounting"
+  command: "/usr/sbin/accton {{ process_accounting_file }}"
+
+### prometheus_server
+- name: "restart prometheus"
+  command: "/usr/local/bin/supervisorctl restart prometheus"
+
+
+### prosody_server
+- name: "Start prosody" 
+  service:
+    name: "prosody"
+    state: "started"
+
+- name: "Reload prosody" 
+  service:
+    name: "prosody"
+    state: "reloaded"
+
+
+### rt_server
+- name: "clear rt mason cache"
+  file:
+    path: "/var/run/rt44/mason_data/obj/"
+    state: "absent"
+
+- name: "restart rt"
+  shell: "/usr/local/bin/supervisorctl restart rt:"
+
+
+### smartmontools
+- name: "reload smartd"
+  service:
+    name: "smartd"
+    state: "reloaded"
+
+
+### smokeping_prober
+- name: "restart smokeping_prober"
+  supervisorctl:
+    name: "smokeping_prober"
+    state: "restarted"
+
+### snmp_exporter
+- name: "restart snmp_exporter"
+  command: "/usr/local/bin/supervisorctl restart snmp_exporter"
+
+### spawn_fcgi_server
+- name: "restart spawn-fcgi"
+  service:
+    name: "spawn-fcgi"
+    state: "restarted"
+
+### speedtest_server
+- name: "restart speedtest"
+  command: "/usr/local/bin/supervisorctl restart ooklaserver"
+
+### sshd
+- name: "restart sshd"
+  service:
+    name: "sshd"
+    state: "restarted"
+
+- name: "reload sshd"
+  service:
+    name: "sshd"
+    state: "reloaded"
+
+### supervisord_server
+- name: "start supervisord"
+  service:
+    name: "supervisord"
+    state: "started"
+
+- name: "reread supervisord config"
+  command: "/usr/local/bin/supervisorctl reread"
+
+- name: "update supervisord config"
+  command: "/usr/local/bin/supervisorctl update"
+
+### sysctl
+- name: "reload sysctl.conf"
+  service:
+    name: "sysctl"
+    state: "reloaded"
+
+### syslogd
+- name: "restart syslogd"
+  service:
+    name: "syslogd"
+    state: "restarted"
+
+### syslog-ng
+- name: "reload syslog-ng"
+  service:
+    name: "syslog-ng"
+    state: "reloaded"
+
+### tor_server
+- name: "reload tor"
+  service:
+    name: "tor"
+    state: "reloaded"
+
+### unbound_server
+- name: "start unbound"
+  supervisorctl:
+    name: "unbound"
+    state: "started"
+
+- name: "restart unbound"
+  supervisorctl:
+    name: "unbound"
+    state: "restarted"
+
+
+### uwsgi_server
+- name: "restart uwsgi_exporter"
+  supervisorctl:
+    name: "uwsgi_exporter"
+    state: "restarted"
+
+- name: "restart uwsgi"
+  command: "/usr/local/bin/supervisorctl restart uwsgi"
+
+- name: "touch-chain-reload uwsgi"
+  file:
+    path: "{{ uwsgi_touchchainreloadpath }}"
+    state: "touch"
+
+### zabbix_server
+- name: "restart zabbix server"
+  service:
+    name: "zabbix_server"
+    state: "restarted"
+
+- name: "restart zabbix proxy"
+  service:
+    name: "zabbix_proxy"
+    state: "restarted"

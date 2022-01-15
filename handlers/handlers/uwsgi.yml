@@ -1,9 +1,0 @@
----
-- name: "restart uwsgi"
-  command: "/usr/local/bin/supervisorctl restart uwsgi"
-
-- name: "touch-chain-reload uwsgi"
-  file:
-    path: "{{ uwsgi_touchchainreloadpath }}"
-    state: "touch"
-

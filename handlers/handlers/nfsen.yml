@@ -1,6 +1,0 @@
----
-- name: "reload nfsen"
-  service:
-    name: "nfsen"
-    state: "reloaded"
-

@@ -1,6 +1,0 @@
----
-- name: "restart spawn-fcgi"
-  service:
-    name: "spawn-fcgi"
-    state: "restarted"
-

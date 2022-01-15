@@ -1,6 +1,0 @@
----
-- name: "restart isc dhcpd"
-  service:
-    name: "isc-dhcpd"
-    state: "restarted"
-

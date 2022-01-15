@@ -1,6 +1,0 @@
----
-- name: "reload smartd"
-  service:
-    name: "smartd"
-    state: "reloaded"
-
