@@ -16,14 +16,18 @@
   when: pf_gateway and not pf_jail_vm_host
   notify: "kldload carp module"
 
-- name: "Create carp BACKUP state change script"
-  include_role:
-    name: "freebsd_host"
-    tasks_from: "carpcontrol.d"
-  vars:
-    vhid: "any"
-    state: "BACKUP"
-    filename: "pftable.sh"
+- name: "Create /usr/local/etc/carpcontrol.d/ directory if needed"
+  file:
+    path: "/usr/local/etc/carpcontrol.d/any/BACKUP/"
+    state: "directory"
+    mode: "0755"
+
+- name: "Create carpcontrol.d hook script"
+  copy:
+    dest: "/usr/local/etc/carpcontrol.d/any/BACKUP/pftable.sh"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"
     content: |
       #!/bin/sh
       logger -t carp "${0}: ${1} became ${2} - updating pf table carp_backup_ips..."
