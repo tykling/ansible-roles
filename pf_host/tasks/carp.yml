@@ -22,12 +22,13 @@
     state: "directory"
     mode: "0755"
 
-- name: "Create carpcontrol.d hook script"
-  copy:
-    dest: "/usr/local/etc/carpcontrol.d/any/any/pftable.sh"
-    mode: "0755"
-    owner: "root"
-    group: "wheel"
+- name: "Create carpcontrol.d script"
+  import_tasks:
+    file: "freebsd_host/tasks/carpcontrol.d.yml"
+  vars:
+    vhid: "any"
+    state: "any"
+    filename: "pftable.sh"
     content: |
       #!/bin/sh
       logger -t carp "${0}: ${1} became ${2} - updating pf table carp_backup_ips..."
