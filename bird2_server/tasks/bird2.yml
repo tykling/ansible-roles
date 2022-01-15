@@ -22,9 +22,8 @@
   notify: "load tcpmd5 module"
 
 - name: "Create carpcontrol.d script to maintain bird include with all carp MASTER interfaces"
-  import_role:
-    name: "freebsd_host"
-    tasks_from: "carpcontrol.d"
+  import_tasks:
+    file: "../../freebsd_base/tasks/carpcontrol.d"
   vars:
     vhid: "any"
     state: "any"
