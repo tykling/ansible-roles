@@ -20,3 +20,28 @@
     value: "yes"
     dest: "/boot/loader.conf"
   notify: "load tcpmd5 module"
+
+- name: "Create carpcontrol.d script to maintain bird include with all carp MASTER interfaces"
+  include_role:
+    name: "freebsd_host"
+    tasks_from: "carpcontrol.d"
+  vars:
+    vhid: "any"
+    state: "any"
+    filename: "bird2"
+    content: |
+      #!/usr/local/bin/bash
+      # carpcontrol.d hook script called on CARP state change
+      # Maintains a list of all CARP MASTER interfaces for bird2
+      # Part of https://github.com/tykling/ansible-roles/tree/master/bird2_server
+      FILENAME=/usr/local/etc/bird-carp-master-interfaces.conf
+      TMPFILE=`mktemp /tmp/$(basename $0).XXXXXX` || exit 1
+      for interface in $(/sbin/ifconfig -l -u); do
+              /sbin/ifconfig $interface | /usr/bin/grep -q "carp: MASTER"
+              if [ $? -eq 0 ]; then
+                      echo "interface \"$interface\";" >> $TMPFILE
+              fi
+      done
+      mv $TMPFILE $FILENAME
+      /usr/local/sbin/birdc configure
+      logger -t CARP "${0} done reconfiguring bird2 (was called because ${1} became ${2})"

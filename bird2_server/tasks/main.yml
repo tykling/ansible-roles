@@ -28,10 +28,3 @@
         - "bird2"
   tags:
     - "bird2"
-- include_tasks:
-    file: "devd.yml"
-    apply:
-      tags:
-        - "bird2"
-  tags:
-    - "bird2"

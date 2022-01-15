@@ -1,0 +1,8 @@
+---
+- name: "Create carpcontrol.d hook script"
+  copy:
+    dest: "/usr/local/etc/carpcontrol.d/{{ vhid }}/{{ state }}/{{ filename }}"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"
+    content: "{{ content }}"
