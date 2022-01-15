@@ -18,21 +18,23 @@
 
 - name: "Create /usr/local/etc/carpcontrol.d/ directory if needed"
   file:
-    path: "/usr/local/etc/carpcontrol.d/any/BACKUP/"
+    path: "/usr/local/etc/carpcontrol.d/any/any/"
     state: "directory"
     mode: "0755"
 
 - name: "Create carpcontrol.d hook script"
   copy:
-    dest: "/usr/local/etc/carpcontrol.d/any/BACKUP/pftable.sh"
+    dest: "/usr/local/etc/carpcontrol.d/any/any/pftable.sh"
     mode: "0755"
     owner: "root"
     group: "wheel"
     content: |
       #!/bin/sh
       logger -t carp "${0}: ${1} became ${2} - updating pf table carp_backup_ips..."
+      TMPFILE=`mktemp /tmp/$(basename $0).XXXXXX` || exit 1
       IPS=$(for vhid in $(/sbin/ifconfig | /usr/bin/grep BACKUP | /usr/bin/cut -d " " -f 4); do /sbin/ifconfig | /usr/bin/grep -e "vhid ${vhid}$" | /usr/bin/cut -d " " -f 2 | /usr/bin/cut -d "/" -f 1; done)
       for IP in IPS; do
-          /sbin/pfctl -t carp_backup_ips -T add $IP
+          echo $IP >> $TMPFILE
       done
-      /usr/bin/logger -t carp "${0}: Done updating pf tables"
+      /sbin/pfctl -t carp_backup_ips -T replace -f $TMPFILE
+      /usr/bin/logger -t carp "${0}: Done updating pf table"
