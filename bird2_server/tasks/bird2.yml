@@ -41,16 +41,51 @@
     content: |
       #!/usr/local/bin/bash
       # carpcontrol.d hook script called on CARP state change
-      # Maintains a list of all CARP MASTER interfaces for bird2
+      # Maintains bird-direct-carp-interfaces.conf by commenting out interfaces in CARP BACKUP state
+      # Maintains bird-static-routes-carp-ipv4.conf by commenting out static routes via CARP BACKUP interfaces
       # Part of https://github.com/tykling/ansible-roles/tree/master/bird2_server
-      FILENAME=/usr/local/etc/bird-carp-master-interfaces.conf
-      TMPFILE=`mktemp /tmp/$(basename $0).XXXXXX` || exit 1
+      logger -t carp "${0} reconfiguring bird2 direct interface and static route files (called because ${1} became ${2})"
+
+      # filter direct interfaces file based on CARP state
+      INTERFACE_FILE=/usr/local/etc/bird-direct-carp-interfaces.conf
+      TMP_FILE=$(mktemp /tmp/$(basename $0).XXXXXX) || exit 1
       for interface in $(/sbin/ifconfig -l -u); do
               /sbin/ifconfig $interface | /usr/bin/grep -q "carp: MASTER"
               if [ $? -eq 0 ]; then
                       echo "interface \"$interface\";" >> $TMPFILE
+              else
+                      echo "#interface \"$interface\";" >> $TMPFILE
               fi
       done
-      mv $TMPFILE $FILENAME
+      diff -u $INTERFACE_FILE $TMP_FILE
+      if [ $? -eq 1 ]; then
+          mv $TMPFILE $INTERFACE_FILE
+      fi
+
+      # filter static route file to disable routes via CARP BACKUP interfaces
+      STATIC_ROUTE_FILE=/usr/local/etc/bird-static-routes-carp-ipv4.conf
+      TMP_FILE=$(/usr/bin/mktemp /tmp/"$(basename "$0")".XXXXXX) || exit 1
+      cp $STATIC_ROUTE_FILE $TMP_FILE
+      grep "^route " $STATIC_ROUTE_FILE | while read line; do
+              # route destination
+              NET=$(echo "$line" | /usr/bin/cut -d " " -f 2)
+              # route gateway
+              VIA=$(echo "$line" | /usr/bin/cut -d " " -f 4 | cut -d ";" -f 1)
+              # the interface bird wants to reach this routes nexthop through
+              BIRDIF=$(sudo birdc show route $NET primary | grep via | cut -d " " -f 4)
+              # the actual interface for the nexthop
+              NHIF=$(sudo birdc show route for $VIA primary | grep via | rev | cut -d " " -f 1 | rev)
+              if [ "$BIRDIF" = "$NHIF" ]; then
+                      # enable the route
+                      sed -I "" "s|^#route ${NET}|route ${NET}|" $TMP_FILE
+              else
+                      # disable the route, bird is trying to use a CARP BACKUP interface
+                      sed -I "" "s|^route ${NET}|#route ${NET}|" $TMP_FILE
+              fi
+      done
+      diff -u $STATIC_ROUTE_FILE $TMP_FILE
+      if [ $? -eq 1 ]; then
+              mv $TMP_FILE $STATIC_ROUTE_FILE
+      fi
       /usr/local/sbin/birdc configure
       logger -t carp "${0} done reconfiguring bird2 (was called because ${1} became ${2})"
