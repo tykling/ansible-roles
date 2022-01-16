@@ -64,7 +64,7 @@
       STATIC_ROUTE_FILE=/usr/local/etc/bird-static-routes-carp-ipv4.conf
       TMP_FILE=$(/usr/bin/mktemp /tmp/"$(basename "$0")".XXXXXX) || exit 1
       cp "$STATIC_ROUTE_FILE" "$TMP_FILE"
-      grep "^route " "$STATIC_ROUTE_FILE" | while read -r line; do
+      grep -E "^(#)?route " "$STATIC_ROUTE_FILE" | while read -r line; do
               # route destination
               NET=$(echo "$line" | /usr/bin/cut -d " " -f 2)
               # route gateway
