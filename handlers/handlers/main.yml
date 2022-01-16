@@ -25,6 +25,8 @@
 - name: "reconfigure bird2"
   command: "/usr/local/sbin/birdc configure"
 
+- name: "carpconfigure bird2"
+  command: "/usr/local/etc/carpcontrol.d/any/any/bird2 ansible deployed"
 
 ### blackbox_exporter_server
 - name: "restart blackbox_exporter"
