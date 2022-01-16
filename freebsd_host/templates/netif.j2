@@ -18,7 +18,7 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 ifconfig_{{ interface }}="$ifconfig_{{ interface }} laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %}"
 # UP the individual lagg members
 {% for port in item.lacp.laggports %}
-ifconfig_{{ port }}="UP -vlanhwtso -tso -lro"
+ifconfig_{{ port }}="-vlanhwtso -tso -lro UP"
 {% endfor %}
 {% endif %}
 
