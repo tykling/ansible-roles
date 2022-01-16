@@ -1,0 +1,7 @@
+# this file contains carp vhid@interface,protocolenablefile lines for birs2
+# Part of https://github.com/tykling/ansible-roles/tree/master/bird2_server
+{% for proto in bird2_protocols %}
+{% if 'carpcontrol' in proto %}
+{{ proto.carpcontrol }},{{ proto.enablefile }}
+{% endif %}
+{% endfor %}
