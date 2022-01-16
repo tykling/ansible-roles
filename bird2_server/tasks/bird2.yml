@@ -103,7 +103,7 @@
               FILE=$(echo "$line" | /usr/bin/cut -d "," -f 2)
               STATE=$(ifconfig "$IF" | grep -E "carp: (INIT|MASTER|BACKUP) vhid $VHID" | cut -d " " -f 2)
               if [ "$STATE" = "MASTER" ]; then
-                      echo "enabled;" > "$FILE"
+                      echo "" > "$FILE"
               else
                       echo "disabled;" > "$FILE"
               fi
