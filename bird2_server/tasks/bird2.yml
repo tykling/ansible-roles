@@ -70,14 +70,13 @@
               # route gateway
               GW=$(echo "$line" | /usr/bin/cut -d " " -f 4 | cut -d ";" -f 1)
               # the interface bird wants to reach this routes nexthop through
-              BIRDIF=$(sudo birdc show route "$NET" primary | grep via | cut -d " " -f 4)
-              # the actual interface for the nexthop
-              NHIF=$(sudo birdc show route for "$GW" primary | grep via | rev | cut -d " " -f 1 | rev)
-              if [ "$BIRDIF" = "$NHIF" ]; then
+              BIRDIF=$(birdc show route "$NET" primary | grep via | cut -d " " -f 4)
+              # is the interface enabled in the interface file?
+              if grep -q "^interface \"${BIRDIF}\";" "$INTERFACE_FILE"; then
                       # enable the route
                       sed -I "" "s|^#route ${NET}|route ${NET}|" "$TMP_FILE"
               else
-                      # disable the route, bird is trying to use a CARP BACKUP interface
+                      # disable the static route to prevent bird using a BACKUP interface
                       sed -I "" "s|^route ${NET}|#route ${NET}|" "$TMP_FILE"
               fi
       done
