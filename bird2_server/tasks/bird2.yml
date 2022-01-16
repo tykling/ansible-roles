@@ -14,6 +14,16 @@
     - "birdconfig"
   notify: "reconfigure bird2"
 
+- name: "Create bird2 extra config files..."
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "0640"
+    content: "{{ item.content }}"
+    dest: "/usr/local/etc/bird-{{ item.filename }}"
+  with_items: "{{ bird2_extra_configs | default([]) }}"
+  notify: "reconfigure bird2"
+
 - name: "Enable load of tcpmd5 in /boot/loader.conf"
   sysrc:
     name: "tcpmd5_load"
