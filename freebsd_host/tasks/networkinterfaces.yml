@@ -38,9 +38,8 @@
   when: item.ips.carp.commands.master is defined
 
 - name: "Create carp BACKUP state change scripts"
-  include_role:
-    name: "freebsd_host"
-    tasks_from: "carpcontrol.d"
+  include_tasks:
+    file: "freebsd_host/tasks/carpcontrol.d.yml"
   vars:
     vhid: "{{ item.ips.carp.vhid }}@{{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %}"
     state: "BACKUP"
