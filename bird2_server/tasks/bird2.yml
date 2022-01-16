@@ -48,7 +48,8 @@
       # filter direct interfaces file based on CARP state
       INTERFACE_FILE=/usr/local/etc/bird-direct-carp-interfaces.conf
       TMP_FILE=$(mktemp /tmp/"$(basename "$0")".XXXXXX) || exit 1
-      for interface in $(/sbin/ifconfig -l -u); do
+      # this expects all CARP interfaces to be added to the group carp
+      for interface in $(/sbin/ifconfig -l -u -g carp); do
               if /sbin/ifconfig "$interface" | /usr/bin/grep -q "carp: MASTER"; then
                       echo "interface \"$interface\";" >> "$TMP_FILE"
               else
