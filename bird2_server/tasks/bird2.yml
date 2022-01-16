@@ -54,6 +54,7 @@
       # Maintains bird-static-routes-carp-ipv4.conf by commenting out static routes via CARP BACKUP interfaces
       # Part of https://github.com/tykling/ansible-roles/tree/master/bird2_server
       logger -t carp "${0} reconfiguring bird2 direct interface and static route files (called because ${1} became ${2})"
+      CHANGED=0
       # filter direct interfaces file based on CARP state
       INTERFACE_FILE=/usr/local/etc/bird-direct-carp-interfaces.conf
       TMP_FILE=$(mktemp /tmp/"$(basename "$0")".XXXXXX) || exit 1
@@ -68,6 +69,7 @@
       diff -u "$INTERFACE_FILE" "$TMP_FILE"
       if [ $? -eq 1 ]; then
           mv "$TMP_FILE" "$INTERFACE_FILE"
+          CHANGED=1
       fi
       # filter static route file to disable routes via CARP BACKUP interfaces
       STATIC_ROUTE_FILE=/usr/local/etc/bird-static-routes-carp-ipv4.conf
@@ -98,6 +100,7 @@
       diff -u "$STATIC_ROUTE_FILE" "$TMP_FILE"
       if [ $? -eq 1 ]; then
               mv "$TMP_FILE" "$STATIC_ROUTE_FILE"
+              CHANGED=1
       fi
 
       # enable/disable protocols based on vhid carp state
@@ -115,5 +118,7 @@
               fi
       done
 
-      /usr/local/sbin/birdc configure
+      if [ $CHANGED -eq 1 ]; then
+          /usr/local/sbin/birdc configure
+      fi
       logger -t carp "${0} done reconfiguring bird2 (was called because ${1} became ${2})"
