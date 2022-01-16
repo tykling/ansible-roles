@@ -12,19 +12,23 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 {% else %}
 {% set interface = item.interface %}
 {% endif %}
+
+# disable TSO, LRO
+ifconfig_{{ interface }}="-vlanhwtso -tso -lro"
+
 {% if item.lacp is defined %}
 # configure lagg (LACP) on the interface
-ifconfig_{{ interface }}="laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %}"
+ifconfig_{{ interface }}="$ifconfig_{{ interface }} laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %}"
 # UP the individual lagg members
 {% for port in item.lacp.laggports %}
-ifconfig_{{ port }}="UP"
+ifconfig_{{ port }}="UP -vlanhwtso -tso -lro"
 {% endfor %}
 {% endif %}
 
 {% if item.ips is defined %}
 {% if item.ips[inventory_hostname_short].v4ip is defined %}
 # configure ipv4 on the interface
-ifconfig_{{ interface }}="${ifconfig_{{ interface}}}inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
+ifconfig_{{ interface }}="${ifconfig_{{ interface }}} inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }}"
 {% endif %}
 {% if item.ips[inventory_hostname_short].v6ip is defined %}
 # configure ipv6 on the interface
