@@ -21,12 +21,12 @@ ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}-keypair.rsa.key'
 {% if postgresql_hot_standby %}hot_standby = on
 {% endif %}
 {% if postgresql_version == "14" %}
-wal_keep_size = 2000
+wal_keep_size = {{ postgresql_wal_keep_size }}
 {% else %}
-wal_level = {{ postgresql_wal_level }}
-{% endif %}
-max_wal_senders = {{ postgresql_max_wal_senders }}
 wal_keep_segments = {{ postgresql_wal_keep_segments }}
+{% endif %}
+wal_level = {{ postgresql_wal_level }}
+max_wal_senders = {{ postgresql_max_wal_senders }}
 shared_preload_libraries = 'auto_explain,pg_stat_statements'
 pg_stat_statements.max = {{ postgresql_pg_stat_statements_track }}
 pg_stat_statements.track = all
