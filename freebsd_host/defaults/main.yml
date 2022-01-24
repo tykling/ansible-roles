@@ -30,6 +30,7 @@ zfs_periodic_retention:
 zfs_arc_max_defaults:
   hardware: 10G
   vmware: 512M
+  qemu: 512M
 
 zfs_scrub_interval_days: 30
 
