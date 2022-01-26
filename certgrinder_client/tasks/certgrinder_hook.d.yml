@@ -1,4 +1,10 @@
 ---
+- name: "Create certgrinder post-renew-hooks.d directory"
+  file:
+    path: "{{ certgrinder_home }}/hooks.d"
+    state: "directory"
+    mode: "0755"
+
 - name: "Create Certgrinder post-renew-hooks-dir file"
   copy:
     content: "{{ hookfile }}"
