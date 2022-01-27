@@ -16,7 +16,6 @@ jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
 jail_{{ jailname }}_parameters="{% for k,v in jail.parameters.items() %}{{ k }}={{ v }} {% endfor %}"
 
 {% endif %}
-
 # epair interface(s)
 jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{{ interface.epair }}b {% endfor %}"
 
@@ -36,10 +35,10 @@ jail_{{ jailname }}_exec_prestart{{ x + 3 }}="ifconfig {{ interface.bridge }} ad
 {% set ns.start = 0 %}
 {% for interface in jail.interfaces %}
 {% set ifloop = loop %}
-# jail{{ loop.index0 }}
-jail_{{ jailname }}_exec_start{{ ns.start }}="/sbin/ifconfig epair{{ interface.epair }}b name jail{{ ifloop.index0 }}"
+# interface jail{{ loop.index0 }}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig epair{{ interface.epair }}b name jail{{ ifloop.index0 }}"
 {% if interface.ifconfig_inet is defined %}
-# ipv4
+# ipv4 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet is string %}
 {% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}" # ipv4 1 for interface jail{{ ifloop.index0 }}
@@ -51,7 +50,7 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {
 {% endif %}
 {% endif %}
 {% if interface.ifconfig_inet6 is defined %}
-# ipv6
+# ipv6 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet6 is string %}
 {% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}" # ipv6 1 for interface jail{{ ifloop.index0 }}
