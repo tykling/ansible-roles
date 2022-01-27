@@ -24,7 +24,7 @@ jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{
 {% for interface in jail.interfaces %}
 jail_{{ jailname }}_exec_prestart{{ x }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true"
 jail_{{ jailname }}_exec_prestart{{ x + 1 }}="ifconfig epair{{ interface.epair }} create up"
-jail_{{ jailname }}_exec_prestart{{ x + 2 }}="ifconfig epair{{ interface.epair }}a up"
+jail_{{ jailname }}_exec_prestart{{ x + 2 }}="ifconfig epair{{ interface.epair }}a up description '{{ jail.hostname }} interface jail{{ loop.index0 }}'"
 jail_{{ jailname }}_exec_prestart{{ x + 3 }}="ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
 {% set x = x + 4 %}
 {% endfor %}
