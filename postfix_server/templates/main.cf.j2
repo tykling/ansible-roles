@@ -79,8 +79,8 @@ smtpd_milters = unix:opendkim/opendkim.sock
 non_smtpd_milters = $smtpd_milters
 {% endif %}
 
-# postfix 3 compat
-compatibility_level=2
+# postfix 3.6 compat
+compatibility_level=3.6
 
 # mail size limit 100 megabytes
 mailbox_size_limit=102400000
