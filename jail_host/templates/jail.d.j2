@@ -41,11 +41,11 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig epair{{ interface.epair }
 # ipv4 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet is string %}
 {% set ns.start = ns.start + 1 %}
-jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}" # ipv4 1 for interface jail{{ ifloop.index0 }}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}"
 {% else %}
 {% for ifconfig in interface.ifconfig_inet %}
 {% set ns.start = ns.start + 1 %}
-jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ ifconfig }}" # ipv4 {{ loop.index1 }} for interface jail{{ ifloop.index0 }}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ ifconfig }}"
 {% endfor %}
 {% endif %}
 {% endif %}
@@ -53,11 +53,11 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {
 # ipv6 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet6 is string %}
 {% set ns.start = ns.start + 1 %}
-jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}" # ipv6 1 for interface jail{{ ifloop.index0 }}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}"
 {% else %}
 {% for ifconfig in interface.ifconfig_inet6 %}
 {% set ns.start = ns.start + 1 %}
-jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}" # ipv6 {{ loop.index1 }} for interface jail{{ ifloop.index0 }}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}"
 {% endfor %}
 {% endif %}
 {% endif %}
