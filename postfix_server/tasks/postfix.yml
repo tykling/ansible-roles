@@ -157,3 +157,19 @@
       # Remove X-Mailer and User-Agent
       /^X-Mailer:/ IGNORE
       /^User-Agent:/ IGNORE
+
+- name: "enable Postfix in mailer.conf"
+  copy:
+    dest: "/usr/local/etc/mail/mailer.conf"
+    mode: "0640"
+    owner: "root"
+    group: "wheel"
+    content: |
+      # Execute the Postfix sendmail program, named /usr/local/sbin/sendmail
+      sendmail        /usr/local/sbin/sendmail
+      send-mail       /usr/local/sbin/sendmail
+      mailq           /usr/local/sbin/sendmail
+      newaliases      /usr/local/sbin/sendmail
+
+- name: "Run certgrinder"
+  command: "/usr/bin/su -m {{ certgrinder_user }} -c '/usr/local/bin/certgrinder --config-file {{ certgrinder_home }}/certgrinder.conf --now periodic'"
