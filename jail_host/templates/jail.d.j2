@@ -32,43 +32,47 @@ jail_{{ jailname }}_exec_prestart{{ x + 3 }}="ifconfig {{ interface.bridge }} ad
 
 ### start section (runs inside jail)
 ### not using emN because https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=260973
-{% set x = 0 %}
+{% set ns = namespace(start=0) %}
+{% set ns.start = 0 %}
 {% for interface in jail.interfaces %}
 {% set ifloop = loop %}
 # jail{{ loop.index0 }}
-jail_{{ jailname }}_exec_start{{ x }}="/sbin/ifconfig epair{{ interface.epair }}b name jail{{ ifloop.index0 }}"
+jail_{{ jailname }}_exec_start{{ ns.start }}="/sbin/ifconfig epair{{ interface.epair }}b name jail{{ ifloop.index0 }}"
 {% if interface.ifconfig_inet is defined %}
 # ipv4
 {% if interface.ifconfig_inet is string %}
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_start{{ x }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}"
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}" # ipv4 1 for interface jail{{ ifloop.index0 }}
 {% else %}
 {% for ifconfig in interface.ifconfig_inet %}
-jail_{{ jailname }}_exec_start{{ x }}="ifconfig jail{{ ifloop.index0 }} {{ ifconfig }}" # ipv4 {{ loop.index1 }} for jail{{ ifloop.index0 }}
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ ifconfig }}" # ipv4 {{ loop.index1 }} for interface jail{{ ifloop.index0 }}
 {% endfor %}
 {% endif %}
 {% endif %}
 {% if interface.ifconfig_inet6 is defined %}
 # ipv6
 {% if interface.ifconfig_inet6 is string %}
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_start{{ x }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}"
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}" # ipv6 1 for interface jail{{ ifloop.index0 }}
 {% else %}
 {% for ifconfig in interface.ifconfig_inet6 %}
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_start{{ x }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}" # ipv6 {{ loop.index1 }} for jail{{ ifloop.index0 }}
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}" # ipv6 {{ loop.index1 }} for interface jail{{ ifloop.index0 }}
 {% endfor %}
 {% endif %}
 {% endif %}
+
 {% endfor %}
 
 # static routes
 {% for route in jail.routes %}
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_start{{ x }}="route add {{ route }}"
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="route add {{ route }}"
 {% endfor %}
 
-# poststop section (runs on host)
+
+### poststop section (runs on host)
 {% for interface in jail.interfaces %}
 jail_{{ jailname }}_exec_poststop{{ loop.index0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a && ifconfig epair{{ interface.epair }}a destroy"
 {% endfor %}
