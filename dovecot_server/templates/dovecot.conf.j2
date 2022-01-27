@@ -62,7 +62,7 @@ auth_mechanisms = plain login
 # SASL listener for postfix
 service auth {
   inet_listener auth {
-    address = 127.0.0.1,::1
+    address = *,[::]
     port = 12
   }
 }
@@ -70,7 +70,7 @@ service auth {
 # LMTP listener for postfix
 service lmtp {
   inet_listener lmtp {
-    address = 127.0.0.1,::1
+    address = *,[::]
     port = 24
   }
   vsz_limit = 2048 M
