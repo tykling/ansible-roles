@@ -13,11 +13,9 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 {% set interface = item.interface %}
 {% endif %}
 
-ifconfig_{{ interface }}="description '{{ item.description }}'"
-
 {% if item.lacp is defined %}
 # configure lagg (LACP) on the interface
-ifconfig_{{ interface }}="$ifconfig_{{ interface }} laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %}"
+ifconfig_{{ interface }}="$ifconfig_{{ interface }} laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %} description '{{ item.description }}'"
 # UP the individual lagg members
 {% for port in item.lacp.laggports %}
 ifconfig_{{ port }}="-vlanhwtso -tso -lro UP"
@@ -27,11 +25,11 @@ ifconfig_{{ port }}="-vlanhwtso -tso -lro UP"
 {% if item.ips is defined %}
 {% if item.ips[inventory_hostname_short].v4ip is defined %}
 # configure ipv4 on the interface
-ifconfig_{{ interface }}="$ifconfig_{{ interface }} inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }} -vlanhwtso -tso -lro"
+ifconfig_{{ interface }}="inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ item.v4net.split("/")[1] }} description '{{ item.description }}' -vlanhwtso -tso -lro"
 {% endif %}
 {% if item.ips[inventory_hostname_short].v6ip is defined %}
 # configure ipv6 on the interface
-ifconfig_{{ interface }}_ipv6="inet6 {{ item.ips[inventory_hostname_short].v6ip }}/{{ item.v6net.split("/")[1] }} -vlanhwtso -tso -lro auto_linklocal"
+ifconfig_{{ interface }}_ipv6="inet6 {{ item.ips[inventory_hostname_short].v6ip }}/{{ item.v6net.split("/")[1] }} description '{{ item.description }}' -vlanhwtso -tso -lro auto_linklocal"
 {% endif %}
 
 {% if 'carp' in item.ips %}
