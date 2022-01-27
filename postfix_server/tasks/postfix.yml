@@ -158,6 +158,12 @@
       /^X-Mailer:/ IGNORE
       /^User-Agent:/ IGNORE
 
+- name: "Create /usr/local/etc/mail directory"
+  file:
+    path: "/usr/local/etc/mail"
+    state: "directory"
+    mode: "0755"
+
 - name: "enable Postfix in mailer.conf"
   copy:
     dest: "/usr/local/etc/mail/mailer.conf"
@@ -170,6 +176,3 @@
       send-mail       /usr/local/sbin/sendmail
       mailq           /usr/local/sbin/sendmail
       newaliases      /usr/local/sbin/sendmail
-
-- name: "Run certgrinder"
-  command: "/usr/bin/su -m {{ certgrinder_user }} -c '/usr/local/bin/certgrinder --config-file {{ certgrinder_home }}/certgrinder.conf --now periodic'"
