@@ -74,10 +74,12 @@ service lmtp {
     port = 24
   }
   vsz_limit = 2048 M
+  client_limit = 1
 }
 
 service imap {
   vsz_limit = 2048 M
+  client_limit = 1
 }
 
 # disable plaintext imap port
@@ -85,8 +87,13 @@ service imap-login {
   inet_listener imap {
     port = 0
   }
-  inet_listener imaps {
-    port = 993
+}
+
+# enable prometheus exporter
+service stats {
+  inet_listener http {
+    port = 9900
+    address = 127.0.0.1,[::1]
   }
 }
 
