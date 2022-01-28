@@ -111,7 +111,9 @@ http {
             allow {{ ip }};
 {% endfor %}
 {% for ip in ansible_facts.all_ipv6_addresses %}
+{% if not ip.startswith('fe80') %}
             allow {{ ip }};
+{% endif %}
 {% endfor %}
             deny all;
         }
