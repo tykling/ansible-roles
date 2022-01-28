@@ -1,13 +1,13 @@
 ---
 - name: "Install php"
   pkgng:
-    name: "php74"
+    name: "php80"
     state: "present"
 
 - name: "Enable php-fpm"
   service:
     name: "php-fpm"
-    enabled: yes
+    enabled: True
   notify: "reload php-fpm"
 
 - name: "Copy php-fpm.conf"
@@ -24,4 +24,3 @@
     group: "www"
     mode: "0700"
   notify: "reload php-fpm"
-
