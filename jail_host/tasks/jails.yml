@@ -21,10 +21,10 @@
   when: ezjail_jailstorage_result.rc == 1
 
 - name: "check if jailstorage zfs filesystems exists"
-  shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
+  shell: "/sbin/zfs list {{ item.1 }}"
   register: ezjail_jailstorage_results
   ignore_errors: True
-  loop: "{{ jails | subelements('zfs_datasets') }}"
+  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True) }}"
 
 - name: "Create jailstorage zfs filesystems as needed"
   command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.0.1 }}"
