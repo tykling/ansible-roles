@@ -24,10 +24,10 @@
     $config['preview_pane'] = true;
     $config['mime_param_folding'] = 0;
     $config['mime_types'] = '/usr/local/www/roundcube/config/mime.types';
-{% if roundcube_tls_peer_name is defined %}
+{% if roundcube_imap_tls_peer_name is defined %}
     $config['imap_conn_options'] = array(
       'ssl' => array(
-        'peer_name' => '{{ roundcube_tls_peer_name }}',
+        'peer_name' => '{{ roundcube_imap_tls_peer_name }}',
       ),
     );
 {% endif %}
