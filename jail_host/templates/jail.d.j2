@@ -1,3 +1,4 @@
+{% set ns = namespace(prestart=0, created=0, start=0) %}
 # add this jail to the jail list
 jail_list="$jail_list {{ jailname }}"
 
@@ -19,30 +20,29 @@ jail_{{ jailname }}_parameters="{% for k,v in jail.parameters.items() %}{{ k }}=
 # epair interface(s)
 jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{{ interface.epair }}b {% endfor %}"
 
-### prestart section (runs on host)
-{% set x = 0 %}
+### prestart section (runs on host before creation)
 # create epair interfaces
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_prestart{{ x }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true"
-jail_{{ jailname }}_exec_prestart{{ x + 1 }}="ifconfig epair{{ interface.epair }} create up"
-jail_{{ jailname }}_exec_prestart{{ x + 2 }}="ifconfig epair{{ interface.epair }}a up description '{{ jail.hostname }} interface jail{{ loop.index0 }}'"
-jail_{{ jailname }}_exec_prestart{{ x + 3 }}="ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
-{% set x = x + 4 %}
+jail_{{ jailname }}_exec_prestart{{ ns.prestart }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true"
+jail_{{ jailname }}_exec_prestart{{ ns.prestart + 1 }}="ifconfig epair{{ interface.epair }} create up"
+jail_{{ jailname }}_exec_prestart{{ ns.prestart + 2 }}="ifconfig epair{{ interface.epair }}a up description '{{ jail.hostname }} interface jail{{ loop.index0 }}'"
+jail_{{ jailname }}_exec_prestart{{ ns.prestart + 3 }}="ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
+{% set ns.prestart = ns.prestart + 4 %}
 {% endfor %}
+
+### created section (runs on host after creation)
 {% if jail.zfs_datasets is defined %}
 # configure zfs datasets
 {% for zfs in jail.zfs_datasets %}
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_prestart{{ x }}="zfs set jailed=on {{ zfs }}"
-{% set x = x + 1 %}
-jail_{{ jailname }}_exec_prestart{{ x }}="zfs jail {{ jailname }} {{ zfs }}"
+jail_{{ jailname }}_exec_created{{ ns.created }}="zfs set jailed=on {{ zfs }}"
+jail_{{ jailname }}_exec_created{{ ns.created + 1 }}="zfs jail {{ jailname }} {{ zfs }}"
+{% set ns.created = ns.created + 2 %}
 {% endfor %}
 {% endif %}
 
+
 ### start section (runs inside jail)
 ### not using emN because https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=260973
-{% set ns = namespace(start=0) %}
-{% set ns.start = 0 %}
 {% for interface in jail.interfaces %}
 {% set ifloop = loop %}
 # interface jail{{ loop.index0 }}
