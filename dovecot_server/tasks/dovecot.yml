@@ -14,3 +14,14 @@
     hookfile: |
       #!/bin/sh
       /usr/sbin/service dovecot reload
+
+- name: "Create exporter_exporter.d config file for dovecot"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "dovecot.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9900
