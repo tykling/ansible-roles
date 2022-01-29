@@ -18,11 +18,11 @@
   loop: "{{ jails | subelements('zfs_datasets') }}"
 
 - name: "Create jailstorage zfs filesystems"
-  command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.1 }}"
+  command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.0.1 }}"
   args:
     creates: "{{ ezjail_root }}/{{ item.hostname }}"
   loop: "{{ jails | subelements('zfs_datasets', skip_missing=True)|zip(ezjail_jailstorage_results)|list }}"
-  when: item.2.results.rc == 1
+  when: item.1 == "failed"
 
 - name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
   template:
