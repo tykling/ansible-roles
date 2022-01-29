@@ -19,8 +19,6 @@
 
 - name: "Create jailstorage zfs filesystems"
   command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.0.1 }}"
-  args:
-    creates: "{{ ezjail_root }}/{{ item.hostname }}"
   loop: "{{ jails | subelements('zfs_datasets', skip_missing=True)|zip(ezjail_jailstorage_results)|list }}"
   when: item.1 == "failed"
 
