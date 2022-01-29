@@ -21,6 +21,7 @@ jail_{{ jailname }}_vnet_interface="{% for interface in jail.interfaces %}epair{
 
 ### prestart section (runs on host)
 {% set x = 0 %}
+# create epair interfaces
 {% for interface in jail.interfaces %}
 jail_{{ jailname }}_exec_prestart{{ x }}="ifconfig epair{{ interface.epair }}a destroy 2>/dev/null || true"
 jail_{{ jailname }}_exec_prestart{{ x + 1 }}="ifconfig epair{{ interface.epair }} create up"
@@ -28,6 +29,15 @@ jail_{{ jailname }}_exec_prestart{{ x + 2 }}="ifconfig epair{{ interface.epair }
 jail_{{ jailname }}_exec_prestart{{ x + 3 }}="ifconfig {{ interface.bridge }} addm epair{{ interface.epair }}a up"
 {% set x = x + 4 %}
 {% endfor %}
+{% if jail.zfs_datasets is defined %}
+# configure zfs datasets
+{% for zfs in jail.zfs_datasets %}
+{% set x = x + 1 %}
+jail_{{ jailname }}_exec_prestart{{ x }}="zfs set jailed=on {{ zfs }}"
+{% set x = x + 1 %}
+jail_{{ jailname }}_exec_prestart{{ x }}="zfs jail {{ jailname }} {{ zfs }}"
+{% endfor %}
+{% endif %}
 
 ### start section (runs inside jail)
 ### not using emN because https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=260973
@@ -60,6 +70,10 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} i
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}"
 {% endfor %}
 {% endif %}
+{% endif %}
+{% if jail.zfs_datasets is defined %}
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="zfs mount -a "
 {% endif %}
 
 {% endfor %}
