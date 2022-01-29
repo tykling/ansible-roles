@@ -12,6 +12,16 @@ jail_{{ jailname }}_devfs_enable="YES"
 jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
 
 {% endif %}
+{% if jail.enforce_statfs is defined %}
+# statfs
+jail_{{ jailname }}_enforce_statfs="{{ jail.enforce_statfs }}"
+
+{% endif %}
+{% if jail.allow_mount_zfs is defined %}
+# allow zfs
+jail_{{ jailname }}_allow_mount_zfs="{{ jail.allow_mount_zfs}}"
+
+{% endif %}
 {% if jail.parameters is defined %}
 # custom jail parameters
 jail_{{ jailname }}_parameters="{% for k,v in jail.parameters.items() %}{{ k }}={{ v }} {% endfor %}"
