@@ -165,12 +165,6 @@
   roles:
     - "metabase_server"
 
-- name: "configure charybdis ircd servers"
-  hosts: "charybdis_servers"
-  become: True
-  roles:
-    - "charybdis_server"
-
 - name: "configure PostgreSQL servers"
   hosts: "postgresql_servers"
   become: True

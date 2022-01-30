@@ -1,5 +1,0 @@
----
-- include_tasks: "charybdis.yml"
-- include_tasks: "supervisord.yml"
-
-
