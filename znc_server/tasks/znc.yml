@@ -1,6 +1,15 @@
 ---
-- name: Install znc
+- name: "Install znc"
   pkgng:
     name: "znc"
-    state: present
+    state: "present"
 
+- name: "Enable znc"
+  sysrc:
+    name: "znc_enable"
+    value: "YES"
+
+- name: "Start znc"
+  service:
+    name: "znc"
+    state: "started"
