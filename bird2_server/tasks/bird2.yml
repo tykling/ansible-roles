@@ -66,6 +66,7 @@
                       echo "#interface \"$interface\";" >> "$TMP_FILE"
               fi
       done
+      echo "interface \"-*\";" >> "$TMP_FILE"
       diff -u "$INTERFACE_FILE" "$TMP_FILE"
       if [ $? -eq 1 ]; then
           mv "$TMP_FILE" "$INTERFACE_FILE"
