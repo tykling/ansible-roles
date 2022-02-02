@@ -35,7 +35,7 @@
     hour: "3"
     minute: "0"
     job: "/usr/local/bin/download_geoip_database.sh"
-    cron_file: "/etc/crontab"
+    cron_file: "dowload_geoip"
     user: "root"
 
 - name: "Install script for running goaccess"
@@ -52,5 +52,5 @@
     hour: "1"
     minute: "0"
     job: "/usr/local/bin/run-goaccess.sh"
-    cron_file: "/etc/crontab"
+    cron_file: "run_goaccess"
     user: "root"

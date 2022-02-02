@@ -5,6 +5,6 @@
     hour: "4"
     minute: "30"
     job: "/usr/local/etc/ansible/roles/library/check_stuff.sh {{ ansible_admin_email }}"
-    cron_file: "/etc/crontab"
+    cron_file: "ansible_check_stuff"
     user: "ansible"
 

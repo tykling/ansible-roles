@@ -88,6 +88,6 @@
     minute: "{{ 59 | random }}"
     hour: "{{ 23 | random }}"
     job: "{{ django_virtualenv_path }}/bin/python -u {{ django_root }}/manage.py clearsessions"
-    cron_file: "/etc/crontab"
+    cron_file: "clean_django_sessions"
     user: "nobody"
 
