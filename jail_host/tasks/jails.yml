@@ -5,6 +5,11 @@
     state: "directory"
     mode: "0755"
 
+- name: "Enable parallel starting of jails"
+  sysrc:
+    name: "jail_parallel_start"
+    value: "YES"
+
 - name: "Create jails filesystems with ezjail"
   command: "/usr/local/bin/ezjail-admin create {{ item.hostname }} 127.0.0.1"
   args:
