@@ -5,4 +5,3 @@
 - include_tasks: "user.yml"
   tags: "sshkeys"
 - include_tasks: "certgrinderd.yml"
-

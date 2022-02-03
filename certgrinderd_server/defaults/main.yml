@@ -1,11 +1,9 @@
 ---
-letsencrypt_webroot: "/usr/local/www/letsencrypt-auto"
+certgrinderd_acme_webroot: "/usr/local/www/letsencrypt-auto"
 certgrinderd_user: "certgrinderd"
 certgrinderd_home: "/usr/local/etc/certgrinderd"
 certgrinderd_auth_hook: "/usr/local/lib/python3.7/site-packages/certgrinderd/manual-auth-hook.sh"
-certgrinderd_acme_webroot: "/usr/local/www/letsencrypt-auto"
 certgrinderd_cleanup_hook: "/usr/local/lib/python3.7/site-packages/certgrinderd/manual-cleanup-hook.sh"
 certgrinderd_syslog_socket: "/var/run/log"
 certgrinderd_syslog_facility: "LOG_LOCAL6"
-certgrinderd_manage_letsencrypt_account: False
 certgrinderd_onion_service: True

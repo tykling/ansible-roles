@@ -1,50 +1,8 @@
 ---
-- name: "Install letsencrypt client"
-  pkgng:
-    name: "py37-certbot"
-    state: "present"
-
-- name: "Create letsencrypt account config directory"
-  file:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    path: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}"
-    state: "directory"
-  when: certgrinderd_manage_letsencrypt_account
-
-- name: "Create letsencrypt meta.json"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    content: "{{ letsencrypt_meta_json }}"
-    dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/meta.json"
-  when: certgrinderd_manage_letsencrypt_account
-
-- name: "Create letsencrypt private_key.json"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    content: "{{ letsencrypt_private_key_json }}"
-    dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/private_key.json"
-  when: certgrinderd_manage_letsencrypt_account
-
-- name: "Create letsencrypt regr.json"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "600"
-    content: "{{ letsencrypt_regr_json }}"
-    dest: "/usr/local/etc/letsencrypt/accounts/{{ letsencrypt_server }}/directory/{{ letsencrypt_account_hash }}/regr.json"
-  when: certgrinderd_manage_letsencrypt_account
-
-- name: "Create letsencrypt webroot folder"
+- name: "Create letsencrypt HTTP-01 challenge webroot folder"
   file:
     owner: "root"
     group: "wheel"
     mode: "655"
-    path: "{{ letsencrypt_webroot }}"
+    path: "{{ certgrinderd_acme_webroot }}"
     state: "directory"
-
