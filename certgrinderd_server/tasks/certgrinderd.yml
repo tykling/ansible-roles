@@ -1,33 +1,13 @@
 ---
-- name: "Install virtualenv"
+- name: "Install certgrinderd"
   pkgng:
-    name: "py37-virtualenv"
+    name: "py37-certgrinderd"
     state: "present"
-
-- name: "Install pip"
-  pkgng:
-    name: "py37-pip"
-    state: "present"
-
-- name: "Create new virtualenv and install cryptography. Use CFLAGS and LDFLAGS env vars to force pip to use /usr/local/ ports OpenSSL include"
-  pip:
-    virtualenv_python: "python"
-    name: "cryptography"
-    virtualenv: "/usr/home/{{ certgrinderd_user }}/virtualenv"
-    extra_args: '--global-option=build_ext'
-  environment:
-    CFLAGS: "-I/usr/local/include"
-    LDFLAGS: "-L/usr/local/include"
-
-- name: "Install certgrinderd with pip"
-  pip:
-    name: "certgrinderd"
-    virtualenv: "/usr/home/{{ certgrinderd_user }}/virtualenv"
 
 - name: "Create certgrinderd.conf config file"
   template:
     src: "certgrinderd.conf.j2"
-    dest: "/usr/home/{{ certgrinderd_user }}/certgrinderd.conf"
+    dest: "{{ certgrinderd_home }}/certgrinderd.conf"
     owner: "{{ certgrinderd_user }}"
     mode: "0644"
 
@@ -36,6 +16,6 @@
     dest: "/etc/ssh/sshd_config"
     regexp: "^PermitUserEnvironment="
     line: "PermitUserEnvironment=CERTGRINDERD_DOMAINSETS"
-    state: present
+    state: "present"
   notify:
     - "restart sshd"
