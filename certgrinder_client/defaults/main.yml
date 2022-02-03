@@ -1,6 +1,6 @@
 ---
 certgrinder_ssh_privkey: "{{ certgrinder_home }}/.ssh/id_ed25519"
-certgrinder_certgrinderd_command: "ssh -i {{ certgrinder_ssh_privkey }} certgrinderd@{{ certgrinder_ssh_server }} -T -- --config-file /home/certgrinderd/certgrinderd.conf"
+certgrinder_certgrinderd_command: "ssh -i {{ certgrinder_ssh_privkey }} certgrinderd@{{ certgrinder_ssh_server }} -T -- --config-file /usr/local/etc/certgrinderd/certgrinderd.conf"
 certgrinder_syslog_socket: "/var/run/log"
 certgrinder_rename_legacy: True
 certgrinder_pip_install: True
