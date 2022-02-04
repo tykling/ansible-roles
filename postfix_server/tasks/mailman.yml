@@ -1,14 +1,4 @@
 ---
-- name: "Install mailman"
-  pkgng:
-    name: "mailman"
-    state: "present"
-
-- name: "Enable mailman"
-  service:
-    name: "mailman"
-    enabled: yes
-
 - name: "Install postfix-to-mailman.py"
   copy:
     owner: "mailman"
