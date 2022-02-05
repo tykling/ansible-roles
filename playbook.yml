@@ -58,15 +58,15 @@
   hosts: "all"
   become: True
   roles:
-    - "freebsd_base"
-  when: ansible_distribution == "FreeBSD"
+    - role: "freebsd_base"
+      when: ansible_distribution == "FreeBSD"
 
 - name: "configure basic stuff on all debian hosts"
   hosts: "all"
   become: True
   roles:
-    - "debian_base"
-  when: ansible_distribution == "Debian"
+    - role: "debian_base"
+      when: ansible_distribution == "Debian"
 
 - name: "configure freebsd hosts (physical servers)"
   hosts: "freebsd_hosts"
