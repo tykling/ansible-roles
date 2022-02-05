@@ -7,14 +7,9 @@
   gather_facts: False
   tasks:
     - name: "Install Python (FreeBSD)"
-      raw: "pkg install -y python"
-      args:
-        creates: "/usr/local/bin/python"
-      when: ansible_distribution == "FreeBSD"
+      raw: "test -f /etc/freebsd-update.conf -a ! -f /usr/local/bin/python && pkg install -y python"
     - name: "Install Python (Debian)"
-      raw: "apt install -y python-is-python3"
-      args:
-        creates: "/usr/bin/python"
+      raw: "test -f /etc/debian_version -a ! -f /usr/local/bin/python && apt install -y python-is-python3"
       when: ansible_distribution == "Debian"
 
 
