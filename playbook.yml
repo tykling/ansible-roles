@@ -7,10 +7,13 @@
   gather_facts: False
   tasks:
     - name: "Install Python (FreeBSD)"
-      raw: "test -f /etc/freebsd-update.conf -a ! -f /usr/local/bin/python && pkg install -y python"
+      raw: "test -f /usr/local/bin/python || test -f /etc/freebsd-update.conf && pkg install -y python"
+      ignore_errors: True
+      changed_when: False
     - name: "Install Python (Debian)"
-      raw: "test -f /etc/debian_version -a ! -f /usr/local/bin/python && apt install -y python-is-python3"
-      when: ansible_distribution == "Debian"
+      raw: "test -f /usr/bin/python || test -f /etc/debian_version && apt install -y python-is-python3"
+      ignore_errors: True
+      changed_when: False
 
 
 ##############################################################################
