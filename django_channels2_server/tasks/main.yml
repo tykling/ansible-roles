@@ -10,6 +10,7 @@
   tags:
     - "codedeploy"
     - "djangosettings"
+- include_tasks: "custom.yml"
 - include_tasks: "extra-files.yml"
   tags:
     - "codedeploy"

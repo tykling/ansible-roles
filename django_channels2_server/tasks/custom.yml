@@ -1,0 +1,12 @@
+---
+- name: "Check if fontconfig is installed"
+  stat:
+    path: "/usr/local/etc/fonts/fonts.conf"
+  register: result
+
+- name: "Configure fontconfig cache writable by www in /tmp/"
+  lineinfile:
+    dest: "/usr/local/etc/fonts/local.conf"
+    line: "<cachedir>/tmp/fontconfig</cachedir>"
+    create: True
+  when: result.stat.exists
