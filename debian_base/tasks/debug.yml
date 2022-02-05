@@ -1,0 +1,6 @@
+---
+- name: "Display all variables/facts known for the host"
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 3
+

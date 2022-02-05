@@ -54,11 +54,19 @@
 ##############################################################################
 ### base and host roles
 
-- name: "configure basic freebsd stuff on all hosts (yes this means only freebsd for now)"
+- name: "configure basic stuff on all freebsd hosts"
   hosts: "all"
   become: True
   roles:
     - "freebsd_base"
+  when: ansible_distribution == "FreeBSD"
+
+- name: "configure basic stuff on all debian hosts"
+  hosts: "all"
+  become: True
+  roles:
+    - "debian_base"
+  when: ansible_distribution == "Debian"
 
 - name: "configure freebsd hosts (physical servers)"
   hosts: "freebsd_hosts"
