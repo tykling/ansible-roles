@@ -1,8 +1,8 @@
 ---
-- name: "Get source code for exporter_exporter"
+- name: "Check out extra_git_repos"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.path }}"
     force: yes
-    version: "{{ item.branch|default('main') }}"
+    version: "{{ item.version|default('main') }}"
   loop: "{{ extra_git_repos }}"
