@@ -39,3 +39,4 @@
   tags:
     - "smokeping"
   when: prometheus_smokeping_targets is defined
+- include_tasks: "extra_git_repos.yml"
