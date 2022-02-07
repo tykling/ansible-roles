@@ -4,6 +4,3 @@
 - include_tasks: "pip-packages.yml"
   tags:
     - "pip"
-- include_tasks: "cron.d.yml"
-- include_tasks: "supervisord.yml"
-
