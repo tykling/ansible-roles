@@ -1,4 +1,6 @@
 ---
+uwsgi_root: "{{ django_root }}"
+uwsgi_module: "{{ django_mainapp }}.wsgi:application"
 uwsgi_configpath: "/usr/local/etc/uwsgi.ini"
 uwsgi_socketdir: "/var/run/uwsgi"
 uwsgi_pidfile: "{{ uwsgi_socketdir }}/uwsgi.pid"

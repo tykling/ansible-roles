@@ -1,6 +1,6 @@
 [uwsgi]
-chdir={{ django_root }}
-module={{ django_mainapp }}.wsgi:application
+chdir={{ uwsgi_root }}
+module={{ uwsgi_module }}
 pidfile={{ uwsgi_pidfile }}
 socket={{ uwsgi_socketpath }}
 http=127.0.0.1:8080
