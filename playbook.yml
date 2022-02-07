@@ -72,7 +72,7 @@
     - role: "debian_base"
       when: ansible_distribution == "Debian"
 
-- name: "configure freebsd hosts (physical servers)"
+- name: "configure freebsd hosts (physical or virtual servers)"
   hosts: "freebsd_hosts"
   become: True
   roles:
@@ -452,3 +452,9 @@
   become: True
   roles:
     - "bird2_server"
+
+- name: "configure flask servers"
+  hosts: "flask_servers"
+  become: True
+  roles:
+    - "flask_server"

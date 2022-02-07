@@ -1,0 +1,9 @@
+---
+flask_github_branch: "master"
+flask_git_deploy_key_needed: no
+flask_github_keyfile: "/root/.ssh/id_ed25519"
+flask_virtualenv_path: "/usr/local/virtualenv"
+flask_checkout_path: "/usr/local/www/flask"
+flask_root: "{{ flask_checkout_path }}/src"
+flask_pip_requirements_path: "{{ flask_root }}/requirements.txt"
+flask_python_path: "/usr/local/bin/python3.7"

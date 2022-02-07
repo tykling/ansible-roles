@@ -1,0 +1,33 @@
+---
+- name: "Install pip"
+  pkgng:
+    name: "py37-pip"
+    state: "present"
+
+- name: "Install setuptools"
+  pkgng:
+    name: "py37-setuptools"
+    state: "present"
+
+- name: "Install virtualenv"
+  pkgng:
+    name: "py37-virtualenv"
+    state: "present"
+
+- name: "Create virtualenv and install needed pip modules"
+  pip:
+    requirements: "{{ flask_pip_requirements_path }}"
+    virtualenv: "{{ flask_virtualenv_path }}"
+    virtualenv_python: "{{ flask_python_path }}"
+  environment:
+    LANG: "C.UTF-8"
+  tags:
+    - "pip"
+
+- name: "Install uwsgi inside the virtualenv"
+  pip:
+    name: "uwsgi"
+    virtualenv: "{{ flask_virtualenv_path }}"
+    virtualenv_python: "{{ flask_python_path }}"
+  tags:
+    - "pip"

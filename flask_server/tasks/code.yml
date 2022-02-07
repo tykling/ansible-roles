@@ -1,0 +1,21 @@
+---
+- name: "Install Git deploy key if needed"
+  user:
+    name: "root"
+    generate_ssh_key: yes
+    ssh_key_type: "ed25519"
+    ssh_key_file: "{{ flask_github_keyfile }}"
+  when: flask_git_deploy_key_needed | default(no)
+
+- name: "Get code from git"
+  git:
+    repo: "{{ flask_github_repo_url }}"
+    dest: "{{ flask_checkout_path }}"
+    force: yes
+    version: "{{ flask_github_branch }}"
+    key_file: "{{ flask_github_keyfile | default(None) }}"
+    accept_hostkey: yes
+  tags:
+    - codedeploy
+  notify:
+    - "touch-chain-reload uwsgi"
