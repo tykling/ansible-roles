@@ -1,4 +1,25 @@
 ---
-- include_tasks: "powerdns_auth.yml"
-- include_tasks: "supervisord.yml"
-- include_tasks: "syslog.yml"
+- include_tasks:
+    file: "powerdns_auth.yml"
+    apply:
+      tags:
+        - "powerdns_auth"
+  tags:
+    - "powerdns_auth"
+
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "powerdns_auth"
+  tags:
+    - "powerdns_auth"
+
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "powerdns_auth"
+        - "openbgpd"
+  tags:
+    - "powerdns_auth"
