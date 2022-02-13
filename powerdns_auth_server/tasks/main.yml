@@ -1,4 +1,4 @@
 ---
-- include_tasks: "powerdns.yml"
+- include_tasks: "powerdns_auth.yml"
 - include_tasks: "supervisord.yml"
 - include_tasks: "syslog.yml"
