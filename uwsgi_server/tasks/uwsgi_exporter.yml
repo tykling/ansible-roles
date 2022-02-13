@@ -22,6 +22,7 @@
   copy:
    src: "/root/go/bin/uwsgi_exporter"
    dest: "/usr/local/bin/uwsgi_exporter"
+   mode: "0755"
    remote_src: yes
   when:
     - gitresult.changed
