@@ -6,6 +6,6 @@
 
 - name: "Install pdns.conf"
   template:
-    source: "pdns.conf.j2"
+    src: "pdns.conf.j2"
     dest: "/usr/local/etc/pdns/pdns.conf"
     mode: "0600"
