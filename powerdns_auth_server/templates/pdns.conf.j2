@@ -1,0 +1,9 @@
+{% if powerdns_auth_backend == "gpgsql" %}
+launch=gpgsql
+gpgsql-host={{ postgres_host }}
+gpgsql-port=5432
+gpgsql-dbname={{ postgres_dbname }}
+gpgsql-user={{ postgres_username }}
+gpgsql-password={{ postgres_password }}
+{% endif %}
+logging-facility=0

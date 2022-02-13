@@ -8,5 +8,5 @@
     supervisord_programs:
       - name: "powerdns_auth"
         comment: "run powerdns-auth"
-        command: "/usr/local/sbin/pdns"
+        command: "/usr/local/sbin/pdns_server"
         user: "root"

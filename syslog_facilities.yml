@@ -6,6 +6,7 @@
   - bind
   - postgres
   - powerdns-recursor
+  - powerdns-auth
   - dnsdist
 
 - local1:
