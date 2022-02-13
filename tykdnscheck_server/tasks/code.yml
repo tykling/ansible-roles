@@ -1,8 +1,0 @@
----
-- name: "Get code from git"
-  git:
-    repo: "{{ tykdnscheck_github_repo_url }}"
-    dest: "{{ tykdnscheck_checkout_path }}"
-    force: yes
-    version: "{{ tykdnscheck_github_branch }}"
-

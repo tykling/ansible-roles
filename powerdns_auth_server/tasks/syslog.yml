@@ -1,0 +1,20 @@
+---
+- name: "add syslog.d config for powerdns auth"
+  template:
+    src: "powerdns_auth_syslogd.conf.j2"
+    dest: "/usr/local/etc/syslog.d/powerdns_auth.conf"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure powerdns auth logfile exists"
+  copy:
+    dest: "{{ powerdns_auth_logfile_path }}"
+    content: ""
+    force: "no"
+  notify:
+    - "restart syslogd"
+
+- name: "Make sure powerdns-auth newsyslog config file exists"
+  template:
+    src: "powerdns_auth_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/powerdns_auth"

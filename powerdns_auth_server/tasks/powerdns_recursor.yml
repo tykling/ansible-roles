@@ -1,0 +1,5 @@
+---
+- name: "Install powerdns auth"
+  pkgng:
+    name: "powerdns"
+    state: "present"

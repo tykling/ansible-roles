@@ -213,12 +213,6 @@
   roles:
     - "zabbix_proxy_server"
 
-- name: "configure tykdnscheck servers"
-  hosts: "tykdnscheck_servers"
-  become: True
-  roles:
-    - "tykdnscheck_server"
-
 - name: "configure roundcube servers"
   hosts: "roundcube_servers"
   become: True
@@ -392,6 +386,12 @@
   become: True
   roles:
     - "powerdns_recursor_server"
+
+- name: "configure powerdns auth servers"
+  hosts: "powerdns_auth_servers"
+  become: True
+  roles:
+    - "powerdns_auth_server"
 
 - name: "configure dnsdist servers"
   hosts: "dnsdist_servers"
