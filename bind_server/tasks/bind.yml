@@ -1,7 +1,7 @@
 ---
-- name: "Install bind 9.11"
+- name: "Install bind"
   pkgng:
-    name: "bind911"
+    name: "{{ bind_package }}"
     state: "present"
 
 - name: "Install bind config file"
