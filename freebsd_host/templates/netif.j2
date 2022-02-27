@@ -44,3 +44,7 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp
 {% endif %}
 {% endif %}
 
+{% if item.bridge is defined %}
+# add to bridge
+ifconfig_{{ item.bridge }}="${ifconfig_{{ item.bridge }}} addm {{ interface }}"
+{% endif %}
