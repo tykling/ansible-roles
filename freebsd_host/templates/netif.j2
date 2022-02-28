@@ -43,7 +43,9 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp
 {% endif %}
 {% endif %}
 {% else %}
-ifconfig_{{ interface }}="$ifconfig_{{ interface }} UP"
+{% if not item.lacp is defined %}
+ifconfig_{{ interface }}="UP"
+{% endif %}
 {% endif %}
 
 {% if item.bridge is defined %}
