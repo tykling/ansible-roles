@@ -42,6 +42,8 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp
 ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp inet6 vhid {{ item.ips['carp'].vhid }} advskew {{ item.ips[inventory_hostname_short].advskew }} pass {{ vlan_carp_password }} {{ item.ips['carp'].v6ip }}/{{ item.v6net.split("/")[1] }}"
 {% endif %}
 {% endif %}
+{% else %}
+ifconfig_{{ interface }}="$ifconfig_{{ interface }} UP"
 {% endif %}
 
 {% if item.bridge is defined %}
