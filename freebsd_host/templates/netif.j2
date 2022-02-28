@@ -18,7 +18,7 @@ vlans_{{ item.interface }}="${vlans_{{ item.interface }}} {{ item.vlan }}"
 ifconfig_{{ interface }}="$ifconfig_{{ interface }} laggproto {{ item.lacp.laggproto }} {% for port in item.lacp.laggports %}laggport {{ port }} {% endfor %} description '{{ item.description }}'"
 # UP the individual lagg members
 {% for port in item.lacp.laggports %}
-ifconfig_{{ port }}="-vlanhwtso -tso -lro UP"
+ifconfig_{{ port }}="-vlanhwtso -tso -lro up"
 {% endfor %}
 {% endif %}
 
@@ -44,7 +44,7 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp
 {% endif %}
 {% else %}
 {% if not item.lacp is defined %}
-ifconfig_{{ interface }}="UP"
+ifconfig_{{ interface }}="up"
 {% endif %}
 {% endif %}
 
