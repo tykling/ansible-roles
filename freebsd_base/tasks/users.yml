@@ -14,7 +14,7 @@
     key: "{{ item.value.key }}"
   with_dict: "{{ users | default({}) }}"
   tags: usermanagement
-  when: item.key is defined
+  when: item.value.key is defined
 
 - name: "Add #include line to sudoers"
   lineinfile:
