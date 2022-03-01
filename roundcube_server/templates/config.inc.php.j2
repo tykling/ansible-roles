@@ -2,10 +2,12 @@
     $config['db_dsnw'] = 'pgsql://{{ roundcube_postgres_user }}:{{ roundcube_postgres_password }}@{{ postgres_host }}/{{ roundcube_postgres_dbname }}';
     $config['log_driver'] = 'syslog';
     $config['syslog_facility'] = LOG_LOCAL5;
+{% if roundcube_imap_default_server is defined %}
     $config['default_host'] = '{{ roundcube_imap_default_server }}';
     $config['default_port'] = {{ roundcube_imap_default_port }};
     $config['smtp_server'] = '{{ roundcube_smtp_server }}';
     $config['smtp_port'] = {{ roundcube_smtp_port }};
+{% endif %}
     $config['smtp_user'] = '%u';
     $config['smtp_pass'] = '%p';
     $config['support_url'] = '{{ roundcube_support_url }}';
