@@ -1,8 +1,45 @@
 ---
-- include_tasks: "bind.yml"
-  tags: "bindconfig"
-- include_tasks: "rndc.yml"
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
-- include_tasks: "supervisord.yml"
-- include_tasks: "bind_exporter.yml"
+- include_tasks:
+    file: "bind.yml"
+    apply:
+      tags:
+        - "bind"
+        - "bindconfig"
+  tags:
+    - "bind"
+    - "bindconfig"
+- include_tasks:
+    file: "rndc.yml"
+    apply:
+      tags:
+        - "bind"
+  tags:
+    - "bind"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "bind"
+  tags:
+    - "bind"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "bind"
+  tags:
+    - "bind"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "bind"
+  tags:
+    - "bind"
+- include_tasks:
+    file: "bind_exporter.yml"
+    apply:
+      tags:
+        - "bind"
+  tags:
+    - "bind"
