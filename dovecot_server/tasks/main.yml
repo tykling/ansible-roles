@@ -1,7 +1,36 @@
 ---
-- include_tasks: packages.yml
-- include_tasks: usergroup.yml
-- include_tasks: configuration.yml
-- include_tasks: syslog.yml
-- include_tasks: dovecot.yml
-
+- include_tasks:
+    file: "packages.yml"
+    apply:
+      tags:
+        - "dovecot"
+  tags:
+    - "dovecot"
+- include_tasks:
+    file: "usergroup.yml"
+    apply:
+      tags:
+        - "dovecot"
+  tags:
+    - "dovecot"
+- include_tasks:
+    file: "configuration.yml"
+    apply:
+      tags:
+        - "dovecot"
+  tags:
+    - "dovecot"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "dovecot"
+  tags:
+    - "dovecot"
+- include_tasks:
+    file: "dovecot.yml"
+    apply:
+      tags:
+        - "dovecot"
+  tags:
+    - "dovecot"
