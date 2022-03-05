@@ -1,9 +1,38 @@
 ---
-- include_tasks: "postfix.yml"
-- include_tasks: "opendkim.yml"
-- include_tasks: "mailecho.yml"
-- include_tasks: "mailman.yml"
+- include_tasks:
+    file: "postfix.yml"
+    apply:
+      tags:
+        - "postfix"
+  tags:
+    - "postfix"
+- include_tasks:
+    file: "opendkim.yml"
+    apply:
+      tags:
+        - "postfix"
+  tags:
+    - "postfix"
+- include_tasks:
+    file: "mailecho.yml"
+    apply:
+      tags:
+        - "postfix"
+  tags:
+    - "postfix"
+- include_tasks:
+    file: "mailman.yml"
+    apply:
+      tags:
+        - "postfix"
+  tags:
+    - "postfix"
   when: mailman
-- include_tasks: "thttpd.yml"
+- include_tasks:
+    file: "thttpd.yml"
+    apply:
+      tags:
+        - "postfix"
+  tags:
+    - "postfix"
   when: mailman
-
