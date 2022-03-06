@@ -34,6 +34,17 @@
   when: item.value.sudo
   tags: usermanagement
 
+- name: "Add NOPASSWD: users to sudoers"
+  lineinfile:
+    dest: "/usr/local/etc/sudoers"
+    state: "present"
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "visudo -cf %s"
+  with_dict: "{{ users | default({}) }}"
+  when: item.value.sudonopasswd
+  tags: usermanagement
+
 - name: "Add extra users to sudoers"
   lineinfile:
     dest: "/usr/local/etc/sudoers"
