@@ -374,6 +374,10 @@ logging {
         syslog local3;
     };
 
+    channel channel_local5 {
+        syslog local5;
+    };
+
     category default { channel_local0; };
     category client { null; };
     category cname { null; };
@@ -392,7 +396,11 @@ logging {
     category network { null; };
     category notify { null; };
     category query-errors { null; };
+{% if bind_querylog %}
+    category queries { channel_local5; };
+{% else %}
     category queries { null; };
+{% endif %}
     category rate-limit { null; };
     category resolver { null; };
     category rpz { null; };

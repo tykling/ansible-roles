@@ -9,3 +9,4 @@ bind_recursive: True
 bind_authoritative: False
 bind_statsurl: "http://127.0.0.1:8080"
 bind_package: "bind918"
+bind_querylog: False
