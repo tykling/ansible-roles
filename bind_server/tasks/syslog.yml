@@ -1,7 +1,7 @@
 ---
 - name: "add syslog.d config for bind"
-  copy:
-    src: "bind-syslogd.conf"
+  template:
+    src: "bind-syslogd.conf.j2"
     dest: "/usr/local/etc/syslog.d/bind.conf"
   notify: "restart syslogd"
 

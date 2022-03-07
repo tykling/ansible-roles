@@ -1,9 +1,9 @@
 ---
 - name: "Make sure bind newsyslog config file exists"
-  copy:
+  template:
     owner: "root"
     group: "wheel"
     mode: "755"
-    src: "bind-newsyslog.conf"
+    src: "bind-newsyslog.conf.j2"
     dest: "/usr/local/etc/newsyslog.conf.d/bind"
 
