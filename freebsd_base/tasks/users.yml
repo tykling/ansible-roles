@@ -31,7 +31,7 @@
     line: "{{ item.key }} ALL=(ALL) ALL"
     validate: "visudo -cf %s"
   with_dict: "{{ users | default({}) }}"
-  when: item.value.sudo
+  when: item.value.sudo|default(False)
   tags: usermanagement
 
 - name: "Add NOPASSWD: users to sudoers"
@@ -42,7 +42,7 @@
     line: "{{ item.key }} ALL=(ALL) NOPASSWD: ALL"
     validate: "visudo -cf %s"
   with_dict: "{{ users | default({}) }}"
-  when: item.value.sudonopasswd
+  when: item.value.sudonopasswd|default(False)
   tags: usermanagement
 
 - name: "Add extra users to sudoers"
