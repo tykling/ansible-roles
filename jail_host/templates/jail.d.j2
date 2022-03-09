@@ -97,6 +97,10 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="zfs mount -a "
 jail_{{ jailname }}_exec_start{{ ns.start }}="route add {{ route }}"
 {% endfor %}
 
+{% for es in jail.extrastart|default([]) %}
+{% set ns.start = ns.start + 1 %}
+jail_{{ jailname }}_exec_start{{ ns.start }}="{{ es }}"
+{% endfor %}
 
 ### poststop section (runs on host)
 {% for interface in jail.interfaces %}
