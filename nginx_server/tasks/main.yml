@@ -1,17 +1,59 @@
 ---
-- include_tasks: "nginx.yml"
-- include_tasks: "syslog.yml"
-- include_tasks: "directories.yml"
-- include_tasks: "configs.yml"
+- include_tasks:
+    file: "nginx.yml"
+    apply:
+      tags:
+        - "nginx"
   tags:
+    - "nginx"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "nginx"
+  tags:
+    - "nginx"
+- include_tasks:
+    file: "directories.yml"
+    apply:
+      tags:
+        - "nginx"
+  tags:
+    - "nginx"
+- include_tasks:
+    file: "configs.yml"
+    apply:
+      tags:
+        - "nginx"
+        - "vhosts"
+  tags:
+    - "nginx"
     - "vhosts"
-- include_tasks: "ocsp.yml"
+- include_tasks:
+    file: "ocsp.yml"
+    apply:
+      tags:
+        - "nginx"
+  tags:
+    - "nginx"
   when:
     - nginx_proxy
     - certgrinder_hostname_sets is defined
     - nginx_ocsp_stapling
-- include_tasks: "goaccess.yml"
+- include_tasks:
+    file: "goaccess.yml"
+    apply:
+      tags:
+        - "nginx"
+  tags:
+    - "nginx"
   when:
     - nginx_goaccess
     - nginx_proxy
-- include_tasks: "nginx_exporter.yml"
+- include_tasks:
+    file: "nginx_exporter.yml"
+    apply:
+      tags:
+        - "nginx"
+  tags:
+    - "nginx"
