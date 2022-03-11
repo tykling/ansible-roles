@@ -1,21 +1,23 @@
 ---
-- name: Add dovecot.log to syslog.conf
+- name: "Add dovecot.log to syslog.conf"
   lineinfile:
-    dest: /etc/syslog.conf
+    dest: "/etc/syslog.conf"
     regexp: "^local3"
     line: "local3.*                                        /var/log/dovecot.log"
   notify: "restart syslogd"
 
-- name: Create dovecot.log if it doesn't exist
+- name: "Create dovecot.log if it doesn't exist"
   file:
-    path: /var/log/dovecot.log
-    state: touch
+    path: "/var/log/dovecot.log"
+    state: "touch"
     mode: "600"
+    modification_time: "preserve"
+    access_time: "preserve"
   notify: "restart syslogd"
 
-- name: Add dovecot.log to newsyslog.conf
+- name: "Add dovecot.log to newsyslog.conf"
   lineinfile:
-    dest: /etc/newsyslog.conf
+    dest: "/etc/newsyslog.conf"
     regexp: "^/var/log/dovecot.log "
     line: "/var/log/dovecot.log                    640  365   *    @T00  JC"
 
