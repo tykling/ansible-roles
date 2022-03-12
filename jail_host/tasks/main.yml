@@ -5,7 +5,6 @@
     enabled: yes
   tags:
     - "jail_host"
-
 - include_tasks:
     file: "ezjail.yml"
     apply:
@@ -50,3 +49,17 @@
   tags:
     - "jail_host"
     - "jails"
+- include_tasks:
+    file: "packages.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"
+- include_tasks:
+    file: "jailkeys.yml"
+    apply:
+      tags:
+        - "jail_host"
+  tags:
+    - "jail_host"

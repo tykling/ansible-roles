@@ -1,0 +1,8 @@
+---
+- name: "Copy jailkeys binary to /usr/local/bin/jailkeys"
+  copy:
+    src: "jailkeys.sh"
+    dest: "/usr/local/bin/jailkeys"
+    mode: "0755"
+    owner: "root"
+    group: "wheel"

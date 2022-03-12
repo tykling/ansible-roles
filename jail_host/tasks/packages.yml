@@ -1,0 +1,6 @@
+---
+- name: "Install packages"
+  pkgng:
+    name:
+      - "bind-tools"
+    state: "present"
