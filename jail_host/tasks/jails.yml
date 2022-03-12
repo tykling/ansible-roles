@@ -20,6 +20,7 @@
   shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
   register: ezjail_jailstorage_result
   ignore_errors: True
+  changed_when: False
 
 - name: "Create main jailstorage zfs as needed"
   command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ ezjail_jailstorage_dataset }}"
