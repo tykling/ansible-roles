@@ -36,3 +36,8 @@
     supervisord_filename: "custom"
     supervisord_programs: "{{ supervisord_custom_jobs }}"
   when: supervisord_custom_jobs is defined
+
+- name: "start supervisord now"
+  service:
+    name: "supervisord"
+    state: "started"
