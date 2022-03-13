@@ -21,6 +21,7 @@ postgresql_pgbouncer: False
 postgresql_partitioning_days_ahead: 30
 postgresql_pg_stat_statements_track: 10000
 postgresql_auto_explain_min_duration_seconds: 3
+postgresql_full_page_writes: False
 
 postgresql_postgis: True
 postgis_package: "postgis32"
