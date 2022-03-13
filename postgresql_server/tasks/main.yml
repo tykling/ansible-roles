@@ -1,15 +1,75 @@
 ---
-- include_tasks: "postgresql.yml"
+- include_tasks:
+    file: "postgresql.yml"
+    apply:
+      tags:
+        - "postgresql"
+        - "pghba"
   tags:
+    - "postgresql"
     - "pghba"
-- include_tasks: "ip4r.yml"
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
-- include_tasks: "supervisord.yml"
-- include_tasks: "periodic-daily.yml"
-- include_tasks: "pgbouncer.yml"
+- include_tasks:
+    file: "ip4r.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "periodic-daily.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "pgbouncer.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
   when: postgresql_pgbouncer
-- include_tasks: "replicabackup.yml"
-- include_tasks: "partitioning.yml"
-  when: postgresql_partitioning_databases is defined
-- include_tasks: "postgres_exporter.yml"
+- include_tasks:
+    file: "replicabackup.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+- include_tasks:
+    file: "partitioning.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
+  when: postgresql_partitioning_databases|default(False)
+- include_tasks:
+    file: "postgres_exporter.yml"
+    apply:
+      tags:
+        - "postgresql"
+  tags:
+    - "postgresql"
