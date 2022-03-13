@@ -14,6 +14,7 @@ lc_numeric = 'C'
 lc_time = 'C'
 default_text_search_config = 'pg_catalog.english'
 full_page_writes = {% if postgresql_full_page_writes %}on{% else %}off{% endif %}
+
 {% if postgresql_server_tls_enable %}
 ssl = on
 ssl_cert_file = '{{postgresql_homedir }}/{{ ansible_nodename }}-chain.rsa.crt'
