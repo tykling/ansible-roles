@@ -4,8 +4,8 @@
     name: "{{ item }}"
     state: "present"
   with_items:
-    - "py37-docutils"
-    - "py37-sqlite3"
+    - "py{{ python_nodotversion }}-docutils"
+    - "py{{ python_nodotversion }}-sqlite3"
 
 - name: "Get nipap-www code from git"
   git:
@@ -19,14 +19,14 @@
   args:
     chdir: "{{ nipap_checkout_path }}/nipap"
     executable: "/usr/local/bin/bash"
-    creates: "/usr/local/lib/python3.7/site-packages/nipap"
+    creates: "/usr/local/lib/python{{ python_version }}/site-packages/nipap"
 
 - name: "make and install nipap-www if needed"
   shell: 'make install'
   args:
     chdir: "{{ nipap_checkout_path }}/nipap-www"
     executable: "/usr/local/bin/bash"
-    creates: "/usr/local/lib/python3.7/site-packages/nipap_www-0.29.8-py3.7.egg/nipapwww"
+    creates: "/usr/local/lib/python{{ python_version }}/site-packages/nipap_www-0.29.8-py3.7.egg/nipapwww"
 
 - name: "Fix permissions of /var/cache/nipap-www/"
   file:

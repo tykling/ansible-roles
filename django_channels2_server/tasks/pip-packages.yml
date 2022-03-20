@@ -1,17 +1,17 @@
 ---
 - name: "Install pip"
   pkgng:
-    name: "py37-pip"
+    name: "py{{ python_nodotversion }}-pip"
     state: "present"
 
 - name: "Install setuptools"
   pkgng:
-    name: "py37-setuptools"
+    name: "py{{ python_nodotversion }}-setuptools"
     state: "present"
 
 - name: "Install virtualenv"
   pkgng:
-    name: "py37-virtualenv"
+    name: "py{{ python_nodotversion }}-virtualenv"
     state: "present"
 
 - name: "Install OS dependencies for django"
@@ -41,17 +41,17 @@
   tags:
     - "pip"
 
-- name: "Remove py3.5 venv if we have one"
+- name: "Remove virtualenv with wrong Python version if needed"
   file:
     state: "absent"
     path: "{{ django_virtualenv_path }}"
   when:
     - django_virtualenv.stat.exists
-    - python_version.stdout[0:10] == "Python 3.5"
+    - python_version.stdout[0:10] != python_versionstring
   tags:
     - "pip"
 
-- name: "Install needed pip modules"
+- name: "Create virtualenv and install needed pip modules from requirements file"
   pip:
     requirements: "{{ django_pip_requirements_path }}"
     virtualenv: "{{ django_virtualenv_path }}"

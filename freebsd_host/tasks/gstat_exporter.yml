@@ -1,7 +1,7 @@
 ---
 - name: "Install gstat_exporter"
   pkgng:
-    name: "py37-gstat_exporter-20191119"
+    name: "py{{ python_nodotversion }}-gstat_exporter-20191119"
     state: "present"
   notify: "restart gstat_exporter"
 

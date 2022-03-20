@@ -7,8 +7,8 @@
     version: "master"
     accept_hostkey: yes
 
-- name: "Install py37-dnspython"
+- name: "Install py{{ python_nodotversion }}-dnspython"
   pkgng:
-    name: "py37-dnspython"
+    name: "py{{ python_nodotversion }}-dnspython"
     state: "present"
 

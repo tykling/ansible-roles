@@ -1,7 +1,7 @@
 ---
 - name: "Install ansible"
   pkgng:
-    name: "py37-ansible-core"
+    name: "py{{ python_nodotversion }}-ansible-core"
     state: "present"
 
 - name: "Install ansible config deploy.sh script"

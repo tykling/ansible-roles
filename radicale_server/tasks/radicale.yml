@@ -1,7 +1,7 @@
 ---
 - name: "Install radicale"
   pkgng:
-    name: "py37-radicale"
+    name: "py{{ python_nodotversion }}-radicale"
     state: "present"
 
 - name: "Copy radicale config"

@@ -12,7 +12,7 @@ django_nginx_static_root: "{{ django_root }}/static/"
 django_pip_requirements_path: "{{ django_root }}/requirements.txt"
 django_media_root: "/storage/django_media_root"
 
-django_python_path: "/usr/local/bin/python3.7"
+django_python_path: "/usr/local/bin/python{{ python_version }}"
 wkhtmltopdf_path: "/usr/local/bin/wkhtmltopdf"
 
 django_timezone: 'Europe/Copenhagen'

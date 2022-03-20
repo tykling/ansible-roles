@@ -1,17 +1,17 @@
 ---
 - name: "Install pip"
   pkgng:
-    name: "py37-pip"
+    name: "py{{ python_nodotversion }}-pip"
     state: "present"
 
 - name: "Install setuptools"
   pkgng:
-    name: "py37-setuptools"
+    name: "py{{ python_nodotversion }}-setuptools"
     state: "present"
 
 - name: "Install virtualenv"
   pkgng:
-    name: "py37-virtualenv"
+    name: "py{{ python_nodotversion }}-virtualenv"
     state: "present"
 
 - name: "Create virtualenv and install needed pip modules"

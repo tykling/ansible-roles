@@ -1,7 +1,7 @@
 ---
-- name: "Install py37-searx"
+- name: "Install py{{ python_nodotversion }}-searx"
   pkgng:
-    name: "py37-searx"
+    name: "py{{ python_nodotversion }}-searx"
     state: "present"
 
 - name: "Enable searx"

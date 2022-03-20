@@ -22,7 +22,7 @@
 
 - name: "Install certgrinder"
   pkgng:
-    name: "py37-certgrinder"
+    name: "py{{ python_nodotversion }}-certgrinder"
     state: "present"
 
 - name: "Create certgrinder.conf config file"

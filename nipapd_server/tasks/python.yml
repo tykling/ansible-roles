@@ -1,18 +1,13 @@
 ---
 - name: "Install pip"
   pkgng:
-    name: "py37-pip"
+    name: "py{{ python_nodotversion }}-pip"
     state: "present"
 
 - name: "Install setuptools"
   pkgng:
-    name: "py37-setuptools"
+    name: "py{{ python_nodotversion }}-setuptools"
     state: "present"
-
-- name: "Copy sqlite3.h to /usr/local/include/python2.7 because I have no idea how this works"
-  command: "cp /usr/local/include/sqlite3.h /usr/local/include/python2.7"
-  args:
-    creates: "/usr/local/include/python2.7/sqlite3.h"
 
 - name: "Install requirements.txt modules with pip. Install in the global py env."
   pip:

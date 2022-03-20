@@ -1,7 +1,7 @@
 ---
 - name: "Install supervisord"
   pkgng:
-    name: "py37-supervisor"
+    name: "py{{ python_nodotversion }}-supervisor"
     state: "present"
 
 - name: "Enable supervisord"
