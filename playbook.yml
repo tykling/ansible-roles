@@ -6,14 +6,24 @@
   become: True
   gather_facts: False
   tasks:
-    - name: "Install Python on FreeBSD (will fail on Debian)"
-      raw: "test -f /usr/local/bin/python || test -f /etc/freebsd-update.conf && pkg install -y python"
+    - name: "Check for working Python interpreter"
+      ping:
+      register: pingresult
       ignore_errors: True
       changed_when: False
-    - name: "Install Python on Debian (will fail on FreeBSD)"
-      raw: "test -f /usr/bin/python || test -f /etc/debian_version && apt install -y python-is-python3"
+    - name: "Install Python on FreeBSD (this task is expected to fail on Debian)"
+      raw: "test -f /etc/freebsd-update.conf && pkg install -y python"
       ignore_errors: True
       changed_when: False
+      when: pingresult.ping != "pong"
+      register: freebsdresult
+    - name: "Install Python on Debian"
+      raw: "test -f /etc/debian_version && apt install -y python-is-python3"
+      ignore_errors: True
+      changed_when: False
+      when:
+        - pingresult.ping != "pong"
+        - not freebsdresult is changed
 
 
 ##############################################################################
