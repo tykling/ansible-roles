@@ -6,3 +6,8 @@ bootstrap_python: True
 
 # this is the Python version of packages etc
 python_version: "3.9"
+
+# maybe don't edit below here
+python_path: "/usr/local/bin/python{{ python_version }}"
+python_nodotversion: "{{ python_version|replace('.','') }}"
+python_versionstring: "Python {{ python_version }}"

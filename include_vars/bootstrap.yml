@@ -1,4 +1,0 @@
----
-python_path: "/usr/local/bin/python{{ python_version }}"
-python_nodotversion: "{{ python_version|replace('.','') }}"
-python_versionstring: "Python {{ python_version }}"
