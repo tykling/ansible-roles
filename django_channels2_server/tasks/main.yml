@@ -1,19 +1,66 @@
 ---
-- include_tasks: "code.yml"
-  tags: "codedeploy"
-- include_tasks: "redis.yml"
+- include_tasks:
+    file: "code.yml"
+    apply:
+      tags:
+        - "django"
+        - "codedeploy"
+  tags:
+    - "django"
+    - "codedeploy"
+- include_tasks:
+    file: "redis.yml"
+    apply:
+      tags:
+        - "django"
+  tags:
+    - "django"
   when: "django_channels_layer_redis"
-- include_tasks: "pip-packages.yml"
+- include_tasks:
+    file: "pip-packages.yml"
+    apply:
+      tags:
+        - "django"
+        - "pip"
   tags:
+    - "django"
     - "pip"
-- include_tasks: "django-configuration.yml"
+- include_tasks:
+    file: "django-configuration.yml"
+    apply:
+      tags:
+        - "django"
+        - "codedeploy"
   tags:
+    - "django"
     - "codedeploy"
-    - "djangosettings"
-- include_tasks: "custom.yml"
-- include_tasks: "extra-files.yml"
+- include_tasks:
+    file: "custom.yml"
+    apply:
+      tags:
+        - "django"
   tags:
+    - "django"
+- include_tasks:
+    file: "extra-files.yml"
+    apply:
+      tags:
+        - "django"
+        - "codedeploy"
+  tags:
+    - "django"
     - "codedeploy"
-- include_tasks: "cron.d.yml"
-- include_tasks: "supervisord.yml"
-
+- include_tasks:
+    file: "cron.d.yml"
+    apply:
+      tags:
+        - "django"
+  tags:
+    - "django"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "django"
+  tags:
+    - "django"
