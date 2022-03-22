@@ -16,7 +16,7 @@ packages:
   - "vim"
   - "moreutils"
   - "python"
-  - "python{{ python_version }}"
+  - "python{{ python_nodotversion }}"
 
 poudriere_client: True
 
