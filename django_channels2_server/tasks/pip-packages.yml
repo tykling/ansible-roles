@@ -35,19 +35,20 @@
 
 - name: "Get Python version for existing Django virtualenv"
   command: "{{ django_virtualenv_path }}/bin/python -V"
-  register: python_version
+  register: detected_python_version
   changed_when: False
   when: django_virtualenv.stat.exists
   tags:
     - "pip"
+  ignore_errors: True
 
-- name: "Remove virtualenv with wrong Python version if needed"
+- name: "Remove virtualenv if it is broken or has the wrong Python version"
   file:
     state: "absent"
     path: "{{ django_virtualenv_path }}"
   when:
     - django_virtualenv.stat.exists
-    - python_version.stdout[0:10] != python_versionstring
+    - (detected_python_version.stdout[0:10] != python_versionstring or detected_python_version.failed)
   tags:
     - "pip"
 
