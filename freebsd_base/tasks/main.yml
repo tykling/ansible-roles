@@ -6,7 +6,6 @@
   when: "poudriere_client"
   tags:
     - "pkgrepo"
-- include_tasks: "python.yml"
 - include_tasks: "packages.yml"
 - include_tasks: "users.yml"
   tags:
