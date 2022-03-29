@@ -1,5 +1,5 @@
 ---
-{% if prometheus_basic_auth_users %}s
+{% if prometheus_basic_auth_users %}
 basic_auth_users:
 {% for username, pwhash in prometheus_basic_auth_users.items() %}
   {{ username }}: {{ pwhash }}
