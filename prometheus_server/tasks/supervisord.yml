@@ -8,6 +8,6 @@
     supervisord_programs:
       - name: "prometheus"
         comment: "run prometheus"
-        command: "/usr/local/bin/prometheus --config.file=/usr/local/etc/prometheus.yml --storage.tsdb.path=/var/db/prometheus --storage.tsdb.retention.time={{ prometheus_retention_days }}d --web.external-url={{ prometheus_external_url }}"
+        command: "/usr/local/bin/prometheus --config.file=/usr/local/etc/prometheus.yml --storage.tsdb.path=/var/db/prometheus --storage.tsdb.retention.time={{ prometheus_retention_days }}d --web.external-url={{ prometheus_external_url }} --web.config.file=/usr/local/etc/prometheus-web.yml"
         user: "prometheus"
 

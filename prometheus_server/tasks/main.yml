@@ -1,7 +1,31 @@
 ---
-- include_tasks: "prometheus.yml"
-  tags: "promconf"
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
-- include_tasks: "supervisord.yml"
-
+- include_tasks:
+    file: "prometheus.yml"
+    apply:
+      tags:
+        - "prometheus"
+        - "promconf"
+  tags:
+    - "prometheus"
+    - "promconf"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "prometheus"
+  tags:
+    - "prometheus"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "prometheus"
+  tags:
+    - "prometheus"
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "prometheus"
+  tags:
+    - "prometheus"

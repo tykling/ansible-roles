@@ -1,6 +1,7 @@
 ---
 prometheus_retention_days: 3650
 prometheus_alertmanager_scheme: "http"
+prometheus_basic_auth_users: []
 
 nginx_locationslash: |
  location / {

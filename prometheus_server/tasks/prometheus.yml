@@ -36,6 +36,18 @@
   notify:
     - "restart prometheus"
 
+- name: "Install Prometheus web.yml config"
+  template:
+    src: "prometheus-web.yml.j2"
+    dest: "/usr/local/etc/prometheus-web.yml"
+    owner: "root"
+    group: "wheel"
+    mode: "0755"
+  tags:
+    - "promconf"
+  notify:
+    - "restart prometheus"
+
 - name: "Make sure prometheus targets directory exists"
   file:
     path: "/usr/local/etc/prometheus"
