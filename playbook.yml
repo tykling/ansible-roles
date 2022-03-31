@@ -15,14 +15,14 @@
       raw: "test -f /etc/freebsd-update.conf && pkg install -y python"
       ignore_errors: True
       changed_when: False
-      when: pingresult.ping != "pong"
+      when: pingresult and not "ping" in pingresult
       register: freebsdresult
     - name: "Install Python on Debian"
       raw: "test -f /etc/debian_version && apt install -y python-is-python3"
       ignore_errors: True
       changed_when: False
       when:
-        - pingresult.ping != "pong"
+        - pingresult and not "ping" in pingresult
         - not freebsdresult is changed
 
 
