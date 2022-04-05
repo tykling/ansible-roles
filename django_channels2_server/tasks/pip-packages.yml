@@ -62,14 +62,6 @@
   tags:
     - "pip"
 
-- name: "Install uwsgi inside the virtualenv"
-  pip:
-    name: "uwsgi"
-    virtualenv: "{{ django_virtualenv_path }}"
-    virtualenv_python: "{{ django_python_path }}"
-  tags:
-    - "pip"
-
 - name: "Install redis for django channel_layer where needed"
   pkgng:
     name: "databases/redis"
