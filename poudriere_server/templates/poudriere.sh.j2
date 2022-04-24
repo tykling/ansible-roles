@@ -7,7 +7,7 @@ for PORTSTREE in {% for portstree in poudriere_ports_trees %}{{ portstree.name }
 done
 
 # update jails
-for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudriere_jail_versions %}freebsd_{{ jail['versiontag'] }}_{{ arch }} {% endfor %}{% endfor %}; do
+for JAIL in {% for arch in poudriere_jail_architechtures %}{% for jail in poudriere_jail_versions %}freebsd_{{ jail['versiontag'] }}_{{ arch|replace(".","_") }} {% endfor %}{% endfor %}; do
     echo "************************** UPDATING JAIL $JAIL ********************************"
     # update jail
     /usr/local/bin/poudriere jail -u -j $JAIL
