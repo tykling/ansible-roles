@@ -53,7 +53,7 @@
     mode: "0755"
 
 - name: "Create poudriere jails"
-  command: "/usr/local/bin/poudriere jail -c -j freebsd_{{ item[0]['versiontag'] }}_{{ item[1] }} -v {{ item[0]['release'] }} -a {{ item[1] }}"
+  command: "/usr/local/bin/poudriere jail -c -j freebsd_{{ item[0]['versiontag'] }}_{{ item[1]|replace('.','_') }} -v {{ item[0]['release'] }} -a {{ item[1] }}"
   args:
     creates: "{{ poudriere_zfs_mountpoint }}/jails/freebsd_{{ item[0]['versiontag'] }}_{{ item[1] }}"
   with_nested:
