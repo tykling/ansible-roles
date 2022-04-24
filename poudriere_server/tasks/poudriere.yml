@@ -1,8 +1,17 @@
 ---
-- name: "Install poudriere"
+- name: "Install poudriere-devel and qemu"
   pkgng:
-    name: "poudriere"
+    name:
+      - "poudriere-devel"
+      - "qemu-user-static"
     state: "present"
+
+- name: "Enable qemu_user_static with binmiscctl(8)"
+  service:
+    name: "qemu_user_static"
+    enabled: True
+  notify:
+    - "start qemu_user_static"
 
 - name: "Copy main poudriere.conf"
   template:

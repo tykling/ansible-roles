@@ -124,6 +124,7 @@
     name: "kibana"
     state: "restarted"
 
+
 ### freebsd_base
 - name: "restart exporter_exporter"
   supervisorctl:
@@ -349,6 +350,11 @@
     name: "postfix"
     state: "reloaded"
 
+### poudriere_server
+- name: "start qemu_user_static"
+  service:
+    name: "qemu_user_static"
+    state: "started"
 
 ### powerdns_recursor_server
 - name: "restart powerdns-recursor"
