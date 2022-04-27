@@ -58,6 +58,7 @@
     virtualenv: "{{ django_virtualenv_path }}"
     virtualenv_python: "{{ django_python_path }}"
   environment:
+    GIT_SSH_COMMAND: "ssh -i {{ django_github_keyfile | default('/dev/null') }}"
     LANG: "C.UTF-8"
   tags:
     - "pip"
