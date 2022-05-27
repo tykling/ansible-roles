@@ -14,7 +14,7 @@
   command: "/usr/local/bin/ezjail-admin create {{ item.hostname }} 127.0.0.1"
   args:
     creates: "{{ ezjail_root }}/{{ item.hostname }}"
-  loop: "{{ jails }}"
+  loop: "{{ jails | dictsort }}"
 
 - name: "check if main jailstorage zfs exists"
   shell: "/sbin/zfs list {{ ezjail_jailstorage_dataset }}"
@@ -30,11 +30,11 @@
   shell: "/sbin/zfs list {{ item.1 }}"
   register: ezjail_jailstorage_results
   ignore_errors: True
-  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True) }}"
+  loop: "{{ jails | dictsort | subelements('zfs_datasets', skip_missing=True) }}"
 
 - name: "Create jailstorage zfs filesystems as needed"
   command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.0.1 }}"
-  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True)|zip(ezjail_jailstorage_results)|list }}"
+  loop: "{{ jails | dictsort | subelements('zfs_datasets', skip_missing=True)|zip(ezjail_jailstorage_results)|list }}"
   when: item.1 == "failed"
 
 - name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
@@ -44,6 +44,6 @@
   vars:
     jail: "{{ item }}"
     jailname: "{{ item.hostname|replace('.','_') }}"
-  loop: "{{ jails }}"
+  loop: "{{ jails | dictsort }}"
   notify: "restart changed jails"
   register: jail_results
