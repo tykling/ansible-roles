@@ -26,16 +26,9 @@
   command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ ezjail_jailstorage_dataset }}"
   when: ezjail_jailstorage_result.rc == 1
 
-- name: "check if jailstorage zfs filesystems exists"
-  shell: "/sbin/zfs list {{ item.1 }}"
-  register: ezjail_jailstorage_results
-  ignore_errors: True
-  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True) }}"
-
 - name: "Create jailstorage zfs filesystems as needed"
-  command: "/sbin/zfs create -o mountpoint=none -o jailed=on {{ item.0.1 }}"
-  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True)|zip(ezjail_jailstorage_results)|list }}"
-  when: item.1 == "failed"
+  shell: "/sbin/zfs list {{ item.1 }} || /sbin/zfs create -o mountpoint=none -o jailed=on {{ item.1 }}"
+  loop: "{{ jails | subelements('zfs_datasets', skip_missing=True) }}"
 
 - name: "Template /etc/rc.conf.d/jail/ config files for jails, (re)start if needed."
   template:
