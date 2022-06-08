@@ -60,5 +60,9 @@ scrape_configs:
     metric_relabel_configs:
       {{ job.metric_relabel_configs | to_nice_yaml(indent=2) | indent(6,False) }}
 {% endif %}
+{% if job.basic_auth is defined %}
+    basic_auth:
+      {{ job.basic_auth | to_nice_yaml(indent=2) | indent(6,False) }}
+{% endif %}
 {% endfor %}
 
