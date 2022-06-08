@@ -13,12 +13,13 @@ alerting:
 {% endif %}
 
 scrape_configs:
+{% if prometheus_self_scrape|default(true) %}
   - job_name: 'prometheus self-scrape'
     scrape_interval: '5s'
     static_configs:
       - targets:
         - 'localhost:9090'
-
+{% endif %}
 {% for job in prometheus_scrape_configs %}
   - job_name: "{{ job.name }}"
 {% if job.scrape_interval is defined %}
