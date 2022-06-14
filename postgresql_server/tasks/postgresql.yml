@@ -65,6 +65,6 @@
       #!/bin/sh
       /bin/cp {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt {{ postgresql_homedir }}
       /bin/cp {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key {{ postgresql_homedir }}
-      /usr/sbin/chown root {{ postgresql_homedir }}/{{ ansible_nodename }}-*
+      /usr/sbin/chown root:postgres {{ postgresql_homedir }}/{{ ansible_nodename }}-*
       /bin/chmod 640 {{ postgresql_homedir }}/{{ ansible_nodename }}-*
       /usr/sbin/service postgresql onereload
