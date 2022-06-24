@@ -1,3 +1,6 @@
 ---
 powerdns_auth_logfile_path: "/var/log/powerdns.log"
 powerdns_auth_backend: "gpgsql"
+powerdns_auth_local_addresses:
+  - "0.0.0.0"
+  - "::"

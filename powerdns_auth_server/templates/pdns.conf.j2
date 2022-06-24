@@ -1,3 +1,4 @@
+local-address={{ powerdns_auth_local_addresses|join(",") }}
 {% if powerdns_auth_backend == "gpgsql" %}
 launch=gpgsql
 gpgsql-host={{ postgres_host }}
