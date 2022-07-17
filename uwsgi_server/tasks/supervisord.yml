@@ -11,4 +11,5 @@
         command: "/usr/local/bin/uwsgi --ini {{ uwsgi_configpath }} --virtualenv {{ uwsgi_virtualenv_path }}"
         user: "www"
         stopsignal: "INT"
-
+        environment:
+          PROMETHEUS_MULTIPROC_DIR: "/tmp/prometheus_multiproc_dir"
