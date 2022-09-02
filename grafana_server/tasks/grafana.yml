@@ -1,7 +1,7 @@
 ---
-- name: "Install grafana7"
+- name: "Install grafana9"
   pkgng:
-    name: "grafana7"
+    name: "grafana9"
     state: "present"
 
 - name: "Install Grafana config"
@@ -37,6 +37,7 @@
         command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
         user: "grafana"
         startretries: 200
+        chdir: "/tmp"
 
 - name: "Make sure grafana data directory exists"
   file:
