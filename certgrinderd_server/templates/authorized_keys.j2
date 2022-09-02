@@ -1,0 +1,3 @@
+{% for key, value in certgrinderd_authorized_keys.items %}
+from="{% if value.fromip is string %}{{ value.fromip }}{% else %}{{ value.fromip|join(",") }}{% endif %}",environment="CERTGRINDERD_DOMAINSETS={% for ds in value.domainsets %}{% if ds is string %}{{ ds }}{% else %}{{ ds|join(",") }}{% endif %};{% endfor %}",command="/usr/local/bin/certgrinderd $SSH_ORIGINAL_COMMAND",restrict {{ value.authkey }}
+{% endfor %}
