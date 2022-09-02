@@ -1,11 +1,8 @@
 ---
-- name: "Copy the prometheus bind_exporter binary into place"
-  copy:
-    owner: "root"
-    group: "wheel"
-    mode: "0755"
-    src: "bind_exporter"
-    dest: "/usr/local/bin/bind_exporter"
+- name: "Install bind_exporter"
+  pkgng:
+    name: "bind_exporter"
+    state: "present"
 
 - name: "Create supervisord.d config file to run bind_exporter"
   include_role:
@@ -16,7 +13,7 @@
     supervisord_programs:
       - name: "bind_exporter"
         comment: "run prometheus bind_exporter"
-        command: "/usr/local/bin/bind_exporter -bind.stats-url {{  bind_statsurl }} -bind.stats-groups 'server,view,tasks' -log.format logger:syslog?appname=prometheusbind&local=5"
+        command: "/usr/local/bin/bind_exporter --bind.stats-url {{  bind_statsurl }} --bind.stats-groups 'server,view,tasks'"
         user: "0"
     supervisord_extra_programs: []
 
