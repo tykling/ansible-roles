@@ -41,5 +41,7 @@
     apply:
       tags:
         - "bind"
+        - "bindexp"
   tags:
     - "bind"
+    - "bindexp"
