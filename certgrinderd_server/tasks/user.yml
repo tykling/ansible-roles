@@ -6,6 +6,6 @@
 
 - name: "Add ssh authorized_keys for all certgrinder clients"
   template:
-    source: "authorized_keys.j2"
+    src: "authorized_keys.j2"
     dest: "{{ certgrinderd_home }}/.ssh/authorized_keys"
   tags: "sshkeys"
