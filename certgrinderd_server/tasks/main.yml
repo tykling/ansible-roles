@@ -1,7 +1,38 @@
 ---
-- include_tasks: "syslog.yml"
-- include_tasks: "newsyslog.yml"
-- include_tasks: "certbot.yml"
-- include_tasks: "user.yml"
-  tags: "sshkeys"
-- include_tasks: "certgrinderd.yml"
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "certgrinderd"
+  tags:
+    - "certgrinderd"
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "certgrinderd"
+  tags:
+    - "certgrinderd"
+- include_tasks:
+    file: "certbot.yml"
+    apply:
+      tags:
+        - "certgrinderd"
+  tags:
+    - "certgrinderd"
+- include_tasks:
+    file: "user.yml"
+    apply:
+      tags:
+        - "certgrinderd"
+        - "sshkeys"
+  tags:
+    - "certgrinderd"
+    - "sshkeys"
+- include_tasks:
+    file: "certgrinderd.yml"
+    apply:
+      tags:
+        - "certgrinderd"
+  tags:
+    - "certgrinderd"
