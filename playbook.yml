@@ -461,3 +461,9 @@
   become: True
   roles:
     - "flask_server"
+
+- name: "configure stubby servers"
+  hosts: "stubby_servers"
+  become: True
+  roles:
+    - "stubby_server"

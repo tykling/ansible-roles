@@ -1,0 +1,13 @@
+---
+- name: "Install stubby (part of getdns)"
+  pkgng:
+    name: "getdns"
+    state: "present"
+  notify: "start stubby"
+
+- name: "Copy stubby config file"
+  template:
+    src: "stubby.yml.j2"
+    dest: "/usr/local/etc/stubby/stubby.yml"
+    mode: "0644"
+  notify: "restart stubby"

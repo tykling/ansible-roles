@@ -1,0 +1,12 @@
+---
+- name: "Create supervisord.d config file to run stubby"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "stubby"
+    supervisord_programs:
+      - name: "stubby"
+        comment: "run stubby"
+        command: "/usr/local/sbin/stubby -g -C /usr/local/etc/stubby/stubby.conf"
+        user: "root"

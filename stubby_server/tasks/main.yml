@@ -1,0 +1,4 @@
+---
+- include_tasks: "stubby.yml"
+- include_tasks: "supervisord.yml"
+

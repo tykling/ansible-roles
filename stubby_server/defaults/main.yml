@@ -1,0 +1,31 @@
+---
+stubby_listen_ips:
+  - "0.0.0.0"
+  - "::0"
+
+stubby_upstream_recursive_servers:
+  - address_data: "89.233.43.71"
+    tls_auth_name: "unicast.censurfridns.dk"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: "wikE3jYAA6jQmXYTr/rbHeEPmC78dQwZbQp6WdrseEs="
+
+  - address_data: "91.239.100.100"
+    tls_auth_name: "anycast.censurfridns.dk"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: "2JjZgBZkfjSjs117vX+AnyKeYzJNM38zwsaxHwStWsg="
+      - digest: "sha256"
+        value: "UXs8xWXai9ZXBAjDKYDiYl/jbIYtyV/bY2w3F1FFTDs="
+      - digest: "sha256"
+        value: "oDxJrI/lG1Jhl1J7LvapMlYwlHMphZUODvCDBm0nof8="
+      - digest: "sha256"
+        value: "iYkCUwXdH7sT8qh26zt+r5dbTySL43wgJtLCTHaSH9M="
+      - digest: "sha256"
+        value: "Clii3HzZr48onFoog7I0ma5QmMPSpOBpCykXqgA0Wn0="
+      - digest: "sha256"
+        value: "6eW98h0+xxuaGQkgNalEU5e/hbgKyUoydpPMY6xcKyY="
+      - digest: "sha256"
+        value: "sp2Low3+oTsQljNzs3gkYgLRYo7o91t3XGka+pwX//4="
+      - digest: "sha256"
+        value: "/NPc7sIUzKLAQbsvRRhK6Ul3jip6Gi49bxutfrzpsQM="

@@ -430,6 +430,19 @@
     name: "sshd"
     state: "reloaded"
 
+
+### stubby
+- name: "start stubby"
+  supervisorctl:
+    name: "stubby"
+    state: "started"
+
+- name: "restart stubby"
+  supervisorctl:
+    name: "stubby"
+    state: "restarted"
+
+
 ### supervisord_server
 - name: "start supervisord"
   service:

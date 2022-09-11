@@ -1,0 +1,16 @@
+---
+resolution_type: "GETDNS_RESOLUTION_STUB"
+dns_transport_list:
+  - "GETDNS_TRANSPORT_TLS"
+tls_authentication: "GETDNS_AUTHENTICATION_REQUIRED"
+tls_query_padding_blocksize: 128
+edns_client_subnet_private : 1
+round_robin_upstreams: 1
+idle_timeout: 120000
+listen_addresses:
+  - "0::0"
+  - "0.0.0.0"
+
+upstream_recursive_servers:
+  {{ stubby_upstream_recursive_servers }} | to_nice_yaml(indent=2) | indent(2,False) }}
+
