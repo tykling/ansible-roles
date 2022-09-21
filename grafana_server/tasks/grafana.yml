@@ -6,13 +6,18 @@
 
 - name: "Install Grafana config"
   template:
-    src: "grafana.conf.j2"
-    dest: "/usr/local/etc/grafana.conf"
-    owner: "root"
+    src: "grafana.ini.j2"
+    dest: "/usr/local/etc/grafana/grafana.ini"
+    owner: "grafana"
     group: "wheel"
-    mode: "0755"
+    mode: "0644"
   notify:
     - "restart grafana"
+
+- name: "Delete old Grafana config"
+  file:
+    path: "/usr/local/etc/grafana.conf"
+    state: "absent"
 
 - name: "Install Grafana ldap config"
   copy:
@@ -20,7 +25,7 @@
     dest: "{{ grafana_ldap_config_path }}"
     owner: "root"
     group: "wheel"
-    mode: "0755"
+    mode: "0644"
   when: grafana_ldap_config is defined
   notify:
     - "restart grafana"
@@ -34,10 +39,12 @@
     supervisord_programs:
       - name: "grafana"
         comment: "run grafana"
-        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana.conf -homepath=/usr/local/share/grafana/"
+        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana/grafana.ini -homepath=/usr/local/share/grafana/"
         user: "grafana"
         startretries: 200
         chdir: "/tmp"
+  notify:
+    - "restart grafana"
 
 - name: "Make sure grafana data directory exists"
   file:
@@ -47,3 +54,10 @@
     group: "grafana"
     mode: "0755"
 
+- name: "Make sure /var/run/grafana directory exists"
+  file:
+    path: "/var/run/grafana"
+    state: "directory"
+    owner: "grafana"
+    group: "grafana"
+    mode: "0750"
