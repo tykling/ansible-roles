@@ -43,8 +43,6 @@
         user: "grafana"
         startretries: 200
         chdir: "/tmp"
-  notify:
-    - "restart grafana"
 
 - name: "Make sure grafana data directory exists"
   file:
