@@ -39,10 +39,10 @@
     supervisord_programs:
       - name: "grafana"
         comment: "run grafana"
-        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana/grafana.ini -homepath=/usr/local/share/grafana/"
+        command: "/usr/local/bin/grafana-server -config=/usr/local/etc/grafana/grafana.ini -homepath=/usr/local/share/grafana"
         user: "grafana"
         startretries: 200
-        chdir: "/tmp"
+        directory: "/usr/local/share/grafana"
 
 - name: "Make sure grafana data directory exists"
   file:
