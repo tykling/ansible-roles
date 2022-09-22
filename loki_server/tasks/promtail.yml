@@ -18,6 +18,6 @@
     supervisord_programs:
       - name: "promtail"
         comment: "run promtail"
-        command: "/usr/local/bin/promtail /usr/local/etc/promtail.yaml=/usr/local/etc/promtail.yaml"
+        command: "/usr/local/bin/promtail -config.file=/usr/local/etc/promtail.yaml"
         user: "loki"
         startretries: 200
