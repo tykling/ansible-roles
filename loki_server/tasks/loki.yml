@@ -1,0 +1,28 @@
+---
+- name: "Install loki"
+  pkgng:
+    name: "grafana-loki"
+    state: "present"
+
+- name: "Install Loki config"
+  template:
+    src: "loki.yaml.j2"
+    dest: "/usr/local/etc/loki.yaml"
+    owner: "root"
+    group: "wheel"
+    mode: "0644"
+  notify:
+    - "restart loki"
+
+- name: "Create supervisord.d config file to run Loki"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "loki"
+    supervisord_programs:
+      - name: "loki"
+        comment: "run loki"
+        command: "/usr/local/bin/loki --config.file=/usr/local/etc/loki.yaml"
+        user: "loki"
+        startretries: 200

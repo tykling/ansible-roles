@@ -229,6 +229,18 @@
     done
 
 
+### loki
+- name: "restart loki"
+  supervisorctl:
+    name: "loki"
+    state: "restarted"
+
+- name: "restart promtail"
+  supervisorctl:
+    name: "promtail"
+    state: "restarted"
+
+
 ### nfsen_server
 - name: "reload nfsen"
   service:

@@ -1,0 +1,22 @@
+---
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: "/tmp/promtail-positions.yaml"
+
+clients:
+  - url: "http://localhost:3100/loki/api/v1/push"
+
+scrape_configs:
+  - job_name: "syslog-ng-scrape-job"
+    syslog:
+      listen_address: "127.0.0.1:1514"
+      idle_timeout: "60s"
+      label_structured_data: True
+      labels:
+        job: "syslog-ng"
+    relabel_configs:
+      - source_labels: ['__syslog_message_hostname']
+        target_label: 'host'

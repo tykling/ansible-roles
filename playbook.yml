@@ -467,3 +467,9 @@
   become: True
   roles:
     - "stubby_server"
+
+- name: "configure loki servers"
+  hosts: "loki_servers"
+  become: True
+  roles:
+    - "loki_server"

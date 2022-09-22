@@ -1,0 +1,15 @@
+---
+- include_tasks:
+    file: "loki.yml"
+    apply:
+      tags:
+        - "loki"
+  tags:
+    - "loki"
+- include_tasks:
+    file: "promtail.yml"
+    apply:
+      tags:
+        - "loki"
+  tags:
+    - "loki"
