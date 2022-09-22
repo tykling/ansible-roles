@@ -7,16 +7,9 @@ positions:
   filename: "/tmp/promtail-positions.yaml"
 
 clients:
-  - url: "http://localhost:3100/loki/api/v1/push"
+{% for client in promtail_clients %}
+  - url: "{{ client }}"
+{% endfor %}
 
 scrape_configs:
-  - job_name: "syslog-ng-scrape-job"
-    syslog:
-      listen_address: "127.0.0.1:1514"
-      idle_timeout: "60s"
-      label_structured_data: True
-      labels:
-        job: "syslog-ng"
-    relabel_configs:
-      - source_labels: ['__syslog_message_hostname']
-        target_label: 'host'
+  {{ promtail_scrape_configs | to_nice_yaml(indent=2) | indent(2, False) }}
