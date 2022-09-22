@@ -8,4 +8,7 @@
   template:
     src: "authorized_keys.j2"
     dest: "{{ certgrinderd_home }}/.ssh/authorized_keys"
+    owner: "{{ certgrinderd_user }}"
+    group: "{{ certgrinderd_user }}"
+    mode: "0600"
   tags: "sshkeys"
