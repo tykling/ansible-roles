@@ -16,6 +16,8 @@ common:
     instance_addr: "127.0.0.1"
     kvstore:
       store: "inmemory"
+  instance_interface_names:
+    {{ loki_instance_interface_names | to_nice_yaml(indent=2) | indent(2,False) }}
 
 schema_config:
   configs:

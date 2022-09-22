@@ -6,3 +6,6 @@ nginx_locationslash: |
       proxy_set_header Host $http_host;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
+
+loki_instance_interface_names:
+  - "lo0"
