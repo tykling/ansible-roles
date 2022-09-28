@@ -13,6 +13,7 @@
         startretries: 200
         stopwaitsecs: 60
         stopsignal: "INT"
+        directory: "{{ postgresql_homedir }}"
 
 - name: "Create supervisord.d config file to run pgbouncer"
   include_role:
