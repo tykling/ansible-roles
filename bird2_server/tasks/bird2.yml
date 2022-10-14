@@ -22,6 +22,8 @@
     content: "{{ item.content }}"
     dest: "/usr/local/etc/bird-{{ item.filename }}"
   with_items: "{{ bird2_extra_configs | default([]) }}"
+  tags:
+    - "birdconfig"
   notify: "carpconfigure bird2"
 
 - name: "Enable load of tcpmd5 in /boot/loader.conf"
