@@ -2,11 +2,6 @@
 ansible_username: "ansible"
 ansible_home: "/usr/home/{{ ansible_username }}"
 
-dns_resolver_ips:
-  - '1.1.1.1'
-  - '8.8.8.8'
-  - '9.9.9.9'
-
 packages:
   - "tmux"
   - "screen"
