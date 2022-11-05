@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "prometheus-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/prometheus"
+    dest: "/usr/local/etc/newsyslog.conf.d/prometheus.conf"
 

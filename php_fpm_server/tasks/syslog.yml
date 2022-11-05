@@ -17,5 +17,5 @@
 - name: "Make sure php-fpm newsyslog config file exists"
   template:
     src: "php-fpm_newsyslog.conf.j2"
-    dest: "/usr/local/etc/newsyslog.conf.d/php-fpm"
+    dest: "/usr/local/etc/newsyslog.conf.d/php-fpm.conf"
 

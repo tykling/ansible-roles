@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "ansible-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/ansible"
+    dest: "/usr/local/etc/newsyslog.conf.d/ansible.conf"
 

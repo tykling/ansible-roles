@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "kea-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/kea"
+    dest: "/usr/local/etc/newsyslog.conf.d/kea.conf"
 

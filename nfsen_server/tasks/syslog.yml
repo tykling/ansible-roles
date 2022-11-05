@@ -17,5 +17,5 @@
 - name: "Make sure nfsen newsyslog config file exists"
   template:
     src: "nfsen_newsyslog.conf.j2"
-    dest: "/usr/local/etc/newsyslog.conf.d/nfsen"
+    dest: "/usr/local/etc/newsyslog.conf.d/nfsen.conf"
 

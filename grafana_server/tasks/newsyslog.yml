@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "grafana-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/grafana"
+    dest: "/usr/local/etc/newsyslog.conf.d/grafana.conf"
 

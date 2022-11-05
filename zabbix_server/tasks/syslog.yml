@@ -22,5 +22,5 @@
     group: "wheel"
     mode: "755"
     src: "zabbix_server_newsyslog.conf.j2"
-    dest: "/usr/local/etc/newsyslog.conf.d/zabbix_server"
+    dest: "/usr/local/etc/newsyslog.conf.d/zabbix_server.conf"
 

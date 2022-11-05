@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "certgrinderd-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/certgrinderd"
+    dest: "/usr/local/etc/newsyslog.conf.d/certgrinderd.conf"
 

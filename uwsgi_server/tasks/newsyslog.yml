@@ -5,5 +5,5 @@
     group: "wheel"
     mode: "755"
     src: "uwsgi-newsyslog.conf"
-    dest: "/usr/local/etc/newsyslog.conf.d/uwsgi"
+    dest: "/usr/local/etc/newsyslog.conf.d/uwsgi.conf"
 

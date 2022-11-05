@@ -17,5 +17,5 @@
 - name: "Make sure dnsdist newsyslog config file exists"
   template:
     src: "dnsdist_newsyslog.conf.j2"
-    dest: "/usr/local/etc/newsyslog.conf.d/dnsdist"
+    dest: "/usr/local/etc/newsyslog.conf.d/dnsdist.conf"
 
