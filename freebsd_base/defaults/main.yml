@@ -3,8 +3,9 @@ ansible_username: "ansible"
 ansible_home: "/usr/home/{{ ansible_username }}"
 
 dns_resolver_ips:
-  - '91.239.100.100'
-  - '89.233.43.71'
+  - '1.1.1.1'
+  - '8.8.8.8'
+  - '9.9.9.9'
 
 packages:
   - "tmux"
