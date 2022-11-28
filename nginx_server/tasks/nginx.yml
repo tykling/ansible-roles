@@ -17,4 +17,4 @@
     hookname: "nginx"
     hookfile: |
       #!/bin/sh
-      /usr/sbin/service nginx reload
+      /usr/sbin/service nginx reload > /dev/null

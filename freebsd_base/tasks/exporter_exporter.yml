@@ -67,4 +67,4 @@
     hookname: "exporter_exporter"
     hookfile: |
       #!/bin/sh
-      /usr/local/bin/supervisorctl restart exporter_exporter
+      /usr/local/bin/supervisorctl restart exporter_exporter > /dev/null
