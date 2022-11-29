@@ -35,16 +35,6 @@
     mode: "644"
   notify: "restart syslogd"
 
-- name: "Make sure /var/log/bind-dampening.log exists"
-  copy:
-    dest: "/var/log/bind-dampening.log"
-    content: ""
-    force: no
-    owner: "root"
-    group: "wheel"
-    mode: "644"
-  notify: "restart syslogd"
-
 - name: "Make sure /var/log/bind-queries.log exists"
   copy:
     dest: "/var/log/bind-queries.log"

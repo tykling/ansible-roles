@@ -1,9 +1,6 @@
 local0.*                                      /var/log/bind-default.log
 local1.*                                      /var/log/bind-general.log
 local2.*                                      /var/log/bind-security.log
-{% if bind_dampening %}
-local3.*                                      /var/log/bind-dampening.log
-{% endif %}
 {% if bind_querylog %}
 local5.*                                      /var/log/bind-queries.log
 {% endif %}

@@ -1,4 +1,3 @@
-// $FreeBSD: head/dns/bind910/files/named.conf.in 443607 2017-06-14 22:54:43Z mat $
 // {{ ansible_managed }}
 
 include "/usr/local/etc/namedb/rndc.key";
@@ -44,22 +43,6 @@ options {
         tcp-clients 1000;
 {% if bind_max_cache_size %}
         max-cache-size {{ bind_max_cache_size }};
-{% endif %}
-
-{% if bind_dampening %}
-        dampening {
-                IPv4-prefix-length 32;
-                report-interval 60;
-                min-table-size 50000;
-                max-table-size 60000;
-                exempt-clients {
-                        127.0.0.1;
-                        ::1;
-                        {% for client in bind_dampening_exempt_clients %}{{ client.ip }}; // {{ client.comment }}
-                {% endfor %}};
-                score-qtype-any 2000;
-                score-duplicates 1000;
-        };
 {% endif %}
 {% endif %}
 };
@@ -383,9 +366,6 @@ logging {
     category cname { null; };
     category config { null; };
     category database { null; };
-{% if bind_dampening %}
-    category dampening { channel_local3; };
-{% endif %}
     category delegation-only { null; };
     category dispatch { null; };
     category dnssec { null; };
