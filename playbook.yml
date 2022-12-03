@@ -58,6 +58,17 @@
         - "always"
       when: stat_result.stat.exists
 
+
+##############################################################################
+### set_facts needed by later roles
+- name: "Register needed variables with set_facts"
+  hosts: "all"
+  tasks:
+    - name: "Register network_interfaces (include network_interfaces_host)"
+      set_fact:
+        network_interfaces: "{{ network_interfaces + network_interfaces_host|default([]) }}"
+
+
 ##############################################################################
 ### base and host roles
 
