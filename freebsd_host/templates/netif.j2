@@ -32,6 +32,10 @@ ifconfig_{{ interface }}="inet {{ item.ips[inventory_hostname_short].v4ip }}/{{ 
 ifconfig_{{ interface }}_ipv6="inet6 {{ item.ips[inventory_hostname_short].v6ip }}/{{ item.v6net.split("/")[1] }} description '{{ item.description }}'{% if not item.cloned|default(False) %} -vlanhwtso -tso -lro{% endif %} auto_linklocal"
 {% endif %}
 
+{% if 'ether' in item %}
+ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} ether {{ item.ether }}"
+{% endif %}
+
 {% if 'carp' in item.ips %}
 {% if item.ips["carp"].v4ip is defined %}
 # configure CARP v4 on the interface
