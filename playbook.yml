@@ -64,9 +64,12 @@
 - name: "Register needed variables with set_facts"
   hosts: "all"
   tasks:
-    - name: "Register network_interfaces (include network_interfaces_host)"
+    - name: "Register network_interfaces (include network_interfaces_extra)"
       set_fact:
-        network_interfaces: "{{ network_interfaces + network_interfaces_host|default([]) }}"
+        network_interfaces: "{{ network_interfaces|default([]) + network_interfaces_extra|default([]) }}"
+    - name: "Register bird2_protocols (include bird2_protocols_extra)"
+      set_fact:
+        bird2_protocols: "{{ bird2_protocols|default([]) + bird2_protocols_extra|default([]) }}"
 
 
 ##############################################################################
