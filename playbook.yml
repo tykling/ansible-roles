@@ -67,9 +67,13 @@
     - name: "Register network_interfaces (include network_interfaces_extra)"
       set_fact:
         network_interfaces: "{{ network_interfaces|default([]) + network_interfaces_extra|default([]) }}"
+      tags:
+        - "always"
     - name: "Register bird2_protocols (include bird2_protocols_extra)"
       set_fact:
         bird2_protocols: "{{ bird2_protocols|default([]) + bird2_protocols_extra|default([]) }}"
+      tags:
+        - "always"
 
 
 ##############################################################################
