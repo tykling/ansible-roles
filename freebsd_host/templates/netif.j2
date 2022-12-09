@@ -33,9 +33,10 @@ ifconfig_{{ interface }}_ipv6="inet6 {{ item.ips[inventory_hostname_short].v6ip 
 {% endif %}
 
 {% if 'ether' in item %}
+# configure mac address
 ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} ether {{ item.ether }}"
-{% endif %}
 
+{% endif %}
 {% if 'carp' in item.ips %}
 {% if item.ips["carp"].v4ip is defined %}
 # configure CARP v4 on the interface
