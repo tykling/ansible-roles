@@ -14,6 +14,15 @@
   register: goresult
   when: gitresult.changed
  
+- name: "Go install exporter_exporter"
+  command: "go install ."
+  args:
+    chdir: "/root/exporter_exporter"
+  environment:
+    GOPATH: "/root/go"
+    GOBIN: "/usr/local/bin"
+  when: gitresult.changed
+
 - name: "Go get exporter_exporter"
   command: "go get ."
   args:
