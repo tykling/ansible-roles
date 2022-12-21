@@ -9,6 +9,27 @@
     name: "py{{ python_nodotversion }}-setuptools"
     state: "present"
 
+- name: "Check if we have an existing virtualenv for Flask"
+  stat:
+    path: "{{ flask_virtualenv_path }}"
+  register: flask_virtualenv
+  changed_when: False
+
+- name: "Get Python version for existing Flask virtualenv"
+  command: "{{ flask_virtualenv_path }}/bin/python -V"
+  register: detected_python_version
+  changed_when: False
+  when: flask_virtualenv.stat.exists
+  ignore_errors: True
+
+- name: "Remove virtualenv if it is broken or has the wrong Python version"
+  file:
+    state: "absent"
+    path: "{{ flask_virtualenv_path }}"
+  when:
+    - flask_virtualenv.stat.exists
+    - (detected_python_version.stdout[0:10] != python_versionstring or detected_python_version.failed)
+
 - name: "Install virtualenv"
   pkgng:
     name: "py{{ python_nodotversion }}-virtualenv"
