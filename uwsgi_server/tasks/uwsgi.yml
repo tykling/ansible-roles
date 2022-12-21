@@ -1,7 +1,7 @@
 ---
 - name: "Install uwsgi"
   pkgng:
-    name: "uwsgi"
+    name: "uwsgi-py{{ python_nodotversion }}"
     state: "present"
 
 - name: "Copy uwsgi config file"
