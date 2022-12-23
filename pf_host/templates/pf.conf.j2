@@ -67,7 +67,7 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 {% if rule.block is defined %}block{% else %}pass{% endif %}
 {% if rule.direction is defined %} {{ rule.direction }}{% endif %}
 {% if not rule.slow is defined %} quick{% endif %}
-{% if rule.block is defined or rule.log is defined %} log{% endif %}
+{% if rule.log is defined %} log{% endif %}
 {% if rule.interfaces is defined %} on { {{ rule.interfaces | join(" ") }} }{% endif %}
 {% if rule.reply_to is defined %} reply-to ( {{ rule.reply_to }} ){% endif %}
 {% if rule.inet is defined %} {{ rule.inet }}{% endif %}
