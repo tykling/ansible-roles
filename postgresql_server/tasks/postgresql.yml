@@ -41,7 +41,7 @@
     dest: "{{ postgresql_datadir }}/postgresql.conf"
     owner: "{{ postgresql_user }}"
     group: "{{ postgresql_user }}"
-    mode: "0600"
+    mode: "0700"
   notify: "restart postgresql"
 
 - name: "Copy pg_hba.conf"
