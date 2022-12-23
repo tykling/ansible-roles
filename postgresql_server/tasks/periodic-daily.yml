@@ -19,6 +19,13 @@
     value: "{{ postgresql_backup_path }}"
     dest: "/etc/periodic.conf"
 
+- name: "Make sure backup destination is writable"
+  file:
+    path: "{{ postgresql_backup_path }}"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: "0600"
+
 - name: "Set savedays for postgres backups in /etc/periodic.conf"
   sysrc:
     name: "daily_pgsql_savedays"
