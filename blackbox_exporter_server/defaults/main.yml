@@ -43,9 +43,22 @@ ssl_exporter_listen_address: ":9219"
 ssl_exporter_log_level: "info"
 ssl_exporter_user: "promexp"
 
+nginx_proxy: True
 nginx_locationslash: |
  location / {
       proxy_pass http://127.0.0.1:9115;
+      proxy_http_version 1.1;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+  location /sslexp {
+      proxy_pass http://127.0.0.1:9219;
+      proxy_http_version 1.1;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+  location /dnsexp {
+      proxy_pass http://127.0.0.1:15353;
       proxy_http_version 1.1;
       proxy_set_header Host $http_host;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
