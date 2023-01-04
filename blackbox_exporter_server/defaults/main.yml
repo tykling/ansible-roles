@@ -45,7 +45,7 @@ ssl_exporter_user: "promexp"
 
 nginx_proxy: True
 blackbox_nginx_locationslash: |
- location / {
+ location /blackbox {
       proxy_pass http://127.0.0.1:9115;
       proxy_http_version 1.1;
       proxy_set_header Host $http_host;
