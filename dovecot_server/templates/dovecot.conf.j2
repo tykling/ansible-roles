@@ -27,7 +27,11 @@ verbose_proctitle = yes
 #   Misc. settings
 
 # Default mail location
+{% if dovecot_mdbox %}
+mail_location = mdbox:%h/mail
+{% else %}
 mail_location = maildir:%h/mail
+{% endif %}
 
 # Autocreate and autosubscribe new mailboxes (created by sieve scripts delivering mail to them)
 lda_mailbox_autocreate=yes
@@ -95,6 +99,14 @@ service stats {
   inet_listener http {
     port = 9900
     address = 127.0.0.1,[::1]
+  }
+}
+
+# enable doveadm listener (for replication)
+service doveadm {
+  inet_listener {
+    address = *,[::]
+    port = 12345
   }
 }
 

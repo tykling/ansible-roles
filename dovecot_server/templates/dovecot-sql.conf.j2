@@ -14,3 +14,4 @@ user_query = SELECT localpart AS user, \
   {{ dovecot_vmail_gid }} AS gid \
   FROM users WHERE lower(localpart||'@'||domain) = '%Lu'
 
+iterate_query = SELECT localpart as username, domain FROM users

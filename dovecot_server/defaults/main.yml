@@ -7,3 +7,4 @@ dovecot_dhparam_path: "{{ dhparam_path }}"
 mountwaiter_paths:
   - "/usr/mailboxes"
 dovecot_logfile_path: "/var/log/dovecot.log"
+dovecot_mdbox: false
