@@ -54,6 +54,8 @@ userdb {
   args=/usr/local/etc/dovecot/dovecot-sql.conf
 }
 
+# enable notify and replication plugins
+mail_plugins = $mail_plugins notify replication
 
 ####################################################################################
 #   Protocols and listeners
@@ -117,6 +119,7 @@ doveadm_password = {{ dovecot_doveadm_password }}
 
 plugin {
   mail_replica = tcp:{{ dovecot_replication_peer }}
+  replication_sync_timeout = 2
 }
 
 service aggregator {
@@ -124,6 +127,13 @@ service aggregator {
     user = {{ dovecot_vmail_username }}
   }
   unix_listener replication-notify {
+    user = {{ dovecot_vmail_username }}
+  }
+}
+
+service replicator {
+  unix_listener replicator-doveadm {
+    mode = 0600
     user = {{ dovecot_vmail_username }}
   }
 }
@@ -139,9 +149,6 @@ protocol lmtp {
 }
 plugin/sieve = %h/.dovecot.sieve
 plugin/sieve_dir = %h/sieve
-
-# enable notify and replication plugins
-mail_plugins = $mail_plugins notify replication
 
 ####################################################################################
 # metrics
