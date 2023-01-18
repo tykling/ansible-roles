@@ -20,6 +20,12 @@
     regexp: "^/var/log/dovecot.log "
     state: "absent"
 
+- name: "make sure dovecot syslog.d config exists"
+  copy:
+    src: "dovecot_syslog.conf"
+    dest: "/usr/local/etc/syslog.d/dovecot.conf"
+  notify: "restart syslogd"
+
 - name: "Make sure dovecot newsyslog config file exists"
   template:
     src: "dovecot_newsyslog.conf.j2"
