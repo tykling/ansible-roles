@@ -118,7 +118,7 @@ doveadm_port = {{ dovecot_doveadm_port }}
 doveadm_password = {{ dovecot_doveadm_password }}
 
 plugin {
-  mail_replica = tcp:{{ dovecot_replication_peer }}
+  mail_replica = tcps:{{ dovecot_replication_peer }}
   replication_sync_timeout = 2
 }
 
