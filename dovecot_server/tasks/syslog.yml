@@ -21,7 +21,7 @@
     state: "absent"
 
 - name: "make sure dovecot syslog.d config exists"
-  copy:
+  template:
     src: "dovecot_syslog.conf"
     dest: "/usr/local/etc/syslog.d/dovecot.conf"
   notify: "restart syslogd"
