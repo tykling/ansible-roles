@@ -8,3 +8,5 @@ mountwaiter_paths:
   - "/usr/mailboxes"
 dovecot_logfile_path: "/var/log/dovecot.log"
 dovecot_mdbox: false
+dovecot_doveadm_port: 12345
+dovecot_replication: false

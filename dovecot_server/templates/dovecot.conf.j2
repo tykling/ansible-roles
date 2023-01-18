@@ -102,13 +102,32 @@ service stats {
   }
 }
 
+{% if dovecot_replication %}
 # enable doveadm listener (for replication)
 service doveadm {
   inet_listener {
     address = *,[::]
-    port = 12345
+    port = {{ dovecot_doveadm_port }}
+    ssl = yes
   }
 }
+
+doveadm_port = {{ dovecot_doveadm_port }}
+doveadm_password = {{ dovecot_doveadm_password }}
+
+plugin {
+  mail_replica = tcp:{{ dovecot_replication_peer }}
+}
+
+service aggregator {
+  fifo_listener replication-notify-fifo {
+    user = {{ dovecot_vmail_username }}
+  }
+  unix_listener replication-notify {
+    user = {{ dovecot_vmail_username }}
+  }
+}
+{% endif %}
 
 # Listen on v4 and v6
 listen = *,[::]
@@ -120,6 +139,9 @@ protocol lmtp {
 }
 plugin/sieve = %h/.dovecot.sieve
 plugin/sieve_dir = %h/sieve
+
+# enable notify and replication plugins
+mail_plugins = $mail_plugins notify replication
 
 ####################################################################################
 # metrics
@@ -142,4 +164,3 @@ metric mail_delivery {
   filter = event=mail_delivery_finished
   group_by = duration:exponential:1:5:10
 }
-
