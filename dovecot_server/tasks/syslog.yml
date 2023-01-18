@@ -22,7 +22,7 @@
 
 - name: "make sure dovecot syslog.d config exists"
   template:
-    src: "dovecot_syslog.conf"
+    src: "dovecot_syslog.conf.j2"
     dest: "/usr/local/etc/syslog.d/dovecot.conf"
   notify: "restart syslogd"
 
