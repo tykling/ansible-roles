@@ -16,3 +16,12 @@ python_version: "3.9"
 python_path: "/usr/local/bin/python{{ python_version }}"
 python_nodotversion: "{{ python_version|replace('.','') }}"
 python_versionstring: "Python {{ python_version }}"
+
+network_interfaces_default:
+  - description: "Upstream / outside interface"
+    interface: "{{ ansible_default_ipv4.device }}"
+    configure: False
+    pf_macro: "if"
+    pf_scrub: True
+    pf_sync: False
+    pf_carp: False

@@ -6,14 +6,6 @@ pf_gateway: False
 pf_anycast_host: False
 carp_preempt: True
 anycast_serviceinterface: False
-network_interfaces:
-  - description: "Upstream / outside interface"
-    interface: "{{ ansible_default_ipv4.device }}"
-    configure: False
-    pf_macro: "if"
-    pf_scrub: True
-    pf_sync: False
-    pf_carp: False
 
 pf_options:
   limit states: "500000"
