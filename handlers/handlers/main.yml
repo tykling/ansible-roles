@@ -1,12 +1,16 @@
 ---
 ### alertmanager_server
 - name: "restart alertmanager"
-  command: "/usr/local/bin/supervisorctl restart alertmanager"
+  community.general.supervisorctl:
+    name: "alertmanager"
+    state: "restarted"
 
 
 ### bind_server
 - name: "restart bind"
-  command: "/usr/local/bin/supervisorctl restart bind"
+  community.general.supervisorctl:
+    name: "bind"
+    state: "restarted"
 
 - name: "reload bind"
   command: "/usr/local/sbin/rndc reload"
@@ -14,10 +18,14 @@
 
 ### bird2_server
 - name: "start bird2"
-  command: "/usr/local/bin/supervisorctl start bird2"
+  community.general.supervisorctl:
+    name: "bird2"
+    state: "started"
 
 - name: "restart bird2"
-  command: "/usr/local/bin/supervisorctl restart bird2"
+  community.general.supervisorctl:
+    name: "bird2"
+    state: "restarted"
 
 - name: "reconfigure bird2"
   command: "/usr/local/sbin/birdc configure"
@@ -27,13 +35,17 @@
 
 ### blackbox_exporter_server
 - name: "restart blackbox_exporter"
-  command: "/usr/local/bin/supervisorctl restart blackbox_exporter"
+  community.general.supervisorctl:
+    name: "blackbox_exporter"
+    state: "restarted"
 
 - name: "reload blackbox_exporter"
   command: "/usr/local/bin/supervisorctl signal HUP blackbox_exporter"
 
 - name: "restart ssl_exporter"
-  command: "/usr/local/bin/supervisorctl restart ssl_exporter"
+  community.general.supervisorctl:
+    name: "ssl_exporter"
+    state: "restarted"
 
 
 ### certgrinder_client
@@ -65,17 +77,23 @@
 
 ### django_channels2_server
 - name: "restart daphne using supervisorctl"
-  command: "/usr/local/bin/supervisorctl restart daphne"
+  community.general.supervisorctl:
+    name: "daphne"
+    state: "restarted"
   when: "django_channels_daphne"
 
 - name: "restart supervisord_extra_programs"
-  command: "/usr/local/bin/supervisorctl restart {{ item.name }}"
+  community.general.supervisorctl:
+    name: "{{ item.name }}"
+    state: "restarted"
   with_items: "{{ supervisord_extra_programs | default({}) }}"
 
 
 ### dnsdist_server
 - name: "restart dnsdist"
-  command: "/usr/local/bin/supervisorctl restart dnsdist"
+  community.general.supervisorctl:
+    name: "dnsdist"
+    state: "restarted"
 
 
 ### dovecot_server
@@ -124,7 +142,7 @@
 
 ### freebsd_base
 - name: "restart exporter_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "exporter_exporter"
     state: "restarted"
 
@@ -143,12 +161,14 @@
 
 ### grafana_server
 - name: "restart grafana"
-  command: "/usr/local/bin/supervisorctl restart grafana"
+  community.general.supervisorctl:
+    name: "grafana"
+    state: "restarted"
 
 
 ### freebsd_host
 - name: "restart gstat_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "gstat_exporter"
     state: "restarted"
 
@@ -174,7 +194,7 @@
 
 ### jail_host
 - name: "restart jail_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "jail_exporter"
     state: "restarted"
 
@@ -201,7 +221,9 @@
 
 ### motion_server
 - name: "restart motion"
-  command: "/usr/local/bin/supervisorctl restart motion"
+  community.general.supervisorctl:
+    name: "motion"
+    state: "restarted"
 
 
 ### nfs_server
@@ -228,12 +250,12 @@
 
 ### loki
 - name: "restart loki"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "loki"
     state: "restarted"
 
 - name: "restart promtail"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "promtail"
     state: "restarted"
 
@@ -247,7 +269,7 @@
 
 ### nginx_server
 - name: "restart nginx_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "nginx_exporter"
     state: "restarted"
 
@@ -264,7 +286,7 @@
 
 ### node_exporter
 - name: "restart node_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "node_exporter"
     state: "restarted"
 
@@ -324,18 +346,23 @@
 
 ### postgresql_server
 - name: "restart pgbouncer"
-  command: "/usr/local/bin/supervisorctl restart pgbouncer"
+  community.general.supervisorctl:
+    name: "pgbouncer"
+    state: "restarted"
 
+# revisit
 - name: "reload pgbouncer"
   command: "id"
 
 - name: "restart postgres_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "postgres_exporter"
     state: restarted
 
 - name: "restart postgresql"
-  command: "/usr/local/bin/supervisorctl restart postgresql"
+  community.general.supervisorctl:
+    name: "postgresql"
+    state: "restarted"
 
 - name: "reload postgresql"
   command: "su -l postgres -c '/usr/local/bin/pg_ctl -D {{ postgresql_datadir }} reload'"
@@ -367,7 +394,9 @@
 
 ### powerdns_recursor_server
 - name: "restart powerdns-recursor"
-  command: "/usr/local/bin/supervisorctl restart powerdns_recursor"
+  community.general.supervisorctl:
+    name: "powerdns_recursor"
+    state: "restarted"
 
 
 ### freebsd_base
@@ -376,7 +405,9 @@
 
 ### prometheus_server
 - name: "restart prometheus"
-  command: "/usr/local/bin/supervisorctl restart prometheus"
+  community.general.supervisorctl:
+    name: "prometheus"
+    state: "restarted"
 
 
 ### prosody_server
@@ -410,13 +441,15 @@
 
 ### smokeping_prober
 - name: "restart smokeping_prober"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "smokeping_prober"
     state: "restarted"
 
 ### snmp_exporter
 - name: "restart snmp_exporter"
-  command: "/usr/local/bin/supervisorctl restart snmp_exporter"
+  community.general.supervisorctl:
+    name: "snmp_exporter"
+    state: "restarted"
 
 ### spawn_fcgi_server
 - name: "restart spawn-fcgi"
@@ -426,7 +459,9 @@
 
 ### speedtest_server
 - name: "restart speedtest"
-  command: "/usr/local/bin/supervisorctl restart ooklaserver"
+  community.general.supervisorctl:
+    name: "ooklaserver"
+    state: "restarted"
 
 ### sshd
 - name: "restart sshd"
@@ -442,12 +477,12 @@
 
 ### stubby
 - name: "start stubby"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "stubby"
     state: "started"
 
 - name: "restart stubby"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "stubby"
     state: "restarted"
 
@@ -490,24 +525,26 @@
 
 ### unbound_server
 - name: "start unbound"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "unbound"
     state: "started"
 
 - name: "restart unbound"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "unbound"
     state: "restarted"
 
 
 ### uwsgi_server
 - name: "restart uwsgi_exporter"
-  supervisorctl:
+  community.general.supervisorctl:
     name: "uwsgi_exporter"
     state: "restarted"
 
 - name: "restart uwsgi"
-  command: "/usr/local/bin/supervisorctl restart uwsgi"
+  community.general.supervisorctl:
+    name: "uwsgi"
+    state: "restarted"
 
 - name: "touch-chain-reload uwsgi"
   file:
