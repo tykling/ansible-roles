@@ -69,6 +69,7 @@
         network_interfaces: "{{ network_interfaces|default(network_interfaces_default) + network_interfaces_extra|default([]) }}"
       tags:
         - "always"
+      when: network_interfaces is defined or ansible_default_ipv4.device is defined
     - name: "Register bird2_protocols (include bird2_protocols_extra)"
       set_fact:
         bird2_protocols: "{{ bird2_protocols|default([]) + bird2_protocols_extra|default([]) }}"
