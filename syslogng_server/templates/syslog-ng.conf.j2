@@ -35,7 +35,11 @@ source src {
         tls(
             # require a valid and trusted client cert
             peer-verify(required-trusted)
+{% if syslogng_trusted_client_dn is string %}
             trusted-dn("{{ syslogng_trusted_client_dn }}")
+{% else %}
+            trusted-dn({% for dn in syslogng_trusted_client_dn %}"{{ dn }}" {% endfor %})
+{% endif %}
             ca-dir("{{ syslogng_cadir }}")
             key_file("{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key")
             cert_file("{{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt")
