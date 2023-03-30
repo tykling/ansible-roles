@@ -75,7 +75,7 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 {% if rule.sources is defined %} from { {{ rule.sources | join(" ") }} }{% endif %}
 {% if rule.destinations is defined %} to { {{ rule.destinations | join(" ") }} }{% endif %}
 {% if rule.ports is defined %} port { {{ rule.ports | join(" ") }} }{% endif %}
-{% if rule.flags is defined %} flags "{{ rule.flags }}"{% endif %}
+{% if rule.flags is defined %} flags {{ rule.flags }}{% endif %}
 {% if rule.label is defined %} label "{{ rule.label }}"{% endif %}
 {% if rule.tag is defined %} tag {{ rule.tag }}{% endif %}
 {% if rule.tagged is defined %} tagged {{ rule.tagged }}{% endif %}
