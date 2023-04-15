@@ -50,8 +50,9 @@ addConsoleACL("{{ ansible_default_ipv4.address|default(ansible_all_ipv4_addresse
 addConsoleACL("{{ ansible_default_ipv6.address|default(ansible_all_ipv6_addresses[0]) }}/128")
 
 -- Web management
-webserver("{{ dnsdist_web_mgmt_v4_listen_ip }}:{{ dnsdist_web_mgmt_v4_listen_port }}", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}", {}, "{{ dnsdist_web_acl|join(',') }}")
-webserver("[{{ dnsdist_web_mgmt_v6_listen_ip }}]:{{ dnsdist_web_mgmt_v4_listen_port }}", "{{ dnsdist_web_password }}", "{{ dnsdist_web_apikey }}", {}, "{{ dnsdist_web_acl|join(',') }}")
+webserver("{{ dnsdist_web_mgmt_v4_listen_ip }}:{{ dnsdist_web_mgmt_v4_listen_port }}")
+webserver("[{{ dnsdist_web_mgmt_v6_listen_ip }}]:{{ dnsdist_web_mgmt_v4_listen_port }}")
+setWebserverConfig({password="{{ dnsdist_web_password }}", apiKey="{{ dnsdist_web_apikey }}", acl="{{ dnsdist_web_acl|join(',') }}"})
 
 -- custom config below here
 {{ dnsdist_extra_config|default("") }}
