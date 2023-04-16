@@ -17,3 +17,16 @@
     - "dhcpd"
   notify: "restart isc dhcpd"
 
+- name: "Enable isc dhcpd6 in rc.conf"
+  sysrc:
+    name: "dhcpd_enable"
+    value: "YES"
+  when: isc_dhcpd6|default(False)
+
+- name: "Copy dhcpd6.conf"
+  template:
+    src: "dhcpd6.conf.j2"
+    dest: "/usr/local/etc/dhcpd6.conf"
+  tags:
+    - "dhcpd"
+  notify: "restart isc dhcpd"

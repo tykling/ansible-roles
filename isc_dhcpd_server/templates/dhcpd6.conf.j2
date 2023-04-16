@@ -1,0 +1,15 @@
+# dhcpd6.conf
+
+default-lease-time 2592000;
+preferred-lifetime 604800;
+option dhcp-renewal-time 3600;
+option dhcp-rebinding-time 7200;
+allow leasequery;
+
+
+######### OPTIONS ####################
+{{ isc_dhcpd6_options }}
+
+
+######### SUBNETS ####################
+{{ isc_dhcpd6_subnets }}
