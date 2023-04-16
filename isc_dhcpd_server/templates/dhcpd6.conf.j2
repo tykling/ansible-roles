@@ -8,7 +8,7 @@ allow leasequery;
 
 
 ######### OPTIONS ####################
-{{ isc_dhcpd6_options }}
+{{ isc_dhcpd6_options|default("# no options defined") }}
 
 
 ######### SUBNETS ####################
