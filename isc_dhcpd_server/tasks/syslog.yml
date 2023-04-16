@@ -1,21 +1,32 @@
 ---
-- name: Add dhcpd.log to syslog.conf
+- name: "Remove old dhcpd.log line from syslog.conf"
   lineinfile:
-    dest: /etc/syslog.conf
-    regexp: "^local6"
-    line: "local6.*                                        /var/log/dhcpd.log"
-  notify: "restart syslogd"
+    dest: "/etc/syslog.conf"
+    line: "local6.*                                        {{ dhcpd_logfile_path }}"
+    state: "absent"
 
-- name: Create dhcpd.log if it doesn't exist
+- name: "Create dhcpd.log if it doesn't exist"
   file:
-    path: /var/log/dhcpd.log
-    state: touch
-    mode: "640"
+    path: "{{ dhcpd_logfile_path }}"
+    state: "touch"
+    mode: "600"
+    modification_time: "preserve"
+    access_time: "preserve"
   notify: "restart syslogd"
 
-- name: Add dhcpd.log to newsyslog.conf
+- name: "Remove old dhcpd.log line from newsyslog.conf"
   lineinfile:
-    dest: /etc/newsyslog.conf
-    regexp: "^/var/log/dhcpd.log "
-    line: "/var/log/dhcpd.log                    640  365   *    @T00  JC"
+    dest: "/etc/newsyslog.conf"
+    regexp: "^{{ dhcpd_logfile_path }} "
+    state: "absent"
 
+- name: "make sure dhcpd syslog.d config exists"
+  template:
+    src: "dhcpd_syslog.conf.j2"
+    dest: "/usr/local/etc/syslog.d/dhcpd.conf"
+  notify: "restart syslogd"
+
+- name: "Make sure dhcpd newsyslog config file exists"
+  template:
+    src: "dhcpd_newsyslog.conf.j2"
+    dest: "/usr/local/etc/newsyslog.conf.d/dhcpd.conf"

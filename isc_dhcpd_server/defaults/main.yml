@@ -1,0 +1,2 @@
+---
+dhcpd_logfile_path: "/var/log/dhcpd.log"
