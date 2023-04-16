@@ -19,7 +19,7 @@
 
 - name: "Enable isc dhcpd6 in rc.conf"
   sysrc:
-    name: "dhcpd_enable"
+    name: "dhcpd6_enable"
     value: "YES"
   when: isc_dhcpd6|default(False)
 
