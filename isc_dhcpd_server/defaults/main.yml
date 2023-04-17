@@ -1,2 +1,4 @@
 ---
-dhcpd_logfile_path: "/var/log/dhcpd.log"
+isc_dhcpd_logfile_path: "/var/log/dhcpd.log"
+isc_dhcpd_interfaces: []
+isc_dhcpd6_interfaces: []

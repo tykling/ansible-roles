@@ -9,6 +9,20 @@
     name: "dhcpd_enable"
     value: "YES"
 
+- name: "set dhcpd_ifaces in /etc/rc.conf"
+  sysrc:
+    name: "dhcpd_ifaces"
+    value: "{{ isc_dhcpd_interfaces|join(',') }}"
+  when: isc_dhcpd_interfaces
+
+- name: "set dhcpd6_ifaces in /etc/rc.conf"
+  sysrc:
+    name: "dhcpd6_ifaces"
+    value: "{{ isc_dhcpd6_interfaces|join(',') }}"
+  when:
+    - isc_dhcpd6
+    - dhcpd6_interfaces
+
 - name: "Copy dhcpd.conf"
   template:
     src: "dhcpd.conf.j2"
