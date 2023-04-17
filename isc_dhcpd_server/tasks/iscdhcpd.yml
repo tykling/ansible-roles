@@ -12,13 +12,13 @@
 - name: "set dhcpd_ifaces in /etc/rc.conf"
   sysrc:
     name: "dhcpd_ifaces"
-    value: "{{ isc_dhcpd_interfaces|join(',') }}"
+    value: "{{ isc_dhcpd_interfaces|join(' ') }}"
   when: isc_dhcpd_interfaces
 
 - name: "set dhcpd6_ifaces in /etc/rc.conf"
   sysrc:
     name: "dhcpd6_ifaces"
-    value: "{{ isc_dhcpd6_interfaces|join(',') }}"
+    value: "{{ isc_dhcpd6_interfaces|join(' ') }}"
   when:
     - isc_dhcpd6
     - isc_dhcpd6_interfaces
