@@ -21,7 +21,7 @@
     value: "{{ isc_dhcpd6_interfaces|join(',') }}"
   when:
     - isc_dhcpd6
-    - dhcpd6_interfaces
+    - isc_dhcpd6_interfaces
 
 - name: "Copy dhcpd.conf"
   template:
