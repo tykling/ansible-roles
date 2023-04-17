@@ -2,12 +2,12 @@
 - name: "Remove old dhcpd.log line from syslog.conf"
   lineinfile:
     dest: "/etc/syslog.conf"
-    line: "local6.*                                        {{ dhcpd_logfile_path }}"
+    line: "local6.*                                        {{ isc_dhcpd_logfile_path }}"
     state: "absent"
 
 - name: "Create dhcpd.log if it doesn't exist"
   file:
-    path: "{{ dhcpd_logfile_path }}"
+    path: "{{ isc_dhcpd_logfile_path }}"
     state: "touch"
     mode: "600"
     modification_time: "preserve"
@@ -17,7 +17,7 @@
 - name: "Remove old dhcpd.log line from newsyslog.conf"
   lineinfile:
     dest: "/etc/newsyslog.conf"
-    regexp: "^{{ dhcpd_logfile_path }} "
+    regexp: "^{{ isc_dhcpd_logfile_path }} "
     state: "absent"
 
 - name: "make sure dhcpd syslog.d config exists"
