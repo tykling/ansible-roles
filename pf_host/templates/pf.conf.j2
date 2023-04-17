@@ -101,7 +101,7 @@ pass out quick on ${{ interface.pf_macro }} inet proto icmp all icmp-type { unre
 
 
 # permit ICMP6
-pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }{% if interface.pf_sync %} keep state (no-sync){% endif %}
+pass in quick on ${{ interface.pf_macro }} {% if "pf_reply_to_v6" in interface %} reply-to ( {{ interface.pf_reply_to_v6.interface }} {{ interface.pf_reply_to_v6.nexthop }} ){% endif %} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob, listenrep }{% if interface.pf_sync %} keep state (no-sync){% endif %}
 
 pass out quick on ${{ interface.pf_macro }} inet6 proto icmp6 all icmp6-type { echoreq, echorep, neighbradv, neighbrsol, routeradv, routersol, unreach, timex, paramprob }{% if interface.pf_sync %} keep state (no-sync){% endif %}
 
