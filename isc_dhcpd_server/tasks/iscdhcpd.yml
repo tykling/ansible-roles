@@ -29,4 +29,4 @@
     dest: "/usr/local/etc/dhcpd6.conf"
   tags:
     - "dhcpd"
-  notify: "restart isc dhcpd"
+  notify: "restart isc dhcpd6"

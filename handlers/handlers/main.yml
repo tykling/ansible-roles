@@ -191,6 +191,11 @@
     name: "isc-dhcpd"
     state: "restarted"
 
+- name: "restart isc dhcpd6"
+  service:
+    name: "isc-dhcpd6"
+    state: "restarted"
+
 
 ### jail_host
 - name: "restart jail_exporter"
