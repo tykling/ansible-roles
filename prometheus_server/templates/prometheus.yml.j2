@@ -70,6 +70,6 @@ scrape_configs:
 {% endfor %}
 {% endif %}
 
-{% if prometheus_raw_config %}
+{% if prometheus_raw_config|default(False) %}
 {{ prometheus_raw_config | to_nice_yaml(indent=2) }}
 {% endif %}
