@@ -12,6 +12,8 @@ alerting:
     {{ prometheus_alertmanager_configs | to_nice_yaml(indent=2) | indent(4,False) }}
 {% endif %}
 
+
+{% if prometheus_scrape_configs|default([]) %}
 scrape_configs:
 {% if prometheus_self_scrape|default(true) %}
   - job_name: 'prometheus self-scrape'
@@ -66,4 +68,6 @@ scrape_configs:
       {{ job.basic_auth | to_nice_yaml(indent=2) | indent(6,False) }}
 {% endif %}
 {% endfor %}
+{% endif %}
 
+{{ prometheus_raw_config|default({}) | to_nice_yaml(indent=2) }}
