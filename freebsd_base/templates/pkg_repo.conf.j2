@@ -1,7 +1,6 @@
 {% if pkg_tykports_enable|default(True) %}
 tykports: {
     url: "https://{{ poudriere_repo_hostname }}/packages/freebsd_{{ ansible_distribution_version|replace('.', '_') }}_{{ ansible_architecture }}-tykports",
-    mirror_type: "http",
     signature_type: "pubkey",
     pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
     enabled: yes,
@@ -10,7 +9,6 @@ tykports: {
 {% endif %}
 {{ poudriere_repo_name }}: {
     url: "https://{{ poudriere_repo_hostname }}/packages/{{ poudriere_package_set }}",
-    mirror_type: "http",
     signature_type: "pubkey",
     pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
     enabled: yes,
