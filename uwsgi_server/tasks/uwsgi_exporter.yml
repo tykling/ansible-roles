@@ -13,14 +13,23 @@
     state: "present"
   register: goresult
   when: gitresult.changed
- 
-- name: "Go install uwsgi_exporter"
-  command: "go install github.com/timonwong/uwsgi_exporter@latest"
+
+- name: "Install gmake to build uwsgi_exporter"
+  pkgng:
+    name: "gmake"
+    state: "present"
+  register: gmakeresult
+  when: gitresult.changed
+
+- name: "build uwsgi_exporter"
+  command: "gmake"
+  args:
+    chdir: "/root/uwsgi_exporter"
   when: gitresult.changed
 
 - name: "Copy uwsgi_exporter binary to /usr/local/bin"
   copy:
-   src: "/root/go/bin/uwsgi_exporter"
+   src: "/root/uwsgi_exporter/uwsgi_exporter"
    dest: "/usr/local/bin/uwsgi_exporter"
    mode: "0755"
    remote_src: yes
@@ -36,6 +45,14 @@
   when:
     - gitresult.changed
     - goresult.changed
+
+- name: "Remove gmake build dep if we installed it"
+  pkgng:
+    name: "gmake"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - gmakeresult.changed
 
 - name: "Create supervisord.d config file to run uwsgi_exporter"
   include_role:
