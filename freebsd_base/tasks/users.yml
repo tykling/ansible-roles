@@ -61,3 +61,10 @@
     comment: "Prometheus exporter user"
     home: "/nonexistent"
     create_home: False
+
+# delete users no longer needed
+- name: "Delete users as needed"
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: "absent"
+  loop: "{{ deleted_users|default([]) }}"
