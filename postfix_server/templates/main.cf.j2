@@ -58,6 +58,7 @@ smtpd_tls_chain_files = {{ certgrinder_home }}/certificates/{{ ansible_nodename 
 smtpd_tls_auth_only = yes
 smtpd_tls_received_header = yes
 smtpd_tls_security_level = {% if postfix_always_encrypt_incoming %}encrypt{% else %}may{% endif %}
+
 smtpd_tls_protocols = >=TLSv1.2
 smtpd_tls_loglevel = 1
 smtpd_tls_exclude_ciphers = aNULL
@@ -65,6 +66,7 @@ smtpd_tls_exclude_ciphers = aNULL
 smtp_tls_CAfile = /etc/ssl/cert.pem
 smtp_tls_session_cache_database = btree:/var/db/postfix/smtp_tls_session_cache
 smtp_tls_security_level = {% if postfix_always_encrypt_outgoing %}encrypt{% else %}may{% endif %}
+
 smtp_tls_loglevel = 1
 smtp_tls_protocols = >=TLSv1.2
 smtp_tls_exclude_ciphers = aNULL
