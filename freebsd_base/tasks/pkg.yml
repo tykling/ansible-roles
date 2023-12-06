@@ -44,6 +44,7 @@
     dest: "/usr/local/etc/pkg/repos/FreeBSD.conf"
   tags:
     - "pkgrepo"
+  when: pkg_disable_freebsd_repo
 
 - name: "Create repo cert directory"
   file:

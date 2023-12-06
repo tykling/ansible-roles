@@ -15,6 +15,7 @@ packages:
   - "python{{ python_nodotversion }}"
 
 poudriere_client: True
+pkg_disable_freebsd_repo: True
 
 disable_ssh_password_login: True
 
