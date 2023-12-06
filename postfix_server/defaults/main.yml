@@ -5,4 +5,5 @@ opendkim_internalhosts:
   - "127.0.0.1"
   - "::1"
 postfix_sender_login_restriction: True
-
+postfix_always_encrypt_incoming: False
+postfix_always_encrypt_outgoing: False
