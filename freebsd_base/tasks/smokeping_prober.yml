@@ -17,7 +17,7 @@
     supervisord_programs:
       - name: "smokeping_prober_fib{{ fib }}"
         comment: "run smokeping_prober for fib {{ fib }}"
-        command: "/usr/sbin/setfib {{ fib }} /usr/local/bin/smokeping_prober --privileged --ping.interval={{ prometheus_smokeping_interval }} --log.format='logger:stderr?json=true' --web.listen-address=':{{ loop_idx + 9374 }}' {{ prometheus_smokeping_targets|join(' ') }}"
+        command: "/usr/sbin/setfib {{ fib }} /usr/local/bin/smokeping_prober --privileged --ping.interval={{ prometheus_smokeping_interval }} --log.format='json' --web.listen-address=':{{ loop_idx + 9374 }}' {{ prometheus_smokeping_targets|join(' ') }}"
         user: "root"
     supervisord_extra_programs: []
   loop: "{{ prometheus_smokeping_fibs }}"
