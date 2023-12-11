@@ -1,0 +1,5 @@
+---
+- name: "Set cleartmp_enable=YES in /etc/rc.conf"
+  sysrc:
+    name: "clear_tmp_enable"
+    value: "YES"

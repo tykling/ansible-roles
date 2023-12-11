@@ -1,5 +1,6 @@
 ---
 - include_tasks: "debug.yml"
+- include_tasks: "cleartmp.yml"
 - include_tasks: "resolvconf.yml"
 - include_tasks: "etchosts.yml"
 - include_tasks: "pkg.yml"
