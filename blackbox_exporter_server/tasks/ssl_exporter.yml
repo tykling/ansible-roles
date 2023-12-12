@@ -39,4 +39,4 @@
       method: "http"
       http:
         port: 9219
-        metrics_path: "/probe"
+        path: "/probe"
