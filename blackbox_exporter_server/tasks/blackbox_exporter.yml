@@ -38,3 +38,4 @@
       method: "http"
       http:
         port: 9115
+        path: "/probe"
