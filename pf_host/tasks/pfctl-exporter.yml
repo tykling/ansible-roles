@@ -1,0 +1,30 @@
+---
+- name: "Install py-pfctl_exporter"
+  pkgng:
+    name: "py-pfctl_exporter"
+    state: "present"
+  notify: "restart pfctl-exporter"
+
+- name: "Create supervisord.d config file to run pfctl-exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "pfctl-exporter"
+    supervisord_programs:
+      - name: "pfctl-exporter"
+        comment: "run pfctl-exporter"
+        command: "/usr/local/bin/pfctl-exporter -l 127.0.0.1"
+        user: "root"
+    supervisord_extra_programs: []
+
+- name: "Create exporter_exporter.d config file for pfctl-exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "pfctl-exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9630

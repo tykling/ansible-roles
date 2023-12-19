@@ -2,5 +2,7 @@
 - include_tasks: "pf.yml"
   tags:
     - "pf"
+- include_tasks: "pfctl-exporter.yml"
+  tags:
+    - "pf"
 - include_tasks: "carp.yml"
-

@@ -348,6 +348,11 @@
 - name: "kldload carp module"
   command: "/sbin/kldload carp"
 
+- name: "restart pfctl-exporter"
+  community.general.supervisorctl:
+    name: "pfctl-exporter"
+    state: "restarted"
+
 
 ### postgresql_server
 - name: "restart pgbouncer"
@@ -362,7 +367,7 @@
 - name: "restart postgres_exporter"
   community.general.supervisorctl:
     name: "postgres_exporter"
-    state: restarted
+    state: "restarted"
 
 - name: "restart postgresql"
   community.general.supervisorctl:
