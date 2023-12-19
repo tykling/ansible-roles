@@ -1,7 +1,7 @@
 ---
 - name: "Install py-pfctl_exporter"
   pkgng:
-    name: "py-pfctl_exporter"
+    name: "py{{ python_nodotversion }}-pfctl_exporter"
     state: "present"
   notify: "restart pfctl-exporter"
 
