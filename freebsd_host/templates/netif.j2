@@ -40,7 +40,7 @@ ifconfig_{{ interface }}_aliases="${ifconfig_{{ interface }}_aliases} group carp
 {% endif %}
 {% else %}
 {% if not item.lacp is defined %}
-ifconfig_{{ interface }}="up"
+ifconfig_{{ interface }}="up description '{{ item.description }}'"
 {% endif %}
 {% endif %}
 
