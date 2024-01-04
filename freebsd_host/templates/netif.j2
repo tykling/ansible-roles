@@ -46,7 +46,7 @@ ifconfig_{{ interface }}="up"
 
 {% if item.bridge is defined %}
 # add to bridge
-ifconfig_{{ item.bridge }}="${ifconfig_{{ item.bridge }}} addm {{ item.interface }}.{{ item.vlan }}"
+ifconfig_{{ item.bridge }}="${ifconfig_{{ item.bridge }}} addm {{ item.interface }}{% if item.vlan is defined %}.{{ item.vlan }}{% endif %}"
 {% endif %}
 
 {% if item.lacp is defined %}
