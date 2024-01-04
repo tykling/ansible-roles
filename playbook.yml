@@ -492,3 +492,9 @@
   become: True
   roles:
     - "loki_server"
+
+- name: "configure pf servers"
+  hosts: "pf_servers"
+  become: True
+  roles:
+    - "pf_host"
