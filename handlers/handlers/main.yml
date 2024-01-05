@@ -336,9 +336,11 @@
 ### pf_host
 - name: "kldload pf module"
   command: "/sbin/kldload pf"
+  ignore_errors: True
 
 - name: "kldload pflog module"
   command: "/sbin/kldload pflog"
+  ignore_errors: True
 
 - name: "reload pf"
   service:
