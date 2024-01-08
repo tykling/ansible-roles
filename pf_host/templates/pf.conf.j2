@@ -60,9 +60,9 @@ pass out quick on ${{ interface.pf_macro }} from (${{ interface.pf_macro }})
 {% endif %}
 
 #######################################################
-# CUSTOM FILTER RULES BELOW HERE (from pf_filter_rules dict)
+# CUSTOM FILTER RULES BELOW HERE (from pf_filter_rules + pf_extra_filter_rules dicts)
 
-{% for rule in pf_filter_rules %}
+{% for rule in pf_filter_rules + pf_extra_filter_rules | default([]) %}
 # {{ rule.comment }}
 {% if rule.block is defined %}block{% else %}pass{% endif %}
 {% if rule.direction is defined %} {{ rule.direction }}{% endif %}
