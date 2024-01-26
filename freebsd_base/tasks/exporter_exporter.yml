@@ -9,7 +9,7 @@
 
 - name: "Install Go"
   pkgng:
-    name: "go"
+    name: "go121"
     state: "present"
   register: goresult
   when: gitresult.changed
@@ -34,7 +34,7 @@
 
 - name: "Remove Go build dep if we installed it"
   pkgng:
-    name: "go"
+    name: "go121"
     state: "absent"
   when:
     - gitresult.changed
