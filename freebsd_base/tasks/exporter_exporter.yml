@@ -15,7 +15,7 @@
   when: gitresult.changed
  
 - name: "Go install exporter_exporter"
-  command: "go install ."
+  command: "go121 install ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
@@ -24,7 +24,7 @@
   when: gitresult.changed
 
 - name: "Go get exporter_exporter"
-  command: "go get ."
+  command: "go121 get ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
