@@ -132,6 +132,7 @@ service aggregator {
 }
 
 service replicator {
+  vsz_limit = 2048 M
   unix_listener replicator-doveadm {
     mode = 0600
     user = {{ dovecot_vmail_username }}
