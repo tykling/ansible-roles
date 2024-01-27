@@ -60,46 +60,47 @@ jail_{{ jailname }}_exec_created{{ ns.created + 1 }}="zfs jail {{ jailname }} {{
 {% set ifloop = loop %}
 # interface jail{{ loop.index0 }}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig epair{{ interface.epair }}b name jail{{ ifloop.index0 }}"
+{% set ns.start = ns.start + 1 %}
 {% if interface.ifconfig_inet is defined %}
 # ipv4 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet is string %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ interface.ifconfig_inet }}"
+{% set ns.start = ns.start + 1 %}
 {% else %}
 {% for ifconfig in interface.ifconfig_inet %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} {{ ifconfig }}"
+{% set ns.start = ns.start + 1 %}
 {% endfor %}
 {% endif %}
 {% endif %}
 {% if interface.ifconfig_inet6 is defined %}
 # ipv6 for jail{{ loop.index0 }}
 {% if interface.ifconfig_inet6 is string %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ interface.ifconfig_inet6 }}"
+{% set ns.start = ns.start + 1 %}
 {% else %}
 {% for ifconfig in interface.ifconfig_inet6 %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="ifconfig jail{{ ifloop.index0 }} inet6 {{ ifconfig }}"
+{% set ns.start = ns.start + 1 %}
 {% endfor %}
 {% endif %}
 {% endif %}
 {% if jail.zfs_datasets is defined %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="zfs mount -a "
+{% set ns.start = ns.start + 1 %}
 {% endif %}
 
 {% endfor %}
 
 # static routes
 {% for route in jail.routes %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="route add {{ route }}"
+{% set ns.start = ns.start + 1 %}
 {% endfor %}
 
 {% for es in jail.extrastart|default([]) %}
-{% set ns.start = ns.start + 1 %}
 jail_{{ jailname }}_exec_start{{ ns.start }}="{{ es }}"
+{% set ns.start = ns.start + 1 %}
 {% endfor %}
 
 ### poststop section (runs on host)
