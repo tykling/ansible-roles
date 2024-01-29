@@ -503,4 +503,4 @@
   hosts: "mosquitto_servers"
   become: True
   roles:
-    - "mosquitto_servers"
+    - "mosquitto_server"

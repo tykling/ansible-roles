@@ -3,8 +3,6 @@
   copy:
     src: "mosquitto-syslogd.conf"
     dest: "/usr/local/etc/syslog.d/mosquitto.conf"
-  notify:
-    - "restart mosquitto"
 
 - name: "Make sure /var/log/mosquitto.log exists"
   copy:

@@ -30,6 +30,7 @@
   loop: "{{ mqtt2prometheus_configs | dict2items }}"
   loop_control:
     loop_var: "m2p"
+    index_var: "loop_idx"
 
 - name: "Create exporter_exporter.d config file for configured mqtt2prometheus instances"
   include_role:
@@ -40,8 +41,9 @@
     expexp_program:
       method: "http"
       http: "{{ { 'port': loop_idx + 9641 } }}"
-  loop: "{{ mqtt2prometheus_configs }}"
+  loop: "{{ mqtt2prometheus_configs | dict2items }}"
   loop_control:
     loop_var: "m2p"
     index_var: "loop_idx"
+  notify: "restart mqtt2prom instance"
 ...

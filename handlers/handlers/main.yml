@@ -274,6 +274,11 @@
 - name: "reload mosquitto"
   command: "/usr/local/bin/supervisorctl signal HUP mosquitto"
 
+- name: "restart mqtt2prom instance"
+  community.general.supervisorctl:
+    name: "mqtt2prometheus_{{ m2p.key }}"
+    state: "restarted"
+
 
 ### nfsen_server
 - name: "reload nfsen"

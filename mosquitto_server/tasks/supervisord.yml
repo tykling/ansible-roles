@@ -8,5 +8,5 @@
     supervisord_programs:
       - name: "mosquitto"
         comment: "run mosquitto"
-        command: "/usr/local/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf -d"
+        command: "/usr/local/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf"
         user: "mosquitto"
