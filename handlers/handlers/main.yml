@@ -265,6 +265,16 @@
     state: "restarted"
 
 
+### mosquitto
+- name: "start mosquitto"
+  community.general.supervisorctl:
+    name: "mosquitto"
+    state: "started"
+
+- name: "reload mosquitto"
+  command: "/usr/local/bin/supervisorctl signal HUP mosquitto"
+
+
 ### nfsen_server
 - name: "reload nfsen"
   service:

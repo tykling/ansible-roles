@@ -1,0 +1,32 @@
+---
+- name: "Install mosquitto"
+  pkgng:
+    name: "mosquitto"
+    state: "present"
+  notify: "start mosquitto"
+
+- name: "Copy mosquitto config file"
+  template:
+    src: "mosquitto.conf.j2"
+    dest: "/usr/local/etc/mosquitto/mosquitto.conf"
+    mode: "0644"
+  notify: "reload mosquitto"
+
+- name: "Add mosquitto user"
+  user:
+    name: "mosquitto"
+    comment: "mosquitto user"
+    shell: "/usr/sbin/nologin"
+    createhome: "no"
+    home: "/nonexistent"
+
+- name: "Create empty mosquitto passwd file"
+  ansible.builtin.file:
+    path: "/usr/local/etc/mosquitto/passwd"
+    state: "touch"
+    mode: "0600"
+    owner: "mosquitto"
+    group: "mosquitto"
+    modification_time: "preserve"
+    access_time: "preserve"
+...

@@ -1,0 +1,41 @@
+---
+- include_tasks:
+    file: "mosquitto.yml"
+    apply:
+      tags:
+        - "mosquitto"
+  tags:
+    - "mosquitto"
+
+- include_tasks:
+    file: "supervisord.yml"
+    apply:
+      tags:
+        - "mosquitto"
+  tags:
+    - "mosquitto"
+
+- include_tasks:
+    file: "syslog.yml"
+    apply:
+      tags:
+        - "mosquitto"
+  tags:
+    - "mosquitto"
+
+- include_tasks:
+    file: "newsyslog.yml"
+    apply:
+      tags:
+        - "mosquitto"
+  tags:
+    - "mosquitto"
+
+- include_tasks:
+    file: "mqtt2prometheus.yml"
+    apply:
+      tags:
+        - "mosquitto"
+  tags:
+    - "mosquitto"
+  when: mqtt2prometheus_configs|length > 0

@@ -1,0 +1,8 @@
+---
+- name: "Make sure mosquitto newsyslog config file exists"
+  copy:
+    owner: "root"
+    group: "wheel"
+    mode: "755"
+    src: "mosquitto-newsyslog.conf"
+    dest: "/usr/local/etc/newsyslog.conf.d/mosquitto.conf"

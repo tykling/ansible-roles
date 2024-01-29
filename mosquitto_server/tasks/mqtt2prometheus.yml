@@ -1,0 +1,47 @@
+---
+- name: "Install mqtt2prometheus"
+  pkgng:
+    name: "mqtt2prometheus"
+    state: "present"
+
+- name: "Create mqtt2prometheus config files"
+  copy:
+    content: "{{ m2p.value }}"
+    dest: "/usr/local/etc/mqtt2prometheus/mqtt2prom-{{ m2p.key }}.yml"
+    owner: "promexp"
+    group: "promexp"
+    mode: "0600"
+  loop: "{{ mqtt2prometheus_configs | dict2items }}"
+  loop_control:
+    loop_var: "m2p"
+
+- name: "Create supervisord.d config file to run each configured mqtt2prometheus instance"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "mqtt2prometheus"
+    supervisord_programs:
+      - name: "mqtt2prometheus_{{ m2p.key }}"
+        comment: "run mqtt2prometheus with config {{ m2p.key }}.yml"
+        command: "/usr/local/bin/mqtt2prometheus -listen-address 127.0.0.1 -listen-port {{ loop_idx + 9641 }} -config /usr/local/etc/mqtt2prometheus/mqtt2prom-{{ m2p.key }}.yml -log-format json"
+        user: "promexp"
+    supervisord_extra_programs: []
+  loop: "{{ mqtt2prometheus_configs | dict2items }}"
+  loop_control:
+    loop_var: "m2p"
+
+- name: "Create exporter_exporter.d config file for configured mqtt2prometheus instances"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "mqtt2prom_{{ m2p.key }}.yml"
+    expexp_program:
+      method: "http"
+      http: "{{ { 'port': loop_idx + 9641 } }}"
+  loop: "{{ mqtt2prometheus_configs }}"
+  loop_control:
+    loop_var: "m2p"
+    index_var: "loop_idx"
+...

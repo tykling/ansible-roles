@@ -1,0 +1,8 @@
+pid_file /var/run/mosquitto.pid
+user mosquitto
+log_dest syslog
+listener 8883
+certfile {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt
+keyfile {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key
+cafile /usr/local/share/certs/ca-root-nss.crt
+password_file /usr/local/etc/mosquitto/passwd

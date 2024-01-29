@@ -498,3 +498,9 @@
   become: True
   roles:
     - "pf_host"
+
+- name: "configure mosquitto servers"
+  hosts: "mosquitto_servers"
+  become: True
+  roles:
+    - "mosquitto_servers"

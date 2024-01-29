@@ -1,0 +1,17 @@
+---
+- name: "add syslog.d config for mosquitto"
+  copy:
+    src: "mosquitto-syslogd.conf"
+    dest: "/usr/local/etc/syslog.d/mosquitto.conf"
+  notify:
+    - "restart mosquitto"
+
+- name: "Make sure /var/log/mosquitto.log exists"
+  copy:
+    dest: "/var/log/mosquitto.log"
+    content: ""
+    force: no
+    owner: "root"
+    group: "wheel"
+    mode: "644"
+  notify: "restart syslogd"
