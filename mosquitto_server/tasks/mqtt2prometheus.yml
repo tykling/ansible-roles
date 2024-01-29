@@ -14,6 +14,7 @@
   loop: "{{ mqtt2prometheus_configs | dict2items }}"
   loop_control:
     loop_var: "m2p"
+  notify: "restart mqtt2prom instance"
 
 - name: "Create supervisord.d config file to run each configured mqtt2prometheus instance"
   include_role:
@@ -45,5 +46,4 @@
   loop_control:
     loop_var: "m2p"
     index_var: "loop_idx"
-  notify: "restart mqtt2prom instance"
 ...
