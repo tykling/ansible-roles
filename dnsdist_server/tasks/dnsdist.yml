@@ -24,7 +24,7 @@
         address: "{{ dnsdist_web_mgmt_v6_listen_ip }}"
         port: "{{ dnsdist_web_mgmt_v6_listen_port }}"
         basic_auth_username: "dnsdist"
-        basic_auth_password: "{{ dnsdist_web_password }}"
+        basic_auth_password: "{{ dnsdist_web_password_plain }}"
 
 - name: "Create certgrinder hooks.d file to reload dnsdist"
   include_role:

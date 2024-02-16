@@ -52,7 +52,7 @@ addConsoleACL("{{ ansible_default_ipv6.address|default(ansible_all_ipv6_addresse
 -- Web management
 webserver("{{ dnsdist_web_mgmt_v4_listen_ip }}:{{ dnsdist_web_mgmt_v4_listen_port }}")
 webserver("[{{ dnsdist_web_mgmt_v6_listen_ip }}]:{{ dnsdist_web_mgmt_v4_listen_port }}")
-setWebserverConfig({password="{{ dnsdist_web_password }}", apiKey="{{ dnsdist_web_apikey }}", acl="{{ dnsdist_web_acl|join(',') }}"})
+setWebserverConfig({password="{{ dnsdist_web_password_hash }}", apiKey="{{ dnsdist_web_apikey_hash }}", acl="{{ dnsdist_web_acl|join(',') }}"})
 
 -- custom config below here
 {{ dnsdist_extra_config|default("") }}
