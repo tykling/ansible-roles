@@ -1,7 +1,7 @@
 ---
 - name: "Get source code for bird_exporter"
   git:
-    repo: "https://github.com/timonwong/bird_exporter"
+    repo: "https://github.com/czerwonk/bird_exporter"
     dest: "/root/bird_exporter"
     force: yes
     version: "{{ bird_exporter_version }}"
