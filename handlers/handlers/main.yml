@@ -33,6 +33,12 @@
 - name: "carpconfigure bird2"
   command: "/usr/local/etc/carpcontrol.d/any/any/bird2 ansible deployed"
 
+- name: "restart bird_exporter"
+  community.general.supervisorctl:
+    name: "bird_exporter"
+    state: "restarted"
+
+
 ### blackbox_exporter_server
 - name: "restart blackbox_exporter"
   community.general.supervisorctl:
