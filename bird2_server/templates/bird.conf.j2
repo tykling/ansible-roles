@@ -2,6 +2,7 @@ log syslog all;
 #debug protocols all;
 
 router id {{ bird2_router_id }};
+timeformat protocol iso long;
 
 {% if bird2_functions is defined %}
 ###########################################################

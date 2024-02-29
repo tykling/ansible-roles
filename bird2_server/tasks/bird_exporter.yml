@@ -1,0 +1,64 @@
+---
+- name: "Get source code for bird_exporter"
+  git:
+    repo: "https://github.com/timonwong/bird_exporter"
+    dest: "/root/bird_exporter"
+    force: yes
+    version: "{{ bird_exporter_version }}"
+  register: gitresult
+
+- name: "Install Go to build bird_exporter"
+  pkgng:
+    name: "go"
+    state: "present"
+  register: goresult
+  when: gitresult.changed
+
+- name: "install bird_exporter"
+  command: "go install github.com/czerwonk/bird_exporter@{{ bird_exporter_version }}"
+  args:
+    chdir: "/root/bird_exporter"
+  when: gitresult.changed
+
+- name: "Copy bird_exporter binary to /usr/local/bin"
+  copy:
+   src: "/root/go/bin/bird_exporter"
+   dest: "/usr/local/bin/bird_exporter"
+   mode: "0755"
+   remote_src: yes
+  when:
+    - gitresult.changed
+  notify:
+    - "restart bird_exporter"
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - goresult.changed
+
+- name: "Create supervisord.d config file to run bird_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "bird_exporter"
+    supervisord_programs:
+      - name: "bird_exporter"
+        comment: "run bird_exporter"
+        command: "/usr/local/bin/bird_exporter -bird.v2"
+        user: "root"
+    supervisord_extra_programs: []
+
+- name: "Create exporter_exporter.d config file for bird_exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "bird_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9324
