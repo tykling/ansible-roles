@@ -22,7 +22,7 @@ ssl_key_file = '{{ postgresql_homedir }}/{{ ansible_nodename }}-keypair.rsa.key'
 {% endif %}
 {% if postgresql_hot_standby %}hot_standby = on
 {% endif %}
-{% if postgresql_version | version('14', '>=') %}
+{% if postgresql_version is version('14', '>=') %}
 wal_keep_size = {{ postgresql_wal_keep_size }}
 {% else %}
 wal_keep_segments = {{ postgresql_wal_keep_segments }}
