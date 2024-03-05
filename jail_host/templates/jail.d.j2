@@ -105,5 +105,5 @@ jail_{{ jailname }}_exec_start{{ ns.start }}="{{ es }}"
 
 ### poststop section (runs on host)
 {% for interface in jail.interfaces %}
-jail_{{ jailname }}_exec_poststop{{ loop.index0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a && ifconfig epair{{ interface.epair }}a destroy"
+jail_{{ jailname }}_exec_poststop{{ loop.index0 }}="ifconfig {{ interface.bridge }} deletem epair{{ interface.epair }}a && sleep 1 && ifconfig epair{{ interface.epair }}a destroy && sleep 1"
 {% endfor %}
