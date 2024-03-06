@@ -1,7 +1,7 @@
 ---
 - name: "Install dns_exporter"
   pkgng:
-    name: "dns_exporter"
+    name: "py{{ python_nodotversion }}-dns_exporter"
     state: "present"
   notify:
     - "restart dns_exporter"
