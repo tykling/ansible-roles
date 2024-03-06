@@ -95,6 +95,13 @@
   with_items: "{{ supervisord_extra_programs | default({}) }}"
 
 
+### dns_exporter
+- name: "restart dns_exporter"
+  community.general.supervisorctl:
+    name: "dns_exporter"
+    state: "restarted"
+
+
 ### dnsdist_server
 - name: "restart dnsdist"
   community.general.supervisorctl:

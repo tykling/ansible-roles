@@ -1,0 +1,52 @@
+---
+- name: "Install dns_exporter"
+  pkgng:
+    name: "dns_exporter"
+    state: "present"
+  notify:
+    - "restart dns_exporter"
+
+- name: "Install dns_exporter configuration"
+  copy:
+    mode: "0644"
+    content: "{{ dns_exporter_config | to_nice_yaml(indent=2) }}"
+    dest: "/usr/local/etc/dns_exporter.yml"
+  notify:
+    - "restart dns_exporter"
+  when: dns_exporter_config is defined
+
+- name: "Create supervisord.d config file to run dns_exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "dns_exporter"
+    supervisord_programs:
+      - name: "dns_exporter"
+        comment: "run dns_exporter"
+        command: "/usr/local/bin/dns_exporter -c /usr/local/etc/dns_exporter.yml"
+        user: "nobody"
+
+- name: "Create exporter_exporter.d config file for dns_exporter /query"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "dns_exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 15353
+        path: "/query"
+
+- name: "Create exporter_exporter.d config file for dns_exporter /metrics"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "dns_exporter_internal.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 15353
+        path: "/metrics"

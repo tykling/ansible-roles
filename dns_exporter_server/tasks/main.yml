@@ -1,0 +1,2 @@
+---
+- include_tasks: "dns_exporter.yml"
