@@ -504,3 +504,9 @@
   become: True
   roles:
     - "mosquitto_server"
+
+- name: "configure dns exporter servers"
+  hosts: "dns_exporter_servers"
+  become: True
+  roles:
+    - "dns_exporter_server"
