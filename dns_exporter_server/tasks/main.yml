@@ -1,2 +1,8 @@
 ---
-- include_tasks: "dns_exporter.yml"
+- include_tasks:
+    file: "dns_exporter.yml"
+    apply:
+      tags:
+        - "dns_exporter"
+  tags:
+    - "dns_exporter"
