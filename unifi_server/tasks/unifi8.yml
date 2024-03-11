@@ -1,0 +1,5 @@
+---
+- name: "Install unifi8"
+  pkgng:
+    name: "unifi8"
+    state: "present"

@@ -510,3 +510,9 @@
   become: True
   roles:
     - "dns_exporter_server"
+
+- name: "configure unifi8 servers"
+  hosts: "unifi_servers"
+  become: True
+  roles:
+    - "unifi_server"
