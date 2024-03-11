@@ -14,6 +14,16 @@ jail_{{ jailname }}_devfs_enable="YES"
 jail_{{ jailname }}_devfs_ruleset="{{ jail.devfs_ruleset }}"
 
 {% endif %}
+{% if jail.allow_fdescfs|default(False) %}
+# fdescfs
+jail_{{ jailname }}_fdescfs_enable="YES"
+
+{% endif %}
+{% if jail.allow_procfs|default(False) %}
+# procfs
+jail_{{ jailname }}_procfs_enable="YES"
+
+{% endif %}
 {% if jail.enforce_statfs is defined %}
 # statfs
 jail_{{ jailname }}_enforce_statfs="{{ jail.enforce_statfs }}"
