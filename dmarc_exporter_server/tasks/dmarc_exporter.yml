@@ -1,4 +1,14 @@
 ---
+- name: "Install pip"
+  pkgng:
+    name: "py{{ python_nodotversion }}-pip"
+    state: "present"
+
+- name: "Install virtualenv"
+  pkgng:
+    name: "py{{ python_nodotversion }}-virtualenv"
+    state: "present"
+
 - name: "Create dmarc-metrics-exporter venv directory"
   file:
     path: "{{ dmarc_exporter_venv_path }}"
