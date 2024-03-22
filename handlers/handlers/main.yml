@@ -95,6 +95,12 @@
   with_items: "{{ supervisord_extra_programs | default({}) }}"
 
 
+### dmarc exporter
+- name: "restart dmarc-metrics-exporter"
+  community.general.supervisorctl:
+    name: "dmarc-metrics-exporter"
+    state: "restarted"
+
 ### dns_exporter
 - name: "restart dns_exporter"
   community.general.supervisorctl:

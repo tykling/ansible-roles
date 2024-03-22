@@ -1,0 +1,7 @@
+---
+dmarc_exporter_venv_path: "/usr/virtualenvs/dmarc-metrics-exporter"
+dmarc_exporter_data_path: "/var/db/dmarc-metrics-exporter"
+dmarc_exporter_folders_inbox: "INBOX"
+dmarc_exporter_folders_done: "Done"
+dmarc_exporter_folders_invalid: "Invalid"
+...

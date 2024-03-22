@@ -1,0 +1,33 @@
+{
+    "listen_addr": "127.0.0.1",
+    "port": 9797,
+    "imap": {
+        "host": "{{ dmarc_exporter_imap_host }}",
+        "port": 993,
+        "username": "{{ dmarc_exporter_imap_user }}",
+        "password": "{{ dmarc_exporter_imap_pass }}",
+        "use_ssl": true,
+        "verify_certificate": true
+    },
+    "folders": {
+        "inbox": "{{ dmarc_exporter_folders_inbox }}",
+        "done": "{{ dmarc_exporter_folders_done }}",
+        "error": "{{ dmarc_exporter_folders_invalid }}"
+    },
+    "storage_path": "{{ dmarc_exporter_data_path }}",
+    "poll_interval_seconds": 60,
+    "deduplication_max_seconds": 604800,
+    "logging": {
+        "handlers": {
+            "default": {
+                "class": "logging.StreamHandler",
+                "formatter": "json"
+            }
+        },
+        "loggers": {
+            "uvicorn.access": {
+                "propagate": false
+            }
+        }
+    }
+}

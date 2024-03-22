@@ -516,3 +516,9 @@
   become: True
   roles:
     - "unifi_server"
+
+- name: "configure dmarc exporter servers"
+  hosts: "dmarc_exporter_servers"
+  become: True
+  roles:
+    - "dmarc_exporter_server"

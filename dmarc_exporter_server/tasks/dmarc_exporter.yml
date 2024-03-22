@@ -1,0 +1,50 @@
+---
+- name: "Create dmarc-metrics-exporter venv directory"
+  file:
+    path: "{{ dmarc_exporter_venv_path }}"
+    state: "directory"
+
+- name: "Install dmarc-metrics-exporter with pip"
+  pip:
+    name: "dmarc-metrics-exporter"
+    virtualenv: "/usr/local/virtualenvs/dmarc-metrics-exporter"
+  notify:
+    - "restart dmarc-metrics-exporter"
+
+- name: "Install dmarc-metrics-exporter configuration"
+  template:
+    src: "dmarc-metrics-exporter.json.j2"
+    dest: "/usr/local/etc/dmarc-metrics-exporter.json"
+  notify:
+    - "restart dmarc-metrics-exporter"
+
+- name: "Create dmarc-metrics-exporter data directory"
+  file:
+    path: "{{ dmarc_exporter_data_path }}"
+    state: "directory"
+    owner: "promexp"
+    group: "promexp"
+
+- name: "Create supervisord.d config file to run dmarc-metrics-exporter"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "dmarc-metrics-exporter"
+    supervisord_programs:
+      - name: "dmarc-metrics-exporter"
+        comment: "run dmarc-metrics-exporter"
+        command: "/usr/local/virtualenvs/dmarc-metrics-exporter/bin/dmarc-metrics-exporter --configuration /usr/local/etc/dmarc-metrics-exporter.json"
+        user: "promexp"
+
+- name: "Create exporter_exporter.d config file for dmarc-metrics-exporter"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "dmarc-metrics-exporter.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: 9797
+        path: "/metrics"
