@@ -1,8 +1,8 @@
 ---
 - include_tasks:
-    file: "dns_exporter.yml"
+    file: "dmarc_exporter.yml"
     apply:
       tags:
-        - "dns_exporter"
+        - "dmarc_exporter"
   tags:
-    - "dns_exporter"
+    - "dmarc_exporter"
