@@ -37,7 +37,7 @@
 
 - name: "Building and installing grist-core: yarn run build:prod"
   command:
-    cmd: "yarn yarn run build:prod"
+    cmd: "yarn run build:prod"
     chdir: "{{ grist_home }}/grist-core"
 
 - name: "Building and installing grist-core: yarn run install:python"
