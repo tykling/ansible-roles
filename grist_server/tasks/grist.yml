@@ -1,0 +1,46 @@
+---
+- name: "Install yarn package manager"
+  pkgng:
+    name: "yarn"
+    state: "present"
+
+- name: "Install git"
+  pkgng:
+    name: "git"
+    state: "present"
+
+- name: "add grist user"
+  user:
+    name: "grist"
+    comment: "grist-core user"
+    home: "{{ grist_home }}"
+
+- name: "Get source code for grist-core"
+  git:
+    repo: "https://github.com/gristlabs/grist-core.git"
+    dest: "{{ grist_home }}/grist-core"
+    force: yes
+    version: "{{ grist_core_version }}"
+  register: gitresult
+
+- name: "Install gmake to build grist-core"
+  pkgng:
+    name: "gmake"
+    state: "present"
+  register: gmakeresult
+  when: gitresult.changed
+
+- name: "Building and installing grist-core: yarn install"
+  command:
+    cmd: "yarn install --ignore-engines"
+    chdir: "{{ grist_home }}/grist-core"
+
+- name: "Building and installing grist-core: yarn run build:prod"
+  command:
+    cmd: "yarn yarn run build:prod"
+    chdir: "{{ grist_home }}/grist-core"
+
+- name: "Building and installing grist-core: yarn run install:python"
+  command:
+    cmd: "yarn run install:python"
+    chdir: "{{ grist_home }}/grist-core"

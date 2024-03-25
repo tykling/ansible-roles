@@ -1,0 +1,8 @@
+---
+grist_core_version: "v1.1.12"
+grist_home: "/usr/home/grist"
+
+nginx_locationslash: |
+  location / {
+      proxy_pass http://127.0.0.1:8484;
+  }

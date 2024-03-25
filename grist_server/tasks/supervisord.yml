@@ -1,0 +1,13 @@
+---
+- name: "Create supervisord.d config file to run grist-core"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "grist-core"
+    supervisord_programs:
+      - name: "grist-core"
+        comment: "run grist-core"
+        command: "yarn start"
+        user: "grist"
+        directory: "{{ grist_home }}/grist-core"

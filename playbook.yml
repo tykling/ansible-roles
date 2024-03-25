@@ -522,3 +522,9 @@
   become: True
   roles:
     - "dmarc_exporter_server"
+
+- name: "configure grist servers"
+  hosts: "grist_servers"
+  become: True
+  roles:
+    - "grist_server"
