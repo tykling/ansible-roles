@@ -1,19 +1,14 @@
 ---
-- name: "Install yarn package manager"
-  pkgng:
-    name: "yarn"
-    state: "present"
-
-- name: "Install git"
-  pkgng:
-    name: "git"
-    state: "present"
-
 - name: "add grist user"
   user:
     name: "grist"
     comment: "grist-core user"
     home: "{{ grist_home }}"
+
+- name: "Install git"
+  pkgng:
+    name: "git"
+    state: "present"
 
 - name: "Get source code for grist-core"
   git:
@@ -22,6 +17,13 @@
     force: yes
     version: "{{ grist_core_version }}"
   register: gitresult
+
+- name: "Install yarn package manager"
+  pkgng:
+    name: "yarn"
+    state: "present"
+  register: yarnresult
+  when: gitresult.changed
 
 - name: "Install gmake to build grist-core"
   pkgng:
@@ -34,13 +36,32 @@
   command:
     cmd: "yarn install --ignore-engines"
     chdir: "{{ grist_home }}/grist-core"
+  when: gitresult.changed
 
 - name: "Building and installing grist-core: yarn run build:prod"
   command:
     cmd: "yarn run build:prod"
     chdir: "{{ grist_home }}/grist-core"
+  when: gitresult.changed
 
 - name: "Building and installing grist-core: yarn run install:python"
   command:
     cmd: "yarn run install:python"
     chdir: "{{ grist_home }}/grist-core"
+  when: gitresult.changed
+
+- name: "Remove gmake build dep if we installed it"
+  pkgng:
+    name: "gmake"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - gmakeresult.changed
+
+- name: "Remove yarn build dep if we installed it"
+  pkgng:
+    name: "yarn"
+    state: "absent"
+  when:
+    - gitresult.changed
+    - yarnresult.changed
