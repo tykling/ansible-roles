@@ -33,7 +33,7 @@
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
     regexp: "^DEFAULT_URL_HOST = "
-    line: "DEFAULT_URL_HOST = '{{ ansible_nodename }}'"
+    line: "DEFAULT_URL_HOST = '{{ mailman_url_domain }}'"
 
 - name: "Configure mailman DEFAULT_URL_PATTERN"
   lineinfile:
