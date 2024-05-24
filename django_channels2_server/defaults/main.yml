@@ -10,6 +10,7 @@ django_checkout_path: "/usr/local/www/django"
 django_root: "{{ django_checkout_path }}/src"
 django_nginx_static_root: "{{ django_root }}/static/"
 django_pip_requirements_path: "{{ django_root }}/requirements.txt"
+django_pyproject_toml_path: "{{ django_root }}/pyproject.toml"
 django_media_root: "/storage/django_media_root"
 
 django_python_path: "/usr/local/bin/python{{ python_version }}"
