@@ -52,6 +52,26 @@
   tags:
     - "pip"
 
+- name: "Check if pyproject.toml exists"
+  stat:
+    path: "{{ django_pyproject_toml_path }}"
+  register: pyproject_toml_exists
+  changed_when: False
+  tags:
+    - "pip"
+
+- name: "Create virtualenv and install needed pip modules from pyproject.toml"
+  pip:
+    requirements: "{{ django_pyproject_toml_path }}"
+    virtualenv: "{{ django_virtualenv_path }}"
+    virtualenv_python: "{{ django_python_path }}"
+  environment:
+    GIT_SSH_COMMAND: "ssh -i {{ django_github_keyfile | default('/dev/null') }}"
+    LANG: "C.UTF-8"
+  tags:
+    - "pip"
+  when: pyproject_toml_exists
+
 - name: "Create virtualenv and install needed pip modules from requirements file"
   pip:
     requirements: "{{ django_pip_requirements_path }}"
@@ -62,6 +82,7 @@
     LANG: "C.UTF-8"
   tags:
     - "pip"
+  when: not pyproject_toml_exists
 
 - name: "Install redis for django channel_layer where needed"
   pkgng:
