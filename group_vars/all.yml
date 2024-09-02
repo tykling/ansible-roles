@@ -10,7 +10,7 @@ node_exporter_textfile_path: "/var/tmp/node_exporter"
 bootstrap_python: True
 
 # this is the Python version of packages etc
-python_version: "3.9"
+python_version: "3.11"
 
 # maybe don't edit below here
 python_path: "/usr/local/bin/python{{ python_version }}"
