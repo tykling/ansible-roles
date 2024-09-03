@@ -5,9 +5,9 @@
     dest: "/usr/local/bin/mailecho"
     mode: "0755"
 
-- name: "Install py-yaml"
+- name: "Install py-pyyaml"
   pkgng:
-    name: "py{{ python_nodotversion }}-yaml"
+    name: "py{{ python_nodotversion }}-pyyaml"
     state: "present"
 
 - name: "Enable mailecho service in master.cf"
