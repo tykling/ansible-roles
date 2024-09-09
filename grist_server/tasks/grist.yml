@@ -17,7 +17,6 @@
     force: yes
     version: "{{ grist_core_version }}"
   register: gitresult
-  become_user: "grist"
 
 - name: "Install yarn package manager"
   pkgng:
@@ -38,21 +37,25 @@
     cmd: "yarn install --ignore-engines"
     chdir: "{{ grist_home }}/grist-core"
   when: gitresult.changed
-  become_user: "grist"
 
 - name: "Building and installing grist-core: yarn run build:prod"
   command:
     cmd: "yarn run build:prod"
     chdir: "{{ grist_home }}/grist-core"
   when: gitresult.changed
-  become_user: "grist"
 
 - name: "Building and installing grist-core: yarn run install:python"
   command:
     cmd: "yarn run install:python"
     chdir: "{{ grist_home }}/grist-core"
   when: gitresult.changed
-  become_user: "grist"
+
+- name: "Fix ownership of the grist-core dir"
+  file:
+    dest: "{{ grist_home }}/grist-core"
+    owner: "grist"
+    group: "grist"
+    recurse: True
 
 - name: "Remove gmake build dep if we installed it"
   pkgng:
