@@ -10,6 +10,14 @@
     name: "git"
     state: "present"
 
+- name: "Change ownership of the grist-core dir to the root user"
+  file:
+    dest: "{{ grist_home }}/grist-core"
+    state: "directory"
+    owner: "root"
+    group: "wheel"
+    recurse: True
+
 - name: "Get source code for grist-core"
   git:
     repo: "https://github.com/gristlabs/grist-core.git"
@@ -50,7 +58,7 @@
     chdir: "{{ grist_home }}/grist-core"
   when: gitresult.changed
 
-- name: "Fix ownership of the grist-core dir"
+- name: "Change ownership of the grist-core dir back to the grist user"
   file:
     dest: "{{ grist_home }}/grist-core"
     owner: "grist"
