@@ -1,14 +1,15 @@
 server {
     # listen here you little..
 {% if item.value.listen_on_all_ips | default(False) %}
-    listen                  443 ssl http2;
-    listen                  [::]:443 ssl http2;
+    listen                  443 ssl;
+    listen                  [::]:443 ssl;
 {% else %}
-    listen                  {{ nginx_v4_proxy_ip }}:443 ssl http2;
+    listen                  {{ nginx_v4_proxy_ip }}:443 ssl;
 {% if item.value.vhost_v6ip is defined %}
-    listen                  [{{ item.value.vhost_v6ip }}]:443 ssl http2;
+    listen                  [{{ item.value.vhost_v6ip }}]:443 ssl;
 {% endif %}
 {% endif %}
+    http2 on;
 
     # hostnames handled in this vhost, IDN names are included both as idna and ascii, where applicable
     server_name             {% for hostname in item.value.hostnames %}{{ hostname.encode('idna').decode('ascii') }} {% if hostname != hostname.encode('idna').decode('ascii') %}{{ hostname }} {% endif %}{% endfor %};
@@ -63,18 +64,19 @@ server {
 {% if item.value.listen_on_all_ips | default(False) %}
 {% if item.value.default_vhost | default(False) %}
     # this is the default vhost for this v4 ip
-    listen                  443 default ssl http2;
+    listen                  443 default ssl;
 {% endif %}
-    listen                  [::]:443 default ssl http2;
+    listen                  [::]:443 default ssl;
 {% else %}
 {% if item.value.default_vhost | default(False) %}
     # this is the default vhost for this v4 ip
-    listen                  {{ nginx_v4_proxy_ip }}:443 default ssl http2;
+    listen                  {{ nginx_v4_proxy_ip }}:443 default ssl;
 {% endif %}
 {% if item.value.vhost_v6ip is defined %}
-    listen                  [{{ item.value.vhost_v6ip }}]:443 default ssl http2;
+    listen                  [{{ item.value.vhost_v6ip }}]:443 default ssl;
 {% endif %}
 {% endif %}
+    http2 on;
     server_name             _;
 
     # certificate and key (wont match hostname, but whatever, this is just a fallback vhost)
