@@ -77,6 +77,12 @@
     regexp: "^DEFAULT_REPLY_GOES_TO_LIST = "
     line: "DEFAULT_REPLY_GOES_TO_LIST = 1"
 
+- name: "Configure mailman DEFAULT_REPLY_GOES_TO_LIST"
+  lineinfile:
+    dest: "/usr/local/mailman/Mailman/mm_cfg.py"
+    regexp: "^DEFAULT_SUBSCRIBE_POLICY = "
+    line: "DEFAULT_SUBSCRIBE_POLICY = 3"
+
 - name: "Add mailman virtualhost"
   lineinfile:
     dest: "/usr/local/mailman/Mailman/mm_cfg.py"
