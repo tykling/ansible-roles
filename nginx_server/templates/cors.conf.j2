@@ -1,7 +1,5 @@
 # Map $cors variable based on the Origin: header
 # value being in the list
-set Access-Control-Allow-Origin header if
-# Origin: header is on the list.
 map "$http_origin" $cors {
   default '';
 {% for origin in nginx_cors_origins %}
