@@ -2,7 +2,7 @@
 # value being in the list
 map "$http_origin" $cors {
   default '';
-{% for origin in nginx_cors_origins %}
+{% for origin in nginx_cors_origins|default([]) %}
   "{{ origin }}" "$http_origin";
 {% endfor %}
 }
