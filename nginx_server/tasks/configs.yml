@@ -37,8 +37,6 @@
   template:
     src: "cors.conf.j2"
     dest: "/usr/local/etc/nginx/cors.conf"
-  when:
-    - nginx_cors_origins
   notify: "reload nginx"
 
 - name: "Include node specific nginx_extra_configs.yml if it exists..."
