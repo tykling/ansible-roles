@@ -76,3 +76,5 @@ django_nginx_proxy_read_timeout: "60s"
 
 django_cron_d_jobs: []
 
+nginx_cors_origins: "{{ django_cors_allowed_origins }}"
+
