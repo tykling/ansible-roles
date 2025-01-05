@@ -46,7 +46,7 @@ nginx_locationslash: |
   # static file served directly by nginx
   location /static/ {
         alias {{ django_nginx_static_root }};
-{% if nginx_cors_origins|default:[] %}
+{% if nginx_cors_origins|default([]) %}
         include "cors.conf";
 {% endif %}
   }
