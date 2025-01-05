@@ -1,0 +1,10 @@
+map "$http_origin" $cors {
+  default '';
+{% for origin in nginx_cors_origins %}
+  "{{ origin }}" "$http_origin";
+{% endfor %}
+}
+
+if ($cors != "") {
+  more_set_headers 'Access-Control-Allow-Origin' "$cors" always;
+}
