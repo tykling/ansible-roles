@@ -46,7 +46,6 @@ nginx_locationslash: |
   # static file served directly by nginx
   location /static/ {
         alias {{ django_nginx_static_root }};
-        include "cors.conf";
   }
   # /public/ uses x-accel-redirect
   location /public/ {
@@ -69,6 +68,8 @@ nginx_extra_http_config: |
         default '127.0.0.1:8080'; # uwsgi
         websocket '127.0.0.1:8000'; # daphne
     }
+    # add CORS headers
+    include "cors.conf";
 
 django_nginx_proxy_read_timeout: "60s"
 
