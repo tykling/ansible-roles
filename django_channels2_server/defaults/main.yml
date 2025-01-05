@@ -46,6 +46,9 @@ nginx_locationslash: |
   # static file served directly by nginx
   location /static/ {
         alias {{ django_nginx_static_root }};
+        if ($cors != "") {
+          more_set_headers 'Access-Control-Allow-Origin' "$cors" always;
+        }
   }
   # /public/ uses x-accel-redirect
   location /public/ {
