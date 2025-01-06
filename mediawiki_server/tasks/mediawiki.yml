@@ -1,6 +1,6 @@
 ---
-- name: "Install mediawiki 1.38"
+- name: "Install mediawiki 1.43"
   pkgng:
-    name: "mediawiki138-php82"
+    name: "mediawiki143-php83"
     state: "present"
 
