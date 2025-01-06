@@ -415,9 +415,9 @@
 
 
 ### php_fpm_server
-- name: "reload php-fpm"
+- name: "reload php_fpm"
   service:
-    name: "php-fpm"
+    name: "php_fpm"
     state: "reloaded"
 
 
