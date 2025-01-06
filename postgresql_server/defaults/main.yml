@@ -24,7 +24,7 @@ postgresql_auto_explain_min_duration_seconds: 3
 postgresql_full_page_writes: False
 
 postgresql_postgis: True
-postgis_package: "postgis32"
+postgis_package: "postgis35"
 
 postgres_exporter_version: "master"
 postgres_exporter_listen_address: ":9187"
