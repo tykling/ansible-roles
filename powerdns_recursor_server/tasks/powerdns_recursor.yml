@@ -4,9 +4,8 @@
     name: "powerdns-recursor"
     state: "present"
 
-- name: "Copy recursor.conf"
+- name: "Copy recursor.yml"
   template:
-    src: "recursor.conf.j2"
-    dest: "/usr/local/etc/pdns/recursor.conf"
+    src: "recursor.yml.j2"
+    dest: "/usr/local/etc/pdns/recursor.yml"
   notify: "restart powerdns-recursor"
-

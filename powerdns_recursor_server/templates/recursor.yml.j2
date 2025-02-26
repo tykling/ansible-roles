@@ -1,0 +1,19 @@
+---
+webservice:
+  address: "127.0.0.1"
+  allow_from:
+    - "127.0.0.1"
+    - "::1"
+
+logging:
+  facility: "6"
+
+dnssec:
+  validation: "validate"
+
+incoming:
+  allow_from:
+{% for acl in powerdns_recursor_acl %}
+    - {{ acl }}
+{% endfor %}
+...
