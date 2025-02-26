@@ -1,4 +1,4 @@
-@version:3.35
+@version:4.8
 @include "scl.conf"
 
 #
@@ -17,8 +17,7 @@ options {
     threaded(yes);
     use_fqdn(yes);
     use-dns(yes);
-    stats-freq(60);
-    stats-level(0);
+    stats(freq(60) level(0));
     ts-format(iso);
 };
 
