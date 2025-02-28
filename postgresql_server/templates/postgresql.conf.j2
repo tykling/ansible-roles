@@ -13,6 +13,7 @@ lc_monetary = 'C'
 lc_numeric = 'C'
 lc_time = 'C'
 default_text_search_config = 'pg_catalog.english'
+track_activity_query_size=1048576
 full_page_writes = {% if postgresql_full_page_writes %}on{% else %}off{% endif %}
 
 {% if postgresql_server_tls_enable %}
