@@ -1,0 +1,13 @@
+---
+- name: "Check if we still have a py2 python"
+  command: "python -V"
+  register: python_version
+  changed_when: False
+  check_mode: false
+
+- name: "Upgrade to python3"
+  pkgng:
+    name: "python"
+    state: "latest"
+  when: python_version.stderr[0:8] == "Python 2"
+
