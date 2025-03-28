@@ -48,7 +48,7 @@
     path: "{{ django_virtualenv_path }}"
   when:
     - django_virtualenv.stat.exists
-    - (detected_python_version.stdout[0:10] != python_versionstring or detected_python_version.failed)
+    - (detected_python_version.stdout[0:11] != python_versionstring or detected_python_version.failed)
   tags:
     - "pip"
 
