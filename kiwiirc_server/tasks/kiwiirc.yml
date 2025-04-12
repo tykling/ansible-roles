@@ -1,0 +1,76 @@
+---
+- name: "add kiwiirc user"
+  user:
+    name: "kiwiirc"
+    comment: "kiwiirc user"
+    home: "{{ kiwiirc_home }}"
+
+- name: "Install git"
+  pkgng:
+    name: "git"
+    state: "present"
+
+- name: "Get kiwiirc code from git"
+  git:
+    repo: "https://github.com/kiwiirc/kiwiirc.git"
+    dest: "{{ kiwiirc_root }}"
+    version: "master"
+  register: cloneresult
+
+- name: "Install yarn"
+  pkgng:
+    name: "yarn"
+    state: "present"
+  register: yarnresult
+  when: cloneresult.changed
+
+- name: "Install npm"
+  pkgng:
+    name: "npm"
+    state: "present"
+  register: npmresult
+  when: cloneresult.changed
+
+- name: "Build kiwiirc: Run yarn install"
+  ansible.builtin.command:
+    cmd: "yarn install"
+  args:
+    chdir: "{{ kiwiirc_root }}"
+  when: cloneresult.changed
+
+- name: "Build kiwiirc: Run yarn run build"
+  ansible.builtin.command:
+    cmd: "yarn run build"
+  args:
+    chdir: "{{ kiwiirc_root }}"
+  when: cloneresult.changed
+
+- name: "Remove yarn build dep if we installed it"
+  pkgng:
+    name: "yarn"
+    state: "absent"
+  when:
+    - cloneresult.changed
+    - yarnresult.changed
+
+- name: "Remove npm build dep if we installed it"
+  pkgng:
+    name: "npm"
+    state: "absent"
+  when:
+    - cloneresult.changed
+    - npmresult.changed
+
+- name: "Build kiwiirc: Copy kiwiirc files to webroot"
+  ansible.builtin.copy:
+    src: "{{ kiwiirc_root }}/dist"
+    dest: "{{ kiwiirc_webroot }}"
+    remote_src: true
+  when: cloneresult.changed
+
+- name: "Write kiwiirc config file"
+  ansible.builtin.template:
+    src: "kiwiirc.json.j2"
+    dest: "{{ kiwiirc_webroot }}/static/config.json"
+    mode: "0644"
+...

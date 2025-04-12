@@ -1,0 +1,11 @@
+---
+kiwiirc_root: "/root/kiwiirc"
+webircgateway_root: "/root/webircgateway"
+kiwiirc_webroot: "/usr/local/www/kiwiirc"
+kiwiirc_home: "/usr/home/kiwiirc"
+kiwiirc_start_channel: "#kiwiuser"
+kiwiirc_server: "http://127.0.0.1:8080"
+nginx_locationslash: |
+  location / {
+      root {{ kiwiirc_webroot }};
+  }

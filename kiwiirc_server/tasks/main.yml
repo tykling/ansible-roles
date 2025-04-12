@@ -1,0 +1,4 @@
+---
+- include_tasks: "kiwiirc.yml"
+- include_tasks: "webircgateway.yml"
+- include_tasks: "supervisord.yml"

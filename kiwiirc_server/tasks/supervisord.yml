@@ -1,0 +1,12 @@
+---
+- name: "Create supervisord.d config file to run webircgateway"
+  include_role:
+    name: "supervisord_server"
+    tasks_from: "supervisord.d"
+  vars:
+    supervisord_filename: "webircgateway"
+    supervisord_programs:
+      - name: "webircgateway"
+        comment: "run webircgateway"
+        command: "/usr/local/bin/webircgateway -config /usr/local/etc/webircgateway.conf"
+        user: "kiwiirc"

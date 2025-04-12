@@ -272,6 +272,13 @@
     done
 
 
+### kiwiirc
+- name: "restart webircgateway"
+  community.general.supervisorctl:
+    name: "webircgateway"
+    state: "restarted"
+
+
 ### loki
 - name: "restart loki"
   community.general.supervisorctl:

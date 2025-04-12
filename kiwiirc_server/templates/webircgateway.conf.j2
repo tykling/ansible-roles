@@ -1,0 +1,51 @@
+logLevel = 3
+identd = false
+gateway_name = "webircgateway"
+secret = ""
+send_quit_on_client_close = "Client closed"
+
+[verify]
+required = false
+
+[clients]
+
+[server.1]
+bind = "127.0.0.1"
+port = 8080
+
+[fileserving]
+enabled = false
+webroot = www/
+
+[transports]
+websocket
+sockjs
+kiwiirc
+
+[allowed_origins]
+
+[reverse_proxies]
+{{ nginx_v4_proxy_ip }}/32
+"{{ nginx_v6_proxy_ip }}/128"
+
+{% for upstream in webircgateway_upstreams %}
+[upstream.{{ loop.index }}]
+hostname = "{{ upstream.hostname }}"
+port = {{ upstream.port }}
+tls = true
+timeout = 5
+throttle = 2
+webirc = ""
+serverpassword = ""
+protocol = tcp
+localaddr = ""
+{% endfor %}
+
+[gateway]
+enabled = false
+
+[dnsbl]
+action = verify
+
+[dnsbl.servers]
+dnsbl.dronebl.org

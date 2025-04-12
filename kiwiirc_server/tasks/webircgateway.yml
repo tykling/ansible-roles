@@ -1,0 +1,47 @@
+---
+- name: "Get webircgateway code from git"
+  git:
+    repo: "https://github.com/kiwiirc/webircgateway.git"
+    dest: "{{ webircgateway_root }}"
+    version: "master"
+  register: cloneresult
+
+- name: "Install go"
+  pkgng:
+    name: "golang"
+    state: "present"
+  register: goresult
+  when: cloneresult.changed
+
+- name: "Build webircgateway: Run go build"
+  ansible.builtin.command:
+    cmd: "go build"
+  args:
+    chdir: "{{ webircgateway_root }}"
+  when: cloneresult.changed
+
+- name: "Remove Go build dep if we installed it"
+  pkgng:
+    name: "go121"
+    state: "absent"
+  when:
+    - cloneresult.changed
+    - goresult.changed
+
+- name: "Copy webircgateway binary to /usr/local/bin"
+  ansible.builtin.copy:
+    src: "{{ webircgateway_root }}/webircgateway"
+    dest: "/usr/local/bin/webircgateway"
+    mode: "0755"
+    remote_src: true
+  notify: "restart webircgateway"
+  when: cloneresult.changed
+
+- name: "Write webircgateway config file"
+  ansible.builtin.template:
+    src: "webircgateway.conf.j2"
+    dest: "/usr/local/etc/webircgateway.conf"
+    mode: "0600"
+    owner: "www"
+  notify: "restart webircgateway"
+...

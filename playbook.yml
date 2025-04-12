@@ -528,3 +528,9 @@
   become: True
   roles:
     - "grist_server"
+
+- name: "configure kiwiirc servers"
+  hosts: "kiwiirc_servers"
+  become: True
+  roles:
+    - "kiwiirc_server"
