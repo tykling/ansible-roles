@@ -23,9 +23,6 @@ sockjs
 kiwiirc
 
 [allowed_origins]
-{% for origin in webircgateway_allowed_origins %}
-"{{ origin }}"
-{% endfor %}
 
 [reverse_proxies]
 {{ nginx_v4_proxy_ip }}/32
