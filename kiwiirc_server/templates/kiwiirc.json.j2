@@ -2,7 +2,7 @@
     "windowTitle": "Kiwi IRC - The web IRC client",
     "startupScreen": "welcome",
     "kiwiServer": "{{ webircgateway_server }}",
-    "restricted": false,
+    "restricted": true,
     "theme": "Default",
     "themes": [
         { "name": "Default", "url": "static/themes/default" },
@@ -17,12 +17,6 @@
     ],
     "startupOptions" : {
         "channel": "{{ kiwiirc_start_channel }}",
-        "nick": "kiwi-n?"
+        "nick": "webuser-?"
     },
-    "embedly": {
-        "key": ""
-    },
-    "plugins": [
-        { "name": "customise", "url": "static/plugins/customise.html" }
-    ]
 }
