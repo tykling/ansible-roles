@@ -42,6 +42,6 @@
     src: "webircgateway.conf.j2"
     dest: "/usr/local/etc/webircgateway.conf"
     mode: "0600"
-    owner: "www"
+    owner: "kiwiirc"
   notify: "restart webircgateway"
 ...
