@@ -8,7 +8,7 @@
 
 - name: "Install go"
   pkgng:
-    name: "golang"
+    name: "go"
     state: "present"
   register: goresult
   when: cloneresult.changed
