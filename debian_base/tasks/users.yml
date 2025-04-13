@@ -1,4 +1,11 @@
 ---
+- name: "Add user groups"
+  ansible.builtin.group:
+    name: "{{ item.key }}"
+    state: "present"
+  with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
+
 - name: "Add users (no password)"
   ansible.builtin.user:
     name: "{{ item.key }}"
