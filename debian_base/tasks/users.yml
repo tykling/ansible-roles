@@ -1,0 +1,24 @@
+---
+- name: "Add users (no password)"
+  ansible.builtin.user:
+    name: "{{ item.key }}"
+    group: "{{ item.key }}"
+    comment: "{{ item.value.comment }}"
+    groups: "{{ item.groups|default([]) }}"
+  with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
+
+- name: "Add ssh authorized_keys"
+  ansible.builtin.authorized_key:
+    user: "{{ item.key }}"
+    key: "{{ item.value.ssh_auth_key }}"
+  with_dict: "{{ users | default({}) }}"
+  tags: usermanagement
+  when: item.value.ssh_auth_key is defined
+
+- name: "Delete users as needed"
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: "absent"
+  loop: "{{ deleted_users|default([]) }}"
+  tags: usermanagement
