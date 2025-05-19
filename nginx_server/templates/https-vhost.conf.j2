@@ -47,10 +47,6 @@ server {
     more_set_headers        "{{ header }}: {{ value }}";
 {% endfor %}{% endif %}
 
-    location = /__nginx_ocsp_priming/ {
-        return 200 'OK';
-    }
-
     # vhost specific config below here
 
 {{ item.value.locationslash | indent( width=4, first=True ) }}

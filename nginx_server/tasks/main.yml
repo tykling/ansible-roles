@@ -30,17 +30,6 @@
     - "nginx"
     - "vhosts"
 - include_tasks:
-    file: "ocsp.yml"
-    apply:
-      tags:
-        - "nginx"
-  tags:
-    - "nginx"
-  when:
-    - nginx_proxy
-    - certgrinder_hostname_sets is defined
-    - nginx_ocsp_stapling
-- include_tasks:
     file: "goaccess.yml"
     apply:
       tags:

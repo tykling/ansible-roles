@@ -5,7 +5,6 @@ nginx_dhparam_path: "{{ dhparam_path }}"
 nginx_proxy: False
 nginx_set_real_ip_from: yes
 nginx_fail2ban: False
-nginx_ocsp_stapling: True
 nginx_cache: False
 nginx_cache_path: "/usr/local/www/nginx_cache"
 nginx_cache_size: "10g"
