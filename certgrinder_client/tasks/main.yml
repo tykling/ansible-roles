@@ -34,6 +34,3 @@
         - "certgrinder"
   tags:
     - "certgrinder"
-- include_tasks: "renamelegacy.yml"
-  when: certgrinder_rename_legacy
-  tags: "renamelegacy"
