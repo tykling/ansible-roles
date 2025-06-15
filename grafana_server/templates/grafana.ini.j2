@@ -9,6 +9,7 @@ static_root_path = public
 root_url = {{ grafana_root_url }}
 
 [database]
+type = postgres
 url = {{ grafana_database_url }}
 
 {% if grafana_ldap_config is defined  %}
