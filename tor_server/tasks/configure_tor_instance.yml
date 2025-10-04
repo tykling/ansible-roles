@@ -85,4 +85,4 @@
     expexp_program:
       method: "http"
       http:
-        port: {{ instance.value.metricsport }}
+        port: "{{ instance.value.metricsport }}"
