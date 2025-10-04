@@ -75,3 +75,14 @@
     loop_var: "loopitem"
   when: "'onion_client_auths' in instance.value.keys()"
   notify: "reload tor"
+
+- name: "Create exporter_exporter.d config file for MetricsPort for this Tor instance"
+  include_role:
+    name: "freebsd_base"
+    tasks_from: "exporter_exporter.d"
+  vars:
+    expexp_filename: "tor-{{ instance.key }}-metrics.yml"
+    expexp_program:
+      method: "http"
+      http:
+        port: {{ instance.value.metricsport }}

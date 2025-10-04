@@ -27,6 +27,9 @@ DirPort 80 NoListen
 DirPort 9091 NoAdvertise
 
 ControlPort 9051
+
+MetricsPort {{ instance.value.metricsport }}
+MetricsPortPolicy accept {{ ansible_default_ipv4.address }}
 {% endif %}
 
 {% for os in instance.value.onion_services | default([]) %}

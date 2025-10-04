@@ -2,3 +2,4 @@
 tor_instances:
   main:
     datadir: "/var/db/tor"
+    metricsport: 9035
