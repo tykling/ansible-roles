@@ -12,6 +12,10 @@ alerting:
     {{ prometheus_alertmanager_configs | to_nice_yaml(indent=2) | indent(4,False) }}
 {% endif %}
 
+{% if prometheus_remote_write_configs|default([]) %}
+remote_write:
+{{ prometheus_remote_write_configs | to_nice_yaml(indent=2) }}
+{% endif %}
 
 {% if prometheus_scrape_configs|default([]) %}
 scrape_configs:
