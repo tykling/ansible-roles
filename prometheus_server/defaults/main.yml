@@ -1,5 +1,6 @@
 ---
 prometheus_retention_days: 3650
+prometheus_retention_size: 0
 prometheus_alertmanager_scheme: "http"
 prometheus_basic_auth_users: []
 
