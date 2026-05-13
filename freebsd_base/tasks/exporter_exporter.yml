@@ -9,13 +9,13 @@
 
 - name: "Install Go"
   pkgng:
-    name: "go121"
+    name: "go125"
     state: "present"
   register: goresult
   when: gitresult.changed
  
 - name: "Go install exporter_exporter"
-  command: "go121 install ."
+  command: "go125 install ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
@@ -24,7 +24,7 @@
   when: gitresult.changed
 
 - name: "Go get exporter_exporter"
-  command: "go121 get ."
+  command: "go125 get ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
@@ -34,7 +34,7 @@
 
 - name: "Remove Go build dep if we installed it"
   pkgng:
-    name: "go121"
+    name: "go125"
     state: "absent"
   when:
     - gitresult.changed
