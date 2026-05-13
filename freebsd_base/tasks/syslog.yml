@@ -8,7 +8,7 @@
   template:
     src: "central_syslog.conf.j2"
     dest: "/usr/local/etc/syslog.d/central_syslog.conf"
-  when: syslog_server_ip | default(False)
+  when: syslog_server_ip | bool | default(false)
   notify: "restart syslogd"
   tags:
     - "centralsyslog"
