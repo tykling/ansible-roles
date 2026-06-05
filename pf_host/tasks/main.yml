@@ -6,6 +6,7 @@
         - "pf"
   tags:
     - "pf"
+    - "pfonly"
 
 - include_tasks:
     file: "pfctl-exporter.yml"
