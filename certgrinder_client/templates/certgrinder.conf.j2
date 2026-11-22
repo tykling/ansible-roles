@@ -7,7 +7,7 @@ domain-list:
 {% if certgrinder_hostname_sets is defined %}
 {{ certgrinder_hostname_sets | to_nice_yaml | indent(2, true) }}
 {% else %}
-  - {{ ansible_nodename }}
+  - {{ ansible_facts.nodename }}
 {% endif %}
 certgrinderd: "{{ certgrinder_certgrinderd_command }}"
 syslog-facility: "LOG_LOCAL4"

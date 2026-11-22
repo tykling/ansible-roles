@@ -9,13 +9,13 @@
 
 - name: "Install Go"
   pkgng:
-    name: "go125"
+    name: "go"
     state: "present"
   register: goresult
   when: gitresult.changed
  
 - name: "Go install exporter_exporter"
-  command: "go125 install ."
+  command: "go install ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
@@ -24,7 +24,7 @@
   when: gitresult.changed
 
 - name: "Go get exporter_exporter"
-  command: "go125 get ."
+  command: "go get ."
   args:
     chdir: "/root/exporter_exporter"
   environment:
@@ -34,7 +34,7 @@
 
 - name: "Remove Go build dep if we installed it"
   pkgng:
-    name: "go125"
+    name: "go"
     state: "absent"
   when:
     - gitresult.changed
@@ -64,7 +64,7 @@
     supervisord_programs:
       - name: "exporter_exporter"
         comment: "run exporter_exporter"
-        command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -config.dirs=/usr/local/etc/exporter_exporter.d -web.listen-address= -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert={{ certgrinder_home }}/certificates/{{ ansible_nodename }}-chain.rsa.crt -web.tls.key {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-keypair.rsa.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
+        command: "/usr/local/bin/exporter_exporter -config.file=/usr/local/etc/expexp.yml -config.dirs=/usr/local/etc/exporter_exporter.d -web.listen-address= -web.tls.listen-address={{ exporter_exporter_listen_address }} -web.tls.cert={{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}-chain.rsa.crt -web.tls.key {{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}-keypair.rsa.key -web.proxy-path={{ exporter_exporter_proxy_path }} -web.telemetry-path={{ exporter_exporter_telemetry_path }}"
         user: "{{ prometheus_exporter_user }}"
     supervisord_extra_programs: []
 

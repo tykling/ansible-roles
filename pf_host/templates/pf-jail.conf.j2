@@ -11,7 +11,7 @@ set block-policy drop
 
 ####################################################################################################
 ################ macros ################################
-if="{{ ansible_default_ipv4.device }}"
+if="{{ ansible_facts.default_ipv4.device }}"
 nat_if="lo1"
 jail_if="lo2"
 {% if anycast_serviceinterface %}
@@ -22,8 +22,8 @@ svc_if="lo3"
 {% endif %}
 {% if pf_jail_nat_range is defined %}jail_nat_range="{{ pf_jail_nat_range }}"
 {% endif %}
-main_v4_ip="{{ ansible_default_ipv4.address }}"
-{% if ansible_default_ipv6 %}main_v6_ip="{{ ansible_default_ipv6.address }}"
+main_v4_ip="{{ ansible_facts.default_ipv4.address }}"
+{% if ansible_facts.default_ipv6 %}main_v6_ip="{{ ansible_facts.default_ipv6.address }}"
 {% endif %}
 
 
@@ -31,9 +31,9 @@ main_v4_ip="{{ ansible_default_ipv4.address }}"
 {{ pf_common_address_macros | default("# No common macros found") }}
 
 
-################ macros specific to {{ ansible_nodename }} #######################
-table <firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}{{ ip }} {% endfor %} }
-table <not_firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
+################ macros specific to {{ ansible_facts.nodename }} #######################
+table <firewalls_own_ips> { {% for ip in ansible_facts.all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_facts.all_ipv6_addresses %}{{ ip }} {% endfor %} }
+table <not_firewalls_own_ips> { {% for ip in ansible_facts.all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_facts.all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
 
 {{ pf_local_address_macros | default("# No local macros found") }}
 
@@ -88,25 +88,25 @@ pass in quick on $if inet6 proto icmp6 from { fe80::/10 $if:network } to FF02:0:
 ### pass incoming ssh to host and jails
 pass in quick on { $if lo0 } proto tcp from { <allowssh> } to { ($if), ($nat_if), ($jail_if) } port 22
 
-{% if hostvars[ansible_nodename]['ansible_lo1'] is defined %}
+{% if hostvars[ansible_facts.nodename]['ansible_lo1'] is defined %}
 ### pass v4 traffic from jail to itself on $nat_if
-{% for v4ip in hostvars[ansible_nodename]['ansible_lo1']['ipv4'] %}pass quick on $nat_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_facts.nodename]['ansible_lo1']['ipv4'] %}pass quick on $nat_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 {% endif %}
 
-{% if hostvars[ansible_nodename]['ansible_lo2'] is defined %}
+{% if hostvars[ansible_facts.nodename]['ansible_lo2'] is defined %}
 # pass v4 traffic from jails to themselves on $jail_if
-{% for v4ip in hostvars[ansible_nodename]['ansible_lo2']['ipv4'] %}pass quick on $jail_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_facts.nodename]['ansible_lo2']['ipv4'] %}pass quick on $jail_if from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 {% endif %}
 
 # pass v4 traffic from jails to themselves on $if (rules go on lo0 because that is where the traffic is routed)
-{% for v4ip in hostvars[ansible_nodename]['ansible_%s' | format(ansible_default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
+{% for v4ip in hostvars[ansible_facts.nodename]['ansible_%s' | format(ansible_facts.default_ipv4.device)]['ipv4'] %}pass quick on lo0 inet from {{ v4ip['address'] }} to {{ v4ip['address'] }}
 {% endfor %}
 
 # pass v6 traffic from jails to themselves (rules go on lo0 because that is where the traffic is routed)
 # skip fe80: addresses because https://github.com/ansible/ansible/issues/16977
-{% if ansible_default_ipv6 %}{% for v6ip in ansible_all_ipv6_addresses %}{% if not v6ip.startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip }} to {{ v6ip }}
+{% if ansible_facts.default_ipv6 %}{% for v6ip in ansible_facts.all_ipv6_addresses %}{% if not v6ip.startswith('fe80') %}pass quick on lo0 inet6 from {{ v6ip }} to {{ v6ip }}
 {% endif %}
 {% endfor %}
 {% endif %}

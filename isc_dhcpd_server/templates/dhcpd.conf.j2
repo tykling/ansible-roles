@@ -22,7 +22,7 @@ key omapi_key {
 # failover configuration, this server is primary
 failover peer "failover-partner" {
     primary;
-    address {{ ansible_nodename }};
+    address {{ ansible_facts.nodename }};
     port 647;
     peer address {{ isc_dhcpd_secondary_peer }};
     peer port 847;
@@ -37,7 +37,7 @@ failover peer "failover-partner" {
 # failover configuration, this server is secondary
 failover peer "failover-partner" {
     secondary;
-    address {{ ansible_nodename }};
+    address {{ ansible_facts.nodename }};
     port 847;
     peer address {{ isc_dhcpd_primary_peer }};
     peer port 647;
@@ -53,7 +53,7 @@ failover peer "failover-partner" {
 
 ######### SUBNETS ####################
 # Define an empty subnet for the DHCP servers local network
-subnet {{ ansible_default_ipv4.network }} netmask {{ ansible_default_ipv4.netmask }} {
+subnet {{ ansible_facts.default_ipv4.network }} netmask {{ ansible_facts.default_ipv4.netmask }} {
 }
 
 {{ isc_dhcpd_subnets }}

@@ -51,7 +51,7 @@ certgrinder_cert_users:
   - "promexp"
 
 certgrinder_hostname_sets:
-  - "{{ ansible_nodename }}"
+  - "{{ ansible_facts.nodename }}"
 
 exporter_exporter_version: "master"
 exporter_exporter_listen_address: ":9999"

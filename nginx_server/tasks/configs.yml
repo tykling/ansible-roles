@@ -40,7 +40,7 @@
   notify: "reload nginx"
 
 - name: "Include node specific nginx_extra_configs.yml if it exists..."
-  include_vars: "../host_vars/{{ ansible_nodename }}-nginx_extra_configs.yml"
+  include_vars: "../host_vars/{{ ansible_facts.nodename }}-nginx_extra_configs.yml"
   ignore_errors: yes
   tags:
     - "vhosts"
@@ -81,14 +81,6 @@
   service:
     name: nginx
     state: reloaded
-  when:
-    - nginx_proxy
-    - certgrinder_hostname_sets is defined
-  tags:
-    - "vhosts"
-
-- name: "Run certgrinder"
-  command: "/usr/bin/su -m {{ certgrinder_user }} -c '/usr/local/bin/certgrinder --config-file {{ certgrinder_home }}/certgrinder.conf --now periodic'"
   when:
     - nginx_proxy
     - certgrinder_hostname_sets is defined

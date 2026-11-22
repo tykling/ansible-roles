@@ -9,7 +9,7 @@ SocksPort 0
 {% endif %}
 
 {% if instance.value.relay | default({}) %}
-Address {{ ansible_nodename }}
+Address {{ ansible_facts.nodename }}
 Nickname {{ instance.value.relay.nickname }}
 ContactInfo {{ instance.value.relay.contactinfo }}
 MyFamily {{ tor_relay_family | join(",") }}

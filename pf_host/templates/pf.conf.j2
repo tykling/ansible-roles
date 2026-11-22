@@ -19,13 +19,13 @@ set {{ option }} {{ value }}
 {% endif %}
 {% endfor %}
 
-table <firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}{{ ip }} {% endfor %} }
-table <not_firewalls_own_ips> { {% for ip in ansible_all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
+table <firewalls_own_ips> { {% for ip in ansible_facts.all_ipv4_addresses %}{{ ip }} {% endfor %}{% for ip in ansible_facts.all_ipv6_addresses %}{{ ip }} {% endfor %} }
+table <not_firewalls_own_ips> { {% for ip in ansible_facts.all_ipv4_addresses %}!{{ ip }} {% endfor %}{% for ip in ansible_facts.all_ipv6_addresses %}!{{ ip }} {% endfor %} 0/0 0::/0 }
 
 ################ common/shared address macros ###############
 {{ pf_common_address_macros | default("# No common macros found") }}
 
-################ macros specific to {{ ansible_nodename }} #######################
+################ macros specific to {{ ansible_facts.nodename }} #######################
 {{ pf_local_address_macros | default("# No local macros found") }}
 
 

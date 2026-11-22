@@ -43,7 +43,7 @@
 
 - name: "write hostname to nullmailer me file"
   copy:
-    content: "{{ ansible_nodename }}"
+    content: "{{ ansible_facts.nodename }}"
     dest: "/usr/local/etc/nullmailer/me"
     mode: "0644"
     owner: "root"

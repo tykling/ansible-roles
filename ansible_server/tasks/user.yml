@@ -1,7 +1,7 @@
 ---
 - name: "Add ansible user"
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_facts.user }}"
     comment: "ansible user"
     ssh_key_type: "ed25519"
     generate_ssh_key: True
@@ -9,7 +9,7 @@
 - name: "Install .bashrc for ansible user"
   template:
     src: ".bashrc.j2"
-    dest: "/usr/home/{{ ansible_user }}/.bashrc"
+    dest: "/usr/home/{{ ansible_facts.user }}/.bashrc"
     owner: "ansible"
     group: "ansible"
     mode: "0644"

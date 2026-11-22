@@ -13,9 +13,9 @@
                                                               
                                                               
                                                               
-          Hostname      : {{ ansible_nodename }}
-          OS            : Debian {{ ansible_distribution_major_version }}
-          Ansible Date  : {{ ansible_date_time.iso8601 }}
+          Hostname      : {{ ansible_facts.nodename }}
+          OS            : Debian {{ ansible_facts.distribution_major_version }}
+          Ansible Date  : {{ ansible_facts.date_time.iso8601 }}
 
 ---------------------------------------------------------------------------------------------
 

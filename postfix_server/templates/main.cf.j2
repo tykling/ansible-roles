@@ -3,7 +3,7 @@ inet_protocols = ipv4 ipv6
 
 # local(8) settings
 mynetworks_style = host
-relay_domains  = {{ ansible_nodename }}
+relay_domains  = {{ ansible_facts.nodename }}
 alias_maps = hash:/etc/aliases
 transport_maps = texthash:/usr/local/etc/postfix/transport,pgsql:/usr/local/etc/postfix/transport.sql
 
@@ -50,14 +50,17 @@ smtpd_recipient_restrictions =
     reject_rhsbl_helo dbl.spamhaus.org,
     reject_rhsbl_client dbl.spamhaus.org,
     reject_rhsbl_sender dbl.spamhaus.org,
+    reject_unverified_recipient,
     reject_unauth_destination
+
+unverified_recipient_reject_code = 550
 
 # https://www.postfix.org/smtp-smuggling.html
 smtpd_forbid_unauth_pipelining = yes
 
 # TLS settings
 tls_preempt_cipherlist = yes
-smtpd_tls_chain_files = {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-concat.rsa.pem, {{ certgrinder_home }}/certificates/{{ ansible_nodename }}-concat.ecdsa.pem
+smtpd_tls_chain_files = {{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}-concat.rsa.pem, {{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}-concat.ecdsa.pem
 smtpd_tls_auth_only = yes
 smtpd_tls_received_header = yes
 smtpd_tls_security_level = {% if postfix_always_encrypt_incoming %}encrypt{% else %}may{% endif %}

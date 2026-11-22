@@ -11,7 +11,7 @@ set block-policy drop
 
 ####################################################################################################
 ################ macros ################################
-ext_if="{{ ansible_default_ipv4.device }}"
+ext_if="{{ ansible_facts.default_ipv4.device }}"
 svc_if="lo1"
 
 
@@ -19,7 +19,7 @@ svc_if="lo1"
 {{ pf_common_address_macros | default("# No common macros found") }}
 
 
-################ macros specific to {{ ansible_nodename }} #######################
+################ macros specific to {{ ansible_facts.nodename }} #######################
 {{ pf_local_address_macros | default("# No local macros found") }}
 
 

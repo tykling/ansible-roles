@@ -40,8 +40,8 @@
     owner: "root"
     group: "wheel"
     mode: "644"
-    src: "FreeBSD.conf"
-    dest: "/usr/local/etc/pkg/repos/FreeBSD.conf"
+    src: "FreeBSD-ports.conf"
+    dest: "/usr/local/etc/pkg/repos/FreeBSD-ports.conf"
   tags:
     - "pkgrepo"
   when: pkg_disable_freebsd_repo

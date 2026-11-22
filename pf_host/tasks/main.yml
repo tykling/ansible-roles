@@ -23,3 +23,4 @@
         - "pf"
   tags:
     - "pf"
+  when: pf_gateway and not pf_jail_vm_host

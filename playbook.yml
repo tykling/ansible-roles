@@ -48,12 +48,12 @@
   hosts: "all"
   tasks:
     - name: "Check if host secrets exists in host_vars"
-      local_action: stat path="../host_vars/{{ ansible_nodename }}-secrets.yml"
+      local_action: stat path="../host_vars/{{ ansible_facts.nodename }}-secrets.yml"
       register: stat_result
       tags:
         - "always"
     - name: "Include host secrets when the file exists"
-      include_vars: "../host_vars/{{ ansible_nodename }}-secrets.yml"
+      include_vars: "../host_vars/{{ ansible_facts.nodename }}-secrets.yml"
       tags:
         - "always"
       when: stat_result.stat.exists
@@ -69,7 +69,7 @@
         network_interfaces: "{{ network_interfaces|default(network_interfaces_default) + network_interfaces_extra|default([]) }}"
       tags:
         - "always"
-      when: network_interfaces is defined or ansible_default_ipv4.device is defined
+      when: network_interfaces is defined or ansible_facts.default_ipv4.device is defined
     - name: "Register bird2_protocols (include bird2_protocols_extra)"
       set_fact:
         bird2_protocols: "{{ bird2_protocols|default([]) + bird2_protocols_extra|default([]) }}"
@@ -85,14 +85,14 @@
   become: True
   roles:
     - role: "freebsd_base"
-      when: ansible_distribution == "FreeBSD"
+      when: ansible_facts.distribution == "FreeBSD"
 
 - name: "configure basic stuff on all debian hosts"
   hosts: "all"
   become: True
   roles:
     - role: "debian_base"
-      when: ansible_distribution == "Debian"
+      when: ansible_facts.distribution == "Debian"
 
 - name: "configure freebsd hosts (physical or virtual servers)"
   hosts: "freebsd_hosts"
