@@ -4,4 +4,4 @@
   service:
     name: "jail"
     state: "restarted"
-    args: "{{ item|replace('.','_') }}"
+    args: "{{ item }}"
