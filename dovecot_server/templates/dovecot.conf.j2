@@ -72,6 +72,11 @@ service auth {
     address = *,[::]
     port = 12
   }
+  unix_listener auth-userdb {
+    group =
+    mode = 0666
+    user = {{ dovecot_vmail_groupname }}
+  }
 }
 
 # LMTP listener for postfix
