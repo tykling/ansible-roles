@@ -107,6 +107,7 @@ service stats {
 {% if dovecot_replication %}
 # enable doveadm listener (for replication)
 service doveadm {
+  vsz_limit = 2048 M
   inet_listener {
     address = *,[::]
     port = {{ dovecot_doveadm_port }}
