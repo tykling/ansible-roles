@@ -67,16 +67,18 @@ protocols = sieve lmtp imap
 # Enabled AUTH mechanisms
 auth_mechanisms = plain login
 
-# SASL listener for postfix
+# SASL listeners
 service auth {
+  # for postfix
   inet_listener auth {
     address = *,[::]
     port = 12
   }
+  # for doveadm
   unix_listener auth-userdb {
-    group =
+    user = {{ dovecot_vmail_username }}
+    group = {{ dovecot_vmail_groupname }}
     mode = 0666
-    user = {{ dovecot_vmail_groupname }}
   }
 }
 
