@@ -8,6 +8,7 @@ ssl_alt_cert = <{{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}
 ssl_alt_key = <{{ certgrinder_home }}/certificates/{{ ansible_facts.nodename }}-keypair.ecdsa.key
 ssl_dh = <{{ dovecot_dhparam_path }}
 ssl_prefer_server_ciphers = yes
+ssl_client_ca_dir = /etc/ssl/certs
 
 ####################################################################################
 #   OS Settings
