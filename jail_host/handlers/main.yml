@@ -1,7 +1,5 @@
 ---
+# can not use service module until https://github.com/ansible/ansible/issues/85156 is fixed
 - name: "restart changed jails"
+  command: "service jail restart {{ item }}"
   loop: "{{ jail_results.results | selectattr('changed', 'equalto', true) | map(attribute='item') | map(attribute='hostname') | list }}"
-  service:
-    name: "jail"
-    state: "restarted"
-    args: "{{ item }}"
