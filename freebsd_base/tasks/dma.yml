@@ -15,8 +15,8 @@
     state: "absent"
 
 - name: "Create /etc/dma/dma.conf"
-  file:
-    path: "/etc/dma/dma.conf"
+  copy:
+    dest: "/etc/dma/dma.conf"
     mode: "0644"
     content: |
       SECURETRANSFER
