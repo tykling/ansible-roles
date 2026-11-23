@@ -1,2 +1,0 @@
-# {{ ansible_managed }}
-{{ nullmailer_smarthost }} smtp --starttls {% if nullmailer_asmtp_username is defined %}--port=587 --user {{ nullmailer_asmtp_username }} --pass {{ nullmailer_asmtp_password }}{% else %}--port=25{% endif %}

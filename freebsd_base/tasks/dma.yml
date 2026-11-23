@@ -1,0 +1,24 @@
+---
+- name: "Delete /usr/local/etc/mail/mailer.conf (pre-14 nullmailer cleanup)"
+  file:
+    path: "/usr/local/etc/mail/mailer.conf"
+    state: "absent"
+
+- name: "Delete /usr/local/etc/nullmailer/ (pre-14 cleanup)"
+  file:
+    path: "/usr/local/etc/nullmailer"
+    state: "absent"
+
+- name: "Uninstall nullmailer (pre-14 cleanup)"
+  pkgng:
+    name: "nullmailer"
+    state: "absent"
+
+- name: "Create /etc/dma/dma.conf"
+  file:
+    path: "/etc/dma/dma.conf"
+    mode: "0644"
+    content: |
+      SECURETRANSFER
+      STARTTLS
+...
