@@ -25,4 +25,6 @@ network_interfaces_default:
     pf_scrub: True
     pf_sync: False
     pf_carp: False
+
+postgres_port: 5432
 ...
