@@ -65,3 +65,17 @@
   args:
     creates: "{{ poudriere_zfs_mountpoint }}/ports/{{ item.name }}"
   with_items: "{{ poudriere_ports_trees }}"
+
+- name: "Install ccache"
+  pkgng:
+    name:
+      - "ccache"
+    state: "present"
+
+- name: "Create ccache dir"
+  file:
+    dest: "/var/cache/ccache"
+    mode: "0644"
+    owner: "root"
+    group: "wheel"
+    state: "directory"
