@@ -6,14 +6,6 @@
   tags:
     - "pkgrepo"
 
-- name: "Update repo config file if it already exists (remove this in time when all hosts have been updated with new pkg repo url)"
-  template:
-    src: "pkg_repo.conf.j2"
-    dest: "/usr/local/etc/pkg/repos/{{ pkg_repository_filename }}"
-  when: poudriere_config_status.stat.exists == True
-  tags:
-    - "pkgrepo"
-
 - name: "Install ca_root_nss"
   pkgng:
     name: "ca_root_nss"
@@ -63,3 +55,8 @@
   tags:
     - "pkgrepo"
 
+- name: "Create ca cert symlink workaround for https://mastodon.social/@tykling/117689089825857960"
+  ansible.builtin.file:
+    src: "/etc/ssl/cert.pem"
+    dest: "/usr/local/openssl/cert.pem"
+    state: "link"
