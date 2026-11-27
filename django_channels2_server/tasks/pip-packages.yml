@@ -56,7 +56,7 @@
   pip:
     name: "{{ django_package }}"
     virtualenv: "{{ django_virtualenv_path }}"
-    virtualenv_python: "{{ django_python_path }}"
+    virtualenv_command: "{{ django_python_path }} -m venv"
   tags:
     - "pip"
   when: django_package is defined
@@ -65,7 +65,7 @@
   pip:
     requirements: "{{ django_pip_requirements_path }}"
     virtualenv: "{{ django_virtualenv_path }}"
-    virtualenv_python: "{{ django_python_path }}"
+    virtualenv_command: "{{ django_python_path }} -m venv"
   environment:
     GIT_SSH_COMMAND: "ssh -i {{ django_github_keyfile | default('/dev/null') }}"
     LANG: "C.UTF-8"
