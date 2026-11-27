@@ -30,16 +30,11 @@
     - flask_virtualenv.stat.exists
     - (detected_python_version.stdout[0:10] != python_versionstring or detected_python_version.failed)
 
-- name: "Install virtualenv"
-  pkgng:
-    name: "py{{ python_nodotversion }}-virtualenv"
-    state: "present"
-
-- name: "Create virtualenv and install needed pip modules"
+- name: "Create virtualenv and install package and deps"
   pip:
     name: "{{ flask_package_path_or_name }}"
     virtualenv: "{{ flask_virtualenv_path }}"
-    virtualenv_python: "{{ flask_python_path }}"
+    virtualenv_command: "{{ flask_python_path }} -m venv"
   environment:
     LANG: "C.UTF-8"
   tags:
