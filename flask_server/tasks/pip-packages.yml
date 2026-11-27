@@ -37,7 +37,7 @@
 
 - name: "Create virtualenv and install needed pip modules"
   pip:
-    requirements: "{{ flask_pip_requirements_path }}"
+    name: "{{ flask_package_path_or_name }}"
     virtualenv: "{{ flask_virtualenv_path }}"
     virtualenv_python: "{{ flask_python_path }}"
   environment:
